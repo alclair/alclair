@@ -1,0 +1,51 @@
+<?php
+	
+// Report all errors except E_NOTICE
+//error_reporting(E_ALL & ~E_NOTincludes/header.inc.phpICE);
+
+session_start();
+//phpinfo();
+$rootScope=array();
+
+// USE THIS CODE TO CHANGE THE NAME OF A TABLE
+// ALTER TABLE test RENAME TO test9999
+
+$rootScope["RootPath"]="/home/ajswanso/public_html/otis/";
+
+$rootScope["RootUrl"]="http://otis.alclr.co";
+$rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets/';	
+$rootScope["APIUrl"]="/api/";
+$rootScope["PageSize"]="100";
+$rootScope["SWDCustomer"]="alclair";
+$rootScope["SWDRootUrl"]="http://otis.alclr.co/";
+$rootScope["SWDApiToken"]="83167892";
+
+$rootScope["SupportEmail"]="tfolsom@assetvision.com";
+
+$rootScope["SupportName"]="SWD Manager for ALCLAIR";
+
+$db_server="127.0.0.1";
+$db_database="ajswanso_alclair";
+$db_user="ajswanso_aaudio";
+$db_password="1Alclair!";
+
+try
+{
+        $pdo=new PDO("pgsql:host=$db_server;dbname=$db_database;user=$db_user;password=$db_password");
+
+}
+
+catch(PDOException $ex)
+
+{
+        echo "Can't connect to the DB server: ".$ex->getMessage();
+
+        die();
+
+}
+require_once "includes/functions.inc.php";
+$query="select * from settings where id=1";
+$stmt=pdo_query($pdo,$query,null);
+$row=pdo_fetch_array($stmt);
+$rootScope["site_name"]=$row["site_name"];
+?>

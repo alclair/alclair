@@ -1,0 +1,363 @@
+swdApp.controller('QR_Code_Scanner', ['$http', '$scope', 'AppDataService', '$upload', function ($http, $scope, AppDataService, $upload) {
+$scope.qrcode= {
+ 	barcode: '',
+};
+
+	$(function(){
+		$('.press-enter').keypress(function(e){
+    		if(e.which == 13) {
+				//dosomething
+				$(".js-new").first().focus();
+				//alert('Enter pressed');
+    		}
+  		})
+	});
+	
+	/*
+	var x = document.getElementById("start");
+	if (x.addEventListener) {
+		//var x = document.getElementById("start").value;
+		//console.log("This part")
+    	x.addEventListener("oninput", getIt);
+	} else if (x.attachEvent) {
+    	console.log("Not working")
+		//x.attachEvent("onclick", myFunction);
+	}*/
+	document.getElementById("start").oninput = function() {myFunction()};
+	
+	function myFunction() {
+		 setTimeout(function(){
+				var x = document.getElementById("start").value;
+		//document.getElementById("demo").innerHTML = "You wrote: " + x;
+		if(x[0] == 'R') {
+			//console.log("It's a repair!")
+			y = x.substring(1,  x.length);
+			console.log("Y = " + y)
+			$scope.LoadRepairInfo(y);
+		} else {
+			$scope.LoadOrderInfo(x);
+		}
+			}, 500); 
+	};
+	
+	$scope.LoadRepairInfo = function (barcode) {
+		myblockui();
+        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_repair_info.php?barcode=" + barcode;
+        //alert(api_url);
+        $http.get(api_url)
+            .success(function (result) {
+             //console.log(result);
+             console.log("message " + result.message);
+             if(result.message == "Something is incomplete") {
+	             toastr.error("Cannot complete action.  Please check that everything is OK.");
+	             $.unblockUI();
+             }
+             else {            
+             	if (result.code == "success") {
+                 	$.unblockUI();
+				 	//alert(result.data.id);
+				 	//if (result.data.id !=undefined)
+				 	//{
+                    	 //$scope.qrcode.id = result.data.id;
+                    	 console.log("Data is " + JSON.stringify(result.data))
+                    	 console.log("Order ID is " + (result.data[0].order_id))
+                    	 console.log("Test is " + (result.test))
+                    	 $scope.qrcode.order_id = "R" + result.data[0].id;
+                    	 $scope.qrcode.designed_for = result.data[0].customer_name;
+                    	 $scope.qrcode.type = "Repair";
+                 	//}
+				 	//else
+				 	//{
+                 	//}
+             	}
+			 	else {
+                	 $.unblockUI();
+                	 console.log("HERE")
+					 toastr.error(result.message == undefined ? result.data : result.message);
+             	}
+             } // END ELSE STATEMENT
+         	}).error(function (data) {
+           	 toastr.error("Loading info error.");
+           	 $.unblockUI();
+       	});         
+	}
+            
+    $scope.Accept = function (step) {
+	    //console.log("dsafasdfasd" + $scope.qrcode.barcode)
+        if (!$scope.qrcode.barcode) {
+	         toastr.error("Enter in a barcode.");
+			 return;
+        }
+        
+        if (step == 'start_cart') {
+	        var x = document.getElementById("start").value;
+	        if(x[0] == 'R') {
+				toastr.error("Repair orders do not go through this cart!")
+				return;
+			}
+	    	var api_url = window.cfg.apiUrl + 'alclair_manufacturing/start_cart.php';   
+        } 
+        else if (step == 'repair_cart') {
+	        var x = document.getElementById("start").value;
+			if(x[0] != 'R') {
+				toastr.error("Manufacturing orders do not go through this cart!")
+				return;
+			}
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/repair_cart.php';
+	    } 
+	    else if (step == 'cathy_cart') {
+		    var x = document.getElementById("start").value;
+			if(x[0] != 'R') {
+				toastr.error("Manufacturing orders do not go through this cart!")
+				return;
+			}
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/cathy_cart.php';
+        } 
+        else if (step == 'impression_detailing') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/impression_detailing.php';
+        }
+        else if (step == 'shell_pouring') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/shell_pouring.php';
+        }
+        else if (step == 'shell_detailing') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/shell_detailing.php';
+        }
+        else if (step == 'casing') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/casing.php';
+        }
+        else if (step == 'finishing') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/finishing.php';
+        }
+        else if (step == 'quality_control') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/quality_control.php';
+        }
+        else if (step == 'electronics_qc') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/electronics_qc.php';
+        }
+        else if (step == 'artwork') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/artwork.php';
+        }
+        else if (step == 'ready_to_ship') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/ready_to_ship.php';
+        }
+        else if (step == 'pickup') {
+	        var x = document.getElementById("start").value;
+			if(x[0] != 'R') {
+				toastr.error("Manufacturing orders do not go through this cart!")
+				return;
+			}
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/pickup.php';
+        }
+        else if (step == 'group_order_holding') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/group_order_holding.php';
+        }
+        else if (step == 'holding') {
+	        //var x = document.getElementById("start").value;
+			//if(x[0] != 'R') {
+			//	toastr.error("Manufacturing orders do not go through this cart!")
+			//	return;
+			//}
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/holding.php';
+        }
+        else if (step == 'done') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/done.php';
+        }
+        
+        //var api_url = window.cfg.apiUrl + 'alclair_manufacturing/start_cart.php';
+		console.log(api_url+"?"+$scope.qrcode);
+        myblockui();
+        $http({
+            method: 'POST',
+            url: api_url,
+            data: $.param($scope.qrcode),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+         .success(function (result) {
+             //console.log(result);
+             console.log("message " + result.message);
+             console.log("Important message is " + result.testing)
+             if(result.message == "Something is incomplete") {
+	             toastr.error("Cannot complete action.  Please check that everything is OK.");
+	             $.unblockUI();
+             }
+             else {            
+             	if (result.code == "success") {
+                 	$.unblockUI();
+				 	//alert(result.data.id);
+				 	 toastr.success("Order has been updated!")
+				 	 setTimeout(function(){
+				 	 	location.reload();				 	
+					}, 500);    
+				 	if (result.data.id !=undefined)
+				 	{
+                    	 $scope.qrcode.id = result.data.id;
+                 	}
+				 	else
+				 	{
+                     
+                 	}
+				 	//redirect
+             	}
+			 	else {
+                	 $.unblockUI();
+                	 console.log("In Here")
+					 toastr.error(result.message == undefined ? result.data : result.message);
+             	}
+             } // END ELSE STATEMENT
+         }).error(function (data) {
+           	 toastr.error("Barcode error.");
+       	});
+    };
+    
+    $scope.LoadOrderInfo = function (barcode) {
+	    //console.log("dsafasdfasd" + $scope.qrcode.barcode)
+        
+        myblockui();
+        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_order_info.php?barcode=" + barcode;
+        //alert(api_url);
+        $http.get(api_url)
+            .success(function (result) {
+             //console.log(result);
+             console.log("message " + result.message);
+             if(result.message == "Something is incomplete") {
+	             toastr.error("Cannot complete action.  Please check that everything is OK.");
+	             $.unblockUI();
+             }
+             else {            
+             	if (result.code == "success") {
+                 	$.unblockUI();
+				 	//alert(result.data.id);
+				 	//if (result.data.id !=undefined)
+				 	//{
+                    	 //$scope.qrcode.id = result.data.id;
+                    	 console.log("Data is " + JSON.stringify(result.data))
+                    	 console.log("Order ID is " + (result.data[0].order_id))
+                    	 console.log("Test is " + (result.test))
+                    	 $scope.qrcode.order_id = result.data[0].order_id;
+                    	 $scope.qrcode.designed_for = result.data[0].designed_for;
+                    	 $scope.qrcode.type = "Manufacturing";
+                 	//}
+				 	//else
+				 	//{
+                 	//}
+             	}
+			 	else {
+                	 $.unblockUI();
+					 toastr.error(result.message == undefined ? result.data : result.message);
+             	}
+             } // END ELSE STATEMENT
+         	}).error(function (data) {
+           	 toastr.error("Loading info error.");
+           	 $.unblockUI();
+       	});         
+    };
+    $scope.LoadData = function () {
+	   var path = window.location.pathname;
+	   var page = path.split("/").pop();
+	   console.log( "Name of the page is " + page);
+	   
+	   if(page == "start_cart") {
+		   $scope.order_status_id = 1;
+	   } else if (page == "impression_detailing") {
+		   $scope.order_status_id = 2;
+	   } else if (page == "shell_pouring") {
+		   $scope.order_status_id = 3;
+	   } else if (page == "shell_detailing") {
+		   $scope.order_status_id = 4;
+	   } else if (page == "casing") {
+		   $scope.order_status_id = 5;
+	   } else if (page == "finishing") {
+		   $scope.order_status_id = 6;
+	   } else if (page == "quality_control") {
+		   $scope.order_status_id = 7;
+	   } else if (page == "electronics_qc") {
+		   $scope.order_status_id = 8;
+	   } else if (page == "artwork") {
+		   $scope.order_status_id = 9;
+	   } else if (page == "ready_to_ship") {
+		   $scope.order_status_id = 10;
+	   } else if (page == "group_order_holding") {
+		   $scope.order_status_id = 11;
+	   }
+	   if(page == "repair_cart") {
+		   $scope.repair_status_id = 1;
+	   } else if (page == "cathy_cart") {
+		   $scope.repair_status_id = 2;
+	   } else if (page == "impression_detailing") {
+		   $scope.repair_status_id = 3;
+	   } else if (page == "shell_pouring") {
+		   $scope.repair_status_id = 4;
+	   } else if (page == "shell_detailing") {
+		   $scope.repair_status_id = 5;
+	   } else if (page == "casing") {
+		   $scope.repair_status_id = 6;
+	   } else if (page == "finishing") {
+		   $scope.repair_status_id = 7;
+	   } else if (page == "quality_control") {
+		   $scope.repair_status_id = 8;
+	   } else if (page == "electronics_qc") {
+		   $scope.repair_status_id = 9;
+	   } else if (page == "artwork") {
+		   $scope.repair_status_id = 10;
+	   } else if (page == "ready_to_ship") {
+		   $scope.repair_status_id = 11;
+	   } else if (page == "pickup") {
+		   $scope.repair_status_id = 12;
+	   } else if (page == "group_order_holding") {
+		   $scope.repair_status_id = 13;
+	   } else if (page == "done") {
+		   $scope.repair_status_id = 14;
+	   } else if (page == "holding") {
+		   $scope.repair_status_id = 15;
+	   }
+	   
+	   
+	    
+        myblockui();
+		
+		console.log("rush is " + $scope.order_status_id)
+        var api_url = window.cfg.apiUrl + "alclair_manufacturing/get_customers_in_cart.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY")+"&EndDate="+moment($scope.SearchEndDate).format("MM/DD/YYYY")+"&PRINTED_OR_NOT=" + $scope.printed_or_not+"&ORDER_STATUS_ID=" + $scope.order_status_id +"&REPAIR_STATUS_ID=" + $scope.repair_status_id + "&RUSH_OR_NOT=" + $scope.rush_or_not;
+        //alert(api_url);
+        $http.get(api_url)
+            .success(function (result) {
+	            //console.log("Testing is " + result.test)
+	            //console.log("Test2 is " + JSON.stringify(result.data[0]))
+	            
+                $scope.OrdersList = result.data;
+                $scope.RepairsList = result.data2;
+                
+                //$scope.QC_Form = result.customer_name;
+                $scope.TotalPages = result.TotalPages;
+                console.log("Num of pages " + result.TotalPages)
+                $scope.TotalRecords = result.TotalRecords;
+                $scope.Printed = result.Printed;
+                //console.log("Pass or Fail is " + result.testing1)
+
+                $scope.PageRange = [];
+                $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
+                $scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
+                if ($scope.PageWindowEnd > $scope.TotalPages) {
+                    $scope.PageWindowEnd = $scope.TotalPages;
+                }
+                for (var i = $scope.PageWindowStart; i <= $scope.PageWindowEnd; i++) {
+                    $scope.PageRange.push(i);
+                }
+
+                $.unblockUI();
+            }).error(function (result) {
+                toastr.error("Get QC Form error.");
+            });
+    };
+        
+           
+    $scope.init=function()
+    {
+
+		$scope.LoadData();
+        $http.get(window.cfg.rootUrl + "/api/settings/get.php").success(function (data) {
+            //$scope.minimum_barrel_warning = data.minimum_barrel_warning;
+            //$scope.maximum_barrel_warning = data.maximum_barrel_warning;
+        });
+    }
+    $scope.init();
+}]);

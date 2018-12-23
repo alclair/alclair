@@ -1,0 +1,11 @@
+{
+    "require": {
+        "airbrake/phpbrake": "^0.0.7"
+    }
+}
+
+{
+  "require": {
+    "fobiaweb/barcode39": "*"
+  }
+}

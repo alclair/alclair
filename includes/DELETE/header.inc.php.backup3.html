@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en"  ng-app="swdApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title><?=$rootScope["site_name"]?></title>
+
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/bootstrap.js"></script>
+	<link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/bootstrap.min.css" media="screen,print">
+    <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/bootstrap/cosmo.min.css" media="screen,print">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="<?=$rootScope["m_Theme"]?>/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/font-awesome/css/font-awesome.min.css" media="screen,print">
+    <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/toastr.min.css" media="screen,print">
+    <!--<link href="$rootScope["RootUrl"]/css/matrixplus.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/angular-animate.css" media="screen,print">
+    <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/js/jquery-ui/jquery-ui.css" media="screen,print">
+    <link href="<?=$rootScope["RootUrl"]?>/css/lightbox.css" rel="stylesheet" />
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/moment.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/js/angular.1.4.7.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/js/ui-bootstrap-tpls-0.14.3.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/js/lightbox-2.6.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-file-upload-shim.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-file-upload.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/js/angular-animate.1.4.7.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-sanitize.1.4.7.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-cookies.1.4.7.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/toastr.min.js"></script>
+    
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/blockui.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/jquery-inputmask.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/includes/app/app.js"></script>
+	<script src="<?=$rootScope["RootUrl"]?>/includes/app/HorMenuCtrl.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/includes/app/service.js"></script>
+	<script type="text/javascript">
+        window.cfg = {};
+        window.cfg.rootUrl = "<?=$rootScope["RootUrl"]?>";
+        window.cfg.apiUrl = "<?=$rootScope['APIUrl']?>";
+        window.cfg.Controller = "<?=$rootScope['Controller']?>";
+        window.cfg.Action = "<?=$rootScope['Action']?>";
+        window.cfg.Id = "<?=$rootScope['Id']?>";
+        window.cfg.Id = parseInt(window.cfg.Id);
+        window.cfg.PageSize = "<?=$rootScope['PageSize']?>";
+        window.cfg.PageSize = parseInt(window.cfg.PageSize);
+		
+		<?php
+		$CurrentMonthFirstDate=date("m")."/01/".date("Y");
+		$date=date_create($CurrentMonthFirstDate);
+		date_add($date,date_interval_create_from_date_string("1 month"));
+		date_add($date,date_interval_create_from_date_string("-1 day"));
+		$CurrentMonthLastDate=date_format($date,"m/d/Y");
+		?>
+		window.cfg.CurrentMonthFirstDate="<?=$CurrentMonthFirstDate?>";
+		window.cfg.CurrentMonthLastDate="<?=$CurrentMonthLastDate?>";
+		
+	</script>
+  </head>
+
+  <body>
+
+    <div class="container" style="width:100%;">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default" style="width:100%;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="<?=$rootScope["RootUrl"]?>">
+                        <?=$rootScope["site_name"]?>
+                    </a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse" ng-controller="HorMenuCtrl"> 
+            <ul class="nav navbar-nav">
+				<li class="active"><a href="<?=$rootScope["RootUrl"]?>">Dashboard </a></li>
+              
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tickets <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+					<li class=" "><a href="<?=$rootScope['RootUrl']?>/ticket/index" class="nav-link  ">All Tickets </a></li>
+					<li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Ticket By Site <span class="caret"></span></a>
+						<ul style="list-style:none;">
+                                        <li ng-repeat='site in siteList'>
+                                            <a href="<?=$rootScope['RootUrl']?>/ticket/index/?disposal_well_id={{site.id}}" class="nav-link ">{{site.common_name}}</a>
+                                        </li>
+                        </ul>
+					</li>
+					<li class=" ">
+						<a href="<?=$rootScope['RootUrl']?>/ticket/add" class="nav-link  ">Add New Ticket </a>
+					</li>
+					
+					<li class=" ">
+						<a href="<?=$rootScope['RootUrl']?>/ticket/exportpdf" class="nav-link  ">Export PDF </a>
+					</li>                 
+					</ul>
+				</li>
+				
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Well Logs <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+					<li class=" "><a href="<?=$rootScope['RootUrl']?>/welllog/index" class="nav-link  ">All Well Logs </a></li>
+					<li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Log By Site</a>
+						<ul style="list-style:none;">
+                                        <li ng-repeat='site in siteList'>
+                                            <a href="<?=$rootScope['RootUrl']?>/welllog/index/?disposal_well_id={{site.id}}" class="nav-link ">{{site.common_name}}</a>
+                                        </li>
+                        </ul>
+					</li>
+					<li class=" ">
+						<a href="<?=$rootScope['RootUrl']?>/welllog/add" class="nav-link  ">Add New Log </a>
+					</li>					               
+					</ul>
+				</li>	
+				
+				<?php
+                if($_SESSION["IsAdmin"]==1)
+                {
+                ?>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Exports <span class="caret"></span></a>
+						<ul class="dropdown-menu"  style="width:280px;">
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/export/index/daily_logs" class="nav-link  "><i class="fa fa-building"></i> Daily Logs</a>									
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/export/index/by_trucking_co" class="nav-link  "><i class="fa fa-building"></i> By Trucking Co</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/export/index/by_oil_co" class="nav-link  "><i class="fa fa-building"></i> By Oil Co</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/export/index/tickets" class="nav-link  "><i class="fa fa-building"></i> Tickets</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/export/index/well_logs" class="nav-link  "><i class="fa fa-building"></i> Well Logs</a>
+                                </li>
+                            </ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports <span class="caret"></span></a>
+						
+                            <ul class="dropdown-menu"  style="width:380px;">
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/well_monthly_by_disposal" class="nav-link  "><i class="fa fa-building"></i> Well Monthly - By Disposal</a>									
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/well_monthly_by_water" class="nav-link  "><i class="fa fa-building"></i> Well Monthly - By Water Type</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/well_monthly_pie" class="nav-link  "><i class="fa fa-building"></i> Well Monthly - Pie Chart</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/well_monthly_pie_avg" class="nav-link  "><i class="fa fa-building"></i> Well Monthly AVG- Pie Chart</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/welllog_daily_injection" class="nav-link  "><i class="fa fa-building"></i> Daily Injection</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/welllog_daily_oil_and_tank" class="nav-link  "><i class="fa fa-building"></i> Daily Oil & Tankage</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/daily_water_by_trucking_company" class="nav-link  "><i class="fa fa-building"></i> Daily Water Totals by Trucking Company</a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/reports/index/daily_water_by_oil_company" class="nav-link  "><i class="fa fa-building"></i> Daily Water Totals by Oil Company</a>
+                                </li>
+                            </ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+						<ul class="dropdown-menu" style="width:260px;">
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/settings" class="nav-link  "><i class="fa fa-building"></i> Site Settings </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/wells" class="nav-link  "><i class="fa fa-map"></i> Manage Source Wells </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/disposalwells" class="nav-link  "><i class="fa fa-map-marker"></i> Manage Disposal Wells </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/operators" class="nav-link  "><i class="fa fa-phone"></i> Manage Operators </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/truckingcompanies" class="nav-link  "><i class="fa fa-car"></i> Manage Trucking Company </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/users" class="nav-link "><i class="fa fa-user"></i> Manage Users </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/rates" class="nav-link  "><i class="fa fa-money"></i> Manage Rates </a>
+                                </li>
+								<li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/cron" class="nav-link  "><i class="fa fa-money"></i> Manage Cron Tasks </a>
+                                </li>
+                            </ul>
+					</lI>
+				<?php
+				}
+				?>
+				
+            </ul>
+            <ul class="nav navbar-nav navbar-right">              
+              <li>
+				<li class="dropdown dropdown-user dropdown-dark">
+                            <?php
+                            if(empty($_SESSION["UserId"]))
+                            {
+                            ?>
+                            <a href='<?=$rootScope["RootUrl"]?>/account/login'>Login</a>
+                            <?php
+                            }
+                            else
+                            {
+                            ?>
+                            <a href="<?=$rootScope['RootUrl']?>/account/index" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <?=$_SESSION["UserName"]?>
+                                <span class="username username-hide-mobile"><?=$_SESSION["UserName"]?></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="<?=$rootScope['RootUrl']?>/account/index">
+                                        <i class="icon-user"></i>My Profile </a>
+                                </li>
+                                <li>
+                                    <a href="<?=$rootScope["RootUrl"]?>/account/logout">
+                                        <i class="icon-key"></i>Log Out </a>
+                                </li>
+                            </ul>
+                            <?php    
+                            }
+                            ?>
+			  </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>

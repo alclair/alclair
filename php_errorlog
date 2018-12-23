@@ -1,0 +1,123 @@
+[15-May-2018 15:35:07 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:35:16 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:35:21 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:35:36 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:35:38 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:36:35 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:36:37 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:37:16 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 15:37:19 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 16:30:42 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 16:30:44 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 16:31:32 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 16:31:34 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 16:31:37 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[15-May-2018 16:32:13 CST6CDT] PHP Fatal error:  require_once(): Failed opening required 'config.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/index.php on line 2
+[16-May-2018 08:54:04 CST6CDT] PHP Parse error:  syntax error, unexpected '}' in /home/ajswanso/public_html/otis/config.inc.php on line 35
+[22-May-2018 08:49:33 CST6CDT] PHP Fatal error:  Call to undefined function GetActionFile() in /home/ajswanso/public_html/otis/index.php on line 9
+[22-May-2018 08:50:26 CST6CDT] PHP Fatal error:  Call to undefined function GetActionFile() in /home/ajswanso/public_html/otis/index.php on line 9
+[29-May-2018 15:52:39 CST6CDT] PHP Fatal error:  require_once(): Failed opening required '/includes/functions.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/config.alclair.inc.php on line 45
+[29-May-2018 15:52:52 CST6CDT] PHP Fatal error:  require_once(): Failed opening required '/includes/functions.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/config.alclair.inc.php on line 45
+[29-May-2018 15:52:53 CST6CDT] PHP Fatal error:  require_once(): Failed opening required '/includes/functions.inc.php' (include_path='.:/usr/local/php54/pear') in /home/ajswanso/public_html/otis/config.alclair.inc.php on line 45
+[07-Jun-2018 10:50:16 CST6CDT] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/ajswanso/public_html/otis/config.alclair.inc.php on line 48
+[07-Jun-2018 10:52:02 CST6CDT] PHP Parse error:  syntax error, unexpected '"', expecting identifier (T_STRING) or variable (T_VARIABLE) or number (T_NUM_STRING) in /home/ajswanso/public_html/otis/config.alclair.inc.php on line 50
+[07-Jun-2018 10:52:58 CST6CDT] PHP Catchable fatal error:  Object of class PDOStatement could not be converted to string in /home/ajswanso/public_html/otis/config.alclair.inc.php on line 48
+[07-Jun-2018 11:21:36 CST6CDT] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/ajswanso/public_html/otis/includes/functions.inc.php on line 164
+[07-Jun-2018 11:28:12 CST6CDT] PHP Parse error:  syntax error, unexpected '$rootScope' (T_VARIABLE), expecting ',' or ';' in /home/ajswanso/public_html/otis/router.inc.php on line 18
+[07-Jun-2018 11:29:31 CST6CDT] PHP Parse error:  syntax error, unexpected '$rootScope' (T_VARIABLE), expecting ',' or ';' in /home/ajswanso/public_html/otis/router.inc.php on line 18
+[07-Jun-2018 11:29:34 CST6CDT] PHP Parse error:  syntax error, unexpected '$rootScope' (T_VARIABLE), expecting ',' or ';' in /home/ajswanso/public_html/otis/router.inc.php on line 18
+[07-Jun-2018 13:42:28 CST6CDT] PHP Fatal error:  Cannot use [] for reading in /home/ajswanso/public_html/otis/router.inc.php on line 4
+[12-Jun-2018 06:31:57 CST6CDT] PHP Parse error:  syntax error, unexpected 't' (T_STRING) in /home/ajswanso/public_html/otis/config.otis.inc.php on line 40
+[12-Jun-2018 06:32:23 CST6CDT] PHP Parse error:  syntax error, unexpected 't' (T_STRING) in /home/ajswanso/public_html/otis/config.otis.inc.php on line 40
+[12-Jun-2018 06:32:37 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:32:41 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:32:52 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:33:00 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:33:04 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:33:08 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:33:13 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:34:57 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 06:35:02 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/account/login.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/account/login.action.php(2): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170
+[12-Jun-2018 09:54:02 CST6CDT] PHP Parse error:  syntax error, unexpected 'if' (T_IF), expecting ',' or ';' in /home/ajswanso/public_html/otis/router.inc.php on line 23
+[12-Jun-2018 09:54:12 CST6CDT] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/ajswanso/public_html/otis/includes/functions.inc.php on line 18
+[12-Jun-2018 09:55:22 CST6CDT] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/ajswanso/public_html/otis/includes/functions.inc.php on line 18
+[12-Jun-2018 09:55:32 CST6CDT] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/ajswanso/public_html/otis/includes/functions.inc.php on line 18
+[12-Jun-2018 09:55:35 CST6CDT] PHP Fatal error:  Call to a member function prepare() on a non-object in /home/ajswanso/public_html/otis/includes/functions.inc.php on line 18
+[12-Jun-2018 11:16:48 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] could not translate host name "77.104.136.109:5432" to address: Name or service not known' in /home/ajswanso/public_html/otis/router.inc.php:14
+Stack trace:
+#0 /home/ajswanso/public_html/otis/router.inc.php(14): PDO->__construct('pgsql:host=77.1...')
+#1 /home/ajswanso/public_html/otis/index.php(6): require_once('/home/ajswanso/...')
+#2 {main}
+  thrown in /home/ajswanso/public_html/otis/router.inc.php on line 14
+[12-Jun-2018 11:30:44 CST6CDT] PHP Fatal error:  Call to undefined function request_uri() in /home/ajswanso/public_html/otis/router.inc.php on line 9
+[19-Jun-2018 10:02:09 CST6CDT] PHP Fatal error:  Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL:  password authentication failed for user "tyler"' in /home/ajswanso/public_html/otis/includes/header.inc.php:170
+Stack trace:
+#0 /home/ajswanso/public_html/otis/includes/header.inc.php(170): PDO->__construct('pgsql:host=127....')
+#1 /home/ajswanso/public_html/otis/views/alclair/turn_around_time.view.php(2): include_once('/home/ajswanso/...')
+#2 /home/ajswanso/public_html/otis/controllers/alclair/turn_around_time.action.php(7): include_once('/home/ajswanso/...')
+#3 /home/ajswanso/public_html/otis/index.php(8): include_once('/home/ajswanso/...')
+#4 {main}
+  thrown in /home/ajswanso/public_html/otis/includes/header.inc.php on line 170

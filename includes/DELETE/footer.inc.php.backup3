@@ -1,0 +1,10 @@
+</div> <!-- /container -->
+<!-- BEGIN INNER FOOTER -->
+<hr />
+    <div class="container" style="width:100%;">
+            <?=date('Y')?> &copy; Power by
+                <a href="<?=$rootScope["RootUrl"]?>">BOH</a>
+        </div>
+   
+  </body>
+</html>

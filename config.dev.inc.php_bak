@@ -8,7 +8,7 @@ session_start();
 $rootScope=array();
 
 $rootScope["RootPath"]="/home/ajswanso/public_html/otis/";
-$rootScope["RootPath"] = '/var/www/html/otis/';
+$rootScope["RootPath"] = '/var/www/html/otisdev/';
 
 $rootScope["RootUrl"]="http://otis.alclr.co/";
 $rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets';	

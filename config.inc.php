@@ -20,10 +20,11 @@ else
 		
 		$domainParts = explode('.', $_SERVER['SERVER_NAME']); //split domain name
 		$configFile = 'config.'.$domainParts[0].'.inc.php'; //include subdomain in config file name
-		$configFile = 'config.'. 'otis' .'.inc.php'; //include subdomain in config file name
-		echo "Domain parts are " . $domainParts; 
+		//$configFile = 'config.'. 'otis' .'.inc.php'; //include subdomain in config file name
+		//echo "Domain parts are " . $domainParts; 
 		if ($domainParts[0] == 'boh') {
 			$configPath = '/home/ajswanso/public_html/otis/';
+			$configPath = '/var/www/html/otis/';
 		} else {
 			//$configPath = '/home/ajswanso/public_html/otis/' . $domainParts[0] . '/';
 			$configPath = '/var/www/html/otis' . $domainParts[0] . '/';

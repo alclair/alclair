@@ -3,18 +3,21 @@
 //variables will be saved to $rootScope variables
 
 $rootScope["RequestUrl"]=$_SERVER["REQUEST_URI"];
+//echo "It is " . $_SERVER["REQUEST_URI"] . "<br/>";
 
-// $rootScope["RequestUrl"]='/account/login';
+//$rootScope["RequestUrl"]='/account/login';
 // echo "<br/> It is" . $_SERVER["REQUEST_URI"];
 
 $db_server="localhost";
 $db_database="ajswanso_alclair";
-$db_user="ajswanso_aaudio";
-$db_password="1Alclair!";
+$db_user="postgres";
+$db_password="Gorilla1";
 $pdo_alclair=new PDO("pgsql:host=$db_server;dbname=$db_database;user=$db_user;password=$db_password"); 
+//echo "PDO Alclair is " . $pdo_alclair . "<br/>";
 $query_alclair="SELECT * FROM auth_user WHERE id = 1";
 $stmt_alclair = pdo_query($pdo_alclair, $query_alclair, null);
 $row_alclair = pdo_fetch_array($stmt_alclair);
+
 // echo "</br>Username id = 1 is " . $row_alclair["username"];
 if(strpos($rootScope["RequestUrl"],"?")!==false)
 {
@@ -24,14 +27,16 @@ if(strpos($rootScope["RequestUrl"],"?")!==false)
 else
 {
 	$rootScope["RequestUrlPath"]=$rootScope["RequestUrl"];
-	
+
 }
 $rootScope["RequestUrlPath"]=str_replace($rootScope["RootUrl"],"",$rootScope["RequestUrlPath"]);
 $arr=explode("/",$rootScope["RequestUrlPath"]);
 
+
 if(count($arr)>1&&!empty($arr[1]))
 {
 	$rootScope["Controller"]=$arr[1];
+
 }
 else
 {
@@ -41,25 +46,29 @@ else
 	//$rootScope["Action"]="qc_form";
 }
 //print_r($rootScope);
+// CODE DOES NOT ENTER THIS IF STATEMENT
 if(strtolower($rootScope["Controller"])=="index.php")
 {
-	$rootScope["Controller"]="home";
+	$rootScope["Controller"]="home";	
 }
+// CODE DOES NOT ENTER THIS IF STATEMENT
 if(count($arr)>2&&!empty($arr[2]))
 {
 	$rootScope["Action"]=$arr[2];
 }
+// CODE DOES ENTER THIS ELSE STATEMENT
 else
 {
 	$rootScope["Action"]="index";
 	//$rootScope["Action"]="qc_form";
 }
+// CODE DOES NOT ENTER THIS IF STATEMENT
 if(count($arr)>3&&!empty($arr[3]))
 {
 	$rootScope["Id"]=$arr[3];
 }
 
-
+// RENAMED FILE TO OTIS - DID SERVER TAKE IT??
 if(!file_exists($rootScope["RootPath"]."controllers/".$rootScope["Controller"]))
 {
 
@@ -68,16 +77,18 @@ if(!file_exists($rootScope["RootPath"]."controllers/".$rootScope["Controller"]))
 	
 }
 //print_r($rootScope);
+
 if(!file_exists($rootScope["RootPath"]."controllers/".$rootScope["Controller"]."/".$rootScope["Action"].".action.php"))
 {
-
 	$rootScope["Controller"]="home";
 	$rootScope["Action"]="error";
+
 }
 if(count($arr)>3&&!empty($arr[3]))
 {
 		$rootScope["Id"]=$arr[3];
-}
+
+};
 if(!empty($rootScope["QueryString"]))
 {
 

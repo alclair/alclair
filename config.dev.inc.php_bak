@@ -8,6 +8,7 @@ session_start();
 $rootScope=array();
 
 $rootScope["RootPath"]="/home/ajswanso/public_html/otis/";
+$rootScope["RootPath"] = '/var/www/html/otis/';
 
 $rootScope["RootUrl"]="http://otis.alclr.co/";
 $rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets';	
@@ -24,8 +25,8 @@ $rootScope["SupportName"]="SWD Manager for DEV";
 $db_server="77.104.136.109:5432";
 
 $db_database="ajswanso_alclair";
-$db_user="ajswanso_aaudio";
-$db_password="1Alclair!";
+$db_user="postgres";
+$db_password="Gorilla1";
 
 try
 {

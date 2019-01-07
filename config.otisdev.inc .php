@@ -11,9 +11,9 @@ $rootScope=array();
 // ALTER TABLE test RENAME TO test9999
 
 //$rootScope["RootPath"]="/home/ajswanso/public_html/otis/";
-$rootScope["RootPath"]="/var/www/html/otis/";
+$rootScope["RootPath"]="/var/www/html/otisdev/";
 
-$rootScope["RootUrl"]="http://otis.alclr.co";
+$rootScope["RootUrl"]="http://otisdev.alclr.co";
 //$rootScope["RootUrl"]="http://54.173.238.250";
 
 $rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets/';	
@@ -21,7 +21,7 @@ $rootScope["APIUrl"]="/api/";
 $rootScope["PageSize"]="100";
 $rootScope["SWDCustomer"]="alclair";
 
-$rootScope["SWDRootUrl"]="http://otis.alclr.co/";
+$rootScope["SWDRootUrl"]="http://otisdev.alclr.co/";
 //$rootScope["SWDRootUrl"]="http://54.173.238.250/";
 
 $rootScope["SWDApiToken"]="83167892";
@@ -32,7 +32,7 @@ $rootScope["SupportName"]="OTIS is speaking to you";
 
 $db_server="54.173.238.250";
 //$db_server="127.0.0.1";
-$db_database="ajswanso_alclair";
+$db_database="ajswanso_alclairdev";
 $db_user="postgres";
 $db_password="Gorilla1";
 

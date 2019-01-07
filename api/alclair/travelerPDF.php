@@ -780,6 +780,9 @@ $right_column_ship_date_response =
 		}
 	}	
 	$filepath_for_pdf =  substr($this_path, 0, $x) . "/data/export/";
+	$response["test"] = $filepath_for_pdf;
+	echo json_encode($response);
+    exit;
 	$step_1 = '<img HEIGHT="500%" src="' . $filepath_for_pdf;
 	
     //echo json_encode($response);

@@ -3,8 +3,6 @@
 // Report all errors except E_NOTICE
 //error_reporting(E_ALL & ~E_NOTincludes/header.inc.phpICE);
 
-
-
 session_start();
 //phpinfo();
 $rootScope=array();

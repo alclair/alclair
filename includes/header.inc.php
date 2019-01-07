@@ -172,8 +172,8 @@
 						} else {
 							$db_database_alclair="ajswanso_alclair";
 						}
-						$db_user_alclair="ajswanso_aaudio";
-						$db_password_alclair="1Alclair!";
+						$db_user_alclair="postgres";
+						$db_password_alclair="Gorilla1";
 						
 						$pdo_alclair=new PDO("pgsql:host=$db_server_alclair;dbname=$db_database_alclair;user=$db_user_alclair;password=$db_password_alclair");
 

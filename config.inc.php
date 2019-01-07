@@ -1,4 +1,7 @@
 <?php
+// Report all errors except E_NOTICE
+// This is the default value set in php.ini
+error_reporting(E_ALL & ~E_NOTICE);
 if($_SERVER['SERVER_NAME']=="otis.alclr.co")
 {
 	include_once "config.otis.inc.php";

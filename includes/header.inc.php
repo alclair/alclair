@@ -165,8 +165,9 @@
 								
                 <?php
 					if ( $rootScope["SWDCustomer"] == "dev" ||  $rootScope["SWDCustomer"] == "alclair" ) {
-						
+						$test = "10111";
 						$db_server_alclair="localhost";
+						//$db_server_alclair="54.173.238.250";
 						if ( $rootScope["SWDCustomer"] == "dev" ) {
 							$db_database_alclair="ajswanso_alclair";
 						} else {
@@ -192,7 +193,7 @@
 					  				count(*) FILTER (WHERE order_status_id = 12)  AS done,
 					  				count(*) FILTER (WHERE order_status_id = 99)  AS order_received
 					  				FROM import_orders WHERE active = TRUE";*/
-					  				
+					  			
 					  	$query_alclair="SELECT 
 					  				count(CASE WHEN order_status_id = 1 THEN 1 END) as start_cart,
 					  				count(CASE WHEN order_status_id = 2 THEN 1 END) as impression_detailing,
@@ -209,6 +210,7 @@
 					  				count(CASE WHEN order_status_id = 13 THEN 1 END) as holding,
 					  				count(CASE WHEN order_status_id = 99 THEN 1 END) as order_received
 					  				FROM import_orders WHERE active = TRUE";
+					  	//$query_alclair = "SELECT username AS order_received FROM auth_user WHERE id=1";	
 					  	//$query_alclair="SELECT order_status_id FROM import_orders WHERE id = 50";
 					  	$stmt_alclair = pdo_query($pdo_alclair, $query_alclair, null);
 					  	$row_alclair = pdo_fetch_array($stmt_alclair);
@@ -293,14 +295,14 @@ Pickup
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manufacturing <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li class=" "><a> <span style="margin-right:41px; font-weight:bold;">Order Received </span>
-									  <span style="color:#228B22;font-weight:bold;">(<? echo $row_alclair["order_received"] ?>)</span></a></li>
+									  <span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["order_received"] ?>)</span></a></li>
 									  
 								<li class=" "><a> <span style="margin-right:69px;font-weight:bold;">Repair Received </span>
-									  <span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["repair_received"] ?>)</span></a></li>
+									  <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["repair_received"] ?>)</span></a></li>
 									  
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/start_cart" class="nav-link "> 
 									<span style="margin-right:74px;font-weight:bold;">Start Cart</span>
-									<span style="color:#228B22;font-weight:bold;">(<? echo $row_alclair["start_cart"] ?>)</span></a></li> 
+									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["start_cart"] ?>)</span></a></li> 
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_cart" class="nav-link "> 
 									<span style="margin-right:108px;font-weight:bold;">Repair Cart</span>
@@ -312,67 +314,67 @@ Pickup
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/impression_detailing" class="nav-link "> 
 									<span style="margin-right:5px;font-weight:bold;">Impression Detailing </span> 
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["impression_detailing"] ?>)</span>  
-									<span style="color:#EE7600; font-weight:bold;">(<? echo $row_alclair_repair["impression_detailing"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["impression_detailing"] ?>)</span>  
+									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["impression_detailing"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/shell_pouring" class="nav-link "> 
 									<span style="margin-right:53px;font-weight:bold;">Shell Pouring  </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["shell_pouring"] ?>) </span>
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["shell_pouring"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["shell_pouring"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["shell_pouring"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/shell_detailing" class="nav-link "> 
 									<span style="margin-right:46px;font-weight:bold;"> Shell Detailing </span> 
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["shell_detailing"] ?>)</span>
-									 <span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["shell_detailing"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["shell_detailing"] ?>)</span>
+									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["shell_detailing"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/casing" class="nav-link "> 
 									<span style="margin-right:97px;font-weight:bold;">Casing </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<? echo $row_alclair["casing"] ?>)</span>
-									 <span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["casing"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["casing"] ?>)</span>
+									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["casing"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/finishing" class="nav-link "> 
 									<span style="margin-right:81px;font-weight:bold;">Finishing </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["finishing"] ?>) </span>
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["finishing"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["finishing"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["finishing"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/quality_control" class="nav-link "> 
 									<span style="margin-right:39px;font-weight:bold;">Quality Control </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["quality_control"] ?>) </span>
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["quality_control"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["quality_control"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["quality_control"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/electronics_qc" class="nav-link "> 
 									<span style="margin-right:45px;font-weight:bold;">Electronics QC</span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<? echo $row_alclair["electronics_qc"] ?>)</span>
-									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["electronics_qc"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["electronics_qc"] ?>)</span>
+									<span style="color:#EE7600;font-weight:bold;"> (<?php echo $row_alclair_repair["electronics_qc"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/artwork" class="nav-link "> 
 									<span style="margin-right:86px;font-weight:bold;">Artwork</span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<? echo $row_alclair["artwork"] ?>)</span>
-									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["artwork"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["artwork"] ?>)</span>
+									<span style="color:#EE7600;font-weight:bold;"> (<?php echo $row_alclair_repair["artwork"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/ready_to_ship" class="nav-link "> 
 									<span style="margin-right:50px;font-weight:bold;">Ready to Ship </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["ready_to_ship"] ?>) </span>
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["ready_to_ship"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["ready_to_ship"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["ready_to_ship"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pickup" class="nav-link "> 
 									<span style="margin-right:129px;font-weight:bold;">Pickup</span> 
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/group_order_holding" class="nav-link "> 
 									<span style="margin-right:4px;font-weight:bold;">Group Order Holding </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["group_order_holding"] ?>) </span>
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["group_order_holding"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["group_order_holding"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["group_order_holding"] ?>)</span></a></li>
 									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/holding" class="nav-link "> 
 									<span style="margin-right:90px;font-weight:bold;">Holding</span>
-									<span style="margin-right:12px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["holding"] ?>) </span> 
-									 <span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["holding"] ?>)</span></a></li> 
+									<span style="margin-right:12px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["holding"] ?>) </span> 
+									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["holding"] ?>)</span></a></li> 
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/done" class="nav-link ">
 									<span style="margin-right:107px;font-weight:bold;"> Done </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<? echo $row_alclair["done"] ?>) 
-									<span style="color:#EE7600;font-weight:bold;">(<? echo $row_alclair_repair["done"] ?>)</span></a></li>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["done"] ?>) 
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["done"] ?>)</span></a></li>
 							</ul>
 						</li>
 				<?php } ?> 

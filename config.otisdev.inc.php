@@ -3,6 +3,8 @@
 // Report all errors except E_NOTICE
 //error_reporting(E_ALL & ~E_NOTincludes/header.inc.phpICE);
 
+
+
 session_start();
 //phpinfo();
 $rootScope=array();
@@ -32,6 +34,7 @@ $rootScope["SupportName"]="OTIS is speaking to you";
 
 $db_server="54.173.238.250";
 //$db_server="127.0.0.1";
+$db_server="localhost";
 $db_database="ajswanso_alclairdev";
 $db_user="postgres";
 $db_password="Gorilla1";

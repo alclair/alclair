@@ -2439,7 +2439,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         $http.get(api_url).success(function (result) {
             $.unblockUI();
             console.log("Data is " + result.data);
-            console.log("Num of Earphones is " + result.data2);
+            console.log("TESTING IS " + result.test);
             window.open(window.cfg.rootUrl + "/data/exportpdf/" + result.data);
         }).error(function () {
             $.unblockUI();

@@ -174,7 +174,7 @@ try
     					LEFT JOIN order_status_table AS t2 ON order_status_log.order_status_id = t2.order_in_manufacturing
     					LEFT JOIN auth_user AS t3 ON order_status_log.user_id = t3.id
     					WHERE import_orders_id = :import_orders_id
-    					ORDER BY date_moved DESC";
+    					ORDER BY date DESC";
     $params2[":import_orders_id"] = $_REQUEST['id'];
     $stmt2 = pdo_query( $pdo, $query2, $params2); 
 	$result2 = pdo_fetch_all( $stmt2 );  

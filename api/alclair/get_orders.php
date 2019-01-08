@@ -209,5 +209,4 @@ catch(PDOException $ex)
 	$response["message"] = $ex->getMessage();
 	echo json_encode($response);
 }
-
 ?>

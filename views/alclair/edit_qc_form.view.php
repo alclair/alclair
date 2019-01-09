@@ -10,7 +10,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<?php
 		// FORM FOR DELOPMENT PAGE
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
-			echo "Root URL is " . $rootScope["RootUrl"] . '/data/{{file.filepath}}';
+			//echo "Root URL is " . $rootScope["RootUrl"] . '/data/{{file.filepath}}';
 	?>
     <form role="form">
 	    <div class="container">

@@ -1559,6 +1559,12 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         } else {
 	        $scope.repair_form.consulted = 0;
         }
+        if ($scope.repair_form.personal_item == true) {
+	    	$scope.repair_form.personal_item = 1;    
+        } else {
+	        $scope.repair_form.personal_item = 0;
+        }
+
         // END CUSTOMER STUFF
 
 		// REPAIR PERFORMED STUFF
@@ -1567,20 +1573,40 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         } else {
 	        $scope.repair_form.repaired_shell = 0;
         }
+        if ($scope.repair_form.repaired_shell_left == true) {
+	    	$scope.repair_form.repaired_shell_left = 1;    
+        } else {
+	        $scope.repair_form.repaired_shell_left = 0;
+        }
 		if ($scope.repair_form.repaired_faceplate == true) {
 	    	$scope.repair_form.repaired_faceplate = 1;    
         } else {
 	        $scope.repair_form.repaired_faceplate = 0;
+        }
+        if ($scope.repair_form.repaired_faceplate_left == true) {
+	    	$scope.repair_form.repaired_faceplate_left = 1;    
+        } else {
+	        $scope.repair_form.repaired_faceplate_left = 0;
         }
 		if ($scope.repair_form.repaired_jacks == true) {
 	    	$scope.repair_form.repaired_jacks = 1;    
         } else {
 	        $scope.repair_form.repaired_jacks = 0;
         }
+        if ($scope.repair_form.repaired_jacks_left == true) {
+	    	$scope.repair_form.repaired_jacks_left = 1;    
+        } else {
+	        $scope.repair_form.repaired_jacks_left = 0;
+        }
         if ($scope.repair_form.replaced_drivers == true) {
 	    	$scope.repair_form.replaced_drivers = 1;    
         } else {
 	        $scope.repair_form.replaced_drivers = 0;
+        }
+        if ($scope.repair_form.replaced_drivers_left == true) {
+	    	$scope.repair_form.replaced_drivers_left = 1;    
+        } else {
+	        $scope.repair_form.replaced_drivers_left = 0;
         }
         
         if ($scope.repair_form.new_shells == true) {
@@ -1588,20 +1614,40 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         } else {
 	        $scope.repair_form.new_shells = 0;
         }
+        if ($scope.repair_form.new_shells_left == true) {
+	    	$scope.repair_form.new_shells_left = 1;    
+        } else {
+	        $scope.repair_form.new_shells_left = 0;
+        }
         if ($scope.repair_form.replaced_tubes == true) {
 	    	$scope.repair_form.replaced_tubes = 1;    
         } else {
 	        $scope.repair_form.replaced_tubes = 0;
+        }
+        if ($scope.repair_form.replaced_tubes_left == true) {
+	    	$scope.repair_form.replaced_tubes_left = 1;    
+        } else {
+	        $scope.repair_form.replaced_tubes_left = 0;
         }
         if ($scope.repair_form.cleaned == true) {
 	    	$scope.repair_form.cleaned = 1;    
         } else {
 	        $scope.repair_form.cleaned = 0;
         }
+        if ($scope.repair_form.cleaned_left == true) {
+	    	$scope.repair_form.cleaned_left = 1;    
+        } else {
+	        $scope.repair_form.cleaned_left = 0;
+        }
         if ($scope.repair_form.adjusted_fit == true) {
 	    	$scope.repair_form.adjusted_fit = 1;    
         } else {
 	        $scope.repair_form.adjusted_fit = 0;
+        }
+        if ($scope.repair_form.adjusted_fit_left == true) {
+	    	$scope.repair_form.adjusted_fit_left = 1;    
+        } else {
+	        $scope.repair_form.adjusted_fit_left = 0;
         }
         // END REPAIR PERFORMED STUFF
 
@@ -2605,19 +2651,28 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                 if (result.data.length > 0) {
                     $scope.traveler = result.data[0];         
                     
+					
                     if($scope.traveler.artwork == "Yes") {
 	                    $scope.traveler.artwork = 'Yes'; // Custom
 					} else if($scope.traveler.left_alclair_logo != null && $scope.traveler.left_alclair_logo.length > 1) {
 			            $scope.traveler.artwork = 'Yes'; // Custom
 		            } else if($scope.traveler.right_alclair_logo != null && $scope.traveler.right_alclair_logo.length > 1) {
 			            $scope.traveler.artwork = 'Yes'; // Custom
-		            } else if( $scope.traveler.left_custom_art.length > 1 || $scope.traveler.right_custom_art > 1 ) {
-						$scope.traveler.artwork = 'Yes'; // Custom
-						if($scope.traveler.left_alclair_logo == null || $scope.traveler.left_alclair_logo.length < 2) {
-							$scope.traveler.left_alclair_logo = 'Custom';
+		            } else if($scope.traveler.left_custom_art != null) {
+		            	if( $scope.traveler.left_custom_art.length > 1 ) {
+							$scope.traveler.artwork = 'Yes'; // Custom
+							if($scope.traveler.left_alclair_logo == null || $scope.traveler.left_alclair_logo.length < 2) {
+								$scope.traveler.left_alclair_logo = 'Custom';
+							}
+							if($scope.traveler.right_alclair_logo == null || $scope.traveler.right_alclair_logo.length < 2) {
+								$scope.traveler.right_alclair_logo = 'Custom';
+							}
 						}
-						if($scope.traveler.right_alclair_logo == null || $scope.traveler.right_alclair_logo.length < 2) {
-							$scope.traveler.right_alclair_logo = 'Custom';
+		            } else if($scope.traveler.right_custom_art != null) { 
+			            if(  $scope.traveler.right_custom_art > 1 ) {
+				            if($scope.traveler.right_alclair_logo == null || $scope.traveler.right_alclair_logo.length < 2) {
+								$scope.traveler.right_alclair_logo = 'Custom';
+							}
 						}
 		            } else {
 			            $scope.traveler.artwork = 'None'; // Not Custom

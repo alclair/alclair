@@ -18,11 +18,21 @@ try
 	$repair_form['repaired_faceplate'] = $_POST['repaired_faceplate'];
 	$repair_form['repaired_jacks'] = $_POST['repaired_jacks'];
 	$repair_form['replaced_drivers'] = $_POST['replaced_drivers'];
-	
+
+	$repair_form['repaired_shell_left'] = $_POST['repaired_shell_left'];
+	$repair_form['repaired_faceplate_left'] = $_POST['repaired_faceplate_left'];
+	$repair_form['repaired_jacks_left'] = $_POST['repaired_jacks_left'];
+	$repair_form['replaced_drivers_left'] = $_POST['replaced_drivers_left'];
+
 	$repair_form['new_shells'] = $_POST['new_shells'];
 	$repair_form['replaced_tubes'] = $_POST['replaced_tubes'];
 	$repair_form['cleaned'] = $_POST['cleaned'];
 	$repair_form['adjusted_fit'] = $_POST['adjusted_fit'];
+
+	$repair_form['new_shells_left'] = $_POST['new_shells_left'];
+	$repair_form['replaced_tubes_left'] = $_POST['replaced_tubes_left'];
+	$repair_form['cleaned_left'] = $_POST['cleaned_left'];
+	$repair_form['adjusted_fit_left'] = $_POST['adjusted_fit_left'];
 		
 	$repair_form['notes'] = $_POST['notes'];
 	$repair_form['rma_performed_date'] = date("m-d-Y");

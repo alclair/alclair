@@ -2613,17 +2613,14 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			            $scope.traveler.artwork = 'Yes'; // Custom
 		            } else if( $scope.traveler.left_custom_art.length > 1 || $scope.traveler.right_custom_art > 1 ) {
 						$scope.traveler.artwork = 'Yes'; // Custom
-						console.log("it is LOGO " + $scope.traveler.left_alclair_logo.length)
 						if($scope.traveler.left_alclair_logo == null || $scope.traveler.left_alclair_logo.length < 2) {
 							$scope.traveler.left_alclair_logo = 'Custom';
 						}
 						if($scope.traveler.right_alclair_logo == null || $scope.traveler.right_alclair_logo.length < 2) {
 							$scope.traveler.right_alclair_logo = 'Custom';
 						}
-			            console.log("WE ARE HERE")
 		            } else {
 			            $scope.traveler.artwork = 'None'; // Not Custom
-			            console.log("WE ARE NONE")
 		            }
        
        		            

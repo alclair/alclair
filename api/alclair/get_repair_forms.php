@@ -198,7 +198,7 @@ try
     					LEFT JOIN repair_status_table AS t2 ON repair_status_log.repair_status_id = t2.order_in_repair
     					LEFT JOIN auth_user AS t3 ON repair_status_log.user_id = t3.id
     					WHERE repair_status_log.repair_form_id = :repair_form_id
-    					ORDER BY date_moved DESC";
+    					ORDER BY date DESC";
     $params2[":repair_form_id"] = $_REQUEST['id'];
     $stmt2 = pdo_query( $pdo, $query2, $params2); 
 	$result2 = pdo_fetch_all( $stmt2 );  

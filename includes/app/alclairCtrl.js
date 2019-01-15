@@ -109,7 +109,7 @@ function myFunction() {
         // END SHIPPING -> PORTS
        
 		if(saveORship == 'SAVE') {
-        	var api_url = window.cfg.apiUrl + 'alclair/add.php';
+	        	var api_url = window.cfg.apiUrl + 'alclair/add.php';
         } else {
 	        var api_url = window.cfg.apiUrl + 'alclair/add_ship.php';
         }	
@@ -870,14 +870,12 @@ swdApp.controller('Repair_Form', ['$http', '$scope', 'AppDataService', '$upload'
 		}
         $count_faults = $count_faults + 1;
     }
-    $scope.removeFaiult = function($event){
+    $scope.removeFault = function($event){
         // prevent submission
         $event.preventDefault();
         $scope.faults.pop({});
     }
 
-
- 
     $scope.selectedFiles = [];
     $scope.onFileSelect = function ($files) {
         $scope.selectedFiles = $files;

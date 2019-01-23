@@ -193,6 +193,20 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
             error(result);
         });
     };
+    this.load_alclair_inHouseNextStepsList = function (name, params, success, error) {
+		var api_url = window.cfg.apiUrl + name + "/get_inhouse_next_steps_list.php";
+			
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
 	
   
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -280,6 +294,12 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
 
         this.load_alclair_batchStatusList('alclair_batch', params, success, error);
     };   
+    this.loadInHouseNextStepsList= function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_inHouseNextStepsList('alclair_batch', params, success, error);
+    };   
 
 		
     this.loadFileList = function (params, before, success, error) {
@@ -366,6 +386,10 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
         { value: 'Sound', label: 'Sound' },
         { value: 'Fit', label: 'Fit' },
         { value: 'Design' , label: 'Design' },
+    ];
+	this.customer_status = [
+        { value: '0', label: 'New' },
+        { value: '1', label: 'Existing' },
     ];
      
     this.monthRange = [

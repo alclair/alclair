@@ -42,8 +42,8 @@ try
 //for ($i = 0; $i < $num_of_sn; $i++) {
 	
 	//// INSERT INTO ORDER TRACKING THE SERIAL NUMBER AND LOG ID					
-	$stmt = pdo_query( $pdo, "INSERT INTO batches (created_by_id, created_date, batch_type_id, batch_status_id, shipped_by, shipped_date, batch_name, batch_notes, active) VALUES (:created_by_id, now(), :batch_type_id, :batch_status_id, :shipped_by, :shipped_date, :batch_name, :batch_notes, :active) RETURNING id",
-			array("created_by_id"=>$_SESSION["UserId"], ":batch_type_id"=>$batch["batch_type_id"], ":batch_status_id"=>$batch["batch_status_id"], ":shipped_by"=>$batch["shipped_by"], ":shipped_date"=>$batch["shipped_date"], ":batch_name"=>$batch["batch_name"], ":batch_notes"=>$batch["batch_notes"], ":active"=>TRUE));					
+	$stmt = pdo_query( $pdo, "INSERT INTO batches (created_by_id, created_date, batch_type_id, batch_status_id, shipped_by, shipped_date, batch_name, batch_notes, active, archive) VALUES (:created_by_id, now(), :batch_type_id, :batch_status_id, :shipped_by, :shipped_date, :batch_name, :batch_notes, :active, :archive) RETURNING id",
+			array("created_by_id"=>$_SESSION["UserId"], ":batch_type_id"=>$batch["batch_type_id"], ":batch_status_id"=>$batch["batch_status_id"], ":shipped_by"=>$batch["shipped_by"], ":shipped_date"=>$batch["shipped_date"], ":batch_name"=>$batch["batch_name"], ":batch_notes"=>$batch["batch_notes"], ":active"=>TRUE, ":archive"=>FALSE));					
 //}     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

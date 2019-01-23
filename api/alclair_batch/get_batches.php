@@ -18,10 +18,31 @@ try
     $orderBySql = " ORDER BY id $orderBySqlDirection";
     $params = array();
 
+	$response["test"] = $_REQUEST['id'];
+	//echo json_encode($response);
+	//exit;
+	
     if( !empty($_REQUEST['id']) )
     {
         $conditionSql .= " AND t1.id = :id";
         $params[":id"] = $_REQUEST['id'];
+    }
+    
+    $response["test"] = is_null($_REQUEST['group_type_id']) . " THEN " . is_null($_REQUEST['group_type_id']);
+    
+    //$response["test"] = $_REQUEST['group_type_id'] . " and " . is_null($_REQUEST['group_type_id']);
+    if($_REQUEST['group_type_id'] === null || !strcmp($_REQUEST['group_type_id'], 'null') ) {
+	    //$response["test"] = "NULL";
+    } else {
+	    //$response["test"] = "NOT NULL";
+    }
+    //echo json_encode($response);
+	//exit;
+    
+    if( !empty($_REQUEST['group_type_id']) && strcmp($_REQUEST['group_type_id'], 'null')  )
+    {
+        $conditionSql .= " AND t1.batch_type_id = :batch_type_id";
+        $params[":batch_type_id"] = $_REQUEST['group_type_id'];
     }
 
     if(!empty($_REQUEST["SearchText"]))
@@ -53,7 +74,7 @@ try
 
     //Get Total Records
     $query = "SELECT count(t1.id) FROM batches AS t1
-    					WHERE 1=1 AND t1.active = TRUE $conditionSql";
+    					WHERE 1=1 AND t1.active = TRUE AND t1.archive = FALSE $conditionSql";
     //WHERE active = TRUE $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
@@ -71,7 +92,7 @@ try
    	
 	//$params[":session_userid"]=$_SESSION['UserId'];
     //Get One Page Records
-    $response["test"] = $conditionSql;
+    //$response["test"] = $conditionSql;
     $response["test2"] = $_REQUEST['id'];
     /*if( !empty($_REQUEST['orderID']) )
     {        
@@ -81,18 +102,23 @@ try
     }
     else
     {*/
-        $query = "SELECT t1.*, to_char(t1.created_date,'MM/dd/yyyy') as created_date, t2.first_name, t2.last_name, t3.types, t4.status
+        $query = "SELECT t1.*, to_char(t1.created_date,'MM/dd/yyyy') as created_date, t2.first_name, t2.last_name, t3.types, t4.status, t5.first_name AS received_first_name, t5.last_name AS received_last_name, to_char(t1.received_date,'MM/dd/yyyy') as received_date, t6.types AS group
                           FROM batches AS t1
 						  LEFT JOIN auth_user AS t2 ON t1.created_by_id = t2.id
 						  LEFT JOIN batch_types AS t3 ON t1.batch_type_id = t3.id
 						  LEFT JOIN batch_status AS t4 ON t1.batch_status_id = t4.id
-						  WHERE 1=1 AND t1.active = TRUE $conditionSql $orderBySql $pagingSql";
+						  LEFT JOIN auth_user AS t5 ON t1.received_by = t5.id
+						  LEFT JOIN batch_types AS t6 ON t1.batch_type_id = t6.id
+						  WHERE 1=1 AND t1.active = TRUE AND t1.archive = FALSE $conditionSql $orderBySql $pagingSql";
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
     $rows_in_result = pdo_rows_affected($stmt);
     
+    $response["THE_BATCH"] = $result[0]["batch_name"];
+	$response["THE_ID"] = $result[0]["id"];
+    //$response["test"] = $result["batch_name"];
     /*
     $query2 = "SELECT *, to_char(date, 'MM/dd/yyyy    HH24:MI') as date_moved, t2.status_of_order, t3.first_name, t3.last_name
     					FROM order_status_log 

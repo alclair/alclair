@@ -34,8 +34,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</select>-->
             </div>
 			<div class="form-group col-sm-2">
-                <!--<select class='form-control' ng-model='batch_status_id' ng-options="printed.value as printed.label for printed in PRINTED_OR_NOT">
-                </select>-->
+                <select class='form-control' ng-model='batch_type_id2' ng-options="batch_type2.id as batch_type2.types for batch_type2 in batchTypeList2" ng-blur="UpdateList()">
+	                <option value="">All Groups</option>
+				</select>
             </div>	
 			<!-- DATE STUFF GOES HERE 
 			<div class="col-sm-2">
@@ -78,47 +79,47 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;">Batch Owner</th>
+					<th style="text-align:center;">Group</th>
 					<th style="text-align:center;">Batch Name</th>
+					<th style="text-align:center;">Batch Owner</th>
 					<th style="text-align:center;">Status</th>
-					<th style="text-align:center;">Received</th>	
+					<th style="text-align:center;">Created Date</th>	
 					<th style="text-align:center;">Received By</th>
+					<th style="text-align:center;">Received  Date</th>
+					<th style="text-align:center;">Notes</th>
                     <th style="text-align:center;">Options</th>
 				</tr>
 			</thead>	
 			<tbody>
 				<tr ng-repeat='batch in BatchesList'>
 					
-					<td  style="text-align:center;" data-title="Batch Owner">{{batch.first_name}}</td>					
+					<td  style="text-align:center;" data-title="Group">{{batch.group}}</td>
 					<td  style="text-align:center;" data-title="Batch Name">{{batch.batch_name}}</td>
+					<td  style="text-align:center;" data-title="Batch Owner">{{batch.first_name}} {{batch.last_name}}</td>										
 					<td  style="text-align:center;" data-title="Batch Status">{{batch.status}}</td>
 					
-					<td  style="text-align:center;" data-title="batch Date">{{batch.date}}</td>
-					<td  style="text-align:center;" data-title="Model">{{batch.model}}</td>
-					
-					<td  ng-if="!batch.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
-					<td  ng-if="batch.received_date" style="text-align:center;" data-title="Impressions Received">{{batch.received_date}}</td>
-					
-					<td  ng-if="batch.printed" style="text-align:center;" data-title="Model">Printed</td>
-					<td  ng-if="!batch.printed" style="text-align:center;" data-title="Model">Not Printed</td>
-					
-					<td  ng-if="batch.printed" style="text-align:center;" data-title="Check Highrise">
-						<input type="checkbox" ng-model="batch.highrise" ng-true-value="1" ng-false-value="0" ng-checked="1" ng-disabled="true">
+					<td  style="text-align:center;" data-title="batch Date">{{batch.created_date}}</td>
+										
+					<td  ng-if="!batch.received_by" style="text-align:center;" data-title="Received By">
+						 &nbsp;&nbsp;<button type="button" class="btn btn-danger btn-xs" ng-click="Receive_Batch(batch.id);">RECEIVE</button>	
 					</td>
-					<td  ng-if="!batch.printed" style="text-align:center;" data-title="Check Highrise">
-						<input type="checkbox" ng-model="batch.highrise"  ng-true-value="1" ng-false-value="0">
-					</td>
+					<td  ng-if="batch.received_by" style="text-align:center;" data-title="Received By">{{batch.received_first_name}} {{batch.received_last_name}}</td>
+					
+					<td  ng-if="!batch.received_date" style="text-align:center;" data-title="Received">NOT RECEIVED</td>
+					<td  ng-if="batch.received_date" style="text-align:center;" data-title="Received">{{batch.received_date}}</td>
+
+					<td  style="text-align:center;" data-title="Notes">{{batch.batch_notes}}</td>
 					
                     <td data-title="Options">
 	                    <div style="text-align:center;" >  
 		                    
-		                    &nbsp;&nbsp;<button ng-disabled="batch.highrise != 1" type="button" class="btn btn-primary btn-xs" ng-click="PDF(batch.id);">Traveler</button>					
-						<?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin') { ?>
-							&nbsp;&nbsp;<button ng-disabled="batch.status_of_batch == 'Done'" type="button" class="btn btn-primary btn-xs" ng-click="LoadSelectDateModal(batch.id);">DONE</button>		
-						<?php } ?>
-
-							<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="Edit Batch" href="<?=$rootScope['RootUrl']?>/alclair/edit_batch/{{batch.id}}"></a>		
+		                    &nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" style="font-weight: bold" ng-click="Edit_Batch(batch.id);">SELECT</button>					
+							&nbsp;&nbsp;<button type="button" class="btn btn-primary btn-xs" style="font-weight: bold" ng-click="deleteBatch(batch.id);">DELETE</button>	
+							&nbsp;&nbsp;<button type="button" class="btn btn-secondary btn-xs" style="background-color:grey;color:white; font-weight: bold" ng-click="archiveBatch(batch.id);">ARCHIVE</button>	
+							<!--
+							<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="Edit Batch" href="<?=$rootScope['RootUrl']?>/alclair_batch/edit_batch/{{batch.id}}"></a>		
 	                        &nbsp;&nbsp;<a class="glyphicon glyphicon-trash" style="cursor: pointer;" title="Delete batch" ng-click="deleteBatch(batch.id);"></a>
+	                        -->
 						</div>
 
                     </td>
@@ -154,7 +155,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Add Batch</h4>
+                        <h4 class="modal-title">Add Item</h4>
                     </div>
                     <div class="modal-body">
 	                    <div class="row">
@@ -201,6 +202,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			</form>
         </div>
 	</div><!-- END MODAL WINDOW -->     
+	
 </div>
 
 

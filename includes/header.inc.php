@@ -378,6 +378,14 @@ Pickup
 							</ul>
 						</li>
 				<?php } ?> 
+				
+				<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Batches <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_batch/batch_list" class="nav-link "> Batch List</a></li>
+
+							</ul>
+						</li>
 				<!-- Adding a tab named "Monitor"-->
 				<!-- Customers that pay for monitoring will have this tab added-->
 				<?php

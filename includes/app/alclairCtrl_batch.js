@@ -363,6 +363,22 @@ swdApp.controller('Batch_List', ['$http', '$scope', 'AppDataService', '$upload',
   		})
 	});
    
+   	$scope.updateInHouseNestSteps=function(customer_status) {
+		console.log("Customer Status ID is " + customer_status)
+        AppDataService.loadInHouseNextStepsList(customer_status, null, function (result) {
+           $scope.inHouseNextStepList = result.data;
+           $scope.add_item.next_step_id = 1;
+           console.log("TEST IS " + result.test)
+        }, function (result) { });
+    }
+    $scope.updateInHouseNestSteps2=function(customer_status) {
+		console.log("Customer Status ID is " + customer_status)
+        AppDataService.loadInHouseNextStepsList(customer_status, null, function (result) {
+           $scope.inHouseNextStepList = result.data;
+           $scope.edit_item.next_step_id = 1;
+           console.log("TEST IS " + result.test)
+        }, function (result) { });
+    }
 	
     if (window.cfg.Id > 0)
         $scope.PageIndex = window.cfg.Id;
@@ -537,7 +553,7 @@ swdApp.controller('Batch_List', ['$http', '$scope', 'AppDataService', '$upload',
         $("#addItem").modal("show");
 		$scope.customerStatus = AppDataService.customer_status;
 		$scope.add_item.customer_status = '0';
-        AppDataService.loadInHouseNextStepsList(null, null, function (result) {
+        AppDataService.loadInHouseNextStepsList($scope.add_item.customer_status, null, function (result) {
            $scope.inHouseNextStepList = result.data;
            //$scope.batch.batch_type_id = 1;
         }, function (result) { });
@@ -641,7 +657,7 @@ swdApp.controller('Batch_List', ['$http', '$scope', 'AppDataService', '$upload',
             .success(function (result) {
 	            //$scope.THE_BATCH = result.THE_BATCH;
 	            //$scope.THE_ID = result.THE_ID;
-	            console.log("DATA IS " + JSON.stringify(result.data[0].designed_for))
+	            console.log("ID FOR NEXT STEP IS " + JSON.stringify(result.data[0].next_step_id))
 	            $scope.edit_item = result.data[0];
 	             if($scope.edit_item.same_name == true) {
 		            $scope.edit_item.same_name = 1;
@@ -657,7 +673,7 @@ swdApp.controller('Batch_List', ['$http', '$scope', 'AppDataService', '$upload',
 	             $("#editItem").modal("show");
 				 $scope.customerStatus = AppDataService.customer_status;
 				 //$scope.add_item.customer_status = '0';
-				 AppDataService.loadInHouseNextStepsList(null, null, function (result) {
+				 AppDataService.loadInHouseNextStepsList(result.data[0]["customer_status"], null, function (result) {
 				 	$scope.inHouseNextStepList = result.data;
 				 	//$scope.batch.batch_type_id = 1;
 				 }, function (result) { });

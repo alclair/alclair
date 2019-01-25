@@ -210,7 +210,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                     <div class="row">
 		                    <div class="form-group col-md-4">
 								<label class="control-label">Customer Status:</label><br />                    
-								<select class='form-control' ng-model='add_item.customer_status' ng-options="status.value as status.label for status in customerStatus">
+								<select class='form-control' ng-model='add_item.customer_status' ng-options="status.value as status.label for status in customerStatus" ng-blur="updateInHouseNestSteps(add_item.customer_status);">
 									<!--<option value="">Select a monitor</option>-->
 								</select>
 							</div>
@@ -285,7 +285,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                     <div class="row">
 		                    <div class="form-group col-md-4">
 								<label class="control-label">Customer Status:</label><br />                    
-								<select class='form-control' ng-model='edit_item.customer_status' ng-options="status.value as status.label for status in customerStatus">
+								<select class='form-control' ng-model='edit_item.customer_status' ng-options="status.value as status.label for status in customerStatus" ng-blur="updateInHouseNestSteps2(edit_item.customer_status);">
 									<!--<option value="">Select a monitor</option>-->
 								</select>
 							</div>

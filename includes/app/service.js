@@ -194,7 +194,7 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
         });
     };
     this.load_alclair_inHouseNextStepsList = function (name, params, success, error) {
-		var api_url = window.cfg.apiUrl + name + "/get_inhouse_next_steps_list.php";
+		var api_url = window.cfg.apiUrl + name + "/get_inhouse_next_steps_list.php?customer_status=" + params;
 			
         $http({
             method: 'GET',

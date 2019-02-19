@@ -682,7 +682,7 @@ Pickup
 								<li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/users" class="nav-link "><i class="fa fa-user"></i> &nbsp Users </a>
                                 </li>
-                          <?php if($_SESSION["UserName"] == 'admin' || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'Amanda' ||$_SESSION["UserName"] == 'Marc' || $_SESSION["UserName"] == 'Andy') { ?>      
+                          <?php if($_SESSION["UserName"] == 'admin' || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'Phil' ||$_SESSION["UserName"] == 'Marc' || $_SESSION["UserName"] == 'Andy') { ?>      
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/daily_build_rate" class="nav-link "><i class="fa fa-calendar"></i> &nbsp Daily Build Rate </a>
                                 </li>

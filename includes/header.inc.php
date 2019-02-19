@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"  ng-app="swdApp">
   <head> 
-  	<link rel="shortcut icon" href="<?=$rootScope["RootUrl"]?>/includes/OTISicon24X24.png" />
-	<link rel="icon" type="image/png" href="<?=$rootScope["RootUrl"]?>/includes/OTISicon24X24.png" />
+  	<!--
+  	<link rel="shortcut icon" href="<?=$rootScope["RootUrl"]?>/includes/OTISicon24X242.png" />
+	<link rel="icon" type="image/png" href="<?=$rootScope["RootUrl"]?>/includes/OTISicon24X242.png" />
+	<link rel="icon" href="../../favicon2.ico">
+	->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +18,6 @@
 	<meta http-equiv='pragma' content='no-cache'>
     
     
-    <link rel="icon" href="../../favicon.ico">
 
     <title><?=$rootScope["site_name"]?></title>
 
@@ -679,6 +681,14 @@ Pickup
 								<!-- Manage Users -->
 								<li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/users" class="nav-link "><i class="fa fa-user"></i> &nbsp Users </a>
+                                </li>
+                          <?php if($_SESSION["UserName"] == 'admin' || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Scott') { ?>      
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/daily_build_rate" class="nav-link "><i class="fa fa-calendar"></i> &nbsp Daily Build Rate </a>
+                                </li>
+                          <? } ?>
+                           		<li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/repairs_manufacturing" class="nav-link "><i class="fa fa-align-left"></i> &nbsp Repairs From Manufacturing </a>
                                 </li>
 							</ul>
 						</li> 

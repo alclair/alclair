@@ -387,6 +387,18 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
         { value: 'Fit', label: 'Fit' },
         { value: 'Design' , label: 'Design' },
     ];
+    this.month_range = [
+        { value: 30, label: '30 Days' },
+        { value: 60, label: '60 Days' },
+        { value: 90, label: '90 Days' },
+    ];
+    this.day_to_view = [
+        { value: 0, label: 'Today' },
+        { value: 1, label: 'Tomorrow' },
+        { value: 2, label: '+2 Days' },
+        { value: 3, label: '+3 Days' },
+        { value: 4, label: '+4 Days' },
+    ];
 	this.customer_status = [
         { value: '0', label: 'New' },
         { value: '1', label: 'Existing' },

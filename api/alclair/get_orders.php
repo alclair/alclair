@@ -23,6 +23,8 @@ try
         $conditionSql .= " AND t1.id = :id";
         $params[":id"] = $_REQUEST['id'];
     }
+    
+    $response['the_user_is'] = $_SESSION['UserName'];
 
     if(!empty($_REQUEST["SearchText"]))
     {

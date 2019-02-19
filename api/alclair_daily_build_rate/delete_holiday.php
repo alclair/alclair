@@ -15,19 +15,19 @@ try
     if( isset($_REQUEST['id']) == false )
     {
         $response['code'] = 'error';
-        $response['message'] = 'Please batch.';
+        $response['message'] = 'Holiday Error.';
         echo json_encode($response);
         exit;
     }
+    
+    //$response["test"] = $_REQUEST["delete_all"];
 
 if($_SESSION['IsAdmin'] == 0) {
-    $stmt = pdo_query( $pdo,
-                       "UPDATE batches SET received = TRUE, received_by = :received_by, received_date = now() WHERE id = :id and created_by_id = :created_by_id", 
-                       array( ":id" => (int)$_REQUEST['id'], ":created_by_id"=>$_SESSION["UserId"], ":received_by"=>$_SESSION["UserId"]) );	
+    $stmt = pdo_query( $pdo, "UPDATE holiday_log SET active = FALSE WHERE id = :id", array( ":id" => (int)$_REQUEST['id'])   );	
+} elseif(!strcmp($_REQUEST["delete_all"], "YES") ) {
+	$stmt = pdo_query( $pdo,"UPDATE holiday_log SET active = FALSE", null);
 } else {
-	    $stmt = pdo_query( $pdo,
-                       "UPDATE batches SET received = TRUE, received_by = :received_by, received_date = now() WHERE id =:id", 
-                       array( ":id" => (int)$_REQUEST['id'], ":received_by"=>$_SESSION["UserId"]) );
+	    $stmt = pdo_query( $pdo,"UPDATE holiday_log SET active = FALSE WHERE id =:id", array( ":id" => (int)$_REQUEST['id'])  );
 }								
 
 	$result = pdo_fetch_all( $stmt );
@@ -36,7 +36,6 @@ if($_SESSION['IsAdmin'] == 0) {
     {
         $response['code'] = 'error';
         $response['message'] = pdo_errors();
-        $response['message'] = "asdfasdfasdfasd";
         echo json_encode($response);
         exit;
     }

@@ -2609,10 +2609,12 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
          .success(function (result) {
+	         console.log("TEST IS " + result.test)
              if (result.code == "success") {
                  $.unblockUI();
-                 console.log("TESTING IS " + result.testing + " and the other is " + result.testing2)
-                  toastr.success("Updates saved!")
+                 //console.log("TESTING IS " + result.testing + " and the other is " + result.testing2)
+                 console.log("CODE IS " + result.code + " and the MESSAGE is " + result.message)
+                 toastr.success("Updates saved!")
                  setTimeout(function(){
 					 location.reload();				 	
 				}, 2000);
@@ -2642,6 +2644,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         $http.get(api_url)
             .success(function (result) {
 	           $scope.logList = result.data2;
+	           console.log("THE USER IS " + result.the_user_is)
+	           $scope.the_user_is = result.the_user_is;
 	            //console.log("Log is " + JSON.stringify(result.data2))
 	            //console.log("The data is " + JSON.stringify(result.data[0]))
 	            //console.log("Test is " + result.test)

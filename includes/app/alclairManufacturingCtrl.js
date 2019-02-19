@@ -95,7 +95,7 @@ $scope.qrcode= {
 				toastr.error("Repair orders do not go through this cart!")
 				return;
 			}
-	    	var api_url = window.cfg.apiUrl + 'alclair_manufacturing/start_cart.php';   
+	    	var api_url = window.cfg.apiUrl + 'alclair_manufacturing/start_cart_v2.php';   
         } 
         else if (step == 'repair_cart') {
 	        var x = document.getElementById("start").value;

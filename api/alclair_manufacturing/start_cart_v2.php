@@ -184,7 +184,7 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 		$populate_new= pdo_fetch_all( $stmt3 ); 
 		$count = pdo_rows_affected($stmt3);
 		$date = new DateTime(); // TODAY'S DATE
-		$date->modify('+1 day'); // NEEDS TO START WITH TOMORROW
+		//$date->modify('+1 day'); // NEEDS TO START WITH TOMORROW
 		while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
 			$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 		}

@@ -121,6 +121,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<thead>
 				<tr>
 					<th style="text-align:center;">Designed For</th>
+					<th style="text-align:center;">RMA #</th>
 					<th style="text-align:center;">Done Date</th>
 					<th style="text-align:center;">Repair Received</th>
 					
@@ -132,7 +133,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<tbody>
 				<tr ng-repeat='order in OrdersList'>
 					<td style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id_of_order}}">{{order.customer_name}}</a></td>
-					
+					<td style="text-align:center;" data-title="RMA #"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{order.id_of_repair}}">{{order.rma_number}}</a></td>
 					<td  style="text-align:center;" data-title="Done Date">{{order.date_done}}</td>					
 					<td  style="text-align:center;" data-title="Repair Received">{{order.rma_received}}</td>
 					

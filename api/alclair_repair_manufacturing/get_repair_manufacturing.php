@@ -68,7 +68,7 @@ try
     
      //Get One Page Records
     
-        $query = "SELECT t1.id AS id_of_repair, t1.customer_name, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done FROM repair_form AS t1 
+        $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done FROM repair_form AS t1 
 							LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 							LEFT JOIN order_status_log AS t3 ON t2.id = t3.import_orders_id
 							WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12 $conditionSql $orderBySql $pagingSql";

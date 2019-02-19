@@ -35,6 +35,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                     <label class="control-label">Shop Day to Build:</label><br />
 					<input type="text" ng-model="daily.shop_days"   class="form-control" style="text-align:center"> 
                 </div>
+                <div class="form-group col-md-2">
+                    <label class="control-label">Next Ship Date:</label><br />
+					<input type="text" ng-model="current_ship_date"   class="form-control" style="text-align:center"> 
+                </div>
                 <!--  
                 <div class="form-group col-md-3">
 					<label style="font-size: large;color: #007FFF" class="control-label">DATE:</label><br />

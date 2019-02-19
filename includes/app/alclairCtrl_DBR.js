@@ -99,6 +99,7 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
 	            //console.log("HERE IS " + result.test)
                 if (result.data.length > 0) {
 	                $scope.DailyList = result.DailyList;
+					$scope.current_ship_date = result.current_ship_date;
                     $scope.daily = result.data[0];
                     //$scope.repair_form_fileList = result.data2;
                     
@@ -126,6 +127,7 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
 	            console.log("TEST IS " + result.test)
                 if (result.data.length > 0) {
 	                $scope.DailyList = result.DailyList;
+	                $scope.current_ship_date = result.current_ship_date;
                     $scope.daily = result.data[0];
                     //$scope.repair_form_fileList = result.data2;
                     

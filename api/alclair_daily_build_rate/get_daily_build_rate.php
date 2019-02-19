@@ -99,13 +99,20 @@ try
     //$stmt4 = pdo_query( $pdo, $query4, array(":today"=>$today, ":tomorrow"=>$tomorrow)); 
     $stmt4 = pdo_query( $pdo, $query4, array(":fake_imp_date"=>$fake_imp_date)); 
 	$DailyList = pdo_fetch_all( $stmt4 );  
-
 	
+	$query5 = "SELECT *, to_char(estimated_ship_date, 'MM/dd/yyyy') AS estimated_ship_date2 FROM import_orders WHERE order_status_id = 1 AND active = TRUE
+    					ORDER BY estimated_ship_date DESC";
+	$stmt5 = pdo_query( $pdo, $query5, null); 
+	$result5 = pdo_fetch_all( $stmt5 );  
+	
+	$current_ship_date = $result5[0]["estimated_ship_date2"];
+	$response["test"] = $current_ship_date;
     $response['code'] = 'success';
     $response["message"] = $query;
     $response['data'] = $result;
     $response['data_holidays'] = $result2;
     $response['DailyList'] = $DailyList;
+	$response['current_ship_date'] = $current_ship_date;
             
 	echo json_encode($response);
 }

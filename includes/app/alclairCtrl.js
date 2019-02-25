@@ -2396,7 +2396,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			$scope.traveler.hearing_protection_color = '0';
 		}
 		
-		if ($scope.traveler.override == 1) {
+		// WHEN THE PAGE LOADS THE ORDER STATUS ID IS SAVED AS order_status_id 
+		if (order_status_id == 1 && $scope.traveler.order_status_id == 1) {
 			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
 		} else {
 			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;

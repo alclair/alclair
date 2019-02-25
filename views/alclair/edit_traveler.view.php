@@ -273,10 +273,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 		</div>
        			<div class="input-group">
                    	<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="traveler.estimated_ship_date" is-open="openedShip" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" ng-disabled="the_user_is != 'Amanda' && the_user_is != 'Phil'"/>  
-					<span class="input-group-btn">
+					<span class="input-group-btn" ng-if="the_user_is == 'Amanda' || the_user_is == 'Phil'">
                         <button type="button" class="btn btn-default" ng-click="openShip($event)"><i class="fa fa-calendar"></i></button>
 					</span>
                 </div>			
+                <!--<input style="margin-left:20px" type="checkbox" ng-model="traveler.override" ng-true-value="1" ng-false-value="0"> &nbsp; OVERRIDE<br />-->
             </div>
         </div>
         <div class="row" ng-if="traveler.order_status_id == 12">

@@ -2347,6 +2347,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	 	hearing_protection: 0,
 	 	musicians_plugs: 0,
 	 	pickup: 0,
+	 	override: 1,
 	};
     $scope.selectedFiles = [];
     
@@ -2395,7 +2396,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			$scope.traveler.hearing_protection_color = '0';
 		}
 		
-		var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+		if ($scope.traveler.override == 1) {
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
+		} else {
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+		}
 		
 		if (!isEmpty($scope.traveler.date))
         {
@@ -2580,8 +2585,19 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			$scope.traveler.hearing_protection_color = '0';
 		}
 		
-        var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
-
+		// WHEN THE PAGE LOADS THE ORDER STATUS ID IS SAVED AS order_status_id 
+		if (order_status_id == 1 && $scope.traveler.order_status_id == 1) {
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
+		} else {
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+		}
+	/*		
+		if ($scope.traveler.override == 1) {
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
+		} else {
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+		}
+*/
         if (!isEmpty($scope.traveler.date))
         {
             $scope.traveler.date = moment($scope.traveler.date).format("MM/DD/YYYY");
@@ -2651,8 +2667,10 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	            //console.log("Test is " + result.test)
 	            //console.log("Test 2 is " + result.test2)
                 if (result.data.length > 0) {
-                    $scope.traveler = result.data[0];         
-                    
+                    $scope.traveler = result.data[0];   
+                    $scope.traveler.override = 1;      
+                    order_status_id = $scope.traveler.order_status_id;
+                    console.log("Order Status ID is " + order_status_id)
 					
                     if($scope.traveler.artwork == "Yes") {
 	                    $scope.traveler.artwork = 'Yes'; // Custom

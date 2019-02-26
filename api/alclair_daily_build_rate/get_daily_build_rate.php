@@ -71,7 +71,9 @@ try
 	//$today = now();
     //$tomorrow = $today->modify('+1 day'); 
     $todays_date = new DateTime(); // TODAY'S DATE
-    $today = $todays_date;
+    
+    $today = new DateTime();
+    $todays_date = new DateTime();
 	$todays_date->modify('+1 day'); // TOMORROW'S DATE
 	$tomorrow = $todays_date;
 	

@@ -92,11 +92,12 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
     
     $scope.LoadData = function () {
         myblockui();
+        console.log("Day to view " + $scope.day_to_view)
         var api_url = window.cfg.apiUrl + "alclair_daily_build_rate/get_daily_build_rate.php?day_to_view=" + $scope.day_to_view;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            //console.log("HERE IS " + result.test)
+	            console.log("HERE IS " + JSON.stringify(result.test))
                 if (result.data.length > 0) {
 	                $scope.DailyList = result.DailyList;
 					$scope.current_ship_date = result.current_ship_date;

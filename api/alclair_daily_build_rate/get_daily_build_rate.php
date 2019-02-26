@@ -78,7 +78,7 @@ try
 	$today = $today->format('Y-m-d');
 	$tomorrow = $tomorrow->format('Y-m-d');
 	
-	$query4 = "SELECT DISTINCT fake_imp_date FROM import_orders WHERE order_status_id = 1 and active = TRUE ORDER AND fake_imp_date >= :today  BY fake_imp_date LIMIT 5";
+	$query4 = "SELECT DISTINCT fake_imp_date FROM import_orders WHERE order_status_id = 1 and active = TRUE AND fake_imp_date >= :today ORDER BY fake_imp_date LIMIT 5";
     $stmt4 = pdo_query( $pdo, $query4, array(":today"=>$today)); 
 	$result22 = pdo_fetch_all( $stmt4 );
 	

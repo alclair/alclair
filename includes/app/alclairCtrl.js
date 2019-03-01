@@ -1976,8 +1976,6 @@ swdApp.controller('Repair_List', ['$http', '$scope', 'AppDataService', '$upload'
 
 swdApp.controller('importWooCommerce', ['$http', '$scope', 'AppDataService', '$upload', function ($http, $scope, AppDataService, $upload) {
 
-
-    
     $scope.selectedFiles = [];
     $scope.onFileSelect = function ($files) {
         $scope.selectedFiles = $files;
@@ -2006,14 +2004,14 @@ swdApp.controller('importWooCommerce', ['$http', '$scope', 'AppDataService', '$u
             })
                .success(function (data) {
 	               //console.log(data);
-	               console.log("Testing1 is " + data.testing1)
-	               console.log("Testing 4 is " + data.testing4)
+	               console.log("Test is " + data.test)
+	               console.log("Testing3 is " + data.testing3)
                    if (data.code == "success") {
                        toastr.success("Document is saved successfully.");
                        //window.location.href = window.cfg.rootUrl + "/alclair/qc_form/";
 					   console.log("Testing1 is " + data.testing1)
-					   //console.log("Testing2 is " + data.testing2)
-					   //console.log("Testing3 is " + data.testing3)
+					   console.log("Testing2 is " + data.testing2)
+					   console.log("Testing3 is " + data.testing3)
 					   //console.log("Testing4 is " + data.testing4)
 					   //console.log("Testing5 is " + data.testing5)
 

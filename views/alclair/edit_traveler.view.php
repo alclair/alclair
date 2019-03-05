@@ -272,8 +272,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<label class="control-label" style="font-size: large;color: #007FFF">ESTIMATED SHIP</label><br />
 		 		</div>
        			<div class="input-group">
-                   	<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="traveler.estimated_ship_date" is-open="openedShip" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" ng-disabled="the_user_is != 'Amanda' && the_user_is != 'Phil'"/>  
-					<span class="input-group-btn" ng-if="the_user_is == 'Amanda' || the_user_is == 'Phil'">
+                   	<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="traveler.estimated_ship_date" is-open="openedShip" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" ng-disabled="the_user_is != 'Amanda' && the_user_is != 'Phil' && the_user_is != 'Grace'"/>  
+					<span class="input-group-btn" ng-if="the_user_is == 'Amanda' || the_user_is == 'Phil' || the_user_is == 'Grace'">
                         <button type="button" class="btn btn-default" ng-click="openShip($event)"><i class="fa fa-calendar"></i></button>
 					</span>
                 </div>			

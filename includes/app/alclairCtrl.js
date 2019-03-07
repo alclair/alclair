@@ -1821,7 +1821,7 @@ swdApp.controller('Repair_List', ['$http', '$scope', 'AppDataService', '$upload'
 
     $scope.formats = ['MM/dd/yyyy'];
     $scope.format = $scope.formats[0];
-	$scope.SearchStartDate=window.cfg.OctoberOne; //CurrentMonthFirstDate;
+	$scope.SearchStartDate=window.cfg.CurrentMonthFirstDate;//OctoberOne;
 	$scope.SearchEndDate=window.cfg.CurrentDay;
 	$scope.done_date=window.cfg.CurrentDay;
 	$scope.id_to_make_done = 0;
@@ -1853,13 +1853,13 @@ swdApp.controller('Repair_List', ['$http', '$scope', 'AppDataService', '$upload'
 			$scope.SearchText = '';
 		}
 		//console.log("TESTING IS SECOND  " + $scope.SearchText)
-		
+		console.log("START DATE IS   " + $scope.SearchEndDate)
         var api_url = window.cfg.apiUrl + "alclair/get_repair_forms.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY")+"&EndDate="+moment($scope.SearchEndDate).format("MM/DD/YYYY")+ "&MonitorID=" + $scope.monitor_id + "&REPAIRED_OR_NOT="+$scope.repaired_or_not + "&REPAIR_STATUS_ID=" + $scope.repair_status_id;
         
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            console.log("TESTING IS  " + result.testing)
+	            console.log("TESTING IS  " + result.test)
                 $scope.Repair_FormList = result.data;
                 //console.log("Status is " + $scope.Repair_FormList[0].status_of_repair)
                 $scope.fileList = result.data2;

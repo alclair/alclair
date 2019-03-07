@@ -14,12 +14,12 @@ try
     $conditionSql = "";
     $pagingSql = "";
     $orderBySqlDirection = "DESC";
-    $orderBySql = " ORDER BY id $orderBySqlDirection";
+    $orderBySql = " ORDER BY t1.id $orderBySqlDirection";
     $params = array();
 
     if( !empty($_REQUEST['id']) )
     {
-        $conditionSql .= " AND id = :id";
+        $conditionSql .= " AND t1.id = :id";
         $params[":id"] = $_REQUEST['id'];
     }
     
@@ -96,8 +96,7 @@ try
 		$params[":EndDate"]=$TIME_END;
 		//$params[":EndDate"]=$_REQUEST["EndDate"];
 	}
-	
-	
+		
     /*if(!empty($_REQUEST["SearchDisposalWell"]))
     {
         $conditionSql .= " and (t1.disposal_well_id=:DisposalWellId)";
@@ -159,6 +158,7 @@ try
 				  $stmt2 = pdo_query( $pdo, $query2, $params); 
 				  $result_faults= pdo_fetch_all( $stmt2 );
 				  $response['data_faults'] = $result_faults;
+
     }
     else
     {
@@ -169,11 +169,15 @@ try
                   LEFT JOIN monitors AS IEMs ON t1.monitor_id = IEMs.id
                   LEFT JOIN auth_user AS t3 ON t1.entered_by = t3.id 
 				  LEFT JOIN repair_status_table AS t4 ON t1.repair_status_id = t4.order_in_repair
-                  WHERE t1.active = TRUE $conditionSql $orderBySql $pagingSql";
+                  WHERE t1.active = TRUE $conditionSql $orderBySql $pagingSql"; // 
                   
                   $stmt = pdo_query( $pdo, $query, $params); 
 				  $result = pdo_fetch_all( $stmt );
 				  $rows_in_result = pdo_rows_affected($stmt);
+				  
+				  //$response["test"] = "Start is " . $TIME_START  . " and Stop is " . $TIME_END;
+				  //echo json_encode($response);
+				  //exit; 
     }    
 
     

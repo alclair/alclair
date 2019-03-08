@@ -23,13 +23,7 @@ try
         $params[":id"] = $_REQUEST['id'];
     }
     
-    if($_REQUEST['MonitorID'] !=  0)
-    {
-        $conditionSql .= " AND (t1.monitor_id = :monitor_id)";
-        $params[":monitor_id"] = $_REQUEST['MonitorID'];
-    }
-
-    if(!empty($_REQUEST["SearchText"]))
+      if(!empty($_REQUEST["SearchText"]))
     {
 	     if(is_numeric($_REQUEST["SearchText"])) {
 		 	$conditionSql .= " AND (t1.rma_number = :RMA_Number)";
@@ -45,7 +39,15 @@ try
         $params[":SearchText"] = "%".$_REQUEST["SearchText"]."%";
         $params[":RMA_Number"]=$_REQUEST["SearchText"];
         $response["testing"]=$_REQUEST["SearchText"];*/
+    } else {
+    
+    if($_REQUEST['MonitorID'] !=  0)
+    {
+        $conditionSql .= " AND (t1.monitor_id = :monitor_id)";
+        $params[":monitor_id"] = $_REQUEST['MonitorID'];
     }
+
+  
     
     if($_REQUEST['REPAIR_STATUS_ID'] >= 1) {
 		    //$response['message'] = 'Please ' . $_REQUEST['ORDER_STATUS_ID'];
@@ -96,6 +98,7 @@ try
 		$params[":EndDate"]=$TIME_END;
 		//$params[":EndDate"]=$_REQUEST["EndDate"];
 	}
+	} // CLOSE ELSE STATEMENT ON LINE NUMBER 42
 		
     /*if(!empty($_REQUEST["SearchDisposalWell"]))
     {

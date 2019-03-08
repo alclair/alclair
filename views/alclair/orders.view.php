@@ -14,10 +14,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             <div class="form-group col-sm-3">
 				<input type="text" id="barcode_orders" ng-model="qrcode.barcode" placeholder="Barcode"  class="form-control" autofocus="autofocus">
 			</div>
-			<div class="col-md-2">
+			<div class="col-md-1">
 			</div>
-            <div class="col-md-3">
-                <input type="checkbox" ng-model="rush_or_not" ng-true-value="1" ng-false-value="0" style="margin-top:16px"> &nbsp; <b style="font-size:14px;color:gray">RUSH ORDERS ONLY</b><br />
+            <div class="col-md-2">
+                <input type="checkbox" ng-model="rush_or_not" ng-true-value="1" ng-false-value="0" style="margin-top:16px"> &nbsp; <b style="font-size:14px;color:gray">RUSH ORDERS ONLY</b>
+            </div>
+            <div class="col-md-2">
+                <input type="checkbox" ng-model="use_impression_date" ng-true-value="1" ng-false-value="0" style="margin-top:16px"> &nbsp; <b style="font-size:14px;color:gray">USE IMPRESSION DATE</b><br />
             </div>
             
             <!--<div class="col-md-2" style="margin-top:-10px;padding-bottom:10px;text-align:left;	" >

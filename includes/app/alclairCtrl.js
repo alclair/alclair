@@ -2153,13 +2153,18 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 		//$cookies.put("SearchStartDate",$scope.SearchStartDate);
 		//$cookies.put("SearchEndDate",$scope.SearchEndDate);
 		
-		console.log("rush is " + $scope.order_status_id)
-        var api_url = window.cfg.apiUrl + "alclair/get_orders.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY")+"&EndDate="+moment($scope.SearchEndDate).format("MM/DD/YYYY")+"&PRINTED_OR_NOT=" + $scope.printed_or_not+"&ORDER_STATUS_ID=" + $scope.order_status_id + "&RUSH_OR_NOT=" + $scope.rush_or_not;
+		if($scope.use_impression_date != 1) {
+			$scope.use_impression_date = 0;
+		} else {
+			console.log("DEFINED Impression checked " + $scope.use_impression_date)	
+			$scope.use_impression_date = 1;
+		}
+		
+        var api_url = window.cfg.apiUrl + "alclair/get_orders.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY")+"&EndDate="+moment($scope.SearchEndDate).format("MM/DD/YYYY")+"&PRINTED_OR_NOT=" + $scope.printed_or_not+"&ORDER_STATUS_ID=" + $scope.order_status_id + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&USE_IMPRESSION_DATE=" + $scope.use_impression_date;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            console.log("Testing is " + result.test)
-	            console.log("Test2 is " + result.test2)
+	            console.log("Test is " + result.test)
 	            
                 $scope.OrdersList = result.data;
                 

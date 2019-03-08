@@ -17,7 +17,7 @@ try
     $orderBySqlDirection = "ASC";
     $orderBySql = " ORDER BY order_id $orderBySqlDirection";
     $params = array();
-
+    
     if( !empty($_REQUEST['id']) )
     {
         $conditionSql .= " AND t1.id = :id";
@@ -65,13 +65,25 @@ try
 			$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     	}  else {
 	    
-			if(!empty($_REQUEST["StartDate"])) {
-				$conditionSql.=" and (t1.date>=:StartDate)";
-				$params[":StartDate"]=$_REQUEST["StartDate"];
-			}
-			if(!empty($_REQUEST["EndDate"])) {
-				$conditionSql.=" and (t1.date<=:EndDate)";
-				$params[":EndDate"]=date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));
+	    		  if($_REQUEST["USE_IMPRESSION_DATE"] == 1) {
+				  if(!empty($_REQUEST["StartDate"])) {
+				  	$conditionSql.=" and (t1.received_date>=:StartDate)";
+				  	$params[":StartDate"]=$_REQUEST["StartDate"];
+					}
+				if(!empty($_REQUEST["EndDate"])) {
+					$conditionSql.=" and (t1.received_date<=:EndDate)";
+					$params[":EndDate"]=date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));
+				}
+
+    			} else {
+				if(!empty($_REQUEST["StartDate"])) {
+					$conditionSql.=" and (t1.date>=:StartDate)";
+					$params[":StartDate"]=$_REQUEST["StartDate"];
+				}
+				if(!empty($_REQUEST["EndDate"])) {
+					$conditionSql.=" and (t1.date<=:EndDate)";
+					$params[":EndDate"]=date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));
+				}
 			}
 		}
 		

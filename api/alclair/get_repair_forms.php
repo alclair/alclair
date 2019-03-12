@@ -62,42 +62,34 @@ try
     {
 	    if($_REQUEST['REPAIRED_OR_NOT'] ==  'TRUE') {
 		    $conditionSql .= " AND (t1.rma_performed_date IS NOT NULL)";
-		    
 	    } else {
 	        $conditionSql .= " AND (t1.rma_performed_date IS NULL)";
 			//$params[":printed"] = $_REQUEST['PRINTED_OR_NOT'];
 		}
     }
 
-	if(!empty($_REQUEST["StartDate"]))
-	{
-		if (date('I', time()))
-		{	
-			$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00') + 5 * 3600);
-		}
-		else
+		if(!empty($_REQUEST["StartDate"]))
 		{
-			$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00')+ 6 * 3600);
+			if (date('I', time())) {	
+				$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00'));// + 5 * 3600);
+			} else {
+				$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00'));//+ 6 * 3600);
+			}
+			$conditionSql.=" and (t1.received_date>=:StartDate)";
+			$params[":StartDate"]=$TIME_START;
+			//$params[":StartDate"]=$_REQUEST["StartDate"];
 		}
-		$conditionSql.=" and (t1.received_date>=:StartDate)";
-		$params[":StartDate"]=$TIME_START;
-		//$params[":StartDate"]=$_REQUEST["StartDate"];
-	}
 	
-	if(!empty($_REQUEST["EndDate"]))
-	{
-		if (date('I', time()))
-		{
-			$TIME_END = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59') + 5 * 3600);
+		if(!empty($_REQUEST["EndDate"])) {
+			if (date('I', time())) {
+				$TIME_END = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));// + 5 * 3600);
+			} else {
+				$TIME_END = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));// + 6 * 3600);
+			}
+			$conditionSql.=" and (t1.received_date<=:EndDate)";
+			$params[":EndDate"]=$TIME_END;
+			//$params[":EndDate"]=$_REQUEST["EndDate"];
 		}
-		else
-		{
-			$TIME_END = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59') + 6 * 3600);
-		}
-		$conditionSql.=" and (t1.received_date<=:EndDate)";
-		$params[":EndDate"]=$TIME_END;
-		//$params[":EndDate"]=$_REQUEST["EndDate"];
-	}
 	} // CLOSE ELSE STATEMENT ON LINE NUMBER 42
 		
     /*if(!empty($_REQUEST["SearchDisposalWell"]))

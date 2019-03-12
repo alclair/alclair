@@ -13,7 +13,7 @@
 			header("Location: ".$rootScope["RootUrl"]."/alclair/dashboard");
 		}
 		elseif($_SESSION["UserName"] == 'Dylan' ) {
-			header("Location: ".$rootScope["RootUrl"]."/alclair/repair_form");
+			header("Location: ".$rootScope["RootUrl"]."/alclair/repair_list");
 		} 
 		elseif($_SESSION["UserName"] == 'Andy' || $_SESSION["UserName"] == 'admin' ) {
 			header("Location: ".$rootScope["RootUrl"]."/alclair/orders");

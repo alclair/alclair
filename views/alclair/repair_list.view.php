@@ -91,6 +91,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr>
 					<th style="text-align:center;">Customer's Name</th>
 					<th style="text-align:center;">RMA #</th>
+					<th style="text-align:center;">ReceivedDate</th>
 					<th style="text-align:center;">Date Entered</th>
 					<th style="text-align:center;">Repair Performed</th>
 					<th style="text-align:center;">Monitor</th>
@@ -104,6 +105,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr ng-repeat='repair_form in Repair_FormList'>
 					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{repair_form.id}}">{{repair_form.customer_name}}</a></td>
 					<td  style="text-align:center;" data-title="Order #">{{repair_form.rma_number}}</td>
+					<td  style="text-align:center;" data-title="Received Date">{{repair_form.received_date}}</td>	
 					<td  style="text-align:center;" data-title="Date Entered">{{repair_form.date_entered}}</td>	
 					<td  ng-if="repair_form.rma_performed_date" style="text-align:center;" data-title="Repair Performed">{{repair_form.rma_performed_date}}</td>
 					<td  ng-if="!repair_form.rma_performed_date" style="text-align:center;" data-title="Repair Performed">Not Performed Yet</td>	

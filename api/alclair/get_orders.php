@@ -33,7 +33,10 @@ try
 		    $params[":SearchOrderID"] = $_REQUEST["SearchText"];
 	    }
 	    else {
-		    $conditionSql .= " AND (t1.designed_for ilike :SearchText)";
+		    //$conditionSql .= " AND (t1.designed_for ilike :SearchText)";
+			//$params[":SearchText"] = "%".$_REQUEST["SearchText"]."%";
+			
+			$conditionSql .= " AND (t1.billing_name ilike :SearchText OR t1.designed_for ilike :SearchText OR t1.shipping_name ilike :SearchText)";
 			$params[":SearchText"] = "%".$_REQUEST["SearchText"]."%";
 		}
         //$conditionSql .= " and (t1.ticket_number ilike :SearchText or twell.current_well_name ilike :SearchText or twell.file_number=:FileNumber)";

@@ -18,6 +18,8 @@ try
 	$start_cart['barcode'] = $_POST['barcode'];
 	if($_SESSION["UserName"] == 'Scott') {
 		$start_cart['notes'] = "Moved to done by Scott through the Orders page. ";
+	} elseif($_SESSION["UserName"] == 'Amanda') {
+		$start_cart['notes'] = "Moved to done by Amanda through the Orders page. ";
 	} else {
 		$start_cart['notes'] = "Moved to done by Tyler through the Orders page. ";
 	}

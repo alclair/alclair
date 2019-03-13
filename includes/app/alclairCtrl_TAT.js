@@ -827,16 +827,16 @@ swdApp.controller('TAT', ['$http', '$scope', 'AppDataService', '$upload',  '$coo
 
 
     $scope.deleteForm = function (id) {
-        console.log(id);
+        console.log("The ID is " + id);
         if (confirm("Are you sure you want to delete this order?") == false) {
             return;
         }
 
-        $http.get(window.cfg.apiUrl + "alclair/delete_repair.php?id=" + id).success(function (result) {
-            for (var i = 0; i < $scope.OrdersList.length; i++) {
-                if ($scope.OrdersList[i].id == id) {
+        $http.get(window.cfg.apiUrl + "alclair/deleteRepairForm.php?id=" + id).success(function (result) {
+            for (var i = 0; i < $scope.RepairsList.length; i++) {
+                if ($scope.RepairsList[i].id == id) {
                     toastr.success("Delete Order successful!", "Message");
-                    $scope.OrdersList.splice(i, 1);
+                    $scope.RepairsList.splice(i, 1);
                     $scope.TotalRecords = $scope.TotalRecords - 1;
                     break;
                 }

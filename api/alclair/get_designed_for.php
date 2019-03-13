@@ -14,19 +14,33 @@ try
     if(empty($_REQUEST["id"]))
     {
         $params=array(":search"=>$_REQUEST["q"]."%");
-       
+       /*
         $stmt = pdo_query( $pdo,
 					   "SELECT DISTINCT * FROM import_orders
                        where (designed_for::text ilike :search AND active = TRUE) 
                        ORDER BY designed_for",
 						$params
 					 );	
+		*/
+		$stmt = pdo_query( $pdo,
+					   "SELECT DISTINCT * FROM import_orders
+                       where (designed_for::text ilike :search OR billing_name::text ilike :search OR shipping_name::text ilike :search) AND active = TRUE
+                       ORDER BY designed_for, billing_name, shipping_name",
+						$params
+					 );	
+        
         
         while($row=pdo_fetch_array($stmt))
         {
             $data=array();
             $data["id"]=$row["id"];
-            $data["designed_for"]=$row["designed_for"];
+            if(strlen($row["designed_for"]) > 1) {
+	            $data["designed_for"]=$row["designed_for"];
+	        } elseif(strlen($row["billing_name"]) > 1) {
+		        $data["designed_for"]=$row["billing_name"];
+	        } else {
+		        $data["designed_for"]=$row["shipping_name"];
+	        }
             $response["data"][]=$data;
         }        
     }

@@ -91,7 +91,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr>
 					<th style="text-align:center;">Customer's Name</th>
 					<th style="text-align:center;">RMA #</th>
-					<th style="text-align:center;">ReceivedDate</th>
+					<th style="text-align:center;">Received Date</th>
 					<th style="text-align:center;">Date Entered</th>
 					<th style="text-align:center;">Repair Performed</th>
 					<th style="text-align:center;">Monitor</th>
@@ -117,7 +117,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
                     <td data-title="Options">
 	                    <div style="text-align:center;" >  
-		                <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin') { ?>
+		                <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin'  || $_SESSION["UserName"] == 'Amanda') { ?>
 							&nbsp;&nbsp;<button ng-disabled="repair_form.status_of_repair == 'Done'" type="button" class="btn btn-primary btn-xs" ng-click="LoadSelectDateModal(repair_form.id);">DONE</button>	
 						<?php } ?>
                         	<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="View Form" href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{repair_form.id}}"></a>

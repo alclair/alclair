@@ -1274,7 +1274,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 							$.unblockUI();
            				} else {
 			 				$.unblockUI();
-			 				console.log("adsfasdfasdfasdfsdf")
+			 				//console.log("adsfasdfasdfasdfsdf")
 			 				toastr.error(result.message == undefined ? result.data : result.message);
 			 			}
 			 		}).error(	function (data) {
@@ -1561,6 +1561,11 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 	    	$scope.repair_form.personal_item = 1;    
         } else {
 	        $scope.repair_form.personal_item = 0;
+        }
+		if ($scope.repair_form.rep_fit_issue == true) {
+	    	$scope.repair_form.rep_fit_issue = 1;    
+        } else {
+	        $scope.repair_form.rep_fit_issue = 0;
         }
 
         // END CUSTOMER STUFF

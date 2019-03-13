@@ -89,7 +89,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 			<label><input type="checkbox" ng-model="repair_form.warranty_repair" ng-true-value="1" ng-false-value="0" >     &nbsp; WARRANTY REPAIR</label><br />
 		 			<label style="padding-right:38px"><input type="checkbox" ng-model="repair_form.customer_billed" ng-true-value="1" ng-false-value="0"> &nbsp; CUSTOMER BILLED </label>
 		 			<label><input type="checkbox" ng-model="repair_form.consulted" ng-true-value="1" ng-false-value="0"> &nbsp; CONSULT BEFORE SHIP</label><br />
-		 			<label><input type="checkbox" ng-model="repair_form.personal_item" ng-true-value="1" ng-false-value="0"> &nbsp; PERSONAL ITEMS RECEIVED</label>
+		 			<label style="padding-right:3px"><input type="checkbox" ng-model="repair_form.personal_item" ng-true-value="1" ng-false-value="0"> &nbsp; PERSONAL ITEMS REC'D</label>
+		 			<label><input type="checkbox" ng-model="repair_form.rep_fit_issue" ng-true-value="1" ng-false-value="0"> &nbsp; REPAIR W/ FIT ISSUE</label><br />
             	</div>
 				<div class="form-group col-md-2">
                 	<label class="control-label">LEFT SHELL:</label><br />

@@ -6,7 +6,6 @@ include_once('../../lib/phpqrcode/qrlib.php');
 //include_once('../../lib/BarCode/Barcode39.php');
 include_once('../../vendor/fobiaweb/barcode39/Barcode39.php');
 
-
 //if(strpos($host,"assetvision.com")!==false)
 //{
 	$root="/var/www/html/swd";
@@ -202,7 +201,6 @@ $left_column_orderID_response =
 		</tr>
 ";
 
- 
 $left_column_email = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;\">EMAIL</td>
@@ -273,6 +271,24 @@ $left_column_impression_date =
     			<td style=\"text-align:left;\">QUOTE  </td>
 		</tr>
 ";*/
+
+$left_column_report_fit_issue = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"></td>
+	</tr>
+	";	
+
+if($result[0]["rep_fit_issue"] == TRUE) {
+$left_column_report_fit_issue_response =  
+"		<tr style=\"color:red;font-size:14px;font-weight:bold\">
+        		<td style=\"text-align:left;\">FIT ADJUSTMENT PERFORMED: 	<br/> <span style=\"font-size:18;\">&#91; &#93; </span>  ________ FOR INITIALS</td></tr>"; 
+} else {
+	$left_column_report_fit_issue_response =  
+"		<tr style=\"color:red;font-size:14px;\">
+        		<td style=\"text-align:left;\"></td>
+		</tr>
+";
+}
 
 if($result[0]["quotation"]) {
 $left_column_impression_date_response =  
@@ -528,10 +544,13 @@ $right_column_estimated_ship_date_response =
 			 $left_column_orderID  . $left_column_orderID_response  . 
              "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
 
+            /*
             $left_column_email  . $left_column_email_response  . 
              "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
             $left_column_phone  . $left_column_phone_response  . 
              "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+             */
+             
             //$left_column_church  . $left_column_church_response  . 
              //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
             //$left_column_address  . $left_column_address_response  . 
@@ -540,6 +559,8 @@ $right_column_estimated_ship_date_response =
             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
              "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+			$left_column_report_fit_issue . $left_column_report_fit_issue_response .
+			 "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
             $left_column_impression_date  . $left_column_impression_date_response  . 
             "</td>" .
              //<td>" . 

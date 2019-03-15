@@ -51,6 +51,21 @@ $response["testing1"] = $inc;
 
 echo json_encode($response);
 
+/*
+	
+	require '/var/www/html/otisdev/vendor/autoload.php';
+use Automattic\WooCommerce\Client;
+
+$url = 'https://alclair.com/';
+$consumer_key = 'ck_acc872e19a1908cd5abadfd29a84e5edf8d34469';
+$consumer_secret = 'cs_87fe15086357b7e90a8d2457552ddb957ba939fb';
+$options = [];
+
+$woocommerce = new Client($url, $consumer_key, $consumer_secret);
+echo "It is working</br>"; 
+print_r($woocommerce->get('customers/9188'));
+
+*/
 
 
 ?>

@@ -10,12 +10,12 @@ $rootScope=array();
 $rootScope["RootPath"]="/home/ajswanso/public_html/otis/";
 $rootScope["RootPath"] = '/var/www/html/otisdev/';
 
-$rootScope["RootUrl"]="http://otis.alclr.co/";
+$rootScope["RootUrl"]="https://otis.alclr.co/";
 $rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets';	
 $rootScope["APIUrl"]="/api";
 $rootScope["PageSize"]="100";
 $rootScope["SWDCustomer"]="alclair";
-$rootScope["SWDRootUrl"]="http://otis.alclr.co/";
+$rootScope["SWDRootUrl"]="https://otis.alclr.co/";
 $rootScope["SWDApiToken"]="83167892";
 
 $rootScope["SupportEmail"]="tfolsom@assetvision.com";

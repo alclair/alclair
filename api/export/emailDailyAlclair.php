@@ -5,7 +5,8 @@ include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-require '/var/www/html/otisdev/vendor/autoload.php';
+//require '/var/www/html/otisdev/vendor/autoload.php';
+require '/var/www/html/otis/vendor/autoload.php';
 
 $dir = realpath(__DIR__);
 $dir = str_replace('/api/export', '', $dir);
@@ -62,7 +63,7 @@ try
 			}
 		}
 	}
-// END LOOP FOR MANUFACTwwwURING ORDERS
+// END LOOP FOR MANUFACTURING ORDERS
 
 // FOR REPAIR ORDERS
     $t=time();
@@ -167,7 +168,7 @@ try
     //$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,"Excel2007");
     //$filename = "Export-Queen-Readings(".str_replace("/","-",$startdate).")-To(".str_replace("/","-",$enddate).")-".time().".xlsx";
     //$filename = "Export-Queen-Readings.xlsx";
-    $filename = "Daily Manufacturing Report ".date("m-d-Y").".xlsx";
+    $filename = "Daily Manufacturing Report2 ".date("m-d-Y").".xlsx";
 
     //$filename = "hello.xlsx";
     //$objWriter->save("../../data/export/$filename");
@@ -180,7 +181,7 @@ try
     $response['code'] = 'success';
     $response['data'] = $filename;
     
-    $file_alclair=$rootScope["RootPath"]."data/export/Daily Manufacturing Report ".date("m-d-Y").".xlsx";
+    $file_alclair=$rootScope["RootPath"]."data/export/excel/Daily Manufacturing Report ".date("m-d-Y").".xlsx";
     
     $response['data'] = $filename;
 	echo json_encode($response);

@@ -1,5 +1,5 @@
 swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', function ($http, $scope, AppDataService) {
-    $scope.yearRange = ["2017", "2018"];
+    $scope.yearRange = ["2017", "2018", "2019"];
     //$scope.monthRange = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
     
     $scope.monthRange = AppDataService.monthRange;

@@ -23,7 +23,7 @@ exit;
 
 $json=file_get_contents($url);
 $list=json_decode($json,true);
-$file_lng=$rootScope["RootPath"]."data/export/".$list["data"];
+$file_lng=$rootScope["RootPath"]."data/export/excel/".$list["data"];
 //$file_lng=$rootScope["RootPath"]."data/export/";
 
 //$url=$rootScope["RootUrl"]."/api/reports/lng_export_data.php";
@@ -34,8 +34,8 @@ if(file_exists($file_lng))
     $mail3->IsSendmail(); // telling the class to use IsSendmail
 	$mail3->Host       = "localhost"; // SMTP server
 	$mail3->SMTPAuth   = false;                  // disable SMTP authentication  
-    $mail3->SetFrom($rootScope["SupportEmail"], $rootScope["SupportName"]);
-    $mail3->AddReplyTo($rootScope["SupportEmail"], $rootScope["SupportName"]);
+    $mail3->SetFrom($rootScope["SupportEmail"], "OTIS Dashboard");
+    $mail3->AddReplyTo($rootScope["SupportEmail"], "OTIS Dashboard");
     
 	//$arr=TokenizeString($emails);
 		

@@ -5,6 +5,7 @@ include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+//require $rootScope["RootPath"] . 'vendor/autoload.php';
 //require '/var/www/html/otisdev/vendor/autoload.php';
 require '/var/www/html/otis/vendor/autoload.php';
 
@@ -168,7 +169,7 @@ try
     //$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,"Excel2007");
     //$filename = "Export-Queen-Readings(".str_replace("/","-",$startdate).")-To(".str_replace("/","-",$enddate).")-".time().".xlsx";
     //$filename = "Export-Queen-Readings.xlsx";
-    $filename = "Daily Manufacturing Report2 ".date("m-d-Y").".xlsx";
+    $filename = "Daily Manufacturing Report ".date("m-d-Y").".xlsx";
 
     //$filename = "hello.xlsx";
     //$objWriter->save("../../data/export/$filename");

@@ -26,7 +26,7 @@ $rootScope["SWDRootUrl"]="https://otisdev.alclr.co/";
 
 $rootScope["SWDApiToken"]="83167892";
 
-$rootScope["SupportEmail"]="tfolsom@assetvision.com";
+$rootScope["SupportEmail"]="tyler@alclair.com";
 
 $rootScope["SupportName"]="OTIS is speaking to you";
 

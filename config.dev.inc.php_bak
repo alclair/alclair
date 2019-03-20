@@ -18,7 +18,7 @@ $rootScope["SWDCustomer"]="alclair";
 $rootScope["SWDRootUrl"]="https://otis.alclr.co/";
 $rootScope["SWDApiToken"]="83167892";
 
-$rootScope["SupportEmail"]="tfolsom@assetvision.com";
+$rootScope["SupportEmail"]="tyler@alclair.com";
 
 $rootScope["SupportName"]="SWD Manager for DEV";
 

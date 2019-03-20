@@ -1,6 +1,13 @@
 <?php
 include_once "../../config.inc.php";
 include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+//require '/var/www/html/otisdev/vendor/autoload.php';
+require $rootScope["RootPath"]."vendor/autoload.php";
+
 if(empty($_SESSION["UserId"])&&$_REQUEST["token"]!=$rootScope["SWDApiToken"])
 {
     return;
@@ -34,18 +41,31 @@ try
     $year = $_REQUEST['Year'];
     $month = $_REQUEST['Month'];
     
-    $year = "2018";
-    $month = "7";
+    //$year = "2019";
+    //$month = "3";
     
     $mydate=getdate(date("U"));
     $month_number = $mydate["mon"];
     //$month_number = (int)$month_number;
 	$month_string = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'); 
 	
-	$objPHPExcel = new PHPExcel();
-	$objPHPExcel->setActiveSheetIndex(0)->setTitle("iFi audio Excel");
+	// Create new Spreadsheet object
+	$spreadsheet = new Spreadsheet();
+	//$objPHPExcel = new PHPExcel();
 	
-	$objPHPExcel->setActiveSheetIndex(0)
+	// Set workbook properties
+	$spreadsheet->getProperties()->setCreator('Tyler Folsom')
+        ->setLastModifiedBy('Tyler Folsom')
+        ->setTitle('Dashboard')
+        ->setSubject('PhpSpreadsheet')
+        ->setDescription('Dashboard Output.')
+        ->setKeywords('Microsoft office 2013 php PhpSpreadsheet')
+        ->setCategory('Excel');
+ 
+	// Set worksheet title
+	$spreadsheet->getActiveSheet()->setTitle('OTIS');
+	
+	$spreadsheet->setActiveSheetIndex(0)
 			->setCellValue("A1", "Alclair Audio") 
 			->setCellValue("A2", "QC Summary") 
 			->setCellValue("A3",  $year) 
@@ -204,16 +224,16 @@ if($num_units_failed == 0) {
 	
 					
 	// SET WIDTH, BOLD & FONT SIZE
-	$objPHPExcel->getActiveSheet()->getColumnDimension("A")->setWidth(20);
-	$objPHPExcel->getActiveSheet(0)->getStyle('A1:A3')->getFont()->setBold(true)->setSize(12);	
+	$spreadsheet->getActiveSheet()->getColumnDimension("A")->setWidth(20);
+	$spreadsheet->getActiveSheet(0)->getStyle('A1:A3')->getFont()->setBold(true)->setSize(12);	
 	
 	// VERTICALLY & HORIZONTALLY CENTER
-	$objPHPExcel->setActiveSheetIndex(0)->getStyle("A1:A3")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-	$objPHPExcel->setActiveSheetIndex(0)->getStyle("A1:A3")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+	$spreadsheet->setActiveSheetIndex(0)->getStyle("A1:A3")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+	$spreadsheet->setActiveSheetIndex(0)->getStyle("A1:A3")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		
 		$fisrt_pass_failure_rate = $num_units_failed / $num_units_tested;
 		$first_pass_yield = 1 - $fisrt_pass_failure_rate;
-		$objPHPExcel->setActiveSheetIndex(0)
+		$spreadsheet->setActiveSheetIndex(0)
 			->setCellValue($letter[$ind]."5", $num_shop_days)
 			->setCellValue($letter[$ind]."6", " ")
 			->setCellValue($letter[$ind]."7", $num_units_tested)
@@ -236,28 +256,26 @@ if($num_units_failed == 0) {
 			->setCellValue($letter[$ind]."29", $sum_failure_percent_total)
 			->setCellValue($letter[$ind]."31", $failure_per);
 				
-	$objPHPExcel->getActiveSheet()->getStyle($letter[$ind].'9:'.$letter[$ind].'10')->getNumberFormat()->applyFromArray( 
+	$spreadsheet->getActiveSheet()->getStyle($letter[$ind].'9:'.$letter[$ind].'10')->getNumberFormat()->applyFromArray( 
        array( 'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00));	
-    	$objPHPExcel->getActiveSheet()->getStyle($letter[$ind].'24:'.$letter[$ind].'29')->getNumberFormat()->applyFromArray( 
+    	$spreadsheet->getActiveSheet()->getStyle($letter[$ind].'24:'.$letter[$ind].'29')->getNumberFormat()->applyFromArray( 
        array( 'code' => PHPExcel_Style_NumberFormat::FORMAT_PERCENTAGE_00));	   
-    	$objPHPExcel->getActiveSheet()->getStyle($letter[$ind]."12:".$letter[$ind]."13")->getNumberFormat()->setFormatCode('0.0');   
-    $objPHPExcel->setActiveSheetIndex(0)->getStyle($letter[$ind]."1:".$letter[$ind]."35")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-	$objPHPExcel->setActiveSheetIndex(0)->getStyle($letter[$ind]."1:".$letter[$ind]."35")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-	$objPHPExcel->getActiveSheet(0)->getStyle($letter[$ind]."20")->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-	$objPHPExcel->getActiveSheet(0)->getStyle($letter[$ind]."28")->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-	$objPHPExcel->getActiveSheet()->getStyle($letter[$ind]."31")->getNumberFormat()->setFormatCode('0.00');   
+    	$spreadsheet->getActiveSheet()->getStyle($letter[$ind]."12:".$letter[$ind]."13")->getNumberFormat()->setFormatCode('0.0');   
+    $spreadsheet->setActiveSheetIndex(0)->getStyle($letter[$ind]."1:".$letter[$ind]."35")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+	$spreadsheet->setActiveSheetIndex(0)->getStyle($letter[$ind]."1:".$letter[$ind]."35")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+	$spreadsheet->getActiveSheet(0)->getStyle($letter[$ind]."20")->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	$spreadsheet->getActiveSheet(0)->getStyle($letter[$ind]."28")->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+	$spreadsheet->getActiveSheet()->getStyle($letter[$ind]."31")->getNumberFormat()->setFormatCode('0.00');   
 }  // CLOSE FOR LOOP
 
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,"Excel2007");
-    //$filename = "Export-Queen-Readings(".str_replace("/","-",$startdate).")-To(".str_replace("/","-",$enddate).")-".time().".xlsx";
-    //$filename = "Export-Queen-Readings.xlsx";
-    //$filename = "ZzZzZ-".date("m-d-Y").".xlsx";
-	//$filename = "Step4.xlsx";
+	$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+
 	$filename = "Export-Log-Data-".date("m-d-Y").".xlsx";
 	//echo $filename;
 	echo $filename;
     //$filename = "hello.xlsx";
-    $objWriter->save("../../data/export/$filename");
+    //$objWriter->save("../../data/export/$filename");
+    $writer->save("../../data/export/excel/$filename");
 
     $response['code'] = 'success';
     $response['data'] = $filename;

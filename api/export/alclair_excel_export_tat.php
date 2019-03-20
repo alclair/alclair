@@ -29,8 +29,8 @@ if(file_exists($file_lng))
     $mail3->IsSendmail(); // telling the class to use IsSendmail
 	$mail3->Host       = "localhost"; // SMTP server
 	$mail3->SMTPAuth   = false;                  // disable SMTP authentication  
-    $mail3->SetFrom($rootScope["SupportEmail"], $rootScope["SupportName"]);
-    $mail3->AddReplyTo($rootScope["SupportEmail"], $rootScope["SupportName"]);
+    $mail3->SetFrom($rootScope["SupportEmail"], "OTIS TAT");
+    $mail3->AddReplyTo($rootScope["SupportEmail"], "OTIS TAT");
     
 	//$arr=TokenizeString($emails);
 		

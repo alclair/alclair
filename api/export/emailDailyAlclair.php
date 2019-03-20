@@ -2,6 +2,11 @@
 include_once "../../config.inc.php";
 include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+require '/var/www/html/otisdev/vendor/autoload.php';
+
 $dir = realpath(__DIR__);
 $dir = str_replace('/api/export', '', $dir);
 
@@ -105,11 +110,21 @@ try
 		echo $store_customer[$i]["designed_for"] . " " . $store_customer[$i]["model"] . "<br/>";
 	}*/
   
+	// Create new Spreadsheet object
+	$spreadsheet = new Spreadsheet();
   
-  
-    $objPHPExcel = new PHPExcel();
-    $objPHPExcel->setActiveSheetIndex(0)->setTitle("Report");
-    $objPHPExcel->setActiveSheetIndex(0)
+    // Set workbook properties
+	$spreadsheet->getProperties()->setCreator('Tyler Folsom')
+        ->setLastModifiedBy('Tyler Folsom')
+        ->setTitle('Testing')
+        ->setSubject('PhpSpreadsheet')
+        ->setDescription('Manufacturing Report')
+        ->setKeywords('Microsoft office 2013 php PhpSpreadsheet')
+        ->setCategory('Cron');
+ 
+	// Set worksheet title
+	$spreadsheet->getActiveSheet()->setTitle('OTIS');
+    $spreadsheet->setActiveSheetIndex(0)
 			    ->setCellValue("A1","Customer")  
 			    ->setCellValue("B1","Monitor")  	
 			    ->setCellValue("C1","Station")
@@ -119,7 +134,7 @@ try
 			    
 	for ($i = 0; $i < $inc; $i++) {			    
 		$p = $i+2;
-		$objPHPExcel->setActiveSheetIndex(0)
+		$spreadsheet->setActiveSheetIndex(0)
             ->setCellValue("A".$p, $store_customer[$i]["designed_for"])
             ->setCellValue("B".$p, $store_customer[$i]["model"])   
             ->setCellValue("C".$p , $store_customer[$i]["status_of_order"]);
@@ -127,36 +142,41 @@ try
     
    for ($i = 0; $i < $inc2; $i++) {			    
 		$p = $i+2;
-		$objPHPExcel->setActiveSheetIndex(0)
+		$spreadsheet->setActiveSheetIndex(0)
             ->setCellValue("E".$p, $store_customer_repair[$i]["customer_name"])
             ->setCellValue("F".$p, $store_customer_repair[$i]["model"])   
             ->setCellValue("G".$p , $store_customer_repair[$i]["status_of_repair"]);
     }                                                                       
    
-    $objPHPExcel->setActiveSheetIndex(0)->getStyle("A1:O500")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+    $spreadsheet->setActiveSheetIndex(0)->getStyle("A1:O500")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
     
-    $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(35);
-	$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(25);
-	$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(25);
-	$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(18);
-	$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(25);
-	$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(25);
+    $spreadsheet->getActiveSheet()->getColumnDimension('A')->setWidth(35);
+	$spreadsheet->getActiveSheet()->getColumnDimension('B')->setWidth(25);
+	$spreadsheet->getActiveSheet()->getColumnDimension('C')->setWidth(25);
+	$spreadsheet->getActiveSheet()->getColumnDimension('D')->setWidth(18);
+	$spreadsheet->getActiveSheet()->getColumnDimension('E')->setWidth(25);
+	$spreadsheet->getActiveSheet()->getColumnDimension('F')->setWidth(25);
 	
 	//$objPHPExcel->getActiveSheet()->getStyle('A1')->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setARGB('000000');
 
 	//$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setBold(true)->getColor()->setRGB('FFFFFF');
 		
-	$objPHPExcel->getActiveSheet()->getStyle("A1:O500")->getFont()->setSize(16);
+	$spreadsheet->getActiveSheet()->getStyle("A1:O500")->getFont()->setSize(16);
 
     //$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
-    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,"Excel2007");
+    //$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,"Excel2007");
     //$filename = "Export-Queen-Readings(".str_replace("/","-",$startdate).")-To(".str_replace("/","-",$enddate).")-".time().".xlsx";
     //$filename = "Export-Queen-Readings.xlsx";
     $filename = "Daily Manufacturing Report ".date("m-d-Y").".xlsx";
 
     //$filename = "hello.xlsx";
-    $objWriter->save("../../data/export/$filename");
-	
+    //$objWriter->save("../../data/export/$filename");
+    
+	//new code:
+	$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+	//$writer->save("../../data/export/woocommerce/$filename");
+	$writer->save("../../data/export/excel/$filename");
+
     $response['code'] = 'success';
     $response['data'] = $filename;
     

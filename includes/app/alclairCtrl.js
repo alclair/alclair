@@ -1251,6 +1251,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
     }
 
 	 $scope.Print_Traveler = function (id_to_print) {
+		 //$scope.updateRMA_Form(id_to_print);
 		 
 		 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////// DETERMINING IF UPDATING, ADDING OR DELETING A FAULT ////////////
@@ -1327,7 +1328,11 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 			$scope.repair_form.received_date = moment($scope.repair_form.received_date).format("MM/DD/YYYY");
 			//$scope.repair_form.received_date = $scope.repair_form.received_date.toLocaleString();
  
-		console.log("received date is " + $scope.repair_form.estimated_ship_date)
+		//console.log("received date is " + $scope.repair_form.estimated_ship_date)
+		//console.log("Date is " + $scope.repair_form.received_date)
+								
+			$scope.repair_form.quotation = Number($scope.repair_form.quotation);
+			$scope.repair_form.rma_number = Number($scope.repair_form.rma_number);
 		var api_url = window.cfg.apiUrl + 'alclair/update_repair_form.php';
 		        
         myblockui();
@@ -1341,12 +1346,13 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 	         console.log("Code is " + result.code)
 	         console.log("received date is " + result.test)
              if (result.code == "success") {
-			 	 $scope.PDF(id_to_print);
                  $.unblockUI();
                  toastr.success("Updates saved!")
                  toastr.success(result.message)
+                 $scope.PDF(id_to_print);
                  setTimeout(function(){
 					// location.reload();				 	
+
 				}, 2000);                
              }
              else {

@@ -1,6 +1,13 @@
 <?php
 include_once "../../config.inc.php";
 include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
+
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+
+require '/var/www/html/otisdev/vendor/autoload.php';
+//require $rootScope["RootPath"]."vendor/autoload.php";
+
 if(empty($_SESSION["UserId"])&&$_REQUEST["token"]!=$rootScope["SWDApiToken"])
 {
     return;
@@ -39,10 +46,22 @@ try
     //$month_number = (int)$month_number;
 	$month_string = array('01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'); 
 	
-	$objPHPExcel = new PHPExcel();
-	$objPHPExcel->setActiveSheetIndex(0)->setTitle("Alclair Audio Excel");
+	// Create new Spreadsheet object
+	$spreadsheet = new Spreadsheet();
 	
-	$objPHPExcel->setActiveSheetIndex(0)
+	// Set workbook properties
+	$spreadsheet->getProperties()->setCreator('Tyler Folsom')
+        ->setLastModifiedBy('Tyler Folsom')
+        ->setTitle('Testing')
+        ->setSubject('PhpSpreadsheet')
+        ->setDescription('Turnaround Time')
+        ->setKeywords('Microsoft office 2013 php PhpSpreadsheet')
+        ->setCategory('Excel');
+ 
+	// Set worksheet title
+	$spreadsheet->getActiveSheet()->setTitle('OTIS');
+	
+	$spreadsheet->setActiveSheetIndex(0)
 			->setCellValue("A1", "Designed For") 
 			->setCellValue("B1", "Turnaround Time") 
 			->setCellValue("C1",  "Impressions Received") 
@@ -172,7 +191,6 @@ for ($i = 0; $i < count($store_done_data); $i++) {
 			//if($difference2[$ind2] > $response["avg"]) { //$response["avg"] - $response["avg"]) {
 				$ids_to_keep[$ind2] = $store_done_data[$i]["import_orders_id"];
 				
-				
 				$query3 = pdo_query($pdo, "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date,IEMs.id AS monitor_id, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
@@ -239,7 +257,7 @@ for ($i = 0; $i < count($store_done_data); $i++) {
 
 	for ($m = 0; $m < count($Sorted); $m++) {
 		$ind = $m+2;
-		$objPHPExcel->setActiveSheetIndex(0)
+		$spreadsheet->setActiveSheetIndex(0)
 			->setCellValue($letter[0].$ind, $Sorted[$m]["designed_for"]) 
 			->setCellValue($letter[1].$ind, $Sorted[$m]["difference"]) 
 			->setCellValue($letter[2].$ind,  $Sorted[$m]["received_date"]) 
@@ -249,20 +267,20 @@ for ($i = 0; $i < count($store_done_data); $i++) {
 	}		
 
 	// SET WIDTH, BOLD & FONT SIZE
-	$objPHPExcel->getActiveSheet()->getColumnDimension("A")->setWidth(20);
-	$objPHPExcel->getActiveSheet()->getColumnDimension("B")->setWidth(20);
-	$objPHPExcel->getActiveSheet()->getColumnDimension("C")->setWidth(20);
-	$objPHPExcel->getActiveSheet()->getColumnDimension("D")->setWidth(20);
-	$objPHPExcel->getActiveSheet()->getColumnDimension("E")->setWidth(20);
-	$objPHPExcel->getActiveSheet()->getColumnDimension("F")->setWidth(20);
-	$objPHPExcel->getActiveSheet(0)->getStyle('A1:F1')->getFont()->setBold(true)->setSize(12);	
+	$spreadsheet->getActiveSheet()->getColumnDimension("A")->setWidth(20);
+	$spreadsheet->getActiveSheet()->getColumnDimension("B")->setWidth(20);
+	$spreadsheet->getActiveSheet()->getColumnDimension("C")->setWidth(20);
+	$spreadsheet->getActiveSheet()->getColumnDimension("D")->setWidth(20);
+	$spreadsheet->getActiveSheet()->getColumnDimension("E")->setWidth(20);
+	$spreadsheet->getActiveSheet()->getColumnDimension("F")->setWidth(20);
+	$spreadsheet->getActiveSheet(0)->getStyle('A1:F1')->getFont()->setBold(true)->setSize(12);	
 	
 	$num_rows = count($Sorted)+1;
 	// VERTICALLY & HORIZONTALLY CENTER
-	$objPHPExcel->setActiveSheetIndex(0)->getStyle("A1:F".$num_rows)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-	$objPHPExcel->setActiveSheetIndex(0)->getStyle("A1:F".$num_rows)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+	$spreadsheet->setActiveSheetIndex(0)->getStyle("A1:F".$num_rows)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+	$spreadsheet->setActiveSheetIndex(0)->getStyle("A1:F".$num_rows)->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 						
-	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel,"Excel2007");
+	$writer = IOFactory::createWriter($spreadsheet, 'Xls');
     //$filename = "Export-Queen-Readings(".str_replace("/","-",$startdate).")-To(".str_replace("/","-",$enddate).")-".time().".xlsx";
     //$filename = "Export-Queen-Readings.xlsx";
     //$filename = "ZzZzZ-".date("m-d-Y").".xlsx";
@@ -271,7 +289,8 @@ for ($i = 0; $i < count($store_done_data); $i++) {
 	//echo $filename;
 
     //$filename = "hello.xlsx";
-    $objWriter->save("../../data/export/$filename");
+    //$objWriter->save("../../data/export/$filename");
+    $writer->save("../../data/export/excel/$filename");
 	
     $response['code'] = 'success';
     $response['data'] = $filename;

@@ -6,17 +6,6 @@ include_once('../../lib/phpqrcode/qrlib.php');
 //include_once('../../lib/BarCode/Barcode39.php');
 include_once('../../vendor/fobiaweb/barcode39/Barcode39.php');
 
-//if(strpos($host,"assetvision.com")!==false)
-//{
-	$root="/var/www/html/swd";
-	$root = "/home/ajswanso/public_html/otis/";
-
-//}
-//else
-//{
-//	$root="/home2/caraburo/www/swd";
-//}
-include_once $root."/includes/phpmailer/class.phpmailer.php";
 if(empty($_SESSION["UserId"])&&$_REQUEST["token"]!=$rootScope["SWDApiToken"])
 {
     return;

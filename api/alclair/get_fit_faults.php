@@ -31,7 +31,7 @@ try
     else
     {
         $stmt = pdo_query( $pdo,
-                           'select * from rma_fit order by id',
+                           'select * from rma_fit order by fit_fault',
                             null
                          );	
         $result = pdo_fetch_all($stmt);

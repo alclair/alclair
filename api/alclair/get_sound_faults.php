@@ -31,7 +31,7 @@ try
     else
     {
         $stmt = pdo_query( $pdo,
-                           'select * from rma_sound order by id',
+                           'select * from rma_sound order by sound_fault',
                             null
                          );	
         $result = pdo_fetch_all($stmt);

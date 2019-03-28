@@ -27,6 +27,7 @@ $file_alclair=$rootScope["RootPath"]."data/export/excel/".$list["data"];
     
 	$arr=TokenizeString("tyler@alclair.com, marc@alclair.com, scott@alclair.com");
 	//$arr=TokenizeString("tyler@alclair.com");
+	//$arr=TokenizeString("tyler@alclair.com");
 	for($i=0;$i<count($arr);$i++)
 	{
 		$mail3->AddAddress($arr[$i], "");

@@ -175,7 +175,7 @@ try
     //$objWriter->save("../../data/export/$filename");
     
 	//new code:
-	$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+	$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 	//$writer->save("../../data/export/woocommerce/$filename");
 	$writer->save("../../data/export/excel/$filename");
 

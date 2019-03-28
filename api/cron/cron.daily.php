@@ -25,8 +25,8 @@ $file_alclair=$rootScope["RootPath"]."data/export/excel/".$list["data"];
     $mail3->SetFrom($rootScope["SupportEmail"], $rootScope["SupportName"]);
     $mail3->AddReplyTo($rootScope["SupportEmail"], $rootScope["SupportName"]);
     
-	$arr=TokenizeString("tyler@alclair.com, marc@alclair.com, scott@alclair.com");
-	//$arr=TokenizeString("tyler@alclair.com");
+	//$arr=TokenizeString("tyler@alclair.com, marc@alclair.com, scott@alclair.com");
+	$arr=TokenizeString("tyler@alclair.com");
 	//$arr=TokenizeString("tyler@alclair.com");
 	for($i=0;$i<count($arr);$i++)
 	{

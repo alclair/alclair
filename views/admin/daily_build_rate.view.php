@@ -110,6 +110,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Monitor</th>
 					<th style="text-align:center;">Impression Detailing Date</th>
 					<th style="text-align:center;">Estimated Ship Date</th>
+					<th style="text-align:center;">Station</th>
 				</tr>
 			</thead>	
 			<tbody>
@@ -117,7 +118,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{list.id}}">{{list.designed_for}}</a></td>
 					<td  style="text-align:center;" data-title="Monitor">{{list.monitor_name}}</td>	
 					<td  style="text-align:center;" data-title="Imp. Det. Date">{{list.fake_imp_date}}</td>
-					<td  style="text-align:center;" data-title="Est. Ship Date">{{list.estimated_ship_date}}</td>	
+					<td  style="text-align:center;" data-title="Est. Ship Date">{{list.estimated_ship_date}}</td>
+					<td  style="text-align:center;" data-title="Station">{{list.status_of_order}}</td>
 				</tr>
 			</tbody>
 		</table>

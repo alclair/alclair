@@ -1,6 +1,6 @@
 <?php
 include_once "../../config.inc.php";
-include_once "../../config.dev.inc.php";
+//include_once "../../config.dev.inc.php";
 include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
 include_once "../../includes/phpmailer/class.phpmailer.php";
 
@@ -8,15 +8,26 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 use Automattic\WooCommerce\Client;
-use Automattic\WooCommerce\HttpClient\HttpClientException;
+use Automattic\WooCommerce\HttpClient\HttpClientException;	
  
 //require_once 'vendor/autoload.php';
 //require __DIR__ . '/vendor/autoload.php';
-//require '/var/www/html/otisdev/vendor/autoload.php';
-require $rootScope["RootPath"]."vendor/autoload.php";
+require '/var/www/html/otisdev/vendor/autoload.php';
+//require $rootScope["RootPath"]."vendor/autoload.php";
 
 try 
 {
+	
+	
+	$woocommerce = new Client(
+    	'https://alclair.com',
+		'ck_acc872e19a1908cd5abadfd29a84e5edf8d34469',
+		'cs_87fe15086357b7e90a8d2457552ddb957ba939fb',
+		[
+        	'version' => 'wc/v3', 
+			]
+	);
+
    
 	//$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
 	$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";

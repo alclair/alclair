@@ -92,9 +92,10 @@ try
     					LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
     					WHERE t1.active = TRUE AND t1.fake_imp_date = :today AND t1.fake_imp_date = :tomorrow
     					ORDER BY t1.fake_imp_date ASC";
-	$query4 = "SELECT t1.*, to_char(t1.fake_imp_date, 'MM/dd/yyyy') as fake_imp_date, to_char(t1.estimated_ship_date, 'MM/dd/yyyy') as estimated_ship_date, IEMs.name AS monitor_name
+	$query4 = "SELECT t1.*, to_char(t1.fake_imp_date, 'MM/dd/yyyy') as fake_imp_date, to_char(t1.estimated_ship_date, 'MM/dd/yyyy') as estimated_ship_date, IEMs.name AS monitor_name, t2.status_of_order
     					FROM import_orders AS t1
     					LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
+    					LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.id
     					WHERE t1.active = TRUE AND t1.fake_imp_date = :fake_imp_date
     					ORDER BY t1.fake_imp_date ASC";
     //$params2[":repair_form_id"] = $_REQUEST['id'];

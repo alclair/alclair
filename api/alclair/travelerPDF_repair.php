@@ -341,7 +341,7 @@ $right_column_cable_response =
 	
 
 */
-if( strlen($result[0]["left_alclair_logo"]) >= 1 || strlen($result[0]["right_alclair_logo"]) >= 1  ) {
+if( strlen($result[0]["left_alclair_logo"]) >= 4 || strlen($result[0]["right_alclair_logo"]) >= 4  ) {
 $right_column_artwork = 
 "	<tr>
     		    		
@@ -352,7 +352,7 @@ $right_column_artwork =
 } else {
 $right_column_artwork = 
 "	<tr>
-    		<td colspan='4' style=\"font-weight:bold;\">ARTWORK
+    		<td colspan='4' style=\"font-weight:bold;\">ARTWORK:
     		<span style=\"color:red;\"><b>NO</b></span></td>
 	</tr>
 ";	

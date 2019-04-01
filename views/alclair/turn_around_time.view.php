@@ -12,10 +12,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Orders</a> (Total: {{TotalRecords}})</b>&nbsp;&nbsp;<b style="display:inline; font-size:20px; color: #007FFF"></b><span style="color: #FF0000"> </span></a>
             </div>
         </div>
-        
 		<!--<div class="row alert" style='background-color:#ddd;'>-->
-            
-            
 		<div class="row alert" style='background-color:#ddd;'>
 
             <div class="form-group col-sm-1">                  

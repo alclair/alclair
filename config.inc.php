@@ -10,7 +10,6 @@ if($_SERVER['SERVER_NAME']=="otis.alclr.co")
 elseif($_SERVER['SERVER_NAME']=="otisdev.alclr.co")
 {
 	include_once "config.otisdev.inc.php";
-
 }
 else
 {

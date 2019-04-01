@@ -78,7 +78,7 @@ try
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$ind]);  // STORE THE DATA
                 
-        $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+         $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 		$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
 		$model_name = $is_earphone["value"];
 		$full_product_name = $line_item["name"];
@@ -225,7 +225,7 @@ try
 	//Set active sheet index to the first sheet, 
 	//and add some data
 	$spreadsheet->setActiveSheetIndex(0)
-        ->setCellValue("A1", "Date") 
+        		->setCellValue("A1", "Date") 
 			->setCellValue("B1", "Order ID") 
 			->setCellValue("C1",  "Product") 
 			->setCellValue("D1", "QTY") 
@@ -275,6 +275,63 @@ try
 			->setCellValue("AV1", "Coupon")
 			->setCellValue("AW1", "Discount")
 			->setCellValue("AX1", "Total");
+			
+		$row = 2;
+		for($k = 0; $k < count($order); $k++) {
+			$spreadsheet->setActiveSheetIndex(0)
+        		->setCellValue("A".$row, $order[$k]["date"]) 
+			->setCellValue("B".$row, $order[$k]["order_id"]) 
+			->setCellValue("C".$row,  $order[$k]["product"]) 
+			->setCellValue("D".$row, $order[$k]["quantity"]) 
+			->setCellValue("E".$row, $order[$k]["model"]) 
+			->setCellValue("F".$row, $order[$k]["artwork"])
+			->setCellValue("G".$row, $order[$k]["color"])
+			->setCellValue("H".$row, $order[$k]["rush_process"])
+			->setCellValue("I".$row, $order[$k]["left_shell"])
+			->setCellValue("J".$row, $order[$k]["right_shell"])
+			->setCellValue("K".$row, $order[$k]["left_faceplate"])
+			->setCellValue("L".$row, $order[$k]["right_faceplate"])
+			->setCellValue("M".$row, $order[$k]["cable_color"])
+			->setCellValue("N".$row, $order[$k]["clear_canal"])
+			->setCellValue("O".$row, $order[$k]["left_alclair_logo"])
+			->setCellValue("P".$row, $order[$k]["right_alclair_logo"])
+			->setCellValue("Q".$row, $order[$k]["left_custom_art"])
+			->setCellValue("R".$row, $order[$k]["right_custom_art"])
+			->setCellValue("S".$row, $order[$k]["link_to_design_image"])
+			->setCellValue("T".$row, $order[$k]["open_order_in_designer"])
+			->setCellValue("U".$row, $order[$k]["designed_for"])
+			->setCellValue("V".$row, $order[$k]["my_impressions"])
+			->setCellValue("W".$row, $order[$k]["64in_cable"])
+			->setCellValue("X".$row, $order[$k]["mic_cable"])
+			->setCellValue("Y".$row, $order[$k]["forza_audio"])
+			->setCellValue("Z".$row, $order[$k]["cleaning_kit"])
+			->setCellValue("AA".$row, $order[$k]["cleaning_tools"])
+			->setCellValue("AB".$row, $order[$k]["dotz_clip"])
+			->setCellValue("AC".$row, $order[$k]["pelican_case"])
+			->setCellValue("AD".$row, $order[$k]["pelican_case_name"])
+			->setCellValue("AE".$row, $order[$k]["soft_case"])
+			->setCellValue("AF".$row, $order[$k]["hearing_protection"])
+			->setCellValue("AG".$row, $order[$k]["hearing_protection_color"])
+			->setCellValue("AH".$row, $order[$k]["cable_upgrade"])
+			->setCellValue("AI".$row, $order[$k]["cable_upgrade_type"])
+			->setCellValue("AJ".$row, $order[$k]["cable_addon"])
+			->setCellValue("AK".$row, $order[$k]["cable_addon_type"])
+			->setCellValue("AL".$row, $order[$k]["musicians_plugs_9db"])
+			->setCellValue("AM".$row, $order[$k]["musicians_plugs_5db"])
+			->setCellValue("AN".$row, $order[$k]["musicians_plugs_25db"])
+			->setCellValue("AO".$row, $order[$k]["musicians_plugs"])
+			->setCellValue("AP".$row, $order[$k]["wood_box"])
+			->setCellValue("AQ".$row, $order[$k]["standard_cable"])
+			->setCellValue("AR".$row, $order[$k]["long_cable"])
+			->setCellValue("AS".$row, $order[$k]["billing_name"])
+			->setCellValue("AT".$row, $order[$k]["shipping_name"])
+			->setCellValue("AU".$row, $order[$k]["price"])
+			->setCellValue("AV".$row, $order[$k]["coupon"])
+			->setCellValue("AW".$row, $order[$k]["discount"])
+			->setCellValue("AX".$row, $order[$k]["total"]);
+			
+			$row++;
+		} // CLOSE FOR LOOP FOR EACH ORDER
 			
 			$filename = "Testing-Import2-".date("m-d-Y").".xlsx";
 			//new code:

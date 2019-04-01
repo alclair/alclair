@@ -1,5 +1,6 @@
 //var matrixsurveyApp = angular.module('matrixsurveyApp', ['ngAnimate', 'angularFileUpload', 'ngSanitize', 'ui.bootstrap', 'ui.bootstrap.datetimepicker']);
 var swdApp = angular.module('swdApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angularFileUpload', 'ngCookies', 'moment-picker', 'ngPatternRestrict']);
+//var swdApp = angular.module('swdApp', ['ngAnimate', 'ngSanitize', 'ui.bootstrap', 'angularFileUpload', 'ngCookies', 'ngPatternRestrict']);
 
 swdApp.filter('nl2br', function () {
 

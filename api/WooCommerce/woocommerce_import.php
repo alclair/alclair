@@ -17,17 +17,6 @@ require '/var/www/html/otisdev/vendor/autoload.php';
 
 try 
 {
-	
-	
-	$woocommerce = new Client(
-    	'https://alclair.com',
-		'ck_acc872e19a1908cd5abadfd29a84e5edf8d34469',
-		'cs_87fe15086357b7e90a8d2457552ddb957ba939fb',
-		[
-        	'version' => 'wc/v3', 
-			]
-	);
-
    
 	//$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
 	$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";

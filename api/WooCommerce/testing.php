@@ -74,21 +74,27 @@ try
     $order = [];
     $ind = 0;
   
+	//echo get_object_vars($result[0]) . " <br/>";
+	//$data2 = get_object_vars($result[$ind]);  // STORE THE DATA
+	//echo json_decode($data2) . " <br/>";
+	echo json_decode(json_encode($result[$ind]), true) . "<br/>";  
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
+         
                 
         $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 		$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
 		$model_name = $is_earphone["value"];
 		$full_product_name = $line_item["name"];
 		//echo '<p>TEST 2 IS  ' .  $model_name . " and " . $ind . "<br/>";
-                
+         echo "I is " . $i . " and " . $data["status"] . " and name is " . $full_product_name . "<br/>";
 		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPOT
 		//if(is_string($model) == 1 && (stristr($full_product_name, "Driver") !== false ) || stristr($full_product_name, "POS") !== false ))) { 
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 
-			
+			//$order[$ind]["status"] = $data["status"];
 			if(!strcmp($data["status"], "processing") ) {
+				//echo "Index is " . $ind . " and I is " . $i . "<br/>";
 				$order[$ind]["status"] = $data["status"];
 				$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
 				$order[$ind]["order_id"] = $data["id"]; // ORDER ID -> 1
@@ -200,9 +206,9 @@ try
 						$order[$ind]["long_cable"] = $line_item[meta_data][$j]->value;	
 					}
 					//echo "Key is " . $line_item[meta_data][$j]->key . " and Value is " . $line_item[meta_data][$j]->value . " <br/>";			
-				} // CLOSES FOR LOOP - METADATA
-				$ind++;
-			} // CLOSES IF STATEMENT - STATUS
+				} // CLOSES FOR LOOP - METADATA				
+				$ind ++;
+			} // CLOSES IF STATEMENT - STATUS - PROCESSING
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
     }
 	
@@ -279,6 +285,8 @@ try
 			
 		$row = 2;
 		for($k = 0; $k < count($order); $k++) {
+			echo "Order # is " . $k . " and Billing name is " . $order[$k]["billing_name"] . "<br/>";
+			/*
 			$spreadsheet->setActiveSheetIndex(0)
         	->setCellValue("A".$row, $order[$k]["date"]) 
 			->setCellValue("B".$row, $order[$k]["order_id"]) 
@@ -330,16 +338,18 @@ try
 			->setCellValue("AV".$row, $order[$k]["coupon"])
 			->setCellValue("AW".$row, $order[$k]["discount"])
 			->setCellValue("AX".$row, $order[$k]["total"]);
-			
+			*/
 			$row++;
 		} // CLOSE FOR LOOP FOR EACH ORDER
 			
+			echo "Row is " . $row . " and Order count is " . count($order) . " and result is " . count($result) . " and index is " . $ind . "<br/>";
+			/*
 			$filename = "Testing-Import2-".date("m-d-Y").".xlsx";
 			//new code:
 			$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 			//$writer->save("../../data/export/woocommerce/$filename");
 			$writer->save("/var/www/html/otisdev/data/export/woocommerce/$filename");
-			
+			*/
 			$response['code'] = 'success';
 			$response['data'] = $filename;
 			echo json_encode($response);

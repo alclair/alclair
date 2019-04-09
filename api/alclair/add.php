@@ -131,7 +131,14 @@ try
 		$qc_form['pass_or_fail'] = 'FAIL';
 	}
 	
+	/*
 	if($qc_form != 'FAIL') {
+		$qc_form['initial_pass_or_fail'] = 'PASS';
+	} else {
+		$qc_form['initial_pass_or_fail'] = 'FAIL';
+	}
+	*/
+	if( strcmp($qc_form,  'FAIL') ) {
 		$qc_form['initial_pass_or_fail'] = 'PASS';
 	} else {
 		$qc_form['initial_pass_or_fail'] = 'FAIL';

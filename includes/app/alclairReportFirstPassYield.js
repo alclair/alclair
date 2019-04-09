@@ -28,6 +28,12 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
     $scope.labels4 = [];
     $scope.labelRange4 = [];
     
+    $scope.labels5 = [];
+    $scope.labelRange5 = [];
+    
+    $scope.labels6 = [];
+    $scope.labelRange6 = [];
+    
     $scope.makeExcel = function () {
 
 	   myblockui();
@@ -37,11 +43,11 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
         $http.get(api_url).success(function (result) {
             $.unblockUI();     
             $scope.data =  result.data;
-            console.log("Test 1 is " + result.test1)
+            //console.log("Test 1 is " + result.test1)
             toastr.success("The Excel document was sent to your e-mail.");
-            console.log("Data is " + JSON.stringify(result.data));
-            console.log("Name is " + JSON.stringify(result.data2));
-            console.log("Code is " + JSON.stringify(result.code));
+            //console.log("Data is " + JSON.stringify(result.data));
+            //console.log("Name is " + JSON.stringify(result.data2));
+            //console.log("Code is " + JSON.stringify(result.code));
         }).error(function (result) {
             $.unblockUI();
             toastr.error("Get error.");
@@ -54,7 +60,7 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
         var api_url = window.cfg.apiUrl + "reports/alclairFirstPassYield.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
 
         $http.get(api_url).success(function (result) {
-		console.log("Testing is " + JSON.stringify(result.data))
+		//console.log("Testing is " + JSON.stringify(result.data))
             $.unblockUI();
             //console.log(JSON.stringify(result.data));
             //console.log("data length is " + result.data.length)
@@ -239,7 +245,7 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
                 layers4.push(layer4);
             }
 			
-			console.log("Testing is " + JSON.stringify(result4.data))
+		   //console.log("Testing is " + JSON.stringify(result4.data))
             for (var i = 0; i < result4.data.length; i++) {
                 var created4 = result4.data[i].created[0] == "0" ? parseInt(result4.data[i].created[1]) : parseInt(result4.data[i].created);
                 var pass_or_fail4 = result4.data[i].pass_or_fail;
@@ -265,7 +271,114 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
         });
     };
     
+    $scope.loadImpressionsReceived = function () {
+        myblockui();
 
+        var api_url = window.cfg.apiUrl + "reports/alclairImpressionsReceived.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
+
+        $http.get(api_url).success(function (result5) {
+
+            $.unblockUI();
+            //console.log(JSON.stringify(result5.data));
+            //console.log("data length is " + result.data.length)
+            if (result5.data.length == 0)
+                return;
+            $scope.labelRange5 = [];
+
+            var monthday = ["01", "03", "05", "07", "08", "10", "12"];
+            var totalmonthday = 31;
+            if (monthday.indexOf($scope.month_month) == -1)
+                totalmonthday = 30;
+          
+			 //$scope.labels5 = "Count"; 
+            var layers5 = [];
+            for (var i = 0; i < $scope.labels5.length; i++) {
+                var layer5 = [];
+                for (var j = 0; j < totalmonthday; j++) {
+                    layer5.push({ y: 0 });
+                }
+                layers5.push(layer5);
+            }
+			
+		     //console.log("Testing is " + JSON.stringify(result5.data))
+            for (var i = 0; i < result5.data.length; i++) {
+                //var created5 = result5.data[i].created[0] == "0" ? parseInt(result5.data[i].created[1]) : parseInt(result4.data[i].created);
+                var the_day5 = result5.data[i].the_day[0] == "0" ? parseInt(result5.data[i].the_day[1]) : parseInt(result5.data[i].the_day);
+                var pass_or_fail5 = " # of Impressions";
+                var num_days5 = result5.data[i].num_days;
+                
+                //created5 = created5 - 1;
+                the_day5 = the_day5 - 1;
+                layers5[$scope.labels5.indexOf(pass_or_fail5)][the_day5].y = num_days5;
+            }
+            //console.log("Layers is " + JSON.stringify(layers));
+
+            var color = d3.scale.category20();
+            for (var i = 0; i < $scope.labels5.length; i++) {
+                $scope.labelRange5.push({ text: $scope.labels5[i], color: color(i) });
+            }
+
+                d3DarwStackGroup(layers5, "impressions_received_date", "grouped_impression_date", "stacked_impression_date", $scope.labels5, { category20: true });
+
+        }).error(function () {
+            $.unblockUI();
+            toastr.error("Get error.");
+        });
+    };
+    
+$scope.loadRepairsReceived = function () {
+        myblockui();
+
+        var api_url = window.cfg.apiUrl + "reports/alclairRepairsReceived.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
+
+        $http.get(api_url).success(function (result6) {
+
+            $.unblockUI();
+            //console.log(JSON.stringify(result5.data));
+            //console.log("data length is " + result.data.length)
+            if (result6.data.length == 0)
+                return;
+            $scope.labelRange6 = [];
+
+            var monthday = ["01", "03", "05", "07", "08", "10", "12"];
+            var totalmonthday = 31;
+            if (monthday.indexOf($scope.month_month) == -1)
+                totalmonthday = 30;
+          
+            var layers6 = [];
+            for (var i = 0; i < $scope.labels6.length; i++) {
+                var layer6 = [];
+                for (var j = 0; j < totalmonthday; j++) {
+                    layer6.push({ y: 0 });
+                }
+                layers6.push(layer6);
+            }
+			
+		     //console.log("Testing is " + JSON.stringify(result5.data))
+            for (var i = 0; i < result6.data.length; i++) {
+                //var created5 = result5.data[i].created[0] == "0" ? parseInt(result5.data[i].created[1]) : parseInt(result4.data[i].created);
+                var the_day6 = result6.data[i].the_day[0] == "0" ? parseInt(result6.data[i].the_day[1]) : parseInt(result6.data[i].the_day);
+                var pass_or_fail6 = " # of Repairs";
+                var num_days6 = result6.data[i].num_days;
+                
+                //created5 = created5 - 1;
+                the_day6 = the_day6 - 1;
+                layers6[$scope.labels6.indexOf(pass_or_fail6)][the_day6].y = num_days6;
+            }
+            //console.log("Layers is " + JSON.stringify(layers));
+
+            var color = d3.scale.category20();
+            for (var i = 0; i < $scope.labels6.length; i++) {
+                $scope.labelRange6.push({ text: $scope.labels6[i], color: color(i) });
+            }
+
+                d3DarwStackGroup(layers6, "repairs_received_date", "grouped_repairs_date", "stacked_repairs_date", $scope.labels6, { category20: true });
+
+        }).error(function () {
+            $.unblockUI();
+            toastr.error("Get error.");
+        });
+    };
 
     
     AppDataService.loadMonitorList(null, null, function (result) {
@@ -289,14 +402,23 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
     AppDataService.loadStatusTypeList_failure(null, null, function (result) {
         for (var i = 0; i < result.data.length; i++) {
             $scope.labels4.push(result.data[i].type);
-            console.log("labels are " + $scope.labels4)
+            console.log("labels FOUR are " + $scope.labels4)
         }    
     }, function () { });
+
+    //$scope.labels5 = [];
+	$scope.labels5.push(" # of Impressions", "");
+	//$scope.labels5.push("");
+	
+	$scope.labels6.push(" # of Repairs", "");
+	//$scope.labels6.push("");
     
 	$scope.loadFirstPassYield();
 	$scope.loadFirstPassYield_initial_PassFail();
 	$scope.loadFirstPassYield_I();	
 	$scope.loadFirstPassYield_Failure();	
+	$scope.loadImpressionsReceived();
+	$scope.loadRepairsReceived();
 
     $scope.selectMonth_Month = function () {
         $("#firstpassyield").html("");
@@ -305,8 +427,12 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
         $scope.loadFirstPassYield_initial_PassFail();
         $("#firstpassyield_initial").html("");
         $scope.loadFirstPassYield_I();
-         $("#firstpassyield_failure").html("");
+        $("#firstpassyield_failure").html("");
         $scope.loadFirstPassYield_Failure();
+        $("#impressions_received_date").html("");
+        $scope.loadImpressionsReceived();
+        $("#repairs_received_date").html("");
+        $scope.loadRepairesReceived();
     };
     
 }]);

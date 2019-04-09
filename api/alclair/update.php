@@ -139,6 +139,13 @@ if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form
 		$qc_form['pass_or_fail'] = 'FAIL';
 } 
 
+
+	if( strcmp($qc_form['pass_or_fail'],  'FAIL') ) {
+		$qc_form['initial_pass_or_fail'] = 'PASS';
+	} else {
+		$qc_form['initial_pass_or_fail'] = 'FAIL';
+	}
+	
 	//if($_SESSION['IsAdmin'] == 0) {
 	$stmt = pdo_query($pdo, "SELECT * FROM qc_form WHERE id = :id", array(":id"=>$_REQUEST["id"]));
 	$get_stmt = pdo_fetch_all( $stmt );
@@ -157,7 +164,7 @@ if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form
                        artwork_placement = :artwork_placement, artwork_hq = :artwork_hq, artwork_none = :artwork_none, artwork_required = :artwork_required, artwork_added = :artwork_added,
                        notes = :notes,
                        shipping_cable = :shipping_cable, shipping_tools = :shipping_tools, shipping_card = :shipping_card, shipping_case = :shipping_case, shipping_additional = :shipping_additional,
-                       pass_or_fail = :pass_or_fail, qc_date = now()
+                       pass_or_fail = :pass_or_fail, qc_date = now(), initial_pass_or_fail = :initial_pass_or_fail
                        WHERE id = :id',
 					   array("id"=>$qc_form["id"], "customer_name"=>$qc_form['customer_name'], "order_id"=>$qc_form['order_id'], "monitor_id"=>$qc_form['monitor_id'], 						"build_type_id"=>$qc_form['build_type_id'], 
 					   "shells_defects"=>$qc_form['shells_defects'], "shells_colors"=>$qc_form['shells_colors'], "shells_faced_down"=>$qc_form['shells_faced_down'], 						"shells_label"=>$qc_form['shells_label'], "shells_edges"=>$qc_form['shells_edges'], "shells_shine"=>$qc_form['shells_shine'], "shells_canal"=>$qc_form['shells_canal'], 
@@ -168,9 +175,7 @@ if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form
 					   "artwork_placement"=>$qc_form['artwork_placement'],	"artwork_hq"=>$qc_form['artwork_hq'], "artwork_none"=>$qc_form['artwork_none'], 						"artwork_required"=>$qc_form['artwork_required'], "artwork_added"=>$qc_form['artwork_added'], 
 					   "notes"=>$qc_form['notes'],
 					   "shipping_cable"=>$qc_form['shipping_cable'], "shipping_tools"=>$qc_form['shipping_tools'], "shipping_card"=>$qc_form['shipping_card'], 						"shipping_case"=>$qc_form['shipping_case'], "shipping_additional"=>$qc_form['shipping_additional'],
-					   "pass_or_fail"=>$qc_form['pass_or_fail'])
-						//,1
-					 );
+					   "pass_or_fail"=>$qc_form['pass_or_fail'], "initial_pass_or_fail"=>$qc_form['initial_pass_or_fail']));
 					 $response['message'] = '1st part';
 					 $response['message'] =  $qc_form['artwork_none'];
 	} else {
@@ -185,7 +190,7 @@ if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form
                        artwork_placement = :artwork_placement, artwork_hq = :artwork_hq, artwork_none = :artwork_none, artwork_required = :artwork_required, artwork_added = :artwork_added,
                        notes = :notes,
                        shipping_cable = :shipping_cable, shipping_tools = :shipping_tools, shipping_card = :shipping_card, shipping_case = :shipping_case, shipping_additional = :shipping_additional,
-                       pass_or_fail = :pass_or_fail
+                       pass_or_fail = :pass_or_fail, initial_pass_or_fail = :initial_pass_or_fail
                        WHERE id = :id',
 					   array("id"=>$qc_form["id"], "customer_name"=>$qc_form['customer_name'], "order_id"=>$qc_form['order_id'], "monitor_id"=>$qc_form['monitor_id'], 						"build_type_id"=>$qc_form['build_type_id'], 
 					   "shells_defects"=>$qc_form['shells_defects'], "shells_colors"=>$qc_form['shells_colors'], "shells_faced_down"=>$qc_form['shells_faced_down'], 						"shells_label"=>$qc_form['shells_label'], "shells_edges"=>$qc_form['shells_edges'], "shells_shine"=>$qc_form['shells_shine'], "shells_canal"=>$qc_form['shells_canal'], 
@@ -196,9 +201,7 @@ if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form
 					   "artwork_placement"=>$qc_form['artwork_placement'],	"artwork_hq"=>$qc_form['artwork_hq'], "artwork_none"=>$qc_form['artwork_none'], 						"artwork_required"=>$qc_form['artwork_required'], "artwork_added"=>$qc_form['artwork_added'], 
 					   "notes"=>$qc_form['notes'],
 					   "shipping_cable"=>$qc_form['shipping_cable'], "shipping_tools"=>$qc_form['shipping_tools'], "shipping_card"=>$qc_form['shipping_card'], 						"shipping_case"=>$qc_form['shipping_case'], "shipping_additional"=>$qc_form['shipping_additional'],
-					   "pass_or_fail"=>$qc_form['pass_or_fail'])
-						//,1
-					 );
+					   "pass_or_fail"=>$qc_form['pass_or_fail'], "initial_pass_or_fail"=>$qc_form['initial_pass_or_fail']));
 					 $response['message'] = '2nd part';
 	}
 	

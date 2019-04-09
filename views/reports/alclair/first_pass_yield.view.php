@@ -35,6 +35,8 @@
         <div id="firstpassyield"></div>
     </div>
     
+    
+<!--                   																						 FIRST STOP AT QC																												-->
      <div style="width: 100%; margin-left: auto; margin-right: auto;">        
         <div style="text-align: center;">
             <h1 style="font-weight: bold;"> <h2>1st Stop at QC</h2>
@@ -61,7 +63,7 @@
         <div id="firstpassyield_initial_PassFail"></div>
     </div>
 
-    
+ <!--                   																				 		INCLUDES ALL STATES																											-->   
      <div style="width: 100%; margin-left: auto; margin-right: auto;">        
         <div style="text-align: center;">
             <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
@@ -89,6 +91,9 @@
         <div id="firstpassyield_initial"></div>
     </div>
 
+
+
+<!--                   																									FAILURE MODES																													-->
 	 <div style="width: 100%; margin-left: auto; margin-right: auto;">        
         <div style="text-align: center;">
             <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
@@ -114,6 +119,64 @@
                 Stacked</label>
 			</div>
         <div id="firstpassyield_failure"></div>
+    </div>
+
+
+<!--                   																				 IMPRESSIONS RECEIEVED BY DATE																										-->
+	 <div style="width: 100%; margin-left: auto; margin-right: auto;">        
+        <div style="text-align: center;">
+            <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
+             <h2>Impressions Received by Date</h2>
+			
+            <br />
+
+            <div class="col-md-12">
+                <span ng-repeat="label5 in labelRange5">
+                    <span style="display: inline-block; width: 10px; height: 10px; background: {{label5.color}};"></span><span>{{label5.text}}</span>
+                </span>
+            </div>
+			
+            <br />
+            
+        </div>
+		<div style="float:right;">
+            <label>
+                <input type="radio" name="mode_month_impressions" value="grouped" id="grouped_impression_date">
+                Grouped</label>
+            <label>
+                <input type="radio" name="mode_month_impressions" value="stacked" id="stacked_impression_date" checked>
+                Stacked</label>
+			</div>
+        <div id="impressions_received_date"></div>
+    </div>
+    
+    
+    <!--                   																				 REPAIRS RECEIEVED BY DATE																										-->
+     <div style="width: 100%; margin-left: auto; margin-right: auto;">        
+        <div style="text-align: center;">
+            <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
+             <h2>Repairs Received by Date</h2>
+			
+            <br />
+
+            <div class="col-md-12">
+                <span ng-repeat="label6 in labelRange6">
+                    <span style="display: inline-block; width: 10px; height: 10px; background: {{label6.color}};"></span><span>{{label6.text}}</span>
+                </span>
+            </div>
+			
+            <br />
+            
+        </div>
+		<div style="float:right;">
+            <label>
+                <input type="radio" name="mode_month_repairs" value="grouped" id="grouped_repairs_date">
+                Grouped</label>
+            <label>
+                <input type="radio" name="mode_month_impressions" value="stacked" id="stacked_impression_date" checked>
+                Stacked</label>
+			</div>
+        <div id="repairs_received_date"></div>
     </div>
     
     

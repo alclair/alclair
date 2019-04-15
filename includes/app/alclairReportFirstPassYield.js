@@ -299,18 +299,31 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
                 }
                 layers5.push(layer5);
             }
-			
+			/*
 		     //console.log("Testing is " + JSON.stringify(result5.data))
             for (var i = 0; i < result5.data.length; i++) {
                 //var created5 = result5.data[i].created[0] == "0" ? parseInt(result5.data[i].created[1]) : parseInt(result4.data[i].created);
                 var the_day5 = result5.data[i].the_day[0] == "0" ? parseInt(result5.data[i].the_day[1]) : parseInt(result5.data[i].the_day);
-                var pass_or_fail5 = " # of Impressions";
-                var num_days5 = result5.data[i].num_days;
+                //var pass_or_fail5 = " # of Impressions";
+                var pass_or_fail5 = result5.data[i].type;
+                var num_days5 = result5.data[i].num_in_day;
                 
                 //created5 = created5 - 1;
                 the_day5 = the_day5 - 1;
                 layers5[$scope.labels5.indexOf(pass_or_fail5)][the_day5].y = num_days5;
+            }*/
+            
+            for (var i = 0; i < result5.data.length; i++) {
+                var created5 = result5.data[i].the_day[0] == "0" ? parseInt(result5.data[i].the_day[1]) : parseInt(result5.data[i].the_day);
+                var pass_or_fail5 = result5.data[i].type;
+                //var water_type = result.data[i].water_type;
+                var num_status5 = result5.data[i].num_in_day;
+                created5 = created5 - 1;
+                console.log("I is " + i)
+                console.log("C is " + created5 + " PF is " + pass_or_fail5 + " Num is " + num_status5)
+                layers5[$scope.labels5.indexOf(pass_or_fail5)][created5].y = num_status5;
             }
+
             //console.log("Layers is " + JSON.stringify(layers));
 
             var color = d3.scale.category20();
@@ -354,6 +367,18 @@ $scope.loadRepairsReceived = function () {
                 layers6.push(layer6);
             }
 			
+			for (var i = 0; i < result6.data.length; i++) {
+                var created6 = result6.data[i].the_day[0] == "0" ? parseInt(result6.data[i].the_day[1]) : parseInt(result6.data[i].the_day);
+                var pass_or_fail6 = result6.data[i].type;
+                //var water_type = result.data[i].water_type;
+                var num_status6 = result6.data[i].num_in_day;
+                created6 = created6 - 1;
+                console.log("I is " + i)
+                console.log("C is " + created6 + " PF is " + pass_or_fail6 + " Num is " + num_status6)
+                layers6[$scope.labels6.indexOf(pass_or_fail6)][created6].y = num_status6;
+            }
+
+			/*
 		     //console.log("Testing is " + JSON.stringify(result5.data))
             for (var i = 0; i < result6.data.length; i++) {
                 //var created5 = result5.data[i].created[0] == "0" ? parseInt(result5.data[i].created[1]) : parseInt(result4.data[i].created);
@@ -364,7 +389,7 @@ $scope.loadRepairsReceived = function () {
                 //created5 = created5 - 1;
                 the_day6 = the_day6 - 1;
                 layers6[$scope.labels6.indexOf(pass_or_fail6)][the_day6].y = num_days6;
-            }
+            }*/
             //console.log("Layers is " + JSON.stringify(layers));
 
             var color = d3.scale.category20();
@@ -402,15 +427,22 @@ $scope.loadRepairsReceived = function () {
     AppDataService.loadStatusTypeList_failure(null, null, function (result) {
         for (var i = 0; i < result.data.length; i++) {
             $scope.labels4.push(result.data[i].type);
-            console.log("labels FOUR are " + $scope.labels4)
+        }    
+    }, function () { });
+	AppDataService.loadStatusTypeList_orders(null, null, function (result) {
+        for (var i = 0; i < result.data.length; i++) {
+            $scope.labels5.push(result.data[i].type);
         }    
     }, function () { });
 
-    //$scope.labels5 = [];
-	$scope.labels5.push(" # of Impressions", "");
-	//$scope.labels5.push("");
+	AppDataService.loadStatusTypeList_repairs(null, null, function (result) {
+        for (var i = 0; i < result.data.length; i++) {
+            $scope.labels6.push(result.data[i].type);
+            console.log("labels SIX are " + $scope.labels5)
+        }    
+    }, function () { });
 	
-	$scope.labels6.push(" # of Repairs", "");
+	//$scope.labels6.push(" # of Repairs", "");
 	//$scope.labels6.push("");
     
 	$scope.loadFirstPassYield();
@@ -432,7 +464,7 @@ $scope.loadRepairsReceived = function () {
         $("#impressions_received_date").html("");
         $scope.loadImpressionsReceived();
         $("#repairs_received_date").html("");
-        $scope.loadRepairesReceived();
+        $scope.loadRepairsReceived();
     };
     
 }]);

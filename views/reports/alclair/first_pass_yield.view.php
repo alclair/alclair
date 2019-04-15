@@ -173,7 +173,7 @@
                 <input type="radio" name="mode_month_repairs" value="grouped" id="grouped_repairs_date">
                 Grouped</label>
             <label>
-                <input type="radio" name="mode_month_impressions" value="stacked" id="stacked_impression_date" checked>
+                <input type="radio" name="mode_month_repairs" value="stacked" id="stacked_repairs_date" checked>
                 Stacked</label>
 			</div>
         <div id="repairs_received_date"></div>

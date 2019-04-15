@@ -51,9 +51,17 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			   		<select class='form-control' ng-model='traveler.order_status_id' ng-options="orderStatus.order_in_manufacturing as orderStatus.status_of_order for orderStatus in OrderStatusList">
 			   			<option value="">Select a status</option>
 					</select>
-				</div>
+					</div>
+					<div class="col-md-2">  
+						<button ng-if="traveler.manufacturing_screen==NULL && (the_user_is != 'Amanda' || the_user_is != 'admin')"style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
+                        <i ></i> &nbsp; URGENT                         
+                    </button>
+                    <button ng-if="traveler.manufacturing_screen!=NULL && {the_user_is != 'Amanda' | the_user_is != 'admin')"style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()" disabled>
+                        <i ></i> &nbsp; URGENT                         
+                    </button>
+					</div>
 			</div>
-            <!--</div>-->
+			
         </div>
         <div class="row">
            <div class="form-group col-md-3">

@@ -87,14 +87,22 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                     		<b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/repair_list">RMA Form</a> - Update</b>
 								&nbsp;&nbsp;&nbsp;&nbsp;<b id="qcform" style="font-size: 20px;color:green;cursor: pointer;" >QC FORM</b>
                 		</div>
-					<div class="col-md-3">  
+						<div class="col-md-3">  
                 			<b style="font-size: 20px;" id="qcform" style="font-size: 20px;color:blue;cursor: pointer;" >Status: </b>  
                 		</div>
-					<div class="col-md-3" style="margin-left:-150px;margin-top:-5px">  
-						<select class='form-control' ng-model='repair_form.repair_status_id' ng-options="repairStatus.order_in_repair as repairStatus.status_of_repair for repairStatus in RepairStatusList">
-							<option value="">Select a status</option>
-						</select>
-					</div>
+						<div class="col-md-3" style="margin-left:-150px;margin-top:-5px">  
+							<select class='form-control' ng-model='repair_form.repair_status_id' ng-options="repairStatus.order_in_repair as repairStatus.status_of_repair for repairStatus in RepairStatusList">
+								<option value="">Select a status</option>
+							</select>
+						</div>
+						<div class="col-md-2">  
+							<button ng-if="(manufacturing_screen==0) && (the_user_is == 'Amanda' || the_user_is == 'admin')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
+                        		<i ></i> &nbsp; URGENT                         
+							</button>
+							<button ng-if="(manufacturing_screen==1) && (the_user_is == 'Amanda' || the_user_is == 'admin')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-danger" ng-click="removeFromManufacturingScreen()">
+								<i ></i> &nbsp; NOT URGENT                         
+							</button>
+						</div>
             		</div>
 			</div>
         		

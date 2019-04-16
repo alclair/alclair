@@ -1482,6 +1482,57 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
          });
     };
     
+    $scope.showOnManufacturingScreen = function () {
+	    myblockui();
+		var api_url = window.cfg.apiUrl + 'alclair/move_to_manufacturing_screen_repair.php?id=' + window.cfg.Id;
+		console.log("START IS " + window.cfg.Id)
+        $http.get(api_url)
+            .success(function (result) {
+	            if(result.code == "success") {
+	            	console.log("The ID is " + result.test)
+					//console.log("Message is " + result.message)
+					toastr.success("Order moved to Manufacturing Screen.");    
+					$.unblockUI();
+					setTimeout(function(){
+						location.reload();				 	
+					}, 1000);
+					//window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+result.ID_is;
+                 } 
+                 else {
+				 		$.unblockUI();
+				 		toastr.error(result.message == undefined ? result.data : result.message);    
+                 }
+            }).error(function (result) {
+                $.unblockUI();
+				toastr.error(result.message == undefined ? result.data : result.message);
+            });
+    }
+    $scope.removeFromManufacturingScreen = function () {
+	    myblockui();
+		var api_url = window.cfg.apiUrl + 'alclair/remove_from_manufacturing_screen_repair.php?id=' + window.cfg.Id;
+		console.log("START IS " + window.cfg.Id)
+        $http.get(api_url)
+            .success(function (result) {
+	            if(result.code == "success") {
+	            	console.log("The ID is " + result.test)
+					//console.log("Message is " + result.message)
+					toastr.success("Order removed from the Manufacturing Screen.");    
+					$.unblockUI();
+					setTimeout(function(){
+						location.reload();				 	
+					 }, 1000);
+					//window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+result.ID_is;
+                 } 
+                 else {
+				 		$.unblockUI();
+				 		toastr.error(result.message == undefined ? result.data : result.message);    
+                 }
+            }).error(function (result) {
+                $.unblockUI();
+				toastr.error(result.message == undefined ? result.data : result.message);
+            });
+    }
+    
     $scope.LoadData = function () {
         myblockui();
         var api_url = window.cfg.apiUrl + "alclair/get_repair_forms.php?id=" + window.cfg.Id;
@@ -1498,6 +1549,17 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
                     for (i = 0; i < $scope.faults.length; i++) {
 						faults_IDs[i] = $scope.faults[i].id;
 					}
+					
+					 if(result.data[0].manufacturing_screen == true) {
+					 	$scope.manufacturing_screen = 1; 
+					 	console.log("HERE")
+	           	} else {
+		           	$scope.manufacturing_screen = 0;
+		           	console.log("HEREeeeeeeee")
+	           	}
+	           	$scope.the_user_is = result.the_user_is;
+	           	console.log("USER IS " + $scope.the_user_is)
+
 
                     //console.log("Data 2 is " + JSON.stringify(result.data2))
                     
@@ -2468,6 +2530,34 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 					//console.log("Message is " + result.message)
 					toastr.success("Order moved to Manufacturing Screen.");    
 					$.unblockUI();
+					setTimeout(function(){
+						location.reload();				 	
+					}, 1000);
+					//window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+result.ID_is;
+                 } 
+                 else {
+				 		$.unblockUI();
+				 		toastr.error(result.message == undefined ? result.data : result.message);    
+                 }
+            }).error(function (result) {
+                $.unblockUI();
+				toastr.error(result.message == undefined ? result.data : result.message);
+            });
+    }
+    $scope.removeFromManufacturingScreen = function () {
+	    myblockui();
+		var api_url = window.cfg.apiUrl + 'alclair/remove_from_manufacturing_screen.php?id=' + window.cfg.Id;
+		console.log("START IS " + window.cfg.Id)
+        $http.get(api_url)
+            .success(function (result) {
+	            if(result.code == "success") {
+	            	console.log("The ID is " + result.test)
+					//console.log("Message is " + result.message)
+					toastr.success("Order removed from the Manufacturing Screen.");    
+					$.unblockUI();
+					setTimeout(function(){
+						location.reload();				 	
+					 }, 1000);
 					//window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+result.ID_is;
                  } 
                  else {
@@ -2656,8 +2746,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                  console.log("CODE IS " + result.code + " and the MESSAGE is " + result.message)
                  toastr.success("Updates saved!")
                  setTimeout(function(){
-					 location.reload();				 	
-				}, 2000);
+						location.reload();				 	
+					}, 2000);
                 
                  //window.location.href = window.cfg.rootUrl + "/alclair/orders/";
                  //redirect
@@ -2685,6 +2775,13 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
             .success(function (result) {
 	           $scope.logList = result.data2;
 	           console.log("THE USER IS " + result.the_user_is)
+	           
+	           if(result.data[0].manufacturing_screen == true) {
+			   		$scope.manufacturing_screen = 1; 
+	           } else {
+		           $scope.manufacturing_screen = 0;
+	           }
+	           console.log("THE SCREEN IS  " + $scope.traveler.manufacturing_screen)
 	           $scope.the_user_is = result.the_user_is;
 	            //console.log("Log is " + JSON.stringify(result.data2))
 	            //console.log("The data is " + JSON.stringify(result.data[0]))
@@ -3650,8 +3747,8 @@ swdApp.controller('Repairs_Done_By_Date', ['$http', '$scope', 'AppDataService', 
             .success(function (result) {
 	            console.log("Test is " + result.test)
 	            
-               $scope.OrdersList = result.data;
-               $scope.Shipped_Last_Year = result.Shipped_Last_Year;
+              $scope.OrdersList = result.data;
+              $scope.Shipped_Last_Year = result.Shipped_Last_Year;
 				$scope.Shipped_Last_Year_This_Month = result.Shipped_Last_Year_This_Month;
 				$scope.Shipped_This_Year = result.Shipped_This_Year;
 				$scope.Shipped_This_Month = result.Shipped_This_Year_This_Month;

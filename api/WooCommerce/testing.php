@@ -66,7 +66,7 @@ try
 
 	$params = [
 			//'after' => '2019-03-16T00:00:00',
-			'per_page' => 100
+			'per_page' => 1
 			//'before' => '2019-03-16T23:59:59'
         ];
     $result = $woocommerce->get('orders', $params);
@@ -77,18 +77,21 @@ try
 	//echo get_object_vars($result[0]) . " <br/>";
 	//$data2 = get_object_vars($result[$ind]);  // STORE THE DATA
 	//echo json_decode($data2) . " <br/>";
-	echo json_decode(json_encode($result[$ind]), true) . "<br/>";  
+	echo "JSON IS " . json_decode(json_encode($result[$ind]), true) . "<br/>";  
+	echo "JSON IS " . (json_encode($result[$ind])) . "<br/>";  
+	var_dump(json_encode($result[$ind]));
+	
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
          
                 
-        $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+       $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 		$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
 		$model_name = $is_earphone["value"];
 		$full_product_name = $line_item["name"];
 		//echo '<p>TEST 2 IS  ' .  $model_name . " and " . $ind . "<br/>";
-         echo "I is " . $i . " and " . $data["status"] . " and name is " . $full_product_name . "<br/>";
+        echo "I is " . $i . " and " . $data["status"] . " and name is " . $full_product_name . "<br/>";
 		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPOT
 		//if(is_string($model) == 1 && (stristr($full_product_name, "Driver") !== false ) || stristr($full_product_name, "POS") !== false ))) { 
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 

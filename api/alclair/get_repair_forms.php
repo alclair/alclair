@@ -17,6 +17,8 @@ try
     $orderBySql = " ORDER BY t1.id $orderBySqlDirection";
     $params = array();
 
+	$response['the_user_is'] = $_SESSION['UserName'];
+	
     if( !empty($_REQUEST['id']) )
     {
         $conditionSql .= " AND t1.id = :id";
@@ -166,7 +168,7 @@ try
 				  LEFT JOIN repair_status_table AS t4 ON t1.repair_status_id = t4.order_in_repair
                   WHERE t1.active = TRUE $conditionSql $orderBySql $pagingSql"; // 
                   
-                  $stmt = pdo_query( $pdo, $query, $params); 
+                $stmt = pdo_query( $pdo, $query, $params); 
 				  $result = pdo_fetch_all( $stmt );
 				  $rows_in_result = pdo_rows_affected($stmt);
 				  

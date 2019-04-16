@@ -65,7 +65,7 @@ try
 // PELICAN CASE NAME -> 29
 
 	$params = [
-			//'after' => '2019-03-16T00:00:00',
+			'after' => '2019-04-14T00:00:00',
 			'per_page' => 100
 			//'before' => '2019-03-16T23:59:59'
         ];
@@ -78,10 +78,17 @@ try
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
                 
-        $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+       $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 		$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
+		$coupon_lines = get_object_vars($data[coupon_lines][0]); 
+
 		$model_name = $is_earphone["value"];
 		$full_product_name = $line_item["name"];
+		$price = $line_item["price"];
+		$total = $data["total"];
+		$discount = $data["discount_total"];
+		$coupon = $coupon_lines["code"];
+		
 		//echo '<p>TEST 2 IS  ' .  $model_name . " and " . $ind . "<br/>";
                 
 		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPOT
@@ -94,6 +101,10 @@ try
 				$order[$ind]["order_id"] = $data["id"]; // ORDER ID -> 1
 				$order[$ind]["product"] = $full_product_name; // PRODUCT -> 2 
 				$order[$ind]["quantity"] = 1; // QUANTITY -> 3
+				$order[$ind]["price"] = $price;
+				$order[$ind]["total"] = $total;
+				$order[$ind]["discount"] = $discount;
+				$order[$ind]["coupon"] = $coupon;
 				
 				if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 					$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
@@ -103,6 +114,7 @@ try
 				
 				$order[$ind]["billing_name"] = $data[billing]->first_name . " " . $data[billing]->last_name;
 				$order[$ind]["shipping_name"] = $data[shipping]->first_name . " " . $data[shipping]->last_name;
+				
 				//echo '<p>Last Name is ' . $arr[billing]->last_name;
 						
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {

@@ -39,10 +39,35 @@ try
     $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  LEFT JOIN qc_form AS t3 ON t1.id = t3.id_of_order
                   WHERE 1=1 AND t1.active = TRUE AND t1.manufacturing_screen = TRUE AND t1.order_status_id <> 12";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
+    
+    
+    //UNION ALL
+    $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as date, t2.status_of_repair AS status
+                  FROM repair_form AS t1
+                  LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
+                  WHERE 1=1 AND t1.active = TRUE AND t1.manufacturing_screen = TRUE AND t1.repair_status_id <> 14";
+    $stmt = pdo_query( $pdo, $query, $params); 
+    $result = pdo_fetch_all( $stmt );
+    
+    // THE ABOVE TWO QUERIES COMBINED
+    $query = "SELECT t1.id, t1.designed_for AS customer, to_char(t1.date,'MM/dd/yyyy') as date, t2.status_of_order AS status, 1 AS type
+                  FROM import_orders AS t1
+                  LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
+                  WHERE 1=1 AND t1.active = TRUE AND t1.manufacturing_screen = TRUE AND t1.order_status_id <> 12
+              UNION ALL    
+                  SELECT t1.id, t1.customer_name AS customer, to_char(t1.received_date,'MM/dd/yyyy') as date, t2.status_of_repair AS status, 2 AS type
+                  FROM repair_form AS t1
+                  LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
+                  WHERE 1=1 AND t1.active = TRUE AND t1.manufacturing_screen = TRUE AND t1.repair_status_id <> 14";
+    $stmt = pdo_query( $pdo, $query, $params); 
+    $result = pdo_fetch_all( $stmt );
+
+    
+    
+
     
     $current_year = date("Y");
     $current_month = date("m");

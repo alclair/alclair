@@ -53,12 +53,12 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					</select>
 					</div>
 					<div class="col-md-2">  
-						<button ng-if="traveler.manufacturing_screen==NULL && (the_user_is != 'Amanda' || the_user_is != 'admin')"style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
-                        <i ></i> &nbsp; URGENT                         
-                    </button>
-                    <button ng-if="traveler.manufacturing_screen!=NULL && {the_user_is != 'Amanda' | the_user_is != 'admin')"style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()" disabled>
-                        <i ></i> &nbsp; URGENT                         
-                    </button>
+						<button ng-if="(manufacturing_screen==0) && (the_user_is == 'Amanda' || the_user_is == 'admin')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
+                        	<i ></i> &nbsp; URGENT                         
+						</button>
+						<button ng-if="(manufacturing_screen==1) && (the_user_is == 'Amanda' || the_user_is == 'admin')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-danger" ng-click="removeFromManufacturingScreen()">
+                       		<i ></i> &nbsp; NOT URGENT                         
+					   	</button>
 					</div>
 			</div>
 			

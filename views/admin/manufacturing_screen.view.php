@@ -16,29 +16,34 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	?>       
  <div class="row">
 	 <div class="form-group col-lg-6" >
-		 <br/><br/><br/><br/>
-		 <h1 style="font-weight:bold" align=center> SHIPPED IN {{last_year}} </h1><br/>
-		 <h1 style="font-weight:bold;color:red" align=center> {{Shipped_Last_Year}} </h1><br/>
-		 <h1 style="font-weight:bold" align=center> SHIPPED IN {{last_year}} IN {{this_month}} </h1><br/>
-		 <h1 style="font-weight:bold;color:red" align=center> {{Shipped_Last_Year_This_Month}} </h1><br/>
-		 <h1 style="font-weight:bold" align=center> SHIPPED IN {{this_year}} </h1><br/>
-		 <h1 style="font-weight:bold;color:blue" align=center> {{Shipped_This_Year}} </h1><br/>
-		 <h1 style="font-weight:bold" align=center> SHIPPED SO FAR IN {{this_month}} </h1><br/>
-		 <h1 style="font-weight:bold;color:blue" align=center> {{Shipped_This_Month}} </h1><br/>
+		 <!--<br/><br/><br/><br/>-->
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{last_year}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:red" align=center> {{Shipped_Last_Year}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_month}} {{last_year}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:red" align=center> {{Shipped_Last_Year_This_Month}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_year}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_This_Year}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_month}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_This_Month}} </h1><br/>
 		 
 	 </div>
 	<div class="form-group col-lg-6">
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;font-size: 28px">CUSTOMER</th>
-					<th style="text-align:center;font-size: 28px">STATION</th>
+					<th style="text-align:center;font-size: 44px">CUSTOMER</th>
+					<th style="text-align:center;font-size: 44px">STATION</th>
+					<!--<th style="text-align:center;font-size: 28px">TYPE</th>-->
 				</tr>
 			</thead>	
 			<tbody>
 				<tr ng-repeat='order in OrdersList'>
-					<td style="text-align:center;font-size: 28px" data-title="CUSTOMER"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.designed_for}}</a></td>
-					<td  style="text-align:center;font-size: 28px" data-title="STATION">{{order.status_of_order}}</td>
+					<td ng-if="order.type==1" style="text-align:center;font-size: 44px" data-title="CUSTOMER"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.customer}}</a></td>
+					<td  ng-if="order.type==1" style="text-align:center;font-size: 44px" data-title="STATION">{{order.status}}</td>
+
+					<td ng-if="order.type==2" style="text-align:center;font-size: 44px" data-title="CUSTOMER"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{order.id}}">{{order.customer}}</a></td>
+					<td  ng-if="order.type==2" style="text-align:center;font-size: 44px;background-color:orange" data-title="STATION">{{order.status}}</td>
+					<!--<td  style="text-align:center;font-size: 28px" data-title="STATION">{{order.type}}</td>-->
 				</tr>
 			</tbody>
 		</table>

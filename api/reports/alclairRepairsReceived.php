@@ -31,18 +31,19 @@ try
    $stmt = pdo_query( $pdo, $query, $params ); 
    $num_of_impressions_in_day = pdo_fetch_all( $stmt );
 
-   $query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char(received_date, 'dd') ) ) AS num_in_day, t2.type
+$query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char(received_date, 'dd') ) ) AS num_in_day, t2.type
               FROM repair_form
               LEFT JOIN status_type_repairs AS t2 ON 1 = t2.id
               WHERE to_char(received_date,'yyyy') = '$year' AND to_char(received_date,'MM') = '$month' 
               GROUP BY the_day, type
       UNION ALL
-              SELECT to_char(rma_performed_date, 'dd') AS the_day, ( SELECT COUNT(to_char(rma_performed_date, 'dd') ) ) AS num_in_day, t2.type
-              FROM repair_form
+              SELECT to_char(date, 'dd') AS the_day, ( SELECT COUNT(to_char(date, 'dd') ) ) AS num_in_day, t2.type
+              FROM repair_status_log
               LEFT JOIN status_type_repairs AS t2 ON 2 = t2.id
-              WHERE to_char(rma_performed_date,'yyyy') = '$year' AND to_char(rma_performed_date,'MM') = '$month' 
+              WHERE to_char(date,'yyyy') = '$year' AND to_char(date,'MM') = '$month'  AND repair_status_id = 14
               GROUP BY the_day, type
               ORDER BY the_day ASC";
+
     $stmt = pdo_query( $pdo, $query, $params ); 
 	$num_in_day = pdo_fetch_all( $stmt );
 

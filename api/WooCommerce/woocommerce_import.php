@@ -19,7 +19,7 @@ try
 {
    
 	//$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
-	$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
+	$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce_v3.php";
 	//echo $rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
 			
 	$json=file_get_contents($url);
@@ -42,11 +42,11 @@ try
    
 				$mail3->AddAddress("tyler@alclair.com");
 
-				$mail3->Subject    = "Testing WooCommerce 01";
-				$body3="<p>The attached file is for testing WooCommerce API.</p>";
+				$mail3->Subject    = "Orders Imported";
+				$body3="<p>Here are the orders that were imported today.</p>";
 				$mail3->MsgHTML($body3);
 
-				$mail3->AddAttachment($file_lng, "Testing-".date("m-d-Y").".xlsx");
+				$mail3->AddAttachment($file_lng, "Import File - ".date("m-d-Y").".xlsx");
 				//$mail3->AddAttachment($json, "Testing-".date("m-d-Y").".xlsx");
 
 				//echo json_encode($response);
@@ -59,7 +59,7 @@ try
 			
 //}
     
-	$arr = get_object_vars($result[25]); //28
+	//$arr = get_object_vars($result[25]); //28
 	//echo $order[25]["billing_name"];
 	//echo '<pre><code>' . print_r($arr, true) . '</code><pre>';
 	//echo $arr;

@@ -25,16 +25,36 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'after' => '2019-03-16T00:00:00',
-			'per_page' => 10
-			//'before' => '2019-03-16T23:59:59'
+			'before' => '2019-04-23T00:00:00',
+			'after' => '2019-04-22T00:00:00',
+			'per_page' => 100			
+			//'created_at_min' => '2014-01-01',
+			//'created_at_max' => '2014-01-31'
         ];
-    $result = $woocommerce->get('orders', $params);
-			
+    //$result = $woocommerce->get('orders', $params);
+	$result = $woocommerce->get('orders', $params);		
 			
 //}
     
-	$arr = get_object_vars($result[4]); //28
+    for($i = 0; $i <count($result); $i++) {
+	    $data = get_object_vars($result[$i]);  // STORE THE DATA
+    		//$holder = json_decode(json_encode($result[$ind]), true);    
+		$line_item = get_object_vars($data[line_items][$i]); // PRODUCT -> 2
+		//echo "Name is " . $line_item["name"] . "<br/>";
+		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
+	}
+	
+	$arr = get_object_vars($result[8]); //28
+	$data = get_object_vars($result[8]);  // STORE THE DATA
+	echo "This many line items " . count($data[line_items]) . "<br/>";
+	if( get_object_vars($data[line_items][8])  ) {
+		$line_item = get_object_vars($data[line_items][4]); // PRODUCT -> 2
+		echo "Name is " . $line_item["name"] . "<br/>";
+		echo "NOT EMPTY";
+	} else {
+		echo "Name is " . $line_item["name"] . "<br/>";
+		echo " EMPTY";
+	}
 	//echo $order[25]["billing_name"];
 	
 	// THIS PRINTS THINGS SO THEY ARE READABLE

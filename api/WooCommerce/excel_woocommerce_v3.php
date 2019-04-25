@@ -27,6 +27,65 @@ try
 			]
 	);
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////// CALC ESTIMATED SHIP DATE CODE  ////////////////////////////////////////////////////////////////
+
+									//////////////////////////////////////////////////////      HOLIDAYS       //////////////////////////////////////////////////
+    // GET THE HOLIDAYS
+	$query = "SELECT *, to_char(date, 'MM/dd/yyyy') as holiday_date FROM holiday_log WHERE active = TRUE ORDER BY date ASC";
+    //$params2[":repair_form_id"] = $_REQUEST['id'];
+    $stmt = pdo_query( $pdo, $query, null); 
+	$holidays = pdo_fetch_all( $stmt );  
+	$rows_in_result = pdo_rows_affected($stmt);
+													////////////////////////////////////////////////////////////////////////////////////////////////////////
+					//////////////////////////////////////     GET THE DAILY BUILD RATE INFORMATION     ///////////////////////////////////////////////
+	$query2 = "SELECT * FROM daily_build_rate ";
+    $stmt2 = pdo_query( $pdo, $query2, null); 
+	$daily_build_rate= pdo_fetch_all( $stmt2 );  
+
+	$daily_rate = $daily_build_rate[0]["daily_rate"];
+	$fudge = $daily_build_rate[0]["fudge"];
+	$shop_days = $daily_build_rate[0]["shop_days"];	 
+	
+	//$daily_rate = 5;
+	//$fudge = 1;
+	//$shop_days = 7;
+	$daily_rate = $daily_rate - $fudge;
+				//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+    
+									///////////////////////////////////////////////////////  FUNCTIONS START    /////////////////////////////////////////////////		 
+	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
+		$weekend = array('Sun', 'Sat');
+		$nextDay = clone $date;
+		$finalDay = clone $date;
+		$work_days = 0;
+		$days_to_final_date = 0;
+		while ($work_days < $shop_days)
+		{
+   	 		$nextDay->modify('+1 day'); // Add 1 day
+   	 		if($nextDay->format('D'))
+   	 		if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
+	   	 		$response["test"] = "HERE"; 
+	   	 		$days_to_final_date++;
+	   	 	} else {		   	 
+		   		$days_to_final_date++;
+		   		$work_days++;
+	   	 	}
+		}
+		$finalDay->modify('+' . $days_to_final_date .  ' day');
+		$ship_day = $finalDay->format('Y-m-d');
+		$imp_date = $date->format('Y-m-d');
+		
+		// IN THIS FILE WE HAVE TO MANUALLY SET THE ORDER STATUS ID EQUAL TO 1 WHICH IS THE START CART
+		$query = "UPDATE import_orders SET fake_imp_date = :imp_date, estimated_ship_date = :estimated_ship_date, order_status_id = 1 WHERE id = :id";
+		//$query = "UPDATE import_orders SET estimated_ship_date=:estimated_ship_date WHERE id = :id";
+		$stmt = pdo_query( $pdo, $query, array(":imp_date"=>$imp_date, "estimated_ship_date"=>$ship_day, ":id"=>$array["id"])); 	
+		//$stmt = pdo_query( $pdo, $query, array("estimated_ship_date"=>$ship_day, ":id"=>$array["id"])); 	
+		return $array["id"];
+		//return $finalDay;
+	}
+						///////////////////////////////////////////////////////  FUNCTIONS END    /////////////////////////////////////////////////
+						
 //print_r($woocommerce);
 // DATE -> 0 
 // ORDER ID -> 1
@@ -63,11 +122,24 @@ try
 // NUM EARPHONES PER ORDER -> 28  NEW -> 50
 
 // PELICAN CASE NAME -> 29
+$current_day = date("d");
+$current_month = date("m");
+$current_year = date("Y");
+$yesterday = $current_day - 1;
+
+
+$after  = $current_year . "-" . $current_month . "-" . $yesterday . "T00:00:00";
+$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
 
 	$params = [
+			'before' => '2019-04-15T00:00:00',
 			'after' => '2019-04-14T00:00:00',
-			'per_page' => 100
-			//'before' => '2019-03-16T23:59:59'
+			'per_page' => 100			
+        ];
+    $params = [
+			'before' => $before,
+			'after' => $after,
+			'per_page' => 100			
         ];
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
@@ -77,14 +149,20 @@ try
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
-  
+		$order[$ind]["num_earphones_per_order"] = 0;
+    for($k = 0; $k < count($data[line_items]); $k++) {
+	    //if( get_object_vars($data[line_items][$k])  ) {
+			//$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
+	       //$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+			//$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
+			//$coupon_lines = get_object_vars($data[coupon_lines][0]); 
 			$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
-	       $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
-			$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
-			//$coupon_lines = get_object_vars($data[coupon_lines][0]); 	
+			$is_earphone = get_object_vars($line_item[meta_data][$k]); // MODEL -> 4
+			$coupon_lines = get_object_vars($data[coupon_lines][$k]); 
+	
 			$model_name = $is_earphone["value"];
 			$full_product_name = $line_item["name"];
-			$price = $line_item["price"];
+			$price = $line_item["subtotal"];
 			$total = $data["total"];
 			$discount = $data["discount_total"];
 			$coupon = $coupon_lines["code"];
@@ -96,6 +174,8 @@ try
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 
 			
 			if(!strcmp($data["status"], "processing") ) {
+
+				$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
 				$order[$ind]["status"] = $data["status"];
 				$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
 				$order[$ind]["order_id"] = $data["id"]; // ORDER ID -> 1
@@ -106,23 +186,28 @@ try
 				$order[$ind]["discount"] = $discount;
 				$order[$ind]["coupon"] = $coupon;
 				
-				if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
+				/*if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 					$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
  				} else {
 	 				$order[$ind]["model"] = $model_name; // MODEL -> 4 	
- 				}
-				
+ 				}*/
+ 				
 				$order[$ind]["billing_name"] = $data[billing]->first_name . " " . $data[billing]->last_name;
 				$order[$ind]["shipping_name"] = $data[shipping]->first_name . " " . $data[shipping]->last_name;
-				
-				//echo '<p>Last Name is ' . $arr[billing]->last_name;
 						
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
-					if(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
+					if(!strcmp($line_item[meta_data][$j]->key, "Model") ) {
+						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
+						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
+							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
+ 						} else {
+ 							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
+ 						}
+					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
 						$order[$ind]["artwork"] = $line_item[meta_data][$j]->value;
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Color") ) {
+					} elseif(!strcmp(  substr($line_item[meta_data][$j]->key, 0, 5), "Color") ) {
 						$order[$ind]["color"] = $line_item[meta_data][$j]->value;
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Rush Process") ) {
+					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 15), "Rush Processing") ) {
 						$order[$ind]["rush_process"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Left Shell") ) {
 						$order[$ind]["left_shell"] = $line_item[meta_data][$j]->value;
@@ -134,7 +219,7 @@ try
 						$order[$ind]["right_faceplate"] = $line_item[meta_data][$j]->value;		
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Color") ) {
 						$order[$ind]["cable_color"] = $line_item[meta_data][$j]->value;
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Clear Canal") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Clear Canal Tips") ) {
 						$order[$ind]["clear_canal"] = $line_item[meta_data][$j]->value;
 						if(strcmp($line_item[meta_data][$j]->value, "Yes")) {
 						 	$left_tip = null;
@@ -142,7 +227,9 @@ try
 						} else {
 							$left_tip = "Clear";
 							$right_tip = "Clear";
-						}
+						};
+						$order[$ind]["left_tip"] = $left_tip;
+						$order[$ind]["right_tip"] = $right_tip;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Left Alclair Logo") ) {
 						$order[$ind]["left_alclair_logo"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Right Alclair Logo") ) {
@@ -155,10 +242,10 @@ try
 						$order[$ind]["link_to_design_image"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Open Order in Designer") ) {
 						$order[$ind]["open_order_in_designer"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Designed for") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Designed For") ) {
 						$order[$ind]["designed_for"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "My Impressions") ) {
-						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;	
+						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "64in. Cable") ) {
 						$order[$ind]["64in_cable"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Mic Cable") ) {
@@ -182,6 +269,7 @@ try
     						} else {
 							$notes = "";
     						}
+						$order[$ind]["notes"] = $notes;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Soft Case") ) {
 						$order[$ind]["soft_case"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Hearing Protection") ) {
@@ -216,7 +304,8 @@ try
 				$ind++;
 			} // CLOSES IF STATEMENT - STATUS
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
-    }
+	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
+    } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER
 	
 	// Create new Spreadsheet object
 	$spreadsheet = new Spreadsheet();
@@ -344,9 +433,152 @@ try
 			->setCellValue("AX".$row, $order[$k]["total"]);
 			
 			$row++;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
+			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
+			$entered_by = 1;
+			$stmt = pdo_query( $pdo, 
+					   "INSERT INTO import_orders (
+date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, left_tip, right_tip, pelican_case_name, notes)
+VALUES (
+:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :left_tip, :right_tip, :pelican_case_name, :notes) RETURNING id",
+array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>$order[$k]['product'], ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model'], ':artwork'=>$order[$k]['artwork'], ':color'=>$order[$k]['color'], ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>$order[$k]['cable_color'], ':clear_canal'=>$order[$k]['clear_canal'], ':left_alclair_logo'=>$order[$k]['left_alclair_logo'], ':right_alclair_logo'=>$order[$k]['right_alclair_logo'], ':left_custom_art'=>$order[$k]['left_custom_art'], ':right_custom_art'=>$order[$k]['right_custom_art'], ':link_to_design_image'=>$order[$k]['link_to_design_image'], ':open_order_in_designer'=>$order[$k]['open_order_in_designer'], 
+':designed_for' =>$order[$k]['designed_for'], 
+':my_impressions'=>$order[$k]['my_impressions'], 
+':billing_name'=>$order[$k]['billing_name'], 
+':shipping_name'=>$order[$k]['shipping_name'], 
+':price'=>$order[$k]['price'], 
+':coupon'=>$order[$k]['coupon'], 
+':discount'=>$order[$k]['discount'], 
+':total'=>$order[$k]['total'], 
+':entered_by'=>1, //$_SESSION['UserId',
+':active'=>TRUE,
+':order_status_id'=>99, 
+':num_earphones_per_order'=>$order[$k]['num_earphones_per_order'],
+':left_tip'=>$order[$k]['left_tip'],
+':right_tip'=>$order[$k]['right_tip'],
+':pelican_case_name'=>$order[$k]['pelican_case_name'],
+':notes'=>$order[$k]['notes']) //=>$order[28])
+);
+
+	$id_after_import = pdo_fetch_all( $stmt );
+	$id_of_order = $id_after_import[0]["id"];
+
+	$stmt = pdo_query($pdo, "SELECT * FROM monitors WHERE name = :monitor_name", array('monitor_name'=>$order[$k]['model']));
+	$result = pdo_fetch_all( $stmt );
+
+	$qc_form = array();
+	$qc_form['customer_name'] = $order[$k]['designed_for'];  // DESIGNED FOR
+	$qc_form['order_id'] = $order[$k]['order_id'];  // ORDER ID
+	$qc_form['monitor_id'] = $result[0]["id"];
+	$qc_form['build_type_id'] = 1; // New Build
+					
+	$qc_form['notes'] = "Entry from import " . $k;
+	$qc_form['notes'] = "";
+
+	$stmt = pdo_query( $pdo, 
+					   "INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
+					   	 VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
+array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], ':build_type_id'=>$qc_form['build_type_id'], ':notes'=>$qc_form['notes'], ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order)
+);		
+
+	$id_of_qc_form = pdo_fetch_all( $stmt );
+
+	$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
+
+	// LOOK INSIDE BATCHES FOR PAID ORDERS WITH IMPRESSIONS
+	// GREATER THAN BATCH TYPE ID 1 IS ALL BATCHES THAT ARE NOT FROM TRADE SHOWS
+	$query_batches = "SELECT * FROM batches AS t1 
+					  LEFT JOIN batch_item_log AS t2 ON t1.id = t2.batch_id
+					  WHERE t1.received_date IS NULL AND t1.batch_type_id > 1 AND t1.active = TRUE AND t2.active = TRUE AND t2.paid = TRUE";
+	$stmt_batches = pdo_query( $pdo, $query_batches, null);
+	$result_batches = pdo_fetch_all( $stmt_batches );
+	$row_count_batches = pdo_rows_affected( $stmt_batches );
+	
+	for ($j=0; $j < $row_count_batches; $j++) {
+		//$batch_order_num = preg_replace("/[^a-zA-Z]/", "", $result_batches[$j]["order_number"]);
+		//$woo_order_num = preg_replace("/[^a-zA-Z]/", "", $order[1]);
+		$batch_order_num = preg_replace("/[^0-9]/", "",  $result_batches[$j]["order_number"] );
+		$woo_order_num = preg_replace("/[^0-9]/", "",  $order[$k]['order_id'] );
+				
+		//if(!strcmp($order[1], $clear) {
+		// MOVE TO START CART	
+	if(!strcmp($woo_order_num, $batch_order_num)) {	
+
+						//////////////////////////////////////////////   GET ORDERS IN START CART    ////////////////////////////////////////////////////////////   
+	$weekend = array('Sun', 'Sat');
+	
+	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
+	$stmt3 = pdo_query( $pdo, $query3, array(":daily_rate"=>$daily_rate)); 
+	$find_last_fake_imp_date= pdo_fetch_all( $stmt3 ); 
+	$count = pdo_rows_affected($stmt3);
+		
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// IF ABOVE QUERY RETURNS ZERO MEANS EVERY ORDER IN START CART IS NULL - THE CODE HAS BEEN NEVER RUN BEFORE   
+	// IF THIS ALGORITHM HAS NEVER BEEN RUN BEFORE - THE SYSTEM AUTO-POPULATES ALL OF THE ORDERS IN THE START CART	 
+	// START WITH THE IF STATEMENT
+	// PULLS ALL OF START CART WHICH IS NULL FOR FAKE IMPRESSION DATE
+	if($count == 0) {
+		$num = 1;
+		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
+		$stmt3 = pdo_query( $pdo, $query3, null); 
+		$populate_new= pdo_fetch_all( $stmt3 ); 
+		$count = pdo_rows_affected($stmt3);
+		$date = new DateTime(); // TODAY'S DATE
+		$date->modify('+1 day'); // NEEDS TO START WITH TOMORROW
+		while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+			$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
+		}
+		
+		for ($i = 0; $i < $count; $i++) {
+			if($num > $daily_rate) {
+				$date->modify('+1 day'); 
+				while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+					$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
+				}
+				$num = 1;
+			}
+
+			$response["test"] = calc_estimate_ship_date($populate_new[$i], $date, $holidays, $shop_days, $pdo);
+			$num++;
+		}
+	} else{ // START HAS NO NULL ORDERS IN START CART - THIS CODE HAS RUN BEFORE
+		$query4 = "SELECT * FROM import_orders WHERE active = TRUE AND id = :id";
+		$stmt4 = pdo_query( $pdo, $query4, array("id"=>$id_of_order)); 
+		$order_batch= pdo_fetch_all( $stmt4 ); 
+		
+		if($count == $daily_rate && ($find_last_fake_imp_date[0]["fake_imp_date"] == $find_last_fake_imp_date[$daily_rate-1]["fake_imp_date"]) ) {
+			$date = new DateTime($find_last_fake_imp_date[0]["fake_imp_date"]); 
+			$date->modify('+1 day');
+			while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+				$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
+			}
+		} else {
+			$date = new DateTime($find_last_fake_imp_date[0]["fake_imp_date"]); 
+		}
+		$response["test"] = $order[0]["id"];
+		//$response["test"] = "fasdfasdfadsf";
+		//echo json_encode($response);
+		//exit;
+		$response["test"] = calc_estimate_ship_date($order_batch[0], $date, $holidays, $shop_days, $pdo);
+	}
+/////////////////////////////////////////////////////// END CALC ESTIMATED SHIP DATE ////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	} // CLOSE THE IF STATEMENT THAT RUNS THE START CART CODE
+	
+} // CLOSE FOR LOOP THAT CYCLES THROUGH BATCHES
+
+////////////////////////////////////////////////    ENDS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 		} // CLOSE FOR LOOP FOR EACH ORDER
 			
-			$filename = "Testing-Import2-".date("m-d-Y").".xlsx";
+			$filename = "Testing-Import2 -".date("m-d-Y").".xlsx";
 			//new code:
 			$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 			//$writer->save("../../data/export/woocommerce/$filename");

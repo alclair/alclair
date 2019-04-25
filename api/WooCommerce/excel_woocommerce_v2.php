@@ -65,9 +65,9 @@ try
 // PELICAN CASE NAME -> 29
 
 	$params = [
+			'before' => '2019-04-15T00:00:00',
 			'after' => '2019-04-14T00:00:00',
-			'per_page' => 100
-			//'before' => '2019-03-16T23:59:59'
+			'per_page' => 100			
         ];
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
@@ -77,14 +77,20 @@ try
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
-  
+		
+    for($k = 0; $k < count($data[line_items]); $k++) {
+	    //if( get_object_vars($data[line_items][$k])  ) {
+			//$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
+	       //$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+			//$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
+			//$coupon_lines = get_object_vars($data[coupon_lines][0]); 
 			$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
-	       $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
-			$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
-			//$coupon_lines = get_object_vars($data[coupon_lines][0]); 	
+			$is_earphone = get_object_vars($line_item[meta_data][$k]); // MODEL -> 4
+			$coupon_lines = get_object_vars($data[coupon_lines][$k]); 
+	
 			$model_name = $is_earphone["value"];
 			$full_product_name = $line_item["name"];
-			$price = $line_item["price"];
+			$price = $line_item["subtotal"];
 			$total = $data["total"];
 			$discount = $data["discount_total"];
 			$coupon = $coupon_lines["code"];
@@ -96,6 +102,8 @@ try
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 
 			
 			if(!strcmp($data["status"], "processing") ) {
+				
+				
 				$order[$ind]["status"] = $data["status"];
 				$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
 				$order[$ind]["order_id"] = $data["id"]; // ORDER ID -> 1
@@ -114,8 +122,6 @@ try
 				
 				$order[$ind]["billing_name"] = $data[billing]->first_name . " " . $data[billing]->last_name;
 				$order[$ind]["shipping_name"] = $data[shipping]->first_name . " " . $data[shipping]->last_name;
-				
-				//echo '<p>Last Name is ' . $arr[billing]->last_name;
 						
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
 					if(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
@@ -155,7 +161,7 @@ try
 						$order[$ind]["link_to_design_image"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Open Order in Designer") ) {
 						$order[$ind]["open_order_in_designer"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Designed for") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Designed For") ) {
 						$order[$ind]["designed_for"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "My Impressions") ) {
 						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;	
@@ -216,7 +222,8 @@ try
 				$ind++;
 			} // CLOSES IF STATEMENT - STATUS
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
-    }
+	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
+    } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER
 	
 	// Create new Spreadsheet object
 	$spreadsheet = new Spreadsheet();

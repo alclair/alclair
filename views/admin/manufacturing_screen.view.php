@@ -23,6 +23,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:red" align=center> {{Shipped_Last_Year_This_Month}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_year}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_This_Year}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{last_month}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_Last_Month}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_month}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_This_Month}} </h1><br/>
 		 

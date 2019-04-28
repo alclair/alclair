@@ -3752,10 +3752,12 @@ swdApp.controller('Repairs_Done_By_Date', ['$http', '$scope', 'AppDataService', 
 				$scope.Shipped_Last_Year_This_Month = result.Shipped_Last_Year_This_Month;
 				$scope.Shipped_This_Year = result.Shipped_This_Year;
 				$scope.Shipped_This_Month = result.Shipped_This_Year_This_Month;
+				$scope.Shipped_Last_Month = result.Shipped_This_Year_Last_Month;
 				
 				$scope.this_year = result.this_year;
 				$scope.last_year = result.last_year;
 				$scope.this_month =  result.this_month.toUpperCase();
+				$scope.last_month =  result.last_month.toUpperCase();
                 
                 //$scope.QC_Form = result.customer_name;
                 $scope.TotalPages = result.TotalPages;

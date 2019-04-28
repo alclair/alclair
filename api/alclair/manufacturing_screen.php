@@ -65,10 +65,6 @@ try
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
 
-    
-    
-
-    
     $current_year = date("Y");
     $current_month = date("m");
     $last_year = $current_year - 1;
@@ -113,8 +109,8 @@ try
     $response['Shipped_This_Year'] = $result2[0];
 	 
 	 // SHIPPED THIS YEAR THIS MONTH
-    $beginning_of_month_current_year = $current_month . '/01/' . $current_year;
-    $end_of_month_current_year = $current_month . '/31/' . $current_year;
+    //$beginning_of_month_current_year = $current_month . '/01/' . $current_year;
+    //$end_of_month_current_year = $current_month . '/31/' . $current_year;
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
@@ -123,7 +119,20 @@ try
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
     $response['Shipped_This_Year_This_Month'] = $result2[0];
+    
+    
+    // SHIPPED THIS YEAR LAST MONTH
+    $last_month = date('m', strtotime('last month'));
+    //$beginning_of_month_current_year = $last_month . '/01/' . $current_year;
+    //$end_of_month_current_year = $last_month . '/31/' . $current_year;
+    $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
+    					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year'";
 
+    $stmt2 = pdo_query( $pdo, $query2, null); 
+    $result2 = pdo_fetch_array( $stmt2 );
+    $response['Shipped_This_Year_Last_Month'] = $result2[0];
 
     $response["test"] = $current_year;
 	$response["test"] = $response['Shipped_This_Year_This_Month'];
@@ -131,6 +140,9 @@ try
 	$response["this_year"] = $current_year;
 	$response["last_year"] = $last_year;
 	$current_month_fullname = date("F");
+	$last_month_fullname = date('F', strtotime('last month'));
+	
+	$response["last_month"] = $last_month_fullname;
 	$response["this_month"] = $current_month_fullname;
     
     $response['code'] = 'success';

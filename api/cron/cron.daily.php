@@ -16,7 +16,7 @@ $RootPath="/var/www/html/otisdev/";
 // COMMENTED OUT STARTING AT LINE 17 AND ENDING AT LINE 49
 
 //$url=$rootScope["RootUrl"]."/api/export/emailDailyAlclair.php"; 
-$url=$rootScope["RootUrl"]."/api/WooCommerce/woocommerce_import.php"; 
+$url=$rootScope["RootUrl"]."/api/WooCommerce/02_woocommerce_import.php"; 
 //$url=$RootUrl."/api/export/emailDailyAlclair.php"; 
 
 

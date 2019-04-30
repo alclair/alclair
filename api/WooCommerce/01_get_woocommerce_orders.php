@@ -130,7 +130,8 @@ $yesterday = $current_day - 1;
 
 
 $after  = $current_year . "-" . $current_month . "-" . $yesterday . "T00:00:00";
-$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
+//$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
+$before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
 
 	$params = [
 			'before' => '2019-04-15T00:00:00',

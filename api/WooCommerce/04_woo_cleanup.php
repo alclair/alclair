@@ -27,11 +27,11 @@ try
 			]
 	);
 					
-$start = strtotime('2019-03-31');
+$start = strtotime('2019-04-26');
 $startmoyr = date('Y', $start) . date('m', $start);
 $startdayyr = date('Y', $start) . date('d', $start);
 $startdayyr = date('Y', $start) . date('m', $start) . date('d', $start);
-$end = strtotime('2019-04-26');
+$end = strtotime('2019-04-29');
 $endmoyr = date('Y', $end) . date('m', $end);
 $enddayyr = date('Y', $end) . date('d', $end);
 $enddayyr = date('Y', $end) . date('m', $end) . date('d', $end);
@@ -55,13 +55,13 @@ while ($startdayyr <= $enddayyr) {
 
 	//$before = '2019-04-25T23:59:59';
 	//$after = '2019-04-22T00:00:00';
-	
+	/*
 	$params = [
 		'before' => '2019-04-25T23:59:59',
 		'after' => '2019-04-22T00:00:00',
 		'per_page' => 100			
 	];
-    
+    */
     $params = [
 		'before' => $before,
 		'after' => $after,
@@ -69,9 +69,7 @@ while ($startdayyr <= $enddayyr) {
     ];
     
     $result = $woocommerce->get('orders', $params);
-      
-
-  
+       
 for($i = 0; $i < count($result); $i++) {
     	//echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
@@ -83,11 +81,12 @@ for($i = 0; $i < count($result); $i++) {
 		//if(is_string($model) == 1 && (stristr($full_product_name, "Driver") !== false ) || stristr($full_product_name, "POS") !== false ))) { 
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 
 			
-			if(!strcmp($data["status"], "processing") ) {
+			if(!strcmp($data["status"], "processing") || !strcmp($data["status"], "completed") ) {
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
 					if(!strcmp(  substr($line_item[meta_data][$j]->key, 0, 5), "Color") ) {
 						//$order[$ind]["filename"] = $line_item[meta_data][$j]->value;
-					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 15), "Left Custom Art") ) {
+					} 
+					elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 15), "Left Custom Art") ) {
 						$order[$ind]["fullpath"] = $line_item[meta_data][$j]->value;	
 						$order[$ind]["filename"] = basename($line_item[meta_data][$j]->value);
 						$order[$ind]["side"] = "Left";	
@@ -99,7 +98,16 @@ for($i = 0; $i < count($result); $i++) {
 						$order[$ind]["side"] = "Right";	
 						$order[$ind]["order_id"] = $data["id"];
 						$ind++;
+						
+					} /*
+						elseif(!strcmp( $line_item[meta_data][$j]->key, "Link to Design Image") ) {
+						$order[$ind]["fullpath"] = $line_item[meta_data][$j]->value;	
+						$basename = basename($line_item[meta_data][$j]->value);
+						$order[$ind]["filename"]  = substr($basename, 3, 18);
+						$order[$ind]["order_id"] = $data["id"];
+						$ind++;
 					} 
+					*/
 				} // CLOSES FOR LOOP - METADATA
 				//$ind++;
 			} // CLOSES IF STATEMENT - STATUS
@@ -114,8 +122,13 @@ for($i = 0; $i < count($result); $i++) {
 
 		//echo "I is " . $i . " K is " . $k . " and J is " . $j . "<br/>";
 		for($k = 0; $k < count($order); $k++) {
-			//copy('/var/www/html/otisdev/FOLDER_1/' . $order[$k]["filename"], '/var/www/html/otisdev/FOLDER_2/' . $order[$k]["filename"]);
-			echo $order[$k]["filename"] . " Side is " . $order[$k]["side"] . " Order is " . $order[$k]["order_id"]  . " and ind is " . $k . "<br/>";
+			copy('/var/www/html/otis/artworkscan/custom/' . $order[$k]["filename"], '/var/www/html/otis/artworkscan/custom_tf/' . $order[$k]["filename"]);
+			//copy('/var/www/html/otis/artworkscan/saved/' . $order[$k]["filename"] . '.png', '/var/www/html/otis/artworkscan/saved_tf/' . $order[$k]["filename"] . '.png');
+			//echo $order[$k]["filename"] .'.png' . " Order is " . $order[$k]["order_id"]  . " and ind is " . $k . "<br/>";
+			/*if($k == 0) {
+				break;
+			}*/
+			//exit;
 		} // CLOSE FOR LOOP FOR EACH ORDER
 		echo "Order count is " . count($order) . "<br>";
 			$response['code'] = 'success';

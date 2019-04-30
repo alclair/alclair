@@ -13,6 +13,7 @@ use Automattic\WooCommerce\HttpClient\HttpClientException;
 //require_once 'vendor/autoload.php';
 //require __DIR__ . '/vendor/autoload.php';
 require '/var/www/html/otisdev/vendor/autoload.php';
+require '/var/www/html/otis/vendor/autoload.php';
 //require $rootScope["RootPath"]."vendor/autoload.php";
 
 try 
@@ -41,9 +42,10 @@ try
 				$mail3->AddReplyTo("tyler@alclair.com", "The Admin");
    
 				$mail3->AddAddress("tyler@alclair.com");
+				$mail3->AddAddress("scott@alclair.com");
 
 				$mail3->Subject    = "Orders Imported";
-				$body3="<p>Here are the orders that were imported today.</p>";
+				$body3="<p>Here are the orders that were imported today from yesterday.</p>";
 				$mail3->MsgHTML($body3);
 
 				$mail3->AddAttachment($file_lng, "Import File - ".date("m-d-Y").".xlsx");

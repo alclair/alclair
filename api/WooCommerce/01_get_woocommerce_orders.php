@@ -8,8 +8,9 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Automattic\WooCommerce\Client;
 use Automattic\WooCommerce\HttpClient\HttpClientException;
 
-require '/var/www/html/otisdev/vendor/autoload.php';
-require '/var/www/html/otis/vendor/autoload.php';
+//require '/var/www/html/otisdev/vendor/autoload.php';
+require $rootScope["RootPath"] . '/vendor/autoload.php';
+//require '/var/www/html/otis/vendor/autoload.php';
 //require $rootScope["RootPath"]."vendor/autoload.php";
 
 $response = array();
@@ -133,11 +134,6 @@ $after  = $current_year . "-" . $current_month . "-" . $yesterday . "T00:00:00";
 //$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
 $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
 
-	$params = [
-			'before' => '2019-04-15T00:00:00',
-			'after' => '2019-04-14T00:00:00',
-			'per_page' => 100			
-        ];
     $params = [
 			'before' => $before,
 			'after' => $after,
@@ -151,8 +147,10 @@ $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
-		$order[$ind]["num_earphones_per_order"] = 0;
+		
     for($k = 0; $k < count($data[line_items]); $k++) {
+	    echo "Count is " . count($order) . "<br>";
+	    	
 	    //if( get_object_vars($data[line_items][$k])  ) {
 			//$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
 	       //$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
@@ -175,8 +173,8 @@ $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
 		//if(is_string($model) == 1 && (stristr($full_product_name, "Driver") !== false ) || stristr($full_product_name, "POS") !== false ))) { 
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 
 			
-			if(!strcmp($data["status"], "processing") ) {
-
+			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
+				$order[$ind]["num_earphones_per_order"] = 0;
 				$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
 				$order[$ind]["status"] = $data["status"];
 				$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
@@ -187,7 +185,7 @@ $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
 				$order[$ind]["total"] = $total;
 				$order[$ind]["discount"] = $discount;
 				$order[$ind]["coupon"] = $coupon;
-				
+										
 				/*if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 					$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
  				} else {
@@ -196,7 +194,7 @@ $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
  				
 				$order[$ind]["billing_name"] = $data[billing]->first_name . " " . $data[billing]->last_name;
 				$order[$ind]["shipping_name"] = $data[shipping]->first_name . " " . $data[shipping]->last_name;
-						
+				
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
 					if(!strcmp($line_item[meta_data][$j]->key, "Model") ) {
 						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
@@ -308,7 +306,7 @@ $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
 	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
     } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER
-	
+
 	// Create new Spreadsheet object
 	$spreadsheet = new Spreadsheet();
 	//$objPHPExcel = new PHPExcel();
@@ -582,13 +580,14 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 			
 			$filename = "Testing-Import2 -".date("m-d-Y").".xlsx";
 			//new code:
-			$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+			//$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 			//$writer->save("../../data/export/woocommerce/$filename");
-			$writer->save("/var/www/html/otis/data/export/woocommerce/$filename");
+			//$writer->save("/var/www/html/otis/data/export/woocommerce/$filename");
 			
 			$writer_dev = IOFactory::createWriter($spreadsheet, 'Xlsx');
-			$writer_dev->save("/var/www/html/otisdev/data/export/woocommerce/$filename");
-			
+			//$writer_dev->save("/var/www/html/otisdev/data/export/woocommerce/$filename");
+			$writer_dev->save($rootScope["RootPath"]."/data/export/woocommerce/$filename");
+
 			$response['code'] = 'success';
 			$response['data'] = $filename;
 			echo json_encode($response);

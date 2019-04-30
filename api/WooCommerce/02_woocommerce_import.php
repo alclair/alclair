@@ -12,7 +12,7 @@ use Automattic\WooCommerce\HttpClient\HttpClientException;
  
 //require_once 'vendor/autoload.php';
 //require __DIR__ . '/vendor/autoload.php';
-require '/var/www/html/otisdev/vendor/autoload.php';
+//require '/var/www/html/otisdev/vendor/autoload.php';
 require '/var/www/html/otis/vendor/autoload.php';
 //require $rootScope["RootPath"]."vendor/autoload.php";
 

@@ -25,8 +25,8 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'before' => '2019-01-03T23:59:59',
-			'after' => '2019-01-03T00:00:00',
+			'before' => '2019-04-29T23:59:59',
+			'after' => '2019-04-29T00:00:00',
 			'per_page' => 100			
 			//'created_at_min' => '2014-01-01',
 			//'created_at_max' => '2014-01-31'
@@ -44,7 +44,7 @@ $params = [
 		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 	}
 	
-	$order_index = 9;
+	$order_index = 12;
 	$arr = get_object_vars($result[$order_index]); //28
 	$data = get_object_vars($result[$order_index]);  // STORE THE DATA
 	echo "This many line items " . count($data[line_items]) . "<br/>";

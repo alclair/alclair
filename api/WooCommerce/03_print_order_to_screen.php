@@ -25,8 +25,8 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'before' => '2019-04-23T00:00:00',
-			'after' => '2019-04-21T00:00:00',
+			'before' => '2019-01-03T23:59:59',
+			'after' => '2019-01-03T00:00:00',
 			'per_page' => 100			
 			//'created_at_min' => '2014-01-01',
 			//'created_at_max' => '2014-01-31'
@@ -44,11 +44,12 @@ $params = [
 		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 	}
 	
-	$arr = get_object_vars($result[0]); //28
-	$data = get_object_vars($result[8]);  // STORE THE DATA
+	$order_index = 9;
+	$arr = get_object_vars($result[$order_index]); //28
+	$data = get_object_vars($result[$order_index]);  // STORE THE DATA
 	echo "This many line items " . count($data[line_items]) . "<br/>";
-	if( get_object_vars($data[line_items][8])  ) {
-		$line_item = get_object_vars($data[line_items][4]); // PRODUCT -> 2
+	if( get_object_vars($data[line_items][$order_index])  ) {
+		$line_item = get_object_vars($data[line_items][$order_index]); // PRODUCT -> 2
 		echo "Name is " . $line_item["name"] . "<br/>";
 		echo "NOT EMPTY";
 	} else {

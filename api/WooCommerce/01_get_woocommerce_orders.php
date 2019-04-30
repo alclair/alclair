@@ -9,6 +9,7 @@ use Automattic\WooCommerce\Client;
 use Automattic\WooCommerce\HttpClient\HttpClientException;
 
 require '/var/www/html/otisdev/vendor/autoload.php';
+require '/var/www/html/otis/vendor/autoload.php';
 //require $rootScope["RootPath"]."vendor/autoload.php";
 
 $response = array();
@@ -582,7 +583,10 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 			//new code:
 			$writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 			//$writer->save("../../data/export/woocommerce/$filename");
-			$writer->save("/var/www/html/otisdev/data/export/woocommerce/$filename");
+			$writer->save("/var/www/html/otis/data/export/woocommerce/$filename");
+			
+			$writer_dev = IOFactory::createWriter($spreadsheet, 'Xlsx');
+			$writer_dev->save("/var/www/html/otisdev/data/export/woocommerce/$filename");
 			
 			$response['code'] = 'success';
 			$response['data'] = $filename;

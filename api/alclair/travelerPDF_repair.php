@@ -36,17 +36,19 @@ try
         $result = pdo_fetch_all( $stmt );	     
         
        
- //////////////////////////////////////////////////////////////// 2 DIFFERENT WAYS OF BARCODES (1 IS BARCODE AND OTHER IS QR CODE ////////////////////////////////////////////////////////////////
+ //////////////////////////////////////////////////// 2 DIFFERENT WAYS OF BARCODES (1 IS BARCODE AND OTHER IS QR CODE ///////////////////////////////////////////////////
 $barcode = "TESTING7";
 if(strcmp($result[0]['model'], 'Reference')) {
 	//$barcode = $_GET['ID'] . " - " . $result[0]['model'];
-	$barcode = $_GET['ID'];
+	$barcode = "R" . $_GET['ID'];
 } else {
 	//$barcode = $_GET['ID'] . " - Ref";
-	$barcode = $_GET['ID'];
+	$barcode = "R" . $_GET['ID'];
 }
 //$barcode = urldecode( "TESTING" );
-$bc = new Barcode39( "R" . $barcode);
+
+//$bc = new Barcode39( "R" . $barcode);
+$bc = new Barcode39( $barcode);
 $file_path = $rootScope["RootPath"]."data/export/";
 $response["test1"] = $file_path;
 //echo json_encode($response);

@@ -1242,6 +1242,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         $http.get(api_url).success(function (result) {
             $.unblockUI();
             console.log(result.data);
+            console.log("TESTING IS " + result.test)
 
             window.open(window.cfg.rootUrl + "/data/exportpdf/" + result.data);
         }).error(function () {

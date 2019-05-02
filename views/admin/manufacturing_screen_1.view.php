@@ -7,7 +7,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 <!-- PAGE REFRESH EVERY 5 MINUTES -->
 <meta http-equiv="refresh" content="600" >
 
-<div ng-controller="Manufacturing_Screen">
+<div ng-controller="Manufacturing_Screen_1">
 
         
 	<?php

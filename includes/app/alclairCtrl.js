@@ -3694,7 +3694,7 @@ swdApp.controller('Repairs_Done_By_Date', ['$http', '$scope', 'AppDataService', 
     $scope.init();
 	}]);
 	
-	swdApp.controller('Manufacturing_Screen', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
+	swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
 	$scope.OrdersList = {};
     		
 		
@@ -3766,6 +3766,125 @@ swdApp.controller('Repairs_Done_By_Date', ['$http', '$scope', 'AppDataService', 
                 $scope.TotalRecords = result.TotalRecords;
                 $scope.Printed = result.Printed;
                 //console.log("Pass or Fail is " + result.testing1)
+                
+                //setTimeout(function(){
+				  //	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_2";
+				  //}, 2000); 
+
+                $scope.PageRange = [];
+                $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
+                $scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
+                if ($scope.PageWindowEnd > $scope.TotalPages) {
+                    $scope.PageWindowEnd = $scope.TotalPages;
+                }
+                for (var i = $scope.PageWindowStart; i <= $scope.PageWindowEnd; i++) {
+                    $scope.PageRange.push(i);
+                }
+
+                $.unblockUI();
+            }).error(function (result) {
+                toastr.error("Get QC Form error.");
+            });
+    };    
+    
+    $scope.OpenWindow=function(filepath)
+	{
+		window.open(window.cfg.rootUrl+'/data/'+filepath,'Invoice #'+$scope.customer_name,'width=760,height=600,menu=0,scrollbars=1');
+	}
+       
+    $scope.init = function () {
+        $scope.LoadData();
+    }
+    			        
+    $scope.openDone = function ($event) {        
+        $scope.openedDone = true;
+    };
+
+    $scope.LoadSelectDateModal=function(id) {
+        $('#SelectDateModal').modal("show");   
+        $scope.id_to_make_done = id;
+      
+    }
+            
+    $scope.init();
+}]);
+
+swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
+	$scope.OrdersList = {};
+    		
+		
+    if (window.cfg.Id > 0)
+        $scope.PageIndex = window.cfg.Id;
+	$scope.openStart = function ($event) {        
+        $scope.openedStart = true;
+    };
+	$scope.openEnd = function ($event) {        
+        $scope.openedEnd = true;
+    };
+	$scope.dateOptions = {
+        formatYear: 'yy',
+        startingDay: 1
+    };
+    $scope.disabled = function (date, mode) {
+        return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+    };
+
+    $scope.formats = ['MM/dd/yyyy'];
+    $scope.format = $scope.formats[0];
+    $scope.ClearSearch=function()
+    {
+        $scope.SearchText = "";
+        $scope.cust_name = "";
+		$scope.qc_form = {
+	        cust_name: "",
+    		};
+        $scope.PageIndex = 1;
+        $scope.LoadData();
+        $cookies.put("SearchText", "");
+    }
+    $scope.LoadData = function () {
+        myblockui();
+        //$cookies.put("SearchText", $scope.SearchText);
+        //$cookies.put("SearchText", $scope.cust_name);
+        
+		//$cookies.put("SearchStartDate",$scope.SearchStartDate);
+		//$cookies.put("SearchEndDate",$scope.SearchEndDate);
+		
+		if($scope.use_impression_date != 1) {
+			$scope.use_impression_date = 0;
+		} else {
+			console.log("DEFINED Impression checked " + $scope.use_impression_date)	
+			$scope.use_impression_date = 1;
+		}
+		
+        var api_url = window.cfg.apiUrl + "alclair/manufacturing_screen.php";
+        //alert(api_url);
+        $http.get(api_url)
+            .success(function (result) {
+	            console.log("Test is " + result.test)
+	            
+              $scope.OrdersList = result.data;
+              $scope.Shipped_Last_Year = result.Shipped_Last_Year;
+				$scope.Shipped_Last_Year_This_Month = result.Shipped_Last_Year_This_Month;
+				$scope.Shipped_This_Year = result.Shipped_This_Year;
+				$scope.Shipped_This_Month = result.Shipped_This_Year_This_Month;
+				$scope.Shipped_Last_Month = result.Shipped_This_Year_Last_Month;
+				
+				$scope.this_year = result.this_year;
+				$scope.last_year = result.last_year;
+				$scope.this_month =  result.this_month.toUpperCase();
+				$scope.last_month =  result.last_month.toUpperCase();
+                
+                //$scope.QC_Form = result.customer_name;
+                $scope.TotalPages = result.TotalPages;
+                //console.log("Num of pages " + result.TotalPages)
+                $scope.TotalRecords = result.TotalRecords;
+                $scope.Printed = result.Printed;
+                //console.log("Pass or Fail is " + result.testing1)
+                
+                setTimeout(function(){
+				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
+				  }, 2000); 
 
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;

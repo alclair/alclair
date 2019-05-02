@@ -127,18 +127,32 @@ try
 $current_day = date("d");
 $current_month = date("m");
 $current_year = date("Y");
-$yesterday = $current_day - 1;
+//$yesterday = $current_day - 1;
 
+$yesterday = date("m - d - Y", strtotime( '-1 days' ) );
+$yesterday_day = date("d", strtotime( '-1 days' ) );
+$yesterday_month = date("m", strtotime( '-1 days' ) );
+$yesterday_year = date("Y", strtotime( '-1 days' ) );
 
-$after  = $current_year . "-" . $current_month . "-" . $yesterday . "T00:00:00";
+$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
 //$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
-$before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
+$before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
+
+//echo "After is " . $after . " and Before is " . $before . " And stuff " . $month;
+//exit;
 
     $params = [
 			'before' => $before,
 			'after' => $after,
+			'per_page' => 100,			
+        ];
+/*
+$params = [
+			'before' => '2019-05-01T23:59:59',
+			'after' => '2019-05-01T00:00:00',
 			'per_page' => 100			
         ];
+        */
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
@@ -149,7 +163,7 @@ $before = $current_year . "-" . $current_month . "-" . $yesterday . "T23:59:59";
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
 		
     for($k = 0; $k < count($data[line_items]); $k++) {
-	    echo "Count is " . count($order) . "<br>";
+	    //echo "Count is " . count($order) . "<br>";
 	    	
 	    //if( get_object_vars($data[line_items][$k])  ) {
 			//$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2

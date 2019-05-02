@@ -121,16 +121,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			</thead>	
 			<tbody>
 				<tr ng-repeat='order in OrdersList'>
-								
+	<!--							
 					<td  ng-if="(order.designed_for==null || order.designed_for==' ') && order.billing_name==order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.billing_name}}</a></td>
 					<td  ng-if="(order.designed_for==null || order.designed_for==' ') && order.billing_name!=order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">Billing -{{order.billing_name}} / Shipping-{{order.shipping_name}}</a></td>
 					<td  ng-if="order.designed_for!=null " style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.designed_for}} </a></td>
+-->
 
-<!--
 					<td  ng-if="(order.designed_for=='' ) && order.billing_name==order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.billing_name}}</a></td>
 					<td  ng-if="(order.designed_for=='') && order.billing_name!=order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">Billing -{{order.billing_name}} / Shipping-{{order.shipping_name}}</a></td>
 					<td  ng-if="order.designed_for!=''" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.designed_for}} </a></td>
--->
+
 					
 					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
 					

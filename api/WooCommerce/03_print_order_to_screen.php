@@ -25,8 +25,8 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'before' => '2019-05-01T23:59:59',
-			'after' => '2019-05-01T00:00:00',
+			'before' => '2019-04-01T23:59:59',
+			'after' => '2019-04-01T00:00:00',
 			'per_page' => 100			
 			//'created_at_min' => '2014-01-01',
 			//'created_at_max' => '2014-01-31'

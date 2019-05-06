@@ -20,7 +20,7 @@ try
 {
    
 	//$url=$rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
-	$url=$rootScope["RootUrl"]."/api/WooCommerce/01_get_woocommerce_orders.php";
+	$url=$rootScope["RootUrl"]."/api/WooCommerce/01_backup.php";
 	//echo $rootScope["RootUrl"]."/api/WooCommerce/excel_woocommerce.php";
 			
 	$json=file_get_contents($url);

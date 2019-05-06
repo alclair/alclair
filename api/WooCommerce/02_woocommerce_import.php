@@ -19,7 +19,7 @@ use Automattic\WooCommerce\HttpClient\HttpClientException;
 try 
 {
    
-	$url=$rootScope["RootUrl"]."/api/WooCommerce/01_backup.php";
+	$url=$rootScope["RootUrl"]."/api/WooCommerce/01_get_woocommerce_orders.php";
 			
 	$json=file_get_contents($url);
 	$list=json_decode($json,true);

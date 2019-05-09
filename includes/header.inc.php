@@ -115,7 +115,16 @@
 				
 				<?php if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair"  ) { ?>	
 					<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/dashboard" class="nav-link "> Dashboard</a></li>
-					<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/turn_around_time" class="nav-link "> TAT</a></li>
+					
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TAT <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/turn_around_time" class="nav-link  ">Orders </a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/turn_around_time_repairs" class="nav-link  ">Repairs </a></li>
+						</ul>
+					</li>
+					
+					
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quality Control <span class="caret"></span></a>
 						<ul class="dropdown-menu">

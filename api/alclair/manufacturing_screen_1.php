@@ -43,7 +43,6 @@ try
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
     
-    
     //UNION ALL
     $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as date, t2.status_of_repair AS status
                   FROM repair_form AS t1
@@ -119,7 +118,6 @@ try
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
     $response['Shipped_This_Year_This_Month'] = $result2[0];
-    
     
     // SHIPPED THIS YEAR LAST MONTH
     $last_month = date('m', strtotime('last month'));

@@ -700,7 +700,7 @@ Pickup
                                     <a href="<?=$rootScope['RootUrl']?>/admin/repairs_manufacturing" class="nav-link "><i class="fa fa-align-left"></i> &nbsp Repairs From Manufacturing </a>
                                 </li>
                                 <li class=" ">
-                                    <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_1" class="nav-link "><i class="fa fa-line-chart"></i> &nbsp Manufacturing Screen </a>
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_2" class="nav-link "><i class="fa fa-line-chart"></i> &nbsp Manufacturing Screen </a>
                                 </li>
 							</ul>
 						</li> 

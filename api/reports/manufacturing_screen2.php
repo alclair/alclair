@@ -75,28 +75,59 @@ GROUP BY the_day, type
               WHERE to_char(date,'yyyy') = '$year' AND to_char(date,'MM') = '$month'  AND order_status_id = 12
 GROUP BY the_day, type
 ORDER BY the_day ASC";
+
+// THIS PORTION IS NOT LIVE
+// GRABS 2018 AND 2019
+    $query = "SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'month') AS the_month_name, to_char(t1.date, 'yyyy') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+WHERE to_char(t1.date,'yyyy') = '2019' AND t1.order_status_id = 12 AND t2.active=TRUE
+GROUP BY the_month, the_year, the_month_name
+
+UNION ALL
+    
+SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'month') AS the_month_name, to_char(t1.date, 'YYYY') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+WHERE to_char(t1.date,'yyyy') = '2018' AND t1.order_status_id = 12 AND t2.active=TRUE
+GROUP BY the_month, the_year, the_month_name
+ORDER BY the_month, the_year ASC";
     $stmt = pdo_query( $pdo, $query, $params ); 
 	 $num_in_day = pdo_fetch_all( $stmt );
-	 
-	 
-  
-   $result = array();
-   $result = array_merge($num_of_impressions_in_day, $num_of_shipped_in_day);
+	
 
-/*
-	for($j=0; $j<count($num_of_impressions_in_day); $j++) {   
-		$result[$the_day-1]["the_day"] = $the_day;
-		$result[$the_day-1]["num_days"] = $num_days;
-	}
-	for($j=0; $j<count($num_of_shipped_in_day); $j++) {   
-		$result[$the_day_shipped-1]["the_day_shipped"] = $the_day_shipped;
-		$result[$the_day_shipped-1]["num_shipped"] = $num_shipped;
-	}
-	*/
+// THIS PORTION IS LIVE - GRABS ONLY 2019
+ $current_year = date("Y");
+ $current_month = date("m");
+	     $query = "SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'MON') AS the_month_name, to_char(t1.date, 'yyyy') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+WHERE to_char(t1.date,'yyyy') = '$current_year' AND t1.order_status_id = 12 AND t2.active=TRUE
+GROUP BY the_month, the_year, the_month_name";
+    $stmt = pdo_query( $pdo, $query, $params ); 
+	 $num_in_day = pdo_fetch_all( $stmt );
+
+   $result = array();
+   //$result = array_merge($num_of_impressions_in_day, $num_of_shipped_in_day);
+
 	$response["test"] = $num_in_day;
 	
     $response['code'] = 'success';
     $response['data'] = $num_in_day;
+    
+    //$response["the_month"] = array();
+    $the_month = array();
+    $the_month_name = array();
+    $num_in_month = array();
+    for($i=0; $i<count($num_in_day); $i++) {
+	    //$response["the_month"] = $num_in_day[$i]["the_month"];	    
+		$the_month[$i] = $num_in_day[$i]["the_month"];	
+		$the_month_name[$i] = $num_in_day[$i]["the_month_name"];	    
+		$num_in_month[$i] = $num_in_day[$i]["num_in_month"];	    
+    }
+    $response["the_month"] = $the_month;
+    $response["the_month_name"] = $the_month_name;
+    $response["num_in_month"] = $num_in_month;
     //$response['data'] = $num_of_impressions_in_day;
 	echo json_encode($response);
 }

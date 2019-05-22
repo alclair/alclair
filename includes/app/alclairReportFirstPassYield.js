@@ -273,8 +273,8 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
     
     $scope.loadImpressionsReceived = function () {
         myblockui();
-
-        var api_url = window.cfg.apiUrl + "reports/alclairImpressionsReceived.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
+		
+		var api_url = window.cfg.apiUrl + "reports/alclairImpressionsReceived.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
 
         $http.get(api_url).success(function (result5) {
 
@@ -299,6 +299,7 @@ var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?yea
                 }
                 layers5.push(layer5);
             }
+
 			/*
 		     //console.log("Testing is " + JSON.stringify(result5.data))
             for (var i = 0; i < result5.data.length; i++) {
@@ -489,7 +490,6 @@ swdApp.controller('reportFirstPassYield_initial', ['$http', '$scope', 'AppDataSe
 
     $scope.labels = [];
     $scope.labelRange = [];
-
 
     $scope.loadFirstPassYield = function () {
         myblockui();

@@ -30,6 +30,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{avg}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> TURN AROUND TIME FOR REPAIRS </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:green" align=center> {{avg_repairs}} </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED YESTERDAY </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:green" align=center> {{orders_shipped_yesterday}} </h1><br/>
 
 	 </div>
 	<div class="form-group col-lg-6">

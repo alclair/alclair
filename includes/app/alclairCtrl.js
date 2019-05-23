@@ -4090,7 +4090,10 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 	          $scope.CustomBarChart();        
               $scope.OrdersList = result.data;     
               $scope.avg = result.avg;           
-              $scope.avg_repairs = result.avg_repairs;   
+              $scope.avg_repairs = result.avg_repairs;  
+              $scope.orders_shipped_yesterday = result.orders_shipped_yesterday;
+              console.log("Day is " + result.minus_day);   
+              console.log("Minute is " + result.minus_minute);
               
 
                 setTimeout(function(){

@@ -17,8 +17,15 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
  <div class="row">
 	 <div class="form-group col-lg-6" >
 		 <!--<br/><br/><br/><br/>-->
-		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{last_year}} </h1><br/>
-		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:red" align=center> {{Shipped_Last_Year}} </h1><br/>
+		  <h1 style="font-weight:bold;font-size: 70px" align=center> TOTAL SHIPPED</h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>{{last_year}} <span style="margin-left:300px"> {{this_year}} </span></h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px" align=center><span style="color:red">{{Shipped_Last_Year}} </span> <span style="margin-left:300px;color:blue"> {{Shipped_This_Year}} </span></h1><br/>
+
+		  <h1 style="font-weight:bold;font-size: 70px" align=center> {{this_year}}</h1><br/>
+		<h1 style="font-weight:bold;font-size: 70px;font-style:italic;margin-top:-40px" align=center>{{last_month}}  <span style="margin-left:300px;"> {{this_month}} </h1><br/>
+		<h1 style="font-weight:bold;font-size: 70px;margin-top:-40px;margin-left:230px" ><span style="color:green">{{Shipped_Last_Month}} </span> <span style="margin-left:340px;color:green"> {{Shipped_This_Month}} </span></h1><br/>
+
+		 <!--
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_month}} {{last_year}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:red" align=center> {{Shipped_Last_Year_This_Month}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_year}} </h1><br/>
@@ -27,6 +34,15 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_Last_Month}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED IN {{this_month}} </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:blue" align=center> {{Shipped_This_Month}} </h1><br/>
+		 -->
+		 
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> TURN AROUND TIME</h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>ORDERS<span style="margin-left:300px"> REPAIRS</span></h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px"><span style="color:purple;margin-left:180px">{{avg}} </span> <span style="margin-left:490px;color:purple"> {{avg_repairs}} </span></h1><br/>
+		 
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED YESTERDAY </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:orange" align=center> {{orders_shipped_yesterday}} </h1><br/>
+
 		 
 	 </div>
 	<div class="form-group col-lg-6">

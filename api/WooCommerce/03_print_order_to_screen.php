@@ -15,7 +15,8 @@ $response["message"] = "";
 $response['data'] = null;
 try 
 {
-   
+ 
+//otisdev.alclr.co/api/WooCommerce/03_print_order_to_screen.php 
 $woocommerce = new Client(
     	'https://alclair.com',
 		'ck_acc872e19a1908cd5abadfd29a84e5edf8d34469',
@@ -25,8 +26,8 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'before' => '2019-04-01T23:59:59',
-			'after' => '2019-04-01T00:00:00',
+			'before' => '2019-04-17T23:59:59',
+			'after' => '2019-04-17T00:00:00',
 			'per_page' => 100			
 			//'created_at_min' => '2014-01-01',
 			//'created_at_max' => '2014-01-31'

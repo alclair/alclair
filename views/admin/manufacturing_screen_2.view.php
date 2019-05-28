@@ -23,6 +23,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
 	?>  
 
+<!--
  <div class="row">
 	 <div class="form-group col-lg-6" >
 
@@ -54,6 +55,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		</table>
 	</div>
  </div>
+ -->
 <!--
   <div class="row">
    <div style="width: 95%; margin-left: auto; margin-right: auto;">        

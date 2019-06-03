@@ -26,8 +26,10 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'before' => '2019-04-17T23:59:59',
-			'after' => '2019-04-17T00:00:00',
+			'before' => '2019-06-02T23:59:59',
+			'after' => '2019-06-02T00:00:00',
+			//'before' => '2019-05-22T23:59:59',
+			//'after' => '2019-05-22T00:00:00',
 			'per_page' => 100			
 			//'created_at_min' => '2014-01-01',
 			//'created_at_max' => '2014-01-31'
@@ -45,9 +47,25 @@ $params = [
 		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 	}
 	
-	$order_index = 12;
+	$order_index = 4;
 	$arr = get_object_vars($result[$order_index]); //28
 	$data = get_object_vars($result[$order_index]);  // STORE THE DATA
+	
+	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+	$full_product_name = $line_item["name"];
+    $hearing_protection_color =  stristr($full_product_name, "- ");
+    echo "Line 1 " . substr($line_item[meta_data][0]->key, 27, 88) . "<br/>";
+    echo "Line 2 " . ($line_item[meta_data][14]->key) . "<br/>";
+    echo "Line 3 " . substr($full_product_name, 28, 88) . "<br/>";
+    echo "Line 4 " . $full_product_name . "<br/>";
+    
+	if(!strcmp( substr($line_item[meta_data][14]->key, 0, 24), "Hearing Protection Color") ) {
+	    echo "Line 5 in IF <br/>";
+	} else {
+		echo "Line 5 in ELSE <br/>";
+	}
+	echo "Line 6 " . substr($full_product_name, 0, 25) . "<br/>";
+	
 	echo "This many line items " . count($data[line_items]) . "<br/>";
 	if( get_object_vars($data[line_items][$order_index])  ) {
 		$line_item = get_object_vars($data[line_items][$order_index]); // PRODUCT -> 2
@@ -66,10 +84,12 @@ $params = [
     
 	$order = [];
     $ind = 0;
+    $index_to_print = 0;
     //for($i = 0; $i < count($result); $i++) {
 		$data = get_object_vars($result[4]);  // STORE THE DATA
                 
        $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+       
 		$is_earphone = get_object_vars($line_item[meta_data][0]); // MODEL -> 4
 		$model_name = $is_earphone["value"];
 		$full_product_name = $line_item["name"];

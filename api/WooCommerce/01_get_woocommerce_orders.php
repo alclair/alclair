@@ -148,8 +148,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
         ];
 /*
 $params = [
-			'before' => '2019-05-01T23:59:59',
-			'after' => '2019-05-01T00:00:00',
+			'before' => '2019-04-17T23:59:59',
+			'after' => '2019-04-17T00:00:00',
 			'per_page' => 100			
         ];
         */
@@ -185,7 +185,7 @@ $params = [
                 
 		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPOT
 		//if(is_string($model) == 1 && (stristr($full_product_name, "Driver") !== false ) || stristr($full_product_name, "POS") !== false ))) { 
-		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false ) { 
+		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
 			
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
 				$order[$ind]["num_earphones_per_order"] = 0;
@@ -199,6 +199,15 @@ $params = [
 				$order[$ind]["total"] = $total;
 				$order[$ind]["discount"] = $discount;
 				$order[$ind]["coupon"] = $coupon;
+				$order[$ind]["hearing_protection"] = NULL;
+				$order[$ind]["hearing_protection_color"] = NULL;
+				
+				// CHECK TO SEE IF ORDER IS ONLY FOR CUSTO HEARING PROTECTION
+				if(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
+					$order[$ind]["hearing_protection"] = TRUE;
+					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
+					$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
+				}
 										
 				/*if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 					$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
@@ -286,10 +295,20 @@ $params = [
 						$order[$ind]["notes"] = $notes;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Soft Case") ) {
 						$order[$ind]["soft_case"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Hearing Protection") ) {
-						$order[$ind]["hearing_protection"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Hearing Protection Color") ) {
+					//} //elseif(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
+						//elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 18), "Hearing Protection") ) {
+						
+						//$order[$ind]["hearing_protection"] = TRUE;	
+						//$order[$ind]["notes"] = "J is " . $j;	
+						
+						//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
+						//$order[$ind]['hearing_protection_color'] =  substr($line_item[meta_data][$j]->key, 28, 88);
+					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 24), "Hearing Protection Color") ) {
+					//elseif(!strcmp($line_item[meta_data][$j]->key, "Hearing Protection Color") ) {
+						$order[$ind]["hearing_protection"] = TRUE;	
+
 						$order[$ind]["hearing_protection_color"] = $line_item[meta_data][$j]->value;	
+						$order[$ind]["notes"] = "Made it";	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade") ) {
 						$order[$ind]["cable_upgrade"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade Type") ) {
@@ -455,9 +474,9 @@ $params = [
 			$entered_by = 1;
 			$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
-date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, left_tip, right_tip, pelican_case_name, notes)
+date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, left_tip, right_tip, pelican_case_name, notes)
 VALUES (
-:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :left_tip, :right_tip, :pelican_case_name, :notes) RETURNING id",
+:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, :left_tip, :right_tip, :pelican_case_name, :notes) RETURNING id",
 array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>$order[$k]['product'], ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model'], ':artwork'=>$order[$k]['artwork'], ':color'=>$order[$k]['color'], ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>$order[$k]['cable_color'], ':clear_canal'=>$order[$k]['clear_canal'], ':left_alclair_logo'=>$order[$k]['left_alclair_logo'], ':right_alclair_logo'=>$order[$k]['right_alclair_logo'], ':left_custom_art'=>$order[$k]['left_custom_art'], ':right_custom_art'=>$order[$k]['right_custom_art'], ':link_to_design_image'=>$order[$k]['link_to_design_image'], ':open_order_in_designer'=>$order[$k]['open_order_in_designer'], 
 ':designed_for' =>$order[$k]['designed_for'], 
 ':my_impressions'=>$order[$k]['my_impressions'], 
@@ -471,6 +490,8 @@ array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product
 ':active'=>TRUE,
 ':order_status_id'=>99, 
 ':num_earphones_per_order'=>$order[$k]['num_earphones_per_order'],
+':hearing_protection'=>$order[$k]['hearing_protection'],
+':hearing_protection_color'=>$order[$k]['hearing_protection_color'],
 ':left_tip'=>$order[$k]['left_tip'],
 ':right_tip'=>$order[$k]['right_tip'],
 ':pelican_case_name'=>$order[$k]['pelican_case_name'],

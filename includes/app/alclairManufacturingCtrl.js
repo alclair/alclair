@@ -33,16 +33,18 @@ $scope.qrcode= {
 			//console.log("It's a repair!")
 			y = x.substring(1,  x.length);
 			console.log("Y = " + y)
-			$scope.LoadRepairInfo(y);
+			$scope.LoadRepairInfo(y, cart);
 		} else {
-			$scope.LoadOrderInfo(x);
+			console.log("TESTING " + cart + " and " + start.value)
+			$scope.LoadOrderInfo(x, cart);
 		}
 			}, 500); 
 	};
 	
-	$scope.LoadRepairInfo = function (barcode) {
+	$scope.LoadRepairInfo = function (barcode, cart) {
 		myblockui();
-        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_repair_info.php?barcode=" + barcode;
+		console.log("bar cart id " + barcode + " " + cart + " " + start.value)//
+        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_repair_info.php?barcode=" + barcode + "&cart=" + cart + "&repair_id=" + barcode;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
@@ -59,12 +61,13 @@ $scope.qrcode= {
 				 	//if (result.data.id !=undefined)
 				 	//{
                     	 //$scope.qrcode.id = result.data.id;
-                    	 console.log("Data is " + JSON.stringify(result.data))
-                    	 console.log("Order ID is " + (result.data[0].order_id))
-                    	 console.log("Test is " + (result.test))
+                    	 //console.log("Data is " + JSON.stringify(result.data))
+                    	 //console.log("Order ID is " + (result.data[0].order_id))
+                    	 //console.log("Test is " + (result.test))
                     	 $scope.qrcode.order_id = "R" + result.data[0].id;
                     	 $scope.qrcode.designed_for = result.data[0].customer_name;
                     	 $scope.qrcode.type = "Repair";
+                    	 $scope.days = result.days;
                  	//}
 				 	//else
 				 	//{
@@ -209,11 +212,11 @@ $scope.qrcode= {
        	});
     };
     
-    $scope.LoadOrderInfo = function (barcode) {
+    $scope.LoadOrderInfo = function (barcode, cart) {
 	    //console.log("dsafasdfasd" + $scope.qrcode.barcode)
         
         myblockui();
-        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_order_info.php?barcode=" + barcode;
+        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_order_info.php?barcode=" + barcode + "&cart=" + cart + "&order_id=" + start.value;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
@@ -230,12 +233,13 @@ $scope.qrcode= {
 				 	//if (result.data.id !=undefined)
 				 	//{
                     	 //$scope.qrcode.id = result.data.id;
-                    	 console.log("Data is " + JSON.stringify(result.data))
-                    	 console.log("Order ID is " + (result.data[0].order_id))
-                    	 console.log("Test is " + (result.test))
+                    	 //console.log("Data is " + JSON.stringify(result.data))
+                    	 //console.log("Order ID is " + (result.data[0].order_id))
+                    	 //console.log("Test is " + (result.test))
                     	 $scope.qrcode.order_id = result.data[0].order_id;
                     	 $scope.qrcode.designed_for = result.data[0].designed_for;
                     	 $scope.qrcode.type = "Manufacturing";
+                    	 $scope.days = result.days;
                  	//}
 				 	//else
 				 	//{

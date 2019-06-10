@@ -80,6 +80,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<option value="">Monitor</option>
 				</select>-->
             </div>
+             <div class="form-group col-sm-3">       
+				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}}</b>&nbsp;&nbsp;
+            </div>
 			<!--
 			<div class="form-group col-sm-2">
                 <select class='form-control' ng-model='order_status_id' ng-options="orderStatus.order_in_manufacturing as orderStatus.status_of_order for orderStatus in orderStatusTableList">

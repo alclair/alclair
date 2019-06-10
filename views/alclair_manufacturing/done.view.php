@@ -4,7 +4,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 ?>
 <br />
 <div id="main-container" class="container" ng-controller="QR_Code_Scanner">
-	
+<script type="text/javascript">
+  var cart = 12;
+</script>	
     <!-- Main Container Starts -->
 
 	<?php
@@ -50,6 +52,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<div class="row" ng-if="qrcode.designed_for" >
                  <div class="form-group col-md-6">
                     <label class="control-label" style="font-size: large;color: #007FFF">Designed For: <span  style="font-size: 24px;color: #000000"> {{qrcode.designed_for}}</span></label>
+					<!--<input type="text" ng-model="qrcode.order_id" placeholder="Barcode"  class="form-control">-->	
+                </div>  
+                <div class="form-group col-md-6">
+                    <label class="control-label" style="font-size: large;color: #007FFF; margin-top:-10px">Days in Cart: <span  style="font-size: 34px;color: red"> {{days}}</span></label>
 					<!--<input type="text" ng-model="qrcode.order_id" placeholder="Barcode"  class="form-control">-->	
                 </div>      
             </div>

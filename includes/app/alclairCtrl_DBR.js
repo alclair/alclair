@@ -541,6 +541,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
                 $scope.TotalPages = result.TotalPages;
                 console.log("Num of pages " + result.TotalPages)
                 $scope.TotalRecords = result.TotalRecords;
+                $scope.TotalRecords2 = result.TotalRecords2;
                 $scope.TotalSound = result.TotalSound;
                 $scope.TotalFit = result.TotalFit;
                 $scope.TotalDesign = result.TotalDesign;

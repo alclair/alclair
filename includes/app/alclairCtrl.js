@@ -4068,7 +4068,7 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
             toastr.error("Get error.");
         });
     };
-
+}]);
     swdApp.controller('Manufacturing_Screen_For_Phil', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
 	$scope.OrdersList = {};
     		
@@ -4144,9 +4144,8 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
                 //console.log("Num of pages " + result.TotalPages)
                 $scope.TotalRecords = result.TotalRecords;
                 $scope.Printed = result.Printed;
-                //console.log("Pass or Fail is " + result.testing1)
+                console.log("WHAT IS GOING ON")
                 
-
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
                 $scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
@@ -4184,83 +4183,3 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
             
     $scope.init();
 }]);
-     
-    $scope.LoadData = function () {
-        myblockui();
-        //$cookies.put("SearchText", $scope.SearchText);
-        //$cookies.put("SearchText", $scope.cust_name);
-        
-		//$cookies.put("SearchStartDate",$scope.SearchStartDate);
-		//$cookies.put("SearchEndDate",$scope.SearchEndDate);
-		
-		if($scope.use_impression_date != 1) {
-			$scope.use_impression_date = 0;
-		} else {
-			$scope.use_impression_date = 1;
-		}
-		
-        var api_url = window.cfg.apiUrl + "alclair/manufacturing_screen_2.php";
-        //alert(api_url);
-        $http.get(api_url)
-            .success(function (result) {
-	          
-	          //$scope.loadImpressionsReceived(); 
-	          $scope.CustomBarChart();        
-              $scope.OrdersList = result.data;     
-              $scope.avg = result.avg;           
-              $scope.avg_repairs = result.avg_repairs;  
-              $scope.orders_shipped_yesterday = result.orders_shipped_yesterday;
-              console.log("Day is " + result.minus_day);   
-              console.log("Minute is " + result.minus_minute);
-              
-
-                setTimeout(function(){
-				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
-				  }, 20000); 
-
-                $scope.PageRange = [];
-                $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
-                $scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
-                if ($scope.PageWindowEnd > $scope.TotalPages) {
-                    $scope.PageWindowEnd = $scope.TotalPages;
-                }
-                for (var i = $scope.PageWindowStart; i <= $scope.PageWindowEnd; i++) {
-                    $scope.PageRange.push(i);
-                }
-
-                $.unblockUI();
-            }).error(function (result) {
-                toastr.error("Get QC Form error.");
-            });
-    };    
-         
-       
-    $scope.init = function () {
-	    $scope.labels5.push('2018');
-	    $scope.labels5.push('2019');
-	    /*
-	    AppDataService.loadStatusTypeList_orders(null, null, function (result) {
-        		for (var i = 0; i < result.data.length; i++) {
-				$scope.labels5.push(result.data[i].type);
-        		}    
-    		}, function () { });
-    		*/
-	    
-        //$scope.loadImpressionsReceived(); 
-        //$("#impressions_received_date").html("");
-        $scope.LoadData();
-    }
-    			        
-    $scope.openDone = function ($event) {        
-        $scope.openedDone = true;
-    };
-
-    $scope.LoadSelectDateModal=function(id) {
-        $('#SelectDateModal').modal("show");   
-        $scope.id_to_make_done = id;
-    }
-    
-   
-    $scope.init();
-}]);
-

@@ -121,6 +121,7 @@ try
 	// ORIGINAL QUERY BEFORE REALIZING NEEDED TO NOT INCLUDE NON-ACTIVE ORDERS
 	//$query2 = pdo_query($pdo, "SELECT *, to_char(date,'MM/dd/yyyy') as date FROM order_status_log WHERE order_status_id = 12 AND date >= :StartDate AND date <= :EndDate AND import_orders_id IS NOT NULL", array(":StartDate"=>$_REQUEST["StartDate"], ":EndDate"=>$_REQUEST["EndDate"]));
 	
+// MAY NEED TO ADD STATUS 11 AND 13	
 $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 						FROM order_status_log AS t1 
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id

@@ -702,9 +702,9 @@ Pickup
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_2" class="nav-link "><i class="fa fa-line-chart"></i> &nbsp Manufacturing Screen </a>
                                 </li>
-                                <?php if($_SESSION["UserName"] == 'Phil' || $_SESSION["UserName"] == 'admin' ) { ?>
+                                <?php if($_SESSION["UserName"] == 'Phil' || $_SESSION["UserName"] == 'Zeeshan' || $_SESSION["UserName"] == 'admin' ) { ?>
                                 <li class=" ">
-                                    <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_for_phil" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Hey Phil! </a>
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_for_phil" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Hey Phil & Z-Man! </a>
                                 </li>
                                 <?php } ?>
 							</ul>

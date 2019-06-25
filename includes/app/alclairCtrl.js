@@ -3773,7 +3773,7 @@ swdApp.controller('Repairs_Done_By_Date', ['$http', '$scope', 'AppDataService', 
                 
                 setTimeout(function(){
 				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_2";
-				  }, 20000); 
+				  }, 300000); 
 
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
@@ -4099,7 +4099,7 @@ $scope.LoadData = function () {
 
                 setTimeout(function(){
 				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
-				  }, 20000); 
+				  }, 30000); 
 
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;

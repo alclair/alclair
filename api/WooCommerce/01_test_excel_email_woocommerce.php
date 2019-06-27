@@ -226,7 +226,7 @@ $params = [
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
 	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
     } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER
-
+	
 	// Create new Spreadsheet object
 	$spreadsheet = new Spreadsheet();
 	//$objPHPExcel = new PHPExcel();

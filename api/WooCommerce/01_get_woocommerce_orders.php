@@ -146,13 +146,14 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 			'after' => $after,
 			'per_page' => 100,			
         ];
+
 /*
 $params = [
 			'before' => '2019-04-17T23:59:59',
 			'after' => '2019-04-17T00:00:00',
 			'per_page' => 100			
         ];
-        */
+   */     
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
@@ -188,8 +189,9 @@ $params = [
 		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
 			
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
-				$order[$ind]["num_earphones_per_order"] = 0;
-				$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
+				//$order[$ind]["num_earphones_per_order"] = 0;
+				//$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
+				$order[$ind]["num_earphones_per_order"] = 1;
 				$order[$ind]["status"] = $data["status"];
 				$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
 				$order[$ind]["order_id"] = $data["id"]; // ORDER ID -> 1
@@ -339,6 +341,23 @@ $params = [
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
 	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
     } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER
+
+
+// REQUIRED 2 INCREMENTS BUT OF THE SAME ARRAY
+$inc2 =  count($order);
+// DETERMINE NUMBER OF EARPHONES PER ORDER
+for ($x=0; $x <  count($order); $x++) { 
+	$num_of_earphones_in_order = 0;  // START NUMBER OF EARPHONES PER ORDER AT ZERO
+	for ($y=0; $y < $inc2; $y++) {	
+		if($order[$x]["order_id"] == $order[$y]["order_id"] && strcmp( substr($order[$y]["product"], 0, 14), "Custom Hearing") ) {  // SEEEING IF THE ORDER NUMBER EXISTS
+			$num_of_earphones_in_order = $num_of_earphones_in_order + 1;  // EACH ORDER NUMBER WILL EXIST AT LEAST ONCE
+		}
+		if($y == $inc2-1) {  // AT THE END OF THE ARRAY SET THE 28TH COLUMN TO THE NUMBER OF EARPHONES PER ORDER
+			$order[$x]["num_earphones_per_order"] = $num_of_earphones_in_order;
+		}
+	}
+}
+
 
 	// Create new Spreadsheet object
 	$spreadsheet = new Spreadsheet();

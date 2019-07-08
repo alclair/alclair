@@ -3763,6 +3763,7 @@ swdApp.controller('Repairs_Done_By_Date', ['$http', '$scope', 'AppDataService', 
 			$scope.avg = result.avg;           
              $scope.avg_repairs = result.avg_repairs;  
              $scope.orders_shipped_yesterday = result.orders_shipped_yesterday;
+             $scope.orders_shipped_today = result.orders_shipped_today;
                 
                 //$scope.QC_Form = result.customer_name;
                 $scope.TotalPages = result.TotalPages;

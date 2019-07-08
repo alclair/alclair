@@ -15,8 +15,8 @@ $IsManager = $_SESSION["IsManager"];
 $url=$rootScope["RootUrl"]."/api/alclair/excel_export_dashboard.php?Month=$month&Year=$year&UserId=$UserId&IsAdmin=$IsAdmin&IsManager=$IsManager&token=".$rootScope["SWDApiToken"];
 
 $response["test1"] = $url;
-echo json_encode($response);
-exit;
+//echo json_encode($response);
+//exit;
 
 //$url=$rootScope["RootUrl"]."/api/reports/lng_export_data.php?lng_queens=$lng_queens&StartDate=".$_REQUEST["startdate"]."&EndDate=".$_REQUEST["enddate"]."&UserId=$UserId&token=".$rootScope["SWDApiToken"];
 //$url=$rootScope["RootUrl"]."/api/export/exportTicket.php?startdate=$startDate&enddate=$endDate&token=".$rootScope["SWDApiToken"];
@@ -50,7 +50,7 @@ if(file_exists($file_lng))
 	$mail3->MsgHTML($body3);
 	//$mail3->AddAttachment($file_lng, "ZzZzZ-".date("m-d-Y").".xlsx");
 	//$mail3->AddAttachment($file_lng, "Step4.xlsx");
-	$mail3->AddAttachment($file_lng, "Alclair Audio QC Stat Tracking Report-".date("m-d-Y").".xlsx");
+	$mail3->AddAttachment($file_lng, "Alclair Audio QC Stat Tracking Report4444-".date("m-d-Y").".xlsx");
 	//$mail->AddAttachment($file_disposal, "DailyDisposal.xlsx");
 
 	echo json_encode($response);

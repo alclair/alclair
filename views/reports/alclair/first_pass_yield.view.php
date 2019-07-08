@@ -3,7 +3,8 @@
         <div style="text-align: center;">
             <h1 style="font-weight: bold;mar	gin-left:60px">First Pass Yield 
 	            <input style="margin-bottom:10px;margin-left:40px;" type="button" class="btn btn-primary btn-md" ng-click="makeExcel();" value="Download Excel" />
-	            <h2>Waiting for Artwork & Ready to Ship not included </h2></h1>
+	            <h2>Waiting for Artwork & Ready to Ship not included </h2>
+	            <h3>Final QC equals either 'PASS' or 'FAIL' </h3></h1>
 			
             <br />
 
@@ -40,6 +41,7 @@
      <div style="width: 100%; margin-left: auto; margin-right: auto;">        
         <div style="text-align: center;">
             <h1 style="font-weight: bold;"> <h2>1st Stop at QC</h2>
+            <h3>Initial QC equals either 'PASS' or 'FAIL'  </h3>
 			
             <br />
 
@@ -68,6 +70,7 @@
         <div style="text-align: center;">
             <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
              <h2>Includes all States</h2>
+             <h3>Initial QC does not equal 'PASS' </h3>
 			
             <br />
 

@@ -42,7 +42,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED YESTERDAY </h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:orange" align=center> {{orders_shipped_yesterday}} </h1><br/>
-
+		 
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED TODAY </h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:orange" align=center> {{orders_shipped_today}} </h1><br/>
 		 
 	 </div>
 	<div class="form-group col-lg-6">

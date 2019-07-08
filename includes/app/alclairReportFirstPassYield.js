@@ -37,9 +37,7 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
     $scope.makeExcel = function () {
 
 	   myblockui();
-      
-var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?year=" + $scope.year_month + "&month=" + $scope.month_month;
-
+	   var api_url = window.cfg.apiUrl + "export/alclair_excel_export_dashboard.php?year=" + $scope.year_month + "&month=" + $scope.month_month;
         $http.get(api_url).success(function (result) {
             $.unblockUI();     
             $scope.data =  result.data;

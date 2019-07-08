@@ -35,6 +35,11 @@ try
     {
         $condition = "and t1.monitor_id = $IEM ";
     }
+    
+//New - First Pass / 1
+//Repair - First Pass / 2
+//New - Originally Failed QC / 3
+//Repair - Originally Failed QC / 4
 
     $query = "SELECT to_char(t1.qc_date,'dd') AS created, pass_or_fail, ( SELECT COUNT(pass_or_fail) ) AS num_status
               FROM qc_form as t1

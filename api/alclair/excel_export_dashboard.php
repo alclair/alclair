@@ -201,11 +201,11 @@ if($sum_failure_mode_count == 0) {
 	$port_failure_percent_total = 0;
 
 } else {
-	$sound_failure_percent_total = $sound_failures / $sum_failure_mode_count;
-	$shell_failure_percent_total = $shell_failures / $sum_failure_mode_count;
-	$jack_failure_percent_total = $jack_failures / $sum_failure_mode_count;
-	$faceplate_failure_percent_total = $faceplate_failures / $sum_failure_mode_count;
-	$port_failure_percent_total = $port_failures / $sum_failure_mode_count;
+	$sound_failure_percent_total = round($sound_failures / $sum_failure_mode_count);
+	$shell_failure_percent_total = round($shell_failures / $sum_failure_mode_count);
+	$jack_failure_percent_total = round($jack_failures / $sum_failure_mode_count);
+	$faceplate_failure_percent_total = round($faceplate_failures / $sum_failure_mode_count);
+	$port_failure_percent_total = round($port_failures / $sum_failure_mode_count);
 }
 
 
@@ -248,12 +248,12 @@ if($num_units_failed == 0) {
 			->setCellValue($letter[$ind]."19", $faceplate_failures)
 			->setCellValue($letter[$ind]."20", $port_failures)
 			->setCellValue($letter[$ind]."21", $sum_failure_mode_count)
-			->setCellValue($letter[$ind]."24", $sound_failure_percent_total)
-			->setCellValue($letter[$ind]."25", $shell_failure_percent_total)
-			->setCellValue($letter[$ind]."26", $jack_failure_percent_total)
-			->setCellValue($letter[$ind]."27", $faceplate_failure_percent_total)
-			->setCellValue($letter[$ind]."28", $port_failure_percent_total)
-			->setCellValue($letter[$ind]."29", $sum_failure_percent_total)
+			->setCellValue($letter[$ind]."24", $sound_failure_percent_total."%")
+			->setCellValue($letter[$ind]."25", $shell_failure_percent_total."%")
+			->setCellValue($letter[$ind]."26", $jack_failure_percent_total."%")
+			->setCellValue($letter[$ind]."27", $faceplate_failure_percent_total."%")
+			->setCellValue($letter[$ind]."28", $port_failure_percent_total."%")
+			->setCellValue($letter[$ind]."29", $sum_failure_percent_total."%")
 			->setCellValue($letter[$ind]."31", $failure_per);
 				
 	$spreadsheet->getActiveSheet()->getStyle($letter[$ind].'9:'.$letter[$ind].'10')->getNumberFormat()->applyFromArray( 
@@ -268,13 +268,12 @@ if($num_units_failed == 0) {
 	$spreadsheet->getActiveSheet()->getStyle($letter[$ind]."31")->getNumberFormat()->setFormatCode('0.00');   
 }  // CLOSE FOR LOOP
 
-	$writer = IOFactory::createWriter($spreadsheet, 'Xls');
-
-	$filename = "Export-Log-Data-".date("m-d-Y").".xlsx";
+	$filename = "Export-Dashboard-Data-".date("m-d-Y").".xlsx";
 	//echo $filename;
-	echo $filename;
+	//echo $filename;
     //$filename = "hello.xlsx";
     //$objWriter->save("../../data/export/$filename");
+    $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
     $writer->save("../../data/export/excel/$filename");
 
     $response['code'] = 'success';

@@ -924,7 +924,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
     $scope.SearchText = "";
 	$scope.entityName = "Traveler";
 	$scope.printed_or_not = '0';
-	$scope.today_or_next_week = '1';
+	$scope.today_or_next_week = '0';
 	//$scope.remove_hearing_protection = 1;
     
     //SearchStartDate = "10/1/2017";

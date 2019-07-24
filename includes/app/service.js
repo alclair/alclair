@@ -399,6 +399,7 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
 	    { value: '0', label: 'Past Due' },
         { value: '1', label: 'Today' },
         { value: '2', label: 'Tomorrow' },
+        { value: '8', label: 'Next 3 Calendar Days' },
         { value: '3', label: 'Next 7 Calendar Days' },
         { value: '4', label: 'Next 14 Calendar Days' },
         { value: '5', label: 'Next 21 Calendar Days' },

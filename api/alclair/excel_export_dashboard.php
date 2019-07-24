@@ -109,8 +109,9 @@ try
 			->setCellValue("A31", "Failures Per");
 
 	
-for ($ind = 1; $ind <= $month_number; $ind++) { 
-   
+//for ($ind = 1; $ind <= $month_number; $ind++) { 
+for ($ind = 1; $ind <= $month_number; $ind++) { 	
+	   
    $x = $month_string[$ind-1]; 
 //SHOP DAYS
 $query = "SELECT DISTINCT to_char(t1.qc_date,'dd') AS created
@@ -201,11 +202,11 @@ if($sum_failure_mode_count == 0) {
 	$port_failure_percent_total = 0;
 
 } else {
-	$sound_failure_percent_total = round($sound_failures / $sum_failure_mode_count);
-	$shell_failure_percent_total = round($shell_failures / $sum_failure_mode_count);
-	$jack_failure_percent_total = round($jack_failures / $sum_failure_mode_count);
-	$faceplate_failure_percent_total = round($faceplate_failures / $sum_failure_mode_count);
-	$port_failure_percent_total = round($port_failures / $sum_failure_mode_count);
+	$sound_failure_percent_total = round($sound_failures / $sum_failure_mode_count*100);
+	$shell_failure_percent_total = round($shell_failures / $sum_failure_mode_count * 100);
+	$jack_failure_percent_total = round($jack_failures / $sum_failure_mode_count * 100);
+	$faceplate_failure_percent_total = round($faceplate_failures / $sum_failure_mode_count * 100);
+	$port_failure_percent_total = round($port_failures / $sum_failure_mode_count * 100);
 }
 
 
@@ -232,14 +233,14 @@ if($num_units_failed == 0) {
 	$spreadsheet->setActiveSheetIndex(0)->getStyle("A1:A3")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		
 		$fisrt_pass_failure_rate = $num_units_failed / $num_units_tested;
-		$first_pass_yield = 1 - $fisrt_pass_failure_rate;
+		$first_pass_yield = round((1 - $fisrt_pass_failure_rate)*100)."%";
 		$spreadsheet->setActiveSheetIndex(0)
 			->setCellValue($letter[$ind]."5", $num_shop_days)
 			->setCellValue($letter[$ind]."6", " ")
 			->setCellValue($letter[$ind]."7", $num_units_tested)
 			->setCellValue($letter[$ind]."8", $num_units_failed)
 			->setCellValue($letter[$ind]."9", $first_pass_yield)
-			->setCellValue($letter[$ind]."10", $fisrt_pass_failure_rate)
+			->setCellValue($letter[$ind]."10", round($fisrt_pass_failure_rate*100)."%")
 			->setCellValue($letter[$ind]."12", $avg_tested_per_shop_day)
 			->setCellValue($letter[$ind]."13", $shop_days_lost_to_qc)
 			->setCellValue($letter[$ind]."16", $sound_failures)

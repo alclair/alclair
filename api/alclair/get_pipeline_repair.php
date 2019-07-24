@@ -57,6 +57,7 @@ try
 		$today_4_sql = date("m/d/Y");
 		
 		$tomorrow_4_sql = date('m/d/Y', strtotime('+1 days'));
+		$nextWeek_4_sql_3_days = date('m/d/Y', strtotime('+3 days'));
 		$nextWeek_4_sql = date('m/d/Y', strtotime('+7 days'));
 		$threeWeeks_4_sql = date('m/d/Y', strtotime('+21 days'));
 		$sixWeeks_4_sql = date('m/d/Y', strtotime('+42 days'));
@@ -108,7 +109,14 @@ try
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.repair_status_id != 14";
 			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15)";
 			$params[":Date"]= $tomorrow_4_sql;	
-		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEZT 7 CALENDAR DAYS
+		
+		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '8') { // MEANS NEXT 3 CALENDAR DAYS
+			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15)";
+			$params[":Today"] = $today_4_sql;	
+			$params[":Date"] = $nextWeek_4_sql_3_days;	
+			
+		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEXT 7 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
 			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15)";
 			$params[":Today"] = $today_4_sql;	

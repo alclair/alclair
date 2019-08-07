@@ -219,6 +219,7 @@
 					  				count(CASE WHEN order_status_id = 11 THEN 1 END) as group_order_holding,
 					  				count(CASE WHEN order_status_id = 12 THEN 1 END) as done,
 					  				count(CASE WHEN order_status_id = 13 THEN 1 END) as holding,
+					  				count(CASE WHEN order_status_id = 14 THEN 1 END) as holding_for_payment,
 					  				count(CASE WHEN order_status_id = 99 THEN 1 END) as order_received
 					  				FROM import_orders WHERE active = TRUE";
 					  	//$query_alclair = "SELECT username AS order_received FROM auth_user WHERE id=1";	
@@ -260,6 +261,7 @@
 					  				count(CASE WHEN repair_status_id = 13 THEN 1 END) as group_order_holding,
 					  				count(CASE WHEN repair_status_id = 14 THEN 1 END) as done,
 					  				count(CASE WHEN repair_status_id = 15 THEN 1 END) as holding,
+					  				count(CASE WHEN repair_status_id = 16 THEN 1 END) as holding_for_payment,
 					  				count(CASE WHEN repair_status_id = 99 THEN 1 END) as repair_received
 					  				FROM repair_form WHERE active = TRUE";
 					  				
@@ -381,6 +383,11 @@ Pickup
 									<span style="margin-right:90px;font-weight:bold;">Holding</span>
 									<span style="margin-right:12px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["holding"] ?>) </span> 
 									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["holding"] ?>)</span></a></li> 
+									 
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/holding_for_payment" class="nav-link "> 
+									<span style="margin-right:4px;font-weight:bold;">Holding For Payment </span>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["holding_for_payment"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["holding_for_payment"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/done" class="nav-link ">
 									<span style="margin-right:107px;font-weight:bold;"> Done </span>

@@ -170,11 +170,16 @@ function myFunction() {
 				$scope.qc_form.shells_edges = 1;
 				$scope.qc_form.shells_shine = 1;
 				$scope.qc_form.shells_canal = 1;
+				$scope.qc_form.shells_density = 1;
 	    } else if(category == 'faceplate') {
 				$scope.qc_form.faceplate_seams = 1;
 				$scope.qc_form.faceplate_shine = 1;
 				$scope.qc_form.faceplate_colors = 1;
 				$scope.qc_form.faceplate_rounded = 1;
+				
+				$scope.qc_form.faceplate_glued_correctly = 1;
+				$scope.qc_form.faceplate_kinked_tube = 1;
+				$scope.qc_form.faceplate_crushed_damper = 1;
 	    } else if(category == 'jacks') {
 				$scope.qc_form.jacks_location = 1;
 				$scope.qc_form.jacks_debris = 1;
@@ -182,9 +187,16 @@ function myFunction() {
 	    } else if(category == 'ports') {
 				$scope.qc_form.ports_cleaned = 1;
 				$scope.qc_form.ports_smooth = 1;
+				
+				$scope.qc_form.ports_glued_correctly = 1;
+				$scope.qc_form.ports_kinked_tube = 1;
+				$scope.qc_form.ports_crushed_damper = 1;
+
 	    } else if(category == 'sound') {
 				$scope.qc_form.sound_signature = 1;
 				$scope.qc_form.sound_balanced = 1;
+				
+				$scope.qc_form.sound_correct_model = 1;
 	    } else if(category == 'shipping') {
 				$scope.qc_form.shipping_cable = 1;
 				$scope.qc_form.shipping_card = 1;
@@ -544,6 +556,41 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
          });
     };
         
+    $scope.Move2Cart = function (qc_id, order_status_id, notes) {
+         if(order_status_id == undefined) {
+	    		console.log("Id is " + qc_id + " and cart UNDEFINED " + order_status_id)     
+	    		alert("Select a cart where the order will be going.");
+         } else {
+		 		console.log("Id is " + qc_id + " and cart ID is " + order_status_id)
+		 
+		        var api_url = window.cfg.apiUrl + 'alclair/move_qc_to_cart.php?qc_id=' + qc_id + "&order_status_id=" + order_status_id + "&notes=" + notes;
+		        myblockui();
+		        $http({
+		            method: 'POST',
+		            url: api_url,
+		            data: $.param($scope.qc_form),
+		            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		        })
+		         .success(function (result) {
+			         console.log("Test 1 is " + result.test)
+		             if (result.code == "success") {
+			             $("#updateRMA").modal("hide");
+			             toastr.success("Order Updated!")
+						 	setTimeout(function(){
+								$scope.UploadFile();
+								$.unblockUI();
+							}, 1000); 			 
+						} else {
+		               	$.unblockUI();
+					 		console.log("message " + result.code);
+		             }
+		         }).error(function (data) {
+		             toastr.error("Error saving QC Form.");
+		             $.unblockUI();
+		         });
+       		} // CLOSE ELSE STATEMENT
+    }    
+        
     $scope.SaveData = function (saveORship, uploaddocument) {
         
         // INITIALIZE NUMBERIC VALUES HERE IF EMPTY 
@@ -563,7 +610,7 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
         })
          .success(function (result) {
 	         console.log("Test is " + JSON.stringify(result.test))
-	         console.log("Test 1 is " + result.test)
+	         console.log("Test 1 is " + result.show_modal_window)
 	         
               if(result.message == "Something is incomplete") {
 	             toastr.error("Cannot ship product.  Please check that everything has passed QC.");
@@ -579,16 +626,27 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 								$.unblockUI();
 							}, 2000); 
 						} else {
-							toastr.success("Order Updated!")
-							setTimeout(function(){
-								$scope.UploadFile();
-								$.unblockUI();
-							}, 1000); 
+							$.unblockUI();
+							if(result.show_modal_window == "FAIL") {
+								console.log("Modal window is " + result.show_modal_window)
+								AppDataService.loadOrderStatusTableList(null, null, function (result) {
+									$scope.OrderStatusList = result.data;
+								}, function (result) { });
+								$("#updateRMA").modal("show");
+								
+							} else {
+								toastr.success("Order Updated!")
+								setTimeout(function(){
+									$scope.UploadFile();
+									$.unblockUI();
+								}, 1000); 
+							}
 						}
 
              	}
 			 	else {
                  	$.unblockUI();
+                 	//toastr.error(result.message)
 				 	console.log("message " + result.code);
 				 	toastr.error(result.message == undefined ? result.data : result.message);
              	}
@@ -651,6 +709,11 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
         } else {
 	        $scope.qc_form.shells_canal = 0;
         }
+        if ($scope.qc_form.shells_density == true) {
+	    	$scope.qc_form.shells_density = 1;    
+        } else {
+	        $scope.qc_form.shells_density = 0;
+        }
         // END SHELLS
 
         // FACEPLATE
@@ -673,6 +736,16 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 	    	$scope.qc_form.faceplate_rounded = 1;    
         } else {
 	        $scope.qc_form.faceplate_rounded = 0;
+        }
+        if ($scope.qc_form.faceplate_foggy == true) {
+	    	$scope.qc_form.faceplate_foggy = 1;    
+        } else {
+	        $scope.qc_form.faceplate_foggy = 0;
+        }
+        if ($scope.qc_form.faceplate_residue == true) {
+	    	$scope.qc_form.faceplate_residue = 1;    
+        } else {
+	        $scope.qc_form.faceplate_residue = 0;
         }
         // END FACEPLATE
 
@@ -705,6 +778,21 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
         } else {
 	        $scope.qc_form.ports_smooth = 0;
         }
+        if ($scope.qc_form.ports_glued_correctly == true) {
+	    	$scope.qc_form.ports_glued_correctly = 1;    
+        } else {
+	        $scope.qc_form.ports_glued_correctly = 0;
+        }
+        if ($scope.qc_form.ports_kinked_tube == true) {
+	    	$scope.qc_form.ports_kinked_tube = 1;    
+        } else {
+	        $scope.qc_form.ports_kinked_tube = 0;
+        }
+        if ($scope.qc_form.ports_crushed_damper == true) {
+	    	$scope.qc_form.ports_crushed_damper = 1;    
+        } else {
+	        $scope.qc_form.ports_crushed_damper = 0;
+        }
         // END PORTS
 
         // SOUND
@@ -717,6 +805,11 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 	    	$scope.qc_form.sound_balanced = 1;    
         } else {
 	        $scope.qc_form.sound_balanced = 0;
+        }
+        if ($scope.qc_form.sound_correct_model == true) {
+	    	$scope.qc_form.sound_correct_model = 1;    
+        } else {
+	        $scope.qc_form.sound_correct_model = 0;
         }
         // END SOUND
 
@@ -798,11 +891,14 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 				$scope.qc_form.shells_edges = 1;
 				$scope.qc_form.shells_shine = 1;
 				$scope.qc_form.shells_canal = 1;
+				$scope.qc_form.shells_density = 1;
 	    } else if(category == 'faceplate') {
 				$scope.qc_form.faceplate_seams = 1;
 				$scope.qc_form.faceplate_shine = 1;
 				$scope.qc_form.faceplate_colors = 1;
 				$scope.qc_form.faceplate_rounded = 1;
+				$scope.qc_form.faceplate_foggy = 1;
+				$scope.qc_form.faceplate_residue = 1;
 	    } else if(category == 'jacks') {
 				$scope.qc_form.jacks_location = 1;
 				$scope.qc_form.jacks_debris = 1;
@@ -810,9 +906,13 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 	    } else if(category == 'ports') {
 				$scope.qc_form.ports_cleaned = 1;
 				$scope.qc_form.ports_smooth = 1;
+				$scope.qc_form.ports_glued_correctly = 1;
+				$scope.qc_form.ports_kinked_tube = 1;
+				$scope.qc_form.ports_crushed_damper = 1;
 	    } else if(category == 'sound') {
 				$scope.qc_form.sound_signature = 1;
 				$scope.qc_form.sound_balanced = 1;
+				$scope.qc_form.sound_correct_model = 1;
 	    } else if(category == 'shipping') {
 				$scope.qc_form.shipping_cable = 1;
 				$scope.qc_form.shipping_card = 1;
@@ -820,10 +920,8 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 				$scope.qc_form.shipping_tools = 1;
 				$scope.qc_form.shipping_case = 1;
 	    } 
-
-    } 
-
-           
+    }
+          
     $scope.init=function()
     {
 		
@@ -1145,6 +1243,12 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         $event.preventDefault();
         $scope.faults.pop({});
     }
+    
+    $scope.Date2Null = function($event){
+        if($scope.repair_form.date_null == 1) {
+        	$scope.repair_form.estimated_ship_date = '';
+        }
+    }
 
 	$scope.addFaults = function(id_of_repair) {
 		for (i = 0; i < $scope.faults.length; i++) {
@@ -1229,8 +1333,6 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 
     $scope.formats = ['MM/dd/yyyy'];
     $scope.format = $scope.formats[0];
-    
-    
     
     $scope.PDF = function (id) {
 	    //var $order_id = 9729;
@@ -1321,9 +1423,15 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 			}
 		}
 		///////////////////////    END DEALING WITH FAULTS   /////////////////////////////////
+		if($scope.repair_form.estimated_ship_date == '') {
+	       	$scope.repair_form.estimated_ship_date = null;
+       	} else {
+	   		$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
+	   	}
 		
+		// COMMENTED OUT LINE 2 LINES DOWN TO REPLACE WITH THE IF STATEMENT ABOVE 07/29/2019 
 		if($scope.repair_form.estimated_ship_date)
-        	$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
+        	//$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
         	//$scope.repair_form.estimated_ship_date = $scope.repair_form.estimated_ship_date.toLocaleString();
 		if($scope.repair_form.received_date)
 			$scope.repair_form.received_date = moment($scope.repair_form.received_date).format("MM/DD/YYYY");
@@ -1436,11 +1544,18 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 			}
 		}
 		///////////////////////    END DEALING WITH FAULTS   /////////////////////////////////
-	    
+	    if($scope.repair_form.estimated_ship_date == '') {
+	       	$scope.repair_form.estimated_ship_date = null;
+       	} else {
+	   		$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
+	   	}
+	   	//return;
         
-       if($scope.repair_form.estimated_ship_date)
-        	$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
+       // COMMENTED OUT LINE 2 LINES DOWN TO REPLACE WITH THE IF STATEMENT ABOVE 07/29/2019 
+       if($scope.repair_form.estimated_ship_date) {
+	        	//$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
         	//$scope.repair_form.estimated_ship_date = $scope.repair_form.estimated_ship_date.toLocaleString();
+        }
 		if($scope.repair_form.received_date)
 			$scope.repair_form.received_date = moment($scope.repair_form.received_date).format("MM/DD/YYYY");
 			//$scope.repair_form.received_date = $scope.repair_form.received_date.toLocaleString();
@@ -3992,7 +4107,9 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 				
 			var x_axis = d3.axisBottom().scale(xScale_axis);
 			var y_axis = d3.axisLeft().scale(yScale_axis);
-					    
+					  	
+			var d = new Date();  
+			var month_number = d.getMonth();
 			var barChart = svg.selectAll("rect")
 			    .data(dataset)
 			    .enter()
@@ -4005,6 +4122,12 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 			    })
 			    .attr("width", barWidth - barPadding)
 			    .attr("class", "bar")
+			    //.style("fill","teal")
+			    .style("fill", function(d, i) {
+				    var bar_num = 12/i;
+				    console.log("I is " + i*255/month_number)
+					return "rgb(0, 0," + (255-(i*255/month_number))+" )";
+				})
 			    .attr("transform", function (d, i) {
 			        var translate = [barWidth * i + shift_x_from_0, 0]; 
 			        return "translate("+ translate +")";
@@ -4047,7 +4170,7 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 			  .style("text-anchor", "end")
 			  .attr("dx", 0)
 			  .attr("dy", barWidth/4)
-               .attr("font-size", 40)
+             .attr("font-size", 40)
 			  .attr("transform", "rotate(-65)");
 
          

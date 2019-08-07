@@ -12,6 +12,45 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
 			//echo "Root URL is " . $rootScope["RootUrl"] . '/data/{{file.filepath}}';
 	?>
+	<!--Add Popup Window-->
+    <div class="modal fade modal-wide" id="updateRMA" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <form name="frmUpdateRMA">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Failed QC - {{qc_form.customer_name}}</h4>
+                    </div>
+                    <div class="modal-body">
+	                    <div class="row">
+							<div class="form-group col-md-6">
+								<label class="control-label"></label>
+								<div class="text-left">
+									<label class="control-label" style="font-size: large;color: #007FFF; margin-left:12px">MOVE TO A NEW CART</label>
+								</div>
+								<div class="form-group col-md-9" >  
+									<select class='form-control' ng-model='qc_form.order_status_id' ng-options="orderStatus.order_in_manufacturing as orderStatus.status_of_order for orderStatus in OrderStatusList">
+									<option value="">Select a status</option>
+									</select>
+								</div>
+							</div>
+            			</div> <!-- END ROW -->
+            			 <div class="row">
+	            			 <div class="form-group col-md-12">
+							 	<label class="control-label" style="font-size: large;color: #007FFF">NOTES</label><br />
+							 	<textarea type="text" name="notes" ng-model="qc_form.notes" value="" class='form-control' rows='3'></textarea>
+            				</div>
+            			 </div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" ng-click="Move2Cart(qc_form.id, qc_form.order_status_id, qc_form.notes)" ng-disabled="!frmUpdateRMA.$valid"><i class="fa fa-arrow-right"></i>Submit</button>
+                 		</div>
+                	</div>
+                </div>
+			</form>
+        </div>
+	</div><!-- END MODAL WINDOW -->     
+	
+	
     <form role="form">
 	    <div class="container">
         <div class="row">
@@ -56,12 +95,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	         			<label class="control-label" style="font-size: large;color: #007FFF" ng-click="populateBoxes('shells')">SHELLS</label><br />
 		 			</div>
 			 		<label><input type="checkbox" ng-model="qc_form.shells_defects" ng-true-value="1" ng-false-value="0">     &nbsp; NO DEFECTS/BUBBLES/RESIDUE</label><br />
-					<label><input type="checkbox" ng-model="qc_form.shells_colors" ng-true-value="1" ng-false-value="0"> &nbsp; COLORS CORRECT</label><br />
+					<label><input type="checkbox" ng-model="qc_form.shells_colors" ng-true-value="1" ng-false-value="0"> &nbsp; COLORS CORRECT/CLEAR TIPS</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_faced_down" ng-true-value="1" ng-false-value="0"> &nbsp; FACED DOWN & MATCHED HEIGHT</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_label" ng-true-value="1" ng-false-value="0"> &nbsp; NAME LABEL CORRECT</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_edges" ng-true-value="1" ng-false-value="0"> &nbsp; NO SHARP EDGES</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_shine" ng-true-value="1" ng-false-value="0"> &nbsp; HIGH SHINE</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_canal" ng-true-value="1" ng-false-value="0"> &nbsp; CANAL LENGTH</label><br />
+					<label><input type="checkbox" ng-model="qc_form.shells_density" ng-true-value="1" ng-false-value="0"> &nbsp; DENSITY</label>
 			 			
 			 			<!--
 			 			<div class="btn-group" data-toggle="buttons">						
@@ -78,7 +118,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         			<label><input type="checkbox" ng-model="qc_form.faceplate_seams" ng-true-value="1" ng-false-value="0"> &nbsp; SEAMS/ATTACHED WELL</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_shine" ng-true-value="1" ng-false-value="0"> &nbsp; HIGH SHINE</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_colors" ng-true-value="1" ng-false-value="0"> &nbsp; COLORS CORRECT</label><br />
-					<label><input type="checkbox" ng-model="qc_form.faceplate_rounded" ng-true-value="1" ng-false-value="0"> &nbsp; ROUNDED</label>
+					<label><input type="checkbox" ng-model="qc_form.faceplate_rounded" ng-true-value="1" ng-false-value="0"> &nbsp; ROUNDED</label><br />
+					<label><input type="checkbox" ng-model="qc_form.faceplate_foggy" ng-true-value="1" ng-false-value="0"> &nbsp; FOGGY/FINGERPRINTS</label><br />
+					<label><input type="checkbox" ng-model="qc_form.faceplate_residue" ng-true-value="1" ng-false-value="0"> &nbsp; CLEAN OF RESIDUE</label>
 		 		</div>
             
             <div class="form-group col-md-4">
@@ -95,10 +137,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
             <div class="form-group col-md-4">
 		 		<div class="text-left">
-	         		<label class="control-label" style="font-size: large;color: #007FFF" ng-click="populateBoxes('ports')">PORTS</label><br />
+	         		<label class="control-label" style="font-size: large;color: #007FFF" ng-click="populateBoxes('ports')">PORTS/TUBES</label><br />
 		 		</div>
 		 		<label><input type="checkbox" ng-model="qc_form.ports_cleaned" ng-true-value="1" ng-false-value="0">     &nbsp; CLEANED AND CLEAR</label><br />
 				<label><input type="checkbox" ng-model="qc_form.ports_smooth" ng-true-value="1" ng-false-value="0"> &nbsp; SMOOTH</label><br />
+				<label><input type="checkbox" ng-model="qc_form.ports_glued_correctly" ng-true-value="1" ng-false-value="0"> &nbsp; GLUED CORRECTLY</label><br />
+				<label><input type="checkbox" ng-model="qc_form.ports_kinked_tube" ng-true-value="1" ng-false-value="0"> &nbsp; KINKED TUBE</label><br />
+				<label><input type="checkbox" ng-model="qc_form.ports_crushed_damper" ng-true-value="1" ng-false-value="0"> &nbsp; CRUSHED DAMPER</label>
             </div>
                 
             <div class="form-group col-md-4">
@@ -107,6 +152,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 		</div>
         		<label><input type="checkbox" ng-model="qc_form.sound_signature" ng-true-value="1" ng-false-value="0"> &nbsp; SOUND SIGNATURE</label><br />
 				<label><input type="checkbox" ng-model="qc_form.sound_balanced" ng-true-value="1" ng-false-value="0"> &nbsp; BALANCED L & R</label><br />
+				<label><input type="checkbox" ng-model="qc_form.sound_correct_model" ng-true-value="1" ng-false-value="0"> &nbsp; CORRECT MODEL</label>
 		 	</div>
             
             <div class="form-group col-md-4">

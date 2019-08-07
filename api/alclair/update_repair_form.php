@@ -50,6 +50,13 @@ try
 	
 	$repair_form['received_date'] = $_POST['received_date'];
 	$repair_form['estimated_ship_date'] = $_POST['estimated_ship_date'];
+	// IF STATEMENT ADDED 07/29/2019 TO SET THE ESTIMATED SHIP DATE TO NULL WHEN
+	// USER WANTS TO REMOVE THE DATE FRO THE REPAIR FORM
+	// THIS IS NEEDED BECAUSE ON OCCASION A REPAIR WILL REQUIRE IMPRESSIONS
+	// THAT TAKE A LONG TIME TO COME IN AND THE ESTIMATED SHIP DATE IS UNKNOWN
+	if($repair_form['estimated_ship_date'] == '') {
+		$repair_form['estimated_ship_date'] = null;
+	}
 	$repair_form['rma_number'] = $_POST['rma_number'];
 	
 	$repair_form['repair_status_id'] = $_POST['repair_status_id'];

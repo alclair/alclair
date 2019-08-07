@@ -150,14 +150,13 @@ $num_units_failed = $units_failed[0]["num_failed"];
 $avg_tested_per_shop_day = $num_units_tested / $num_shop_days;
 $shop_days_lost_to_qc = $num_units_failed / $avg_tested_per_shop_day;
     
-$query = "SELECT id, sound_signature, sound_balanced, to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( sound_signature = 'FALSE' OR sound_signature IS NULL OR sound_balanced = 'FALSE' OR sound_balanced IS NULL)";
+$query = "SELECT id, sound_signature, sound_balanced, sound_correct_model to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( sound_signature = 'FALSE' OR sound_signature IS NULL OR sound_balanced = 'FALSE' OR sound_balanced IS NULL OR sound_correct_model = 'FALSE' OR sound_correct_model IS NULL)";
 $stmt = pdo_query( $pdo, $query, array(":year"=>$year, ":month"=>$x));
 $result = pdo_fetch_all( $stmt );
 $sound_failures = pdo_rows_affected( $stmt );
 
-$query = "SELECT id, shells_defects, shells_colors, shells_faced_down, shells_label, shells_edges, shells_shine, shells_canal, to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( 
-shells_defects = 'FALSE' OR shells_colors = 'FALSE' OR shells_faced_down = 'FALSE' OR shells_label = 'FALSE' OR shells_edges = 'FALSE' OR shells_shine = 'FALSE' OR shells_canal = 'FALSE' OR 
-shells_defects IS NULL OR shells_colors IS NULL OR shells_faced_down IS NULL OR shells_label IS NULL OR shells_edges IS NULL OR shells_shine IS NULL OR shells_canal IS NULL)";
+$query = "SELECT id, shells_defects, shells_colors, shells_faced_down, shells_label, shells_edges, shells_shine, shells_canal, shells_density, to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( 
+shells_defects = 'FALSE' OR shells_colors = 'FALSE' OR shells_faced_down = 'FALSE' OR shells_label = 'FALSE' OR shells_edges = 'FALSE' OR shells_shine = 'FALSE' OR shells_canal = 'FALSE' OR shells_defects IS NULL OR shells_colors IS NULL OR shells_faced_down IS NULL OR shells_label IS NULL OR shells_edges IS NULL OR shells_shine IS NULL OR shells_canal IS NULL OR shells_density = 'FALSE' OR shells_density IS NULL)";
 $stmt = pdo_query( $pdo, $query, array(":year"=>$year, ":month"=>$x));
 $result = pdo_fetch_all( $stmt );
 $shell_failures = pdo_rows_affected( $stmt );
@@ -172,16 +171,19 @@ $stmt = pdo_query( $pdo, $query, array(":year"=>$year, ":month"=>$x));
 $result = pdo_fetch_all( $stmt );
 $jack_failures = pdo_rows_affected( $stmt );
 
-$query = "SELECT id, faceplate_seams, faceplate_shine, faceplate_colors, faceplate_rounded, to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( 
+$query = "SELECT id, faceplate_seams, faceplate_shine, faceplate_colors, faceplate_rounded, faceplate_foggy, faceplate_residue to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( 
 faceplate_seams = 'FALSE' OR faceplate_shine = 'FALSE' OR faceplate_colors = 'FALSE' OR faceplate_rounded = 'FALSE' OR
-faceplate_seams IS NULL OR faceplate_shine IS NULL OR faceplate_colors IS NULL OR faceplate_rounded IS NULL)";
+faceplate_seams IS NULL OR faceplate_shine IS NULL OR faceplate_colors IS NULL OR faceplate_rounded IS NULL OR faceplate_foggy = 'FALSE' OR face_foggy IS NULL OR faceplate_residue = 'FALSE' OR faceplate_residue IS NULL)";
 $stmt = pdo_query( $pdo, $query, array(":year"=>$year, ":month"=>$x));
 $result = pdo_fetch_all( $stmt );
 $faceplate_failures = pdo_rows_affected( $stmt );
 
-$query = "SELECT id, jacks_location, jacks_debris, jacks_cable, to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( 
+$query = "SELECT id, ports_cleaned, ports_smooth, ports_glued_correctly, ports_kinked_tube, ports_crushed_damper, to_char(qc_date,'dd') AS created FROM qc_form WHERE to_char(qc_date,'yyyy') = :year AND to_char(qc_date,'MM') = :month AND build_type_id = 1 AND pass_or_fail != 'IMPORTED' AND ( 
 ports_cleaned  = 'FALSE' OR ports_smooth = 'FALSE' OR
-ports_cleaned IS NULL OR ports_smooth IS NULL)";
+ports_cleaned IS NULL OR ports_smooth IS NULL OR 
+ports_glued_correctly = 'FALSE' OR ports_glued_correctly IS NULL OR
+ports_kinked_tube = 'FALSE' OR ports_kinked_tube IS NULL OR
+ports_crushed_damper= 'FALSE' OR ports_crushed_damper IS NULL OR)";
 $stmt = pdo_query( $pdo, $query, array(":year"=>$year, ":month"=>$x));
 $result = pdo_fetch_all( $stmt );
 $port_failures = pdo_rows_affected( $stmt );

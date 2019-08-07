@@ -26,11 +26,14 @@ try
 	$qc_form['shells_edges'] = $_POST['shells_edges'];
 	$qc_form['shells_shine'] = $_POST['shells_shine'];
 	$qc_form['shells_canal'] = $_POST['shells_canal'];
+	$qc_form['shells_density'] = $_POST['shells_density'];
 	
 	$qc_form['faceplate_seams'] = $_POST['faceplate_seams'];
 	$qc_form['faceplate_shine'] = $_POST['faceplate_shine'];
 	$qc_form['faceplate_colors'] = $_POST['faceplate_colors'];
 	$qc_form['faceplate_rounded'] = $_POST['faceplate_rounded'];
+	$qc_form['faceplate_foggy'] = $_POST['faceplate_foggy'];
+	$qc_form['faceplate_residue'] = $_POST['faceplate_residue'];
 	
 	$qc_form['jacks_location'] = $_POST['jacks_location'];
 	$qc_form['jacks_debris'] = $_POST['jacks_debris'];
@@ -38,9 +41,13 @@ try
 	
 	$qc_form['ports_cleaned'] = $_POST['ports_cleaned'];
 	$qc_form['ports_smooth'] = $_POST['ports_smooth'];
+	$qc_form['ports_glued_correct'] = $_POST['ports_glued_correctly'];
+	$qc_form['ports_kinked_tube'] = $_POST['ports_kinked_tube'];
+	$qc_form['ports_crushed_damper'] = $_POST['ports_crushed_damper'];
 	
 	$qc_form['sound_signature'] = $_POST['sound_signature'];
 	$qc_form['sound_balanced'] = $_POST['sound_balanced'];
+	$qc_form['sound_correct_model'] = $_POST['sound_correct_model'];
 	
 	$qc_form['artwork_none'] = $_POST['artwork_none'];
 	$qc_form['artwork_required'] = $_POST['artwork_required'];
@@ -105,35 +112,35 @@ try
 		$qc_form['artwork_hq'] = 0;
 	}
 	
-		if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && 
-	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 &&
+		if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && $qc_form['shells_density'] == 1 && 
+	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 && $qc_form['faceplate_foggy'] == 1 && $qc_form['faceplate_residue'] == 1 &&
 	$qc_form['jacks_location'] == 1 && $qc_form['jacks_debris'] == 1 && $qc_form['jacks_cable'] == 1 && 
-	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 && 
-	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && 
+	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 &&  $qc_form['ports_glued_correctly'] == 1 && $qc_form['ports_kinked_tube'] == 1 && $qc_form['ports_crushed_damper'] == 1 &&
+	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && $qc_form['sound_correct_model'] == 1 && 
 	$qc_form['artwork_added'] == 1 && $qc_form['artwork_placement'] == 1 && $qc_form['artwork_hq'] == 1 && 
 	$qc_form['shipping_cable'] == 1 && $qc_form['shipping_tools'] == 1 && $qc_form['shipping_card'] == 1 && $qc_form['shipping_case'] == 1 && $qc_form['shipping_additional'] == 1) {
 		$qc_form['pass_or_fail'] = 'PASS'; 
-	} else if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && 
-	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 &&
+	} else if($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && $qc_form['shells_density'] == 1 && 
+	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 && $qc_form['faceplate_foggy'] == 1 && $qc_form['faceplate_residue'] == 1 &&
 	$qc_form['jacks_location'] == 1 && $qc_form['jacks_debris'] == 1 && $qc_form['jacks_cable'] == 1 && 
-	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 && 
-	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && 
+	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 &&  $qc_form['ports_glued_correctly'] == 1 && $qc_form['ports_kinked_tube'] == 1 && $qc_form['ports_crushed_damper'] == 1 &&
+	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && $qc_form['sound_correct_model'] == 1 &&  
 	$qc_form['artwork_none'] == 1 &&
 	$qc_form['shipping_cable'] == 1 && $qc_form['shipping_tools'] == 1 && $qc_form['shipping_card'] == 1 && $qc_form['shipping_case'] == 1 && $qc_form['shipping_additional'] == 1) {
 		$qc_form['pass_or_fail'] = 'PASS';
-	} else if ($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && 
-	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 &&
+	} else if ($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && $qc_form['shells_density'] == 1 && 
+	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 && $qc_form['faceplate_foggy'] == 1 && $qc_form['faceplate_residue'] == 1 &&
 	$qc_form['jacks_location'] == 1 && $qc_form['jacks_debris'] == 1 && $qc_form['jacks_cable'] == 1 && 
-	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 && 
-	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && 
+	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 &&  $qc_form['ports_glued_correctly'] == 1 && $qc_form['ports_kinked_tube'] == 1 && $qc_form['ports_crushed_damper'] == 1 &&
+	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && $qc_form['sound_correct_model'] == 1 &&  
 	$qc_form['artwork_required'] == 1 && $qc_form['artwork_added'] == 0 && $qc_form['artwork_placement'] == 0 && $qc_form['artwork_hq'] == 0 && 
 	$qc_form['shipping_cable'] == 1 && $qc_form['shipping_tools'] == 1 && $qc_form['shipping_card'] == 1 && $qc_form['shipping_case'] == 1 && $qc_form['shipping_additional'] == 1) {
 		$qc_form['pass_or_fail'] = "PRODUCT CAN'T SHIP";		
-	} else if ($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && 
-	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 &&
+	} else if ($qc_form['shells_defects'] == 1 && $qc_form['shells_colors'] == 1 && $qc_form['shells_faced_down'] == 1 && $qc_form['shells_label'] == 1 && $qc_form['shells_edges']  == 1 && $qc_form['shells_shine'] == 1	 && $qc_form['shells_canal'] == 1 && $qc_form['shells_density'] == 1 && 
+	$qc_form['faceplate_seams'] == 1 && $qc_form['faceplate_shine'] == 1 && $qc_form['faceplate_colors'] == 1 && $qc_form['faceplate_rounded'] == 1 && $qc_form['faceplate_foggy'] == 1 && $qc_form['faceplate_residue'] == 1 &&
 	$qc_form['jacks_location'] == 1 && $qc_form['jacks_debris'] == 1 && $qc_form['jacks_cable'] == 1 && 
-	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 && 
-	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && 
+	$qc_form['ports_cleaned'] == 1 && $qc_form['ports_smooth'] == 1 &&  $qc_form['ports_glued_correctly'] == 1 && $qc_form['ports_kinked_tube'] == 1 && $qc_form['ports_crushed_damper'] == 1 &&
+	$qc_form['sound_signature']  == 1 && $qc_form['sound_balanced'] == 1 && $qc_form['sound_correct_model'] == 1 &&  
 	$qc_form['artwork_added'] == 1 && ($qc_form['artwork_placement'] == 0 || $qc_form['artwork_hq'] == 0) &&
 	$qc_form['shipping_cable'] == 1 && $qc_form['shipping_tools'] == 1 && $qc_form['shipping_card'] == 1 && $qc_form['shipping_case'] == 1 && $qc_form['shipping_additional'] == 1) {
 		$qc_form['pass_or_fail'] = "PRODUCT CAN'T SHIP";
@@ -165,11 +172,11 @@ $response['num_rows'] = $num_rows;
 if($num_rows > 0 ) { // UPDATE THE ROW BECAUSE ALRADY EXISTS
 	$stmt = pdo_query( $pdo, 
 					   'UPDATE qc_form SET customer_name = :customer_name, order_id = :order_id, monitor_id = :monitor_id, build_type_id = :build_type_id,
-                       shells_defects = :shells_defects, shells_colors = :shells_colors, shells_faced_down = :shells_faced_down, shells_label = :shells_label, shells_edges = :shells_edges, shells_shine = :shells_shine, shells_canal = :shells_canal,
-                       faceplate_seams = :faceplate_seams, faceplate_shine = :faceplate_shine, faceplate_colors = :faceplate_colors, faceplate_rounded = :faceplate_rounded,
+                       shells_defects = :shells_defects, shells_colors = :shells_colors, shells_faced_down = :shells_faced_down, shells_label = :shells_label, shells_edges = :shells_edges, shells_shine = :shells_shine, shells_canal = :shells_canal, shells_density = :shells_density,
+                       faceplate_seams = :faceplate_seams, faceplate_shine = :faceplate_shine, faceplate_colors = :faceplate_colors, faceplate_rounded = :faceplate_rounded, faceplate_foggy = :faceplate_foggy, faceplate_residue = :faceplate_residue,
                        jacks_location = :jacks_location, jacks_debris = :jacks_debris, jacks_cable = :jacks_cable, 
-                       ports_cleaned = :ports_cleaned, ports_smooth = :ports_smooth,
-                       sound_signature = :sound_signature, sound_balanced = :sound_balanced,
+                       ports_cleaned = :ports_cleaned, ports_smooth = :ports_smooth, ports_glued_correctly = :ports_glued_correctly, ports_kinked_tube = :ports_kinked_tube, ports_crushed_damper = :ports_crushed_damper,
+                       sound_signature = :sound_signature, sound_balanced = :sound_balanced, sound_correct_model = :sound_correct_model,
                        artwork_placement = :artwork_placement, artwork_hq = :artwork_hq, artwork_none = :artwork_none, artwork_required = :artwork_required, artwork_added = :artwork_added,
                        notes = :notes,
                        shipping_cable = :shipping_cable, shipping_tools = :shipping_tools, shipping_card = :shipping_card, shipping_case = :shipping_case, shipping_additional = :shipping_additional,
@@ -177,11 +184,11 @@ if($num_rows > 0 ) { // UPDATE THE ROW BECAUSE ALRADY EXISTS
                        pass_or_fail = :pass_or_fail
                        WHERE id = :id',
 					   array("id"=>$qc_form["id"], "customer_name"=>$qc_form['customer_name'], "order_id"=>$qc_form['order_id'], "monitor_id"=>$qc_form['monitor_id'], 						"build_type_id"=>$qc_form['build_type_id'], 
-					   "shells_defects"=>$qc_form['shells_defects'], "shells_colors"=>$qc_form['shells_colors'], "shells_faced_down"=>$qc_form['shells_faced_down'], 						"shells_label"=>$qc_form['shells_label'], "shells_edges"=>$qc_form['shells_edges'], "shells_shine"=>$qc_form['shells_shine'], "shells_canal"=>$qc_form['shells_canal'],
-					   "faceplate_seams"=>$qc_form['faceplate_seams'], "faceplate_shine"=>$qc_form['faceplate_shine'], "faceplate_colors"=>$qc_form['faceplate_colors'],  						"faceplate_rounded"=>$qc_form['faceplate_rounded'], 
+					   "shells_defects"=>$qc_form['shells_defects'], "shells_colors"=>$qc_form['shells_colors'], "shells_faced_down"=>$qc_form['shells_faced_down'], 						"shells_label"=>$qc_form['shells_label'], "shells_edges"=>$qc_form['shells_edges'], "shells_shine"=>$qc_form['shells_shine'], "shells_canal"=>$qc_form['shells_canal'], "shells_density"=>$qc_form['shells_density'],
+					   "faceplate_seams"=>$qc_form['faceplate_seams'], "faceplate_shine"=>$qc_form['faceplate_shine'], "faceplate_colors"=>$qc_form['faceplate_colors'],  						"faceplate_rounded"=>$qc_form['faceplate_rounded'], "faceplate_foggy"=>$qc_form['faceplate_foggy'], "faceplate_residue"=>$qc_form['faceplate_residue'], 
 					   "jacks_location"=>$qc_form['jacks_location'], "jacks_debris"=>$qc_form['jacks_debris'], "jacks_cable"=>$qc_form['jacks_cable'],
-					   "ports_cleaned"=>$qc_form['ports_cleaned'], "ports_smooth"=>$qc_form['ports_smooth'],
-					   "sound_signature"=>$qc_form['sound_signature'], "sound_balanced"=>$qc_form['sound_balanced'],
+					   "ports_cleaned"=>$qc_form['ports_cleaned'], "ports_smooth"=>$qc_form['ports_smooth'], "ports_glued_correctly"=>$qc_form['ports_glued_correctly'], "ports_kinked_tube"=>$qc_form['ports_kinked_tube'], "ports_crushed_damper"=>$qc_form['ports_crushed_damper'],
+					   "sound_signature"=>$qc_form['sound_signature'], "sound_balanced"=>$qc_form['sound_balanced'], "sound_correct_model"=>$qc_form['sound_correct_model'],
 					   "artwork_placement"=>$qc_form['artwork_placement'],	"artwork_hq"=>$qc_form['artwork_hq'], "artwork_none"=>$qc_form['artwork_none'], 						"artwork_required"=>$qc_form['artwork_required'], "artwork_added"=>$qc_form['artwork_added'], 
 					   "notes"=>$qc_form['notes'],
 					   "shipping_cable"=>$qc_form['shipping_cable'], "shipping_tools"=>$qc_form['shipping_tools'], "shipping_card"=>$qc_form['shipping_card'], 						"shipping_case"=>$qc_form['shipping_case'], "shipping_additional"=>$qc_form['shipping_additional'], "shipping_by"=>$_SESSION['UserId'],
@@ -198,12 +205,16 @@ else { // NO ROW FOR THE EARPHONE SO MUST INSERT ROW INSTEAD OF UPDATE
 	
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO qc_form (
-customer_name, order_id, monitor_id, build_type_id, shells_defects, shells_colors, shells_faced_down, shells_label, shells_edges, shells_shine, shells_canal, faceplate_seams, faceplate_shine, faceplate_colors, faceplate_rounded, jacks_location, jacks_debris, jacks_cable, ports_cleaned, ports_smooth, sound_signature, sound_balanced, artwork_placement, artwork_hq, artwork_none, artwork_required, artwork_added, notes, shipping_cable, shipping_tools, shipping_card, shipping_case, shipping_additional, shipping_by, shipping_date, pass_or_fail)
+customer_name, order_id, monitor_id, build_type_id, shells_defects, shells_colors, shells_faced_down, shells_label, shells_edges, shells_shine, shells_canal, shells_density, faceplate_seams, faceplate_shine, faceplate_colors, faceplate_rounded, faceplate_foggy, faceplate_residue, jacks_location, jacks_debris, jacks_cable, ports_cleaned, ports_smooth, ports_glued_correctly, ports_kinked_tube, ports_crushed_damper, sound_signature, sound_balanced, sound_correct_model, artwork_placement, artwork_hq, artwork_none, artwork_required, artwork_added, notes, shipping_cable, shipping_tools, shipping_card, shipping_case, shipping_additional, shipping_by, shipping_date, pass_or_fail)
 VALUES (
-:customer_name, :order_id, :monitor_id, :build_type_id, :shells_defects, :shells_colors, :shells_faced_down, :shells_label, :shells_edges, :shells_shine, :shells_canal,
-:faceplate_seams, :faceplate_shine, :faceplate_colors, :faceplate_rounded, :jacks_location, :jacks_debris, :jacks_cable, :ports_cleaned, :ports_smooth, :sound_signature, :sound_balanced, :artwork_placement, :artwork_hq, :artwork_none, :artwork_required, :artwork_added, :notes, :shipping_cable, :shipping_tools, :shipping_card, :shipping_case, :shipping_additional, :shipping_by, now(), :pass_or_fail) RETURNING id",
+:customer_name, :order_id, :monitor_id, :build_type_id, :shells_defects, :shells_colors, :shells_faced_down, :shells_label, :shells_edges, :shells_shine, :shells_canal, :shells_density,
+:faceplate_seams, :faceplate_shine, :faceplate_colors, :faceplate_rounded, :faceplate_foggy, :faceplate_residue, 
+:jacks_location, :jacks_debris, :jacks_cable, :ports_cleaned, :ports_smooth, :ports_glued_correctly, :ports_kinked_tube, :ports_crushed_damper,
+:sound_signature, :sound_balanced, :sound_correct_model, :artwork_placement, :artwork_hq, :artwork_none, :artwork_required, :artwork_added, :notes, :shipping_cable, :shipping_tools, :shipping_card, :shipping_case, :shipping_additional, :shipping_by, now(), :pass_or_fail) RETURNING id",
 
-array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], ':build_type_id'=>$qc_form['build_type_id'], ':shells_defects'=>$qc_form['shells_defects'], ':shells_colors'=>$qc_form['shells_colors'], ':shells_faced_down'=>$qc_form['shells_faced_down'], ':shells_label'=>$qc_form['shells_label'], ':shells_edges'=>$qc_form['shells_edges'], ':shells_shine'=>$qc_form['shells_shine'], ':shells_canal'=>$qc_form['shells_canal'], ':faceplate_seams'=>$qc_form['faceplate_seams'], ':faceplate_shine'=>$qc_form['faceplate_shine'], ':faceplate_colors'=>$qc_form['faceplate_colors'], ':faceplate_rounded'=>$qc_form['faceplate_rounded'], ':jacks_location'=>$qc_form['jacks_location'], ':jacks_debris'=>$qc_form['jacks_debris'], ':jacks_cable'=>$qc_form['jacks_cable'], ':ports_cleaned'=>$qc_form['ports_cleaned'], ':ports_smooth'=>$qc_form['ports_smooth'], ':sound_signature'=>$qc_form['sound_signature'], ':sound_balanced' =>$qc_form['sound_balanced'], ':artwork_placement'=>$qc_form['artwork_placement'], ':artwork_hq'=>$qc_form['artwork_hq'], ':artwork_none'=>$qc_form['artwork_none'], ':artwork_required'=>$qc_form['artwork_required'], ':artwork_added'=>$qc_form['artwork_added'], ':notes'=>$qc_form['notes'], ":shipping_cable"=>$qc_form['shipping_cable'], ":shipping_tools"=>$qc_form['shipping_tools'], ":shipping_card"=>$qc_form['shipping_card'], ":shipping_case"=>$qc_form['shipping_case'], ":shipping_additional"=>$qc_form['shipping_additional'], ":shipping_by"=>$_SESSION['UserId'], ":pass_or_fail"=>$qc_form['pass_or_fail'])
+array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], ':build_type_id'=>$qc_form['build_type_id'], ':shells_defects'=>$qc_form['shells_defects'], ':shells_colors'=>$qc_form['shells_colors'], ':shells_faced_down'=>$qc_form['shells_faced_down'], ':shells_label'=>$qc_form['shells_label'], ':shells_edges'=>$qc_form['shells_edges'], ':shells_shine'=>$qc_form['shells_shine'], ':shells_canal'=>$qc_form['shells_canal'], ':shells_density'=>$qc_form['shells_density'], 
+':faceplate_seams'=>$qc_form['faceplate_seams'], ':faceplate_shine'=>$qc_form['faceplate_shine'], ':faceplate_colors'=>$qc_form['faceplate_colors'], ':faceplate_rounded'=>$qc_form['faceplate_rounded'], ':faceplate_foggy'=>$qc_form['faceplate_residue'], ':faceplate_residue'=>$qc_form['faceplate_residue'], ':jacks_location'=>$qc_form['jacks_location'], ':jacks_debris'=>$qc_form['jacks_debris'], ':jacks_cable'=>$qc_form['jacks_cable'], ':ports_cleaned'=>$qc_form['ports_cleaned'], ':ports_smooth'=>$qc_form['ports_smooth'], ":ports_glued_correctly"=>$qc_form['ports_glued_correctly'], ":ports_kinked_tube"=>$qc_form['ports_kinked_tube'], ":ports_crushed_damper"=>$qc_form['ports_crushed_damper'], 
+':sound_signature'=>$qc_form['sound_signature'], ':sound_balanced' =>$qc_form['sound_balanced'], ':sound_correct_model' =>$qc_form['sound_correct_model'], ':artwork_placement'=>$qc_form['artwork_placement'], ':artwork_hq'=>$qc_form['artwork_hq'], ':artwork_none'=>$qc_form['artwork_none'], ':artwork_required'=>$qc_form['artwork_required'], ':artwork_added'=>$qc_form['artwork_added'], ':notes'=>$qc_form['notes'], ":shipping_cable"=>$qc_form['shipping_cable'], ":shipping_tools"=>$qc_form['shipping_tools'], ":shipping_card"=>$qc_form['shipping_card'], ":shipping_case"=>$qc_form['shipping_case'], ":shipping_additional"=>$qc_form['shipping_additional'], ":shipping_by"=>$_SESSION['UserId'], ":pass_or_fail"=>$qc_form['pass_or_fail'])
 );			
 
 	/*$response['message'] = "Not greater than 0";

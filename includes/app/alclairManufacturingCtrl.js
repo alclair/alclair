@@ -151,6 +151,9 @@ $scope.qrcode= {
 			}
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/pickup.php';
         }
+        else if (step == 'holding_for_payment') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/holding_for_payment.php';
+        }
         else if (step == 'group_order_holding') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/group_order_holding.php';
         }
@@ -282,6 +285,8 @@ $scope.qrcode= {
 		   $scope.order_status_id = 10;
 	   } else if (page == "group_order_holding") {
 		   $scope.order_status_id = 11;
+	   } else if (page == "holding_for_payment") {
+		   $scope.order_status_id = 14;
 	   }
 	   if(page == "repair_cart") {
 		   $scope.repair_status_id = 1;
@@ -313,8 +318,9 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 14;
 	   } else if (page == "holding") {
 		   $scope.repair_status_id = 15;
+	   } else if (page == "holding_for_payment") {
+		   $scope.repair_status_id = 16;
 	   }
-	   
 	   
 	    
         myblockui();

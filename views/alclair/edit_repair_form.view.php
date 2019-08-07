@@ -281,6 +281,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         	<button type="button" class="btn btn-default" ng-click="openShip($event)"><i class="fa fa-calendar"></i></button>
 						</span>
                 	</div>			
+                	
+                	<label style="padding-left:10px; padding-top:15px"><input type="checkbox" ng-model="repair_form.date_null" ng-true-value="1" ng-false-value="0" ng-click="Date2Null()">     &nbsp; REMOVE ESTIMATED SHIP DATE </label>
                 </div>
 			</div>
 			<div class="row">    

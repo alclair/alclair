@@ -67,6 +67,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<label><input type="checkbox" ng-model="qc_form.shells_edges" ng-true-value="1" ng-false-value="0"> &nbsp; NO SHARP EDGES</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_shine" ng-true-value="1" ng-false-value="0"> &nbsp; HIGH SHINE</label><br />
 					<label><input type="checkbox" ng-model="qc_form.shells_canal" ng-true-value="1" ng-false-value="0"> &nbsp; CANAL LENGTH</label><br />
+					<label><input type="checkbox" ng-model="qc_form.shells_density" ng-true-value="1" ng-false-value="0"> &nbsp; DENSITY</label>
 			 			
 			 			<!--
 			 			<div class="btn-group" data-toggle="buttons">						
@@ -84,6 +85,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<label><input type="checkbox" ng-model="qc_form.faceplate_shine" ng-true-value="1" ng-false-value="0"> &nbsp; HIGH SHINE</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_colors" ng-true-value="1" ng-false-value="0"> &nbsp; COLORS CORRECT</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_rounded" ng-true-value="1" ng-false-value="0"> &nbsp; ROUNDED</label>
+					<label><input type="checkbox" ng-model="qc_form.faceplate_foggy" ng-true-value="1" ng-false-value="0"> &nbsp; FOGGY/FINGERPRINTS</label><br />
+					<label><input type="checkbox" ng-model="qc_form.faceplate_residue" ng-true-value="1" ng-false-value="0"> &nbsp; CLEAN OF RESIDUE</label>
 		 		</div>
             
             <div class="form-group col-md-4">
@@ -104,6 +107,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 		</div>
 		 		<label><input type="checkbox" ng-model="qc_form.ports_cleaned" ng-true-value="1" ng-false-value="0">     &nbsp; CLEANED AND CLEAR</label><br />
 				<label><input type="checkbox" ng-model="qc_form.ports_smooth" ng-true-value="1" ng-false-value="0"> &nbsp; SMOOTH</label><br />
+				<label><input type="checkbox" ng-model="qc_form.ports_glued_correctly" ng-true-value="1" ng-false-value="0"> &nbsp; GLUED CORRECTLY</label><br />
+				<label><input type="checkbox" ng-model="qc_form.ports_kinked_tube" ng-true-value="1" ng-false-value="0"> &nbsp; KINKED TUBE</label><br />
+				<label><input type="checkbox" ng-model="qc_form.ports_crushed_damper" ng-true-value="1" ng-false-value="0"> &nbsp; CRUSHED DAMPER</label>
             </div>
                 
             <div class="form-group col-md-4">
@@ -112,6 +118,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 		</div>
         		<label><input type="checkbox" ng-model="qc_form.sound_signature" ng-true-value="1" ng-false-value="0"> &nbsp; SOUND SIGNATURE</label><br />
 				<label><input type="checkbox" ng-model="qc_form.sound_balanced" ng-true-value="1" ng-false-value="0"> &nbsp; BALANCED L & R</label><br />
+				<label><input type="checkbox" ng-model="qc_form.sound_correct_model" ng-true-value="1" ng-false-value="0"> &nbsp; CORRECT MODEL</label>
 		 	</div>
             
 		 	<div class="form-group col-md-4">

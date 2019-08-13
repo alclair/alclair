@@ -219,13 +219,24 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model']) > 2)
 	$column_hearing_protection = '';
 	$column_hearing_protection_color = '';
 }
+$column_musicians_plugs_filter = '';
 if ($result[0]["musicians_plugs"] == TRUE) {
 	$column_musicians_plugs = "MUSICIAN'S PLUGS";
+	if($result[0]["musicians_plugs_9db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 9dB";	
+	}
+	if($result[0]["musicians_plugs_15db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 15dB";	
+	}
+	if($result[0]["musicians_plugs_25db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 25dB";	
+	}
 } else {
 	$column_musicians_plugs = '';
+	$column_musicians_plugs_filter = '';
 }
 if ($result[0]["pickup"] == TRUE) {
-	$column_pickup = 'PICKUP';
+	$column_pickup = 'CUSTOMER PICKUP';
 } else {
 	$column_pickup = '';
 }
@@ -676,24 +687,37 @@ $right_column_addons_and_highrise =
 ";
 
 $right_column_hearing_protection = 
-"		<tr style=\"color:#00B200;font-size:20px;float:left;font-weight:bolder;\">
+"		<tr style=\"background-color: #000000; color:#FFD700;font-size:20px;float:left;font-weight:bolder;\">
 			<td  style=\"white-space:nowrap;\">" .
 					$column_hearing_protection . "
 			</td>
 			<td  style=\"white-space:nowrap;\">" . " 
-				<span style=\"background-color: #000000; color: #FFFFFF\">" . $column_hearing_protection_color . "</span>
+				<span style=\"background-color: #000000; color: #FFD700\">" . $column_hearing_protection_color . "</span>
 			</td>
 		</tr>
 ";
-$right_column_musicians_plugs = 
-"		<tr style=\"color:#00B200;font-size:20px;float:left;font-weight:bolder;\">
+/*$right_column_musicians_plugs = 
+"		<tr style=\"color:#00B200;font-size:16px;float:left;font-weight:bolder;\">
 			<td  style=\"white-space:nowrap;\">" .
-					$column_musicians_plugs . "
+					$column_musicians_plugs . " <br/><span style=\"color:#222222;\">" . $column_musicians_plugs_filter . "</span>
 			</td>
 			<td  style=\"white-space:nowrap;\">" . "
 			</td>
 		</tr>
+";*/
+$right_column_musicians_plugs = 
+"		<tr style=\"color:#FFA500;font-size:20px;float:left;font-weight:bolder;\">
+			<td  style=\"white-space:nowrap;\">" .
+					$column_musicians_plugs . "
+			</td>
+			<td  style=\"white-space:nowrap;\">" . "
+				<span style=\"; color: #FFA500\">" . $column_musicians_plugs_filter . "</span>
+			</td>
+		</tr>
 ";
+
+
+
 $right_column_pickup = 
 "		<tr style=\"color:#00B200;font-size:20px;float:left;font-weight:bolder;\">
 			<td  style=\"white-space:nowrap;\">" .

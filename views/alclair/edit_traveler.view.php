@@ -219,12 +219,19 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	        <div class="form-group col-md-3">
 				<input type="checkbox" ng-model="traveler.additional_items" ng-true-value="1" ng-false-value="0"> &nbsp; ADD-ONS WITH ORDER<br />
 				<input type="checkbox" ng-model="traveler.consult_highrise" ng-true-value="1" ng-false-value="0"> &nbsp; REVIEW HIGHRISE FOR NOTES<br />
-				<input type="checkbox" ng-model="traveler.rush_process" ng-true-value="1" ng-false-value="0"> &nbsp; RUSH ORDER
+				<input type="checkbox" ng-model="traveler.rush_process" ng-true-value="1" ng-false-value="0"> &nbsp; RUSH ORDER<br />
 			</div>
 			<div class="form-group col-md-3">
+				<input type="checkbox" ng-model="traveler.pickup" ng-true-value="1" ng-false-value="0"> &nbsp; CUSTOMER PICKUP<br />
 				<input type="checkbox" ng-model="traveler.hearing_protection" ng-true-value="1" ng-false-value="0"> &nbsp; HEARING PROTECTION INCLUDED<br />
 				<input type="checkbox" ng-model="traveler.musicians_plugs" ng-true-value="1" ng-false-value="0"> &nbsp; MUSICIAN'S PLUGS INCLUDED<br />
-				<input type="checkbox" ng-model="traveler.pickup" ng-true-value="1" ng-false-value="0"> &nbsp; CUSTOMER PICKUP<br />
+				
+				<input ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_9db" ng-true-value="1" ng-false-value="0"> &nbsp; 
+				<span  ng-if="traveler.musicians_plugs">9 dB</span>
+				<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_15db" ng-true-value="1" ng-false-value="0"> &nbsp; 
+				<span  ng-if="traveler.musicians_plugs">15 dB</span>
+				<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_25db" ng-true-value="1" ng-false-value="0"> &nbsp; 
+				<span  ng-if="traveler.musicians_plugs">25 dB</span>
 			</div>
 			<div class="form-group col-md-4">
 				<!--<label class="control-label">Notes</label><br />-->

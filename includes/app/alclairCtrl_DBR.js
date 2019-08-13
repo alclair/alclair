@@ -450,6 +450,10 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	            $scope.twelve = result.fit_counter[11];
 	            $scope.thirteen = result.fit_counter[12];
 	            $scope.fourteen = result.fit_counter[13];
+	            
+	            $scope.fifteen = result.fit_counter[14];
+	            $scope.sixteen = result.fit_counter[15];
+	            $scope.seventeen = result.fit_counter[16];
                 $.unblockUI();
             }).error(function (result) {
                 toastr.error("Get QC Form error.");
@@ -476,6 +480,17 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	            $scope.ten = result.design_counter[9];
 	            $scope.eleven = result.design_counter[10];
 	            $scope.twelve = result.design_counter[11];
+	            
+	            $scope.thirteen = result.design_counter[12];
+	            $scope.fourteen = result.design_counter[13];
+	            $scope.fifteen = result.design_counter[14];
+	            $scope.sixteen = result.design_counter[15];
+	            $scope.seventeen = result.design_counter[16];
+	            $scope.eighteen = result.design_counter[17];
+	            $scope.nineteen = result.design_counter[18];
+	            $scope.twenty = result.design_counter[19];
+	            $scope.twentyone = result.design_counter[20];
+	            
 
                 $.unblockUI();
             }).error(function (result) {

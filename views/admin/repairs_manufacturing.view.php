@@ -222,15 +222,18 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <h4 class="modal-title">Fit Faults</h4>
                     </div>
                     <div class="modal-body" style="margin-left:80px">
-	                    <b style="font-size:20px"> </a> Too tight: <span style = "color:red"> {{one}}  </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Too loose: <span style = "color:red"> {{two}}  </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Canals too long: <span style = "color:red"> {{three}}  </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Canals NOT long enough: <span style = "color:red"> {{four}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal Too Tight: <span style = "color:red"> {{one}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal Too Loose: <span style = "color:red"> {{two}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal Too Long: <span style = "color:red"> {{three}}  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canals Too Short: <span style = "color:red"> {{four}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Helix pain: <span style = "color:red"> {{five}}  </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Shells too tall: <span style = "color:red"> {{six}}   </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Wrong impressions: <span style = "color:red"> {{seven}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{six}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Wrong Impressions: <span style = "color:red"> {{seven}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Reshell W/ New Impression(s): <span style = "color:red"> {{fifteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Monitor Does Not Fit: <span style = "color:red"> {{seventeen}}   </span> </b>&nbsp;&nbsp;<br/>
 	                    
-	                    <b style="font-size:20px"> </a> Rough tip/label: <span style = "color:red"> {{eight}}  </span></b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal tip pain: <span style = "color:red"> {{eight}}  </span></b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on left: <span style = "color:red"> {{nine}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on right: <span style = "color:red"> {{ten}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on both: <span style = "color:red"> {{eleven}}  </span> </b>&nbsp;&nbsp;<br/>
@@ -253,19 +256,28 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <h4 class="modal-title">Design Faults</h4>
                     </div>
                     <div class="modal-body" style="margin-left:80px">
-	                    <b style="font-size:20px"> </a> Incorrect Shell: <span style = "color:red"> {{one}} </span>  </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Faceplate: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Tip: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Incorrect Shells(s) Color: <span style = "color:red"> {{one}} </span>  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Incorrect Faceplate(s) Color: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Incorrect Tip(s) Color: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Incorrect Artwork: <span style = "color:red"> {{four}} </span>  </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Label: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Faceplate popped off: <span style = "color:red"> {{six}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Jacks flushed/recessed: <span style = "color:red"> {{seven}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Incorrect Name Label: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Faceplate(s) Popped Off: <span style = "color:red"> {{six}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Jack(s) Crooked/Mismatched: <span style = "color:red"> {{seven}} </span> </b>&nbsp;&nbsp;<br/>
 	                    
-	                    <b style="font-size:20px"> </a> Not able to plug in cable: <span style = "color:red"> {{eight}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Visual defects: <span style = "color:red"> {{nine}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Unmatched shell heights: <span style = "color:red"> {{ten}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Unmatched canal heights: <span style = "color:red"> {{eleven}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Cracked/Broken Shell: <span style = "color:red"> {{twelve}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Jack(s) Plugged: <span style = "color:red"> {{eight}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Visual Blemish: <span style = "color:red"> {{nine}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Unmatched Shell Height: <span style = "color:red"> {{ten}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Unmatched Canal Length: <span style = "color:red"> {{eleven}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Cracked/Broken Shell & Faceplate: <span style = "color:red"> {{twelve}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Jack(s) Pushed In: <span style = "color:red"> {{thirteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Jack(s) Loose: <span style = "color:red"> {{fourteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Driver Detached from Tube: <span style = "color:red"> {{fifteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Wire Disconnected/Broken: <span style = "color:red"> {{sixteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Floating/Rattling Components: <span style = "color:red"> {{seventeen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Shell Too Thin: <span style = "color:red"> {{eighteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> New Design: <span style = "color:red"> {{nineteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Ownership Transfer: <span style = "color:red"> {{twenty}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Crushed or Punctured Damper(s): <span style = "color:red"> {{twentyone}} </span> </b>&nbsp;&nbsp;<br/>
                 	</div>
                 </div>
 			</form>

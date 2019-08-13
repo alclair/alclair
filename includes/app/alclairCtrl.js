@@ -2538,6 +2538,9 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	 	consult_highrise: 0,
 	 	hearing_protection: 0,
 	 	musicians_plugs: 0,
+	 	musicians_plugs_9db: 0,
+	 	musicians_plugs_15db: 0,
+	 	musicians_plugs_25db: 0,
 	 	pickup: 0,
 	 	override: 1,
 	};
@@ -2967,6 +2970,21 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 		} else {
 			 			$scope.traveler.musicians_plugs = 0;
 			 		}
+			 		if ($scope.traveler.musicians_plugs_9db == true) {
+			 			$scope.traveler.musicians_plugs_9db= 1;    
+			 		} else {
+			 			$scope.traveler.musicians_plugs_9db = 0;
+			 		}
+			 		if ($scope.traveler.musicians_plugs_15db == true) {
+			 			$scope.traveler.musicians_plugs_15db= 1;    
+			 		} else {
+			 			$scope.traveler.musicians_plugs_15db = 0;
+			 		}
+			 		if ($scope.traveler.musicians_plugs_25db == true) {
+			 			$scope.traveler.musicians_plugs_25db= 1;    
+			 		} else {
+			 			$scope.traveler.musicians_plugs_25db = 0;
+			 		}
 			 		if ($scope.traveler.pickup == true) {
 			 			$scope.traveler.pickup= 1;    
 			 		} else {
@@ -3032,6 +3050,9 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 	hearing_protection: 0,
 	hearing_protection_color: '0',
 	musicians_plugs: 0,
+	musicians_plugs_9db: 0,
+	musicians_plugs_15db: 0,
+	musicians_plugs_25db: 0,
 	pickup: 0,
 	date: window.cfg.CurrentDay,
 };

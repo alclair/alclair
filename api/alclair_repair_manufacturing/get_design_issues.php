@@ -131,7 +131,25 @@ try
 				$counter[10] = $counter[10] + 1;
 			}  else if($faults[$j]['description_id'] == 12) {
 				$counter[11] = $counter[11] + 1;
-			}
+			} else if($faults[$j]['description_id'] == 13) {
+				$counter[12] = $counter[12] + 1;
+			} else if($faults[$j]['description_id'] == 14) {
+				$counter[13] = $counter[13] + 1;
+			} else if($faults[$j]['description_id'] == 15) {
+				$counter[14] = $counter[14] + 1;
+			} else if($faults[$j]['description_id'] == 16) {
+				$counter[15] = $counter[15] + 1;
+			} else if($faults[$j]['description_id'] == 17) {
+				$counter[16] = $counter[16] + 1;
+			} else if($faults[$j]['description_id'] == 18) {
+				$counter[17] = $counter[17] + 1;
+			} else if($faults[$j]['description_id'] == 19) {
+				$counter[18] = $counter[18] + 1;
+			} else if($faults[$j]['description_id'] == 20) {
+				$counter[19] = $counter[19] + 1;
+			} else if($faults[$j]['description_id'] == 21) {
+				$counter[20] = $counter[20] + 1;
+			} 
 			
 			}		
 			/* else if(!strcmp($faults[$j]['classification'] , 'Fit') ) {

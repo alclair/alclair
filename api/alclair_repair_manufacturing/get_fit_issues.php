@@ -123,6 +123,7 @@ try
 				$counter[6] = $counter[6] + 1;
 			} else if($faults[$j]['description_id'] == 8) {
 				$counter[7] = $counter[7] + 1;
+			////////// ID 9 THRU 14 NO LONGER EXIST IN THE rma_fit TABLE
 			}  else if($faults[$j]['description_id'] == 9) {
 				$counter[8] = $counter[8] + 1;
 			}  else if($faults[$j]['description_id'] == 10) {
@@ -135,6 +136,13 @@ try
 				$counter[12] = $counter[12] + 1;
 			} else if($faults[$j]['description_id'] == 14) {
 				$counter[13] = $counter[13] + 1;
+			//////////////////////////////////////////////////////////////////////
+			} else if($faults[$j]['description_id'] == 15) {
+				$counter[14] = $counter[8] + 1;
+			} else if($faults[$j]['description_id'] == 16) {
+				$counter[15] = $counter[15] + 1;
+			} else if($faults[$j]['description_id'] == 17) {
+				$counter[16] = $counter[16] + 1;
 			}
 					
 			}

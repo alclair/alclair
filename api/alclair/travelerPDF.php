@@ -511,14 +511,14 @@ if(strlen($result[0]["right_alclair_logo"]) < 2) {
 
 if ( strlen($result[0]["left_shell"]) >= 19) {
 	$text_size_left = 20;//"30px;";
-} elseif (strlen($result[0]["left_shell"]) >= 10 &&  strlen($result[0]["left_shell"]) < 18) {
+} elseif (strlen($result[0]["left_shell"]) >= 10 &&  strlen($result[0]["left_shell"]) < 19) {
 	$text_size_left =24;//"30px;";
 } elseif (strlen($result[0]["left_shell"]) <= 9) {
 	$text_size_left = 30;//"36px;";
 } 
 if ( strlen($result[0]["right_shell"]) >= 19) {
 	$text_size_right = 20;//"30px;";
-} elseif (strlen($result[0]["right_shell"]) >= 10 &&  strlen($result[0]["right_shell"]) < 18) {
+} elseif (strlen($result[0]["right_shell"]) >= 10 &&  strlen($result[0]["right_shell"]) < 19) {
 	$text_size_right =24;//"30px;";
 } elseif (strlen($result[0]["right_shell"]) <= 9) {
 	$text_size_right = 30;//"36px;";

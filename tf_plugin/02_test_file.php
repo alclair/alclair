@@ -1,0 +1,6 @@
+<?php
+/* RANDOM TEXT
+	REPLACE TYLER WITH FOLSOM
+*/
+$php = 12;
+?>

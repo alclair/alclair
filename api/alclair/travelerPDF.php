@@ -215,9 +215,11 @@ if ($result[0]["num_earphones_per_order"] > 1) {
 if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model']) > 2) {
 	$column_hearing_protection = 'HEARING PROTECTION';
 	$column_hearing_protection_color = "&nbsp;" . $result[0]["hearing_protection_color"] . "&nbsp;";
+	$hearing_protection_background_color = '#222222';
 } else {
 	$column_hearing_protection = '';
 	$column_hearing_protection_color = '';
+	$hearing_protection_background_color = '#FFFFFF';
 }
 $column_musicians_plugs_filter = '';
 if ($result[0]["musicians_plugs"] == TRUE) {
@@ -477,14 +479,14 @@ $right_column_artwork =
 
 if ( strlen($result[0]["left_alclair_logo"]) >= 19) {
 	$text_size_left = 20;//"30px;";
-} elseif (strlen($result[0]["left_alclair_logo"]) >= 10 &&  strlen($result[0]["left_shell"]) < 18) {
+} elseif (strlen($result[0]["left_alclair_logo"]) >= 10 &&  strlen($result[0]["left_shell"]) < 19) {
 	$text_size_left =24;//"30px;";
 } elseif (strlen($result[0]["left_alclair_logo"]) <= 9) {
 	$text_size_left = 30;//"36px;";
 } 
 if ( strlen($result[0]["right_alclair_logo"]) >= 19) {
 	$text_size_right = 20;//"30px;";
-} elseif (strlen($result[0]["right_alclair_logo"]) >= 10 &&  strlen($result[0]["right_shell"]) < 18) {
+} elseif (strlen($result[0]["right_alclair_logo"]) >= 10 &&  strlen($result[0]["right_shell"]) < 19) {
 	$text_size_right =24;//"30px;";
 } elseif (strlen($result[0]["right_alclair_logo"]) <= 9) {
 	$text_size_right = 30;//"36px;";
@@ -630,14 +632,14 @@ $right_column_colors_faceplates_response =
 	
 if ( strlen($result[0]["left_faceplate"]) >= 19) {
 	$text_size_left = 20;//"30px;";
-} elseif (strlen($result[0]["left_faceplate"]) >= 10 &&  strlen($result[0]["left_faceplate"]) < 18) {
+} elseif (strlen($result[0]["left_faceplate"]) >= 10 &&  strlen($result[0]["left_faceplate"]) < 19) {
 	$text_size_left =24;//"30px;";
 } elseif (strlen($result[0]["left_faceplate"]) <= 9) {
 	$text_size_left = 30;//"36px;";
 } 
 if ( strlen($result[0]["right_faceplate"]) >= 19) {
 	$text_size_right = 20;//"30px;";
-} elseif (strlen($result[0]["right_faceplate"]) >= 10 &&  strlen($result[0]["right_faceplate"]) < 18) {
+} elseif (strlen($result[0]["right_faceplate"]) >= 10 &&  strlen($result[0]["right_faceplate"]) < 19) {
 	$text_size_right =24;//"30px;";
 } elseif (strlen($result[0]["right_faceplate"]) <= 9) {
 	$text_size_right = 30;//"36px;";
@@ -687,12 +689,12 @@ $right_column_addons_and_highrise =
 ";
 
 $right_column_hearing_protection = 
-"		<tr style=\"background-color: #000000; color:#FFD700;font-size:20px;float:left;font-weight:bolder;\">
+"		<tr style=\"background-color: {$hearing_protection_background_color}; color:#FFD700;font-size:20px;float:left;font-weight:bolder;\">
 			<td  style=\"white-space:nowrap;\">" .
 					$column_hearing_protection . "
 			</td>
 			<td  style=\"white-space:nowrap;\">" . " 
-				<span style=\"background-color: #000000; color: #FFD700\">" . $column_hearing_protection_color . "</span>
+				<span style=\"background-color: {$hearing_protection_background_color}; color: #FFD700\">" . $column_hearing_protection_color . "</span>
 			</td>
 		</tr>
 ";

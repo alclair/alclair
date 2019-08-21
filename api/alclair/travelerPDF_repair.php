@@ -256,6 +256,92 @@ if ($result[0]["personal_item"] == TRUE) {
 	</tr>
 	";	
 }
+
+// WARRANTY REPAIR
+if ($result[0]["warranty_repair"] == TRUE) {
+	$left_column_warranty_repair = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"><span style=\"color:white;background-color: #222222\"> WARRANTY REPAIR</span></td>
+	</tr>
+	";
+} else {
+	$left_column_warranty_repair = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"></td>
+	</tr>
+	";	
+}
+
+// CUSTOMER CONTACTED
+if ($result[0]["customer_contacted"] == TRUE || $result[0]["customer_billed"] == TRUE || $result[0]["consulted"] == TRUE) {
+	if($result[0]["customer_contacted"] == TRUE) { 
+		$customer_contacted = "<span style=\"color:black;font:12px;\"> CONTACTED</span> <br/>";
+	} else {
+		$customer_contacted = "";
+	}
+	if($result[0]["customer_billed"] == TRUE) {
+		 $customer_billed = "<span style=\"color:black;font:12px;\"> BILLED</span> <br/>";
+	} else {
+		$customer_billed = "";
+	}
+	if($result[0]["consulted"] == TRUE) { 
+		$customer_consulted = "<span style=\"color:black;font:12px;\"> CONSULTED</span> <br/>";
+	} else {
+		$customer_consulted = "";
+	}
+	$left_column_customer_contacted = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"><span style=\"color:red;\"> CUSTOMER</span>
+    		<br/>
+    		$customer_contacted
+			$customer_billed
+			$customer_consulted
+    		
+    	</td>
+	</tr>
+	</table>
+	";
+} else {
+	$left_column_customer_contacted = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"> </td>
+	</tr>
+	</table>
+	";	
+}
+
+// CUSTOMER BILLED
+if ($result[0]["customer_billed"] == TRUE) {
+	$left_column_customer_billed = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"><span style=\"color:red;\"> CUSTOMER BILLED</span></td>
+	</tr>
+	";
+} else {
+	$left_column_customer_billed = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"></td>
+	</tr>
+	";	
+}
+
+// CONSULT BEFORE SHIP
+if ($result[0]["consulted"] == TRUE) {
+	$left_column_consulted = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"><span style=\"color:red;\"> CONSULTED</span></td>
+	</tr>
+	</table>
+	";
+} else {
+	$left_column_consulted = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"></td>
+	</tr>
+	</table>
+	";	
+}
+
 /*
 $left_column_impression_date = 
 "		<tr style=\"font-weight:bold;\">
@@ -286,15 +372,16 @@ $left_column_impression_date_response =
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;\">$ {$result[0]["quotation"]}</td>
 		</tr>
-	</table>
+	
 ";
+//</table>
 } else {
 	$left_column_impression_date_response =  
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;\">{$result[0]["quotation"]}</td>
 		</tr>
-	</table>
 ";
+//</table>
 }
 
 
@@ -553,8 +640,13 @@ $right_column_estimated_ship_date_response =
 			$left_column_report_fit_issue . $left_column_report_fit_issue_response .
 			 "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
             $left_column_impression_date  . $left_column_impression_date_response  . 
+            //"</td>" .
+            "<tr><td colspan=\"2\" style='height:4px;'></td></tr>" .
+            $left_column_warranty_repair .
+            //"</td>" .
+             "<tr><td colspan=\"2\" style='height:4px;'></td></tr>" .
+            $left_column_customer_contacted .
             "</td>" .
-             //<td>" . 
             //$middle_column_order_id . $middle_column_order_id_response . "</td>
             "<td>" . 
             "<table style=\"font-size:20px;\">" . //$right_column_checkboxes1_response .  

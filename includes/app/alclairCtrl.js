@@ -3015,7 +3015,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
     $scope.init = function () {
         $scope.LoadData();
 
-        AppDataService.loadMonitorList(null, null, function (result) {
+        AppDataService.loadMonitorList_not_Universals(null, null, function (result) {
            $scope.monitorList = result.data;
         }, function (result) { });
         AppDataService.loadImpressionColorList(null, null, function (result) {
@@ -3266,7 +3266,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
     $scope.init=function()
     {
 
-        AppDataService.loadMonitorList(null, null, function (result) {
+        AppDataService.loadMonitorList_not_Universals(null, null, function (result) {
            $scope.monitorList = result.data;
         }, function (result) { });
         AppDataService.loadImpressionColorList(null, null, function (result) {

@@ -33,6 +33,21 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
             error(result);
         });
     };
+	this.load_alclair_monitors_not_universals = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name + "/get_monitors_not_universals.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+
 	this.load_alclair_impression_colors = function (name, params, success, error) {
         var api_url = window.cfg.apiUrl + name +  "/get_impression_colors.php";
 		
@@ -247,6 +262,12 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
             before();
 
         this.load_alclair_monitors('alclair', params, success, error);
+    };
+    this.loadMonitorList_not_Universals = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_monitors_not_universals('alclair', params, success, error);
     };
 	this.loadImpressionColorList = function (params, before, success, error) {
         if (before != null && before != undefined)

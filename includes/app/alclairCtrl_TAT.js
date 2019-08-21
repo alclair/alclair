@@ -650,7 +650,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
         if (isEmpty($scope.cust_name)) $scope.cust_name = "";
         if (isEmpty($scope.qc_form.cust_name)) $scope.qc_form.cust_name = "";
         $scope.PASS_OR_FAIL = AppDataService.PASS_OR_FAIL;
-        AppDataService.loadMonitorList(null, null, function (result) {
+        AppDataService.loadMonitorList_not_Universals(null, null, function (result) {
            $scope.monitorList = result.data;
         }, function (result) { });
         AppDataService.loadBuildTypeList(null, null, function (result) {

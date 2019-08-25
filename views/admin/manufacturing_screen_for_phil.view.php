@@ -3,7 +3,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 ?>
 
 <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/tableresponsive.css"/>
+<link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/swdapp_manufacturing_screen.css">
 
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <!-- PAGE REFRESH EVERY 5 MINUTES -->
 <meta http-equiv="refresh" content="600" >
 
@@ -63,6 +65,23 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		</table>
 	</div>
  </div>
+ 
+  <div class="row">
+ 	<body>
+	 	<div style="text-align: center;">
+		 	<span style="font-size:40px; text-align: center" > Month: </span> 
+		 	<select style="width: 120px; height: 60px;font-size:40px" ng-model="month_month" ng-options="month.value as month.label for month in monthRange" 
+			 	ng-blur="RefreshPage()">
+			 </select>
+	 	</div>
+        
+        <div style="text-align:center;">
+	        <h1 style="color:rgba(47, 18, 232, 0.5);font-size:80px; font-weight: bold; padding-bottom:40px">{{THE_MONTH}} SHIPPED BY DAY </h1>    
+	        <svg class="bar-chart" ></svg>
+        </div>    
+     </body>
+  </div>
+ 
     <?php
 	    // FORM FOR TRD COMPANY
 	    } 
@@ -76,7 +95,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<?php
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
 	?>
-			<script src="<?=$rootScope["RootUrl"]?>/includes/app/alclairCtrl.js"></script>
+			<script src="<?=$rootScope["RootUrl"]?>/includes/app/PhilCtrl.js"></script>
     <?php  } 	?>	<?php
 include_once $rootScope["RootPath"]."includes/footer.inc.php";
 ?>

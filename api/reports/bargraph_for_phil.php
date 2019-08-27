@@ -33,7 +33,7 @@ GROUP BY the_month, the_year, the_month_name";
 $query = "SELECT to_char(t1.date, 'fmDD') as the_day, ( SELECT COUNT(to_char(t1.date, 'dd') ) ) AS num_in_day
 					FROM order_status_log AS t1
 					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-					WHERE to_char(t1.date,'yyyy') = '$current_year' AND to_char(t1.date,'mm') = '07' AND t1.order_status_id = 12 AND t2.active=TRUE
+					WHERE to_char(t1.date,'yyyy') = '$current_year' AND to_char(t1.date,'mm') = '$month' AND t1.order_status_id = 12 AND t2.active=TRUE
 					GROUP BY the_day";
 $stmt = pdo_query( $pdo, $query, $params ); 
 $num_in_day = pdo_fetch_all( $stmt );

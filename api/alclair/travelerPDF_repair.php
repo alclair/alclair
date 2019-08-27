@@ -285,7 +285,7 @@ if ($result[0]["customer_contacted"] == TRUE || $result[0]["customer_billed"] ==
 		$customer_billed = "";
 	}
 	if($result[0]["consulted"] == TRUE) { 
-		$customer_consulted = "<span style=\"color:black;font:12px;\"> CONSULTED</span> <br/>";
+		$customer_consulted = "<span style=\"color:black;font:12px;\"> CONSULT BEFORE SHIP</span> <br/>";
 	} else {
 		$customer_consulted = "";
 	}

@@ -927,7 +927,6 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
           
     $scope.init=function()
     {
-		
 		$scope.LoadData();
         AppDataService.loadMonitorList(null, null, function (result) {
            $scope.monitorList = result.data;
@@ -935,7 +934,6 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
         AppDataService.loadBuildTypeList(null, null, function (result) {
            $scope.buildTypeList = result.data;
         }, function (result) { });
-
 
         $http.get(window.cfg.rootUrl + "/api/settings/get.php").success(function (data) {
             //$scope.minimum_barrel_warning = data.minimum_barrel_warning;

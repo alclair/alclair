@@ -55,7 +55,6 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         </div>
 	</div><!-- END MODAL WINDOW -->     
 	
-	
     <form role="form">
 	    <div class="container">
         <div class="row">

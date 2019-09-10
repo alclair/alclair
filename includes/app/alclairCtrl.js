@@ -632,6 +632,9 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 								AppDataService.loadOrderStatusTableList(null, null, function (result) {
 									$scope.OrderStatusList = result.data;
 								}, function (result) { });
+								AppDataService.loadRepairStatusTableList(null, null, function (result) {
+									$scope.RepairStatusList = result.data;
+								}, function (result) { });
 								$("#updateRMA").modal("show");
 								
 							} else {

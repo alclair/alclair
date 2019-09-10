@@ -23,14 +23,19 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                     </div>
                     <div class="modal-body">
 	                    <div class="row">
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-9">
 								<label class="control-label"></label>
 								<div class="text-left">
 									<label class="control-label" style="font-size: large;color: #007FFF; margin-left:12px">MOVE TO A NEW CART</label>
 								</div>
-								<div class="form-group col-md-9" >  
-									<select class='form-control' ng-model='qc_form.order_status_id' ng-options="orderStatus.order_in_manufacturing as orderStatus.status_of_order for orderStatus in OrderStatusList">
-									<option value="">Select a status</option>
+								<div class="form-group col-md-9" ng-if="qc_form.build_type_id == 1 || qc_form.build_type == 3" >  
+									<select class='form-control' ng-model='qc_form.order_status_id' ng-options="orderStatus.order_in_manufacturing as orderStatus.status_of_order for orderStatus in OrderStatusList"> 
+									<option value="">Select a status for the order</option>
+									</select>
+								</div>
+								<div class="form-group col-md-9" ng-if="qc_form.build_type_id == 2 || qc_form.build_type == 4" >  
+									<select class='form-control' ng-model='qc_form.order_status_id' ng-options="repairStatus.order_in_repair as repairStatus.status_of_repair for repairStatus in RepairStatusList"> 
+									<option value="">Select a status for the repair</option>
 									</select>
 								</div>
 							</div>

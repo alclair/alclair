@@ -171,7 +171,6 @@ try
 	$count_studio3 = 0;
 	$count_studio4 = 0;
 	$count_electro = 0;
-	$count_versa = 0;
 	
 	$part_2389 = 0;
 	$part_2015 = 0;
@@ -184,8 +183,6 @@ try
 	$part_36A007 = 0;
 	$part_17A003 = 0;
 	$part_6500 = 0;
-	$part_1723WT03_9 = 0;
-
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < $rows_in_result; $i++) {
@@ -223,9 +220,6 @@ try
 	    }	
 	     elseif(strcmp($result[$i]["model"], "Electro") == 0) {
 		    $count_electro = $count_electro + 1;
-	    }	
-	     elseif(strcmp($result[$i]["model"], "Versa") == 0) {
-		    $count_versa = $count_versa + 1;
 	    }	
 	}
 	$response["test"] = $count_reference;
@@ -265,8 +259,6 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $part_17A003 = $get_parts[$j]["quantity"] + $part_17A003;
 	     } elseif($get_parts[$j]["part_id"] == 11) {
 		     $part_6500 = $get_parts[$j]["quantity"] + $part_6500;
-	     } elseif($get_parts[$j]["part_id"] == 12) {
-		     $part_1723WT03_9 = $get_parts[$j]["quantity"] + $part_1723WT03_9;
 	     } 
 	 }
 	 
@@ -282,42 +274,40 @@ for ($i = 0; $i < $rows_in_result; $i++) {
    // BUILDING THE FINAL TABLES TO SEND TO THE VIEW FILE
    // THIS IS ALL OF THE MONITOR NAMES
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X");
-	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND id < 13 ORDER BY id", null);  
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
 		$result_for_view_file[$i]["monitors"] = $get_result[$i]["name"];
 		
 		if($i == 0) {
-			$result_for_view_file[$i]["monitor_count"]  = $count_versa;
-		} else if ( $i == 1) {
 			$result_for_view_file[$i]["monitor_count"]  = $count_dual;
-		} else if ( $i == 2) {
+		} else if ( $i == 1) {
 			$result_for_view_file[$i]["monitor_count"]  = $count_dualxb;
-   		} elseif ( $i == 3) {
+   		} elseif ( $i == 2) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_reference;
-   		} elseif ( $i == 4) {
+   		} elseif ( $i == 3) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_tour;
-   		} elseif ( $i == 5) {
+   		} elseif ( $i == 4) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_rsm;
-   		} elseif ( $i == 6) {
+   		} elseif ( $i == 5) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_cmvk;
-   		} elseif ( $i == 7) {
+   		} elseif ( $i == 6) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_spire;
-   		} elseif ( $i == 8) {
+   		} elseif ( $i == 7) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_studio4;
-   		} elseif ( $i == 9) {
+   		} elseif ( $i == 8) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_studio3;
-   		} elseif ( $i == 10) {
+   		} elseif ( $i == 9) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_revx;
-   		} elseif ( $i == 11) {
+   		} elseif ( $i == 10) {
    			$result_for_view_file[$i]["monitor_count"]  = $count_electro;
-   		}	elseif ( $i == 12) {
+   		}	elseif ( $i == 11) {
 	   		
    		}
 	}
 
+   
    // BUILDING THE FINAL TABLE TO SEND TO THE VIEW FILE
    // THIS IS ALL OF THE BALANCED ARMATURES NAMES
    $stmt4 = pdo_query( $pdo, "SELECT * from part_table ORDER BY id", null); 
@@ -348,9 +338,8 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $result_for_view_file2[$i]["quantity"] = $part_17A003;
 	     } elseif($get_part_table[$i]["id"] == 11) {
 		     $result_for_view_file2[$i]["quantity"] = $part_6500;
-	     } elseif($get_part_table[$i]["id"] == 12) {
-		     $result_for_view_file2[$i]["quantity"] = $part_1723WT03_9;
 	     } 
+   		
    }
    
     
@@ -382,7 +371,6 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 	$count_studio3_casing = 0;
 	$count_studio4_casing = 0;
 	$count_electro_casing = 0;
-	$count_versa_casing = 0;
 	
 	$part_2389_casing = 0;
 	$part_2015_casing = 0;
@@ -395,8 +383,6 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 	$part_36A007_casing = 0;
 	$part_17A003_casing = 0;
 	$part_6500_casing = 0;
-	$part_1723WT03_9_casing = 0;
-	
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < $rows_in_result; $i++) {
@@ -432,9 +418,6 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 	    }	
 	     if(strcmp($result[$i]["model"], 'Electro') == 0) {
 		    $count_electro_casing = $count_electro_casing + 1;
-	    }	
-	     if(strcmp($result[$i]["model"], 'Versa') == 0) {
-		    $count_versa_casing = $count_versa_casing + 1;
 	    }	
 	}
 	$response["test"] = $count_reference_casing;
@@ -474,46 +457,41 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $part_17A003_casing = $get_parts[$j]["quantity"] + $part_17A003_casing;
 	     } elseif($get_parts[$j]["part_id"] == 11) {
 		     $part_6500_casing = $get_parts[$j]["quantity"] + $part_6500_casing;
-	     } elseif($get_parts[$j]["part_id"] == 12) {
-		     $part_1723WT03_9_casing = $get_parts[$j]["quantity"] + $part_1723WT03_9_casing;
 	     } 
 	 }
 }
    // BUILDING THE FINAL TABLES TO SEND TO THE VIEW FILE
    // THIS IS ALL OF THE MONITOR NAMES
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X", "Electro");
-	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 ORDER BY id", null); 
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
 		$result_for_view_file[$i]["monitors"] = $get_result[$i]["name"];
 		
 		if($i == 0) {
-			$result_for_view_file[$i]["casing_count"]  = $count_versa_casing;
-		} else if ( $i == 1) {
 			$result_for_view_file[$i]["casing_count"]  = $count_dual_casing;
-		} else if ( $i == 2) {
+		} else if ( $i == 1) {
 			$result_for_view_file[$i]["casing_count"]  = $count_dualxb_casing;
-   		} elseif ( $i == 3) {
+   		} elseif ( $i == 2) {
    			$result_for_view_file[$i]["casing_count"]  = $count_reference_casing;
-   		} elseif ( $i == 4) {
+   		} elseif ( $i == 3) {
    			$result_for_view_file[$i]["casing_count"]  = $count_tour_casing;
-   		} elseif ( $i == 5) {
+   		} elseif ( $i == 4) {
    			$result_for_view_file[$i]["casing_count"]  = $count_rsm_casing;
-   		} elseif ( $i == 6) {
+   		} elseif ( $i == 5) {
    			$result_for_view_file[$i]["casing_count"]  = $count_cmvk_casing;
-   		} elseif ( $i == 7) {
+   		} elseif ( $i == 6) {
    			$result_for_view_file[$i]["casing_count"]  = $count_spire_casing;
-   		} elseif ( $i == 8) {
+   		} elseif ( $i == 7) {
    			$result_for_view_file[$i]["casing_count"]  = $count_studio4_casing;
-   		} elseif ( $i == 9) {
+   		} elseif ( $i == 8) {
    			$result_for_view_file[$i]["casing_count"]  = $count_studio3_casing;
-   		} elseif ( $i == 10) {
+   		} elseif ( $i == 9) {
    			$result_for_view_file[$i]["casing_count"]  = $count_revx_casing;
-   		} elseif ( $i == 11) {
+   		} elseif ( $i == 10) {
    			$result_for_view_file[$i]["casing_count"]  = $count_electro_casing;
-   		}	elseif ( $i == 12) {
+   		}	elseif ( $i == 11) {
 	   		
    		}
 	}
@@ -553,11 +531,10 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $result_for_view_file2[$i]["casing_quantity"] = $part_17A003_casing;
 	     } elseif($get_part_table[$i]["id"] == 11) {
 		     $result_for_view_file2[$i]["casing_quantity"] = $part_6500_casing;
-	     } elseif($get_part_table[$i]["id"] == 12) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_1723WT03_9_casing;
 	     } 
    }
    
+    
     $response['code'] = 'success';
     $response["message"] = $query;
     $response['data'] = $result_for_view_file;

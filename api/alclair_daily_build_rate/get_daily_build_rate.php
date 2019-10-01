@@ -103,8 +103,7 @@ try
     $stmt4 = pdo_query( $pdo, $query4, array(":fake_imp_date"=>$fake_imp_date)); 
 	$DailyList = pdo_fetch_all( $stmt4 );  
 	
-	$query5 = "SELECT *, to_char(estimated_ship_date, 'MM/dd/yyyy') AS estimated_ship_date2 FROM import_orders WHERE order_status_id = 1 AND active = TRUE
-    					ORDER BY estimated_ship_date DESC";
+	$query5 = "SELECT *, to_char(estimated_ship_date, 'MM/dd/yyyy') AS estimated_ship_date2 FROM import_orders WHERE order_status_id = 1 AND active = TRUE AND estimated_ship_date IS NOT NULL ORDER BY estimated_ship_date DESC";
 	$stmt5 = pdo_query( $pdo, $query5, null); 
 	$result5 = pdo_fetch_all( $stmt5 );  
 	

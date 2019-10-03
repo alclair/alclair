@@ -200,6 +200,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<input type="checkbox" ng-model="traveler.additional_items" ng-true-value="1" ng-false-value="0"> &nbsp; ADD-ONS WITH ORDER<br />
 				<input type="checkbox" ng-model="traveler.consult_highrise" ng-true-value="1" ng-false-value="0"> &nbsp; REVIEW HIGHRISE FOR NOTES<br />
 				<input type="checkbox" ng-model="traveler.rush_process" ng-true-value="1" ng-false-value="0"> &nbsp; RUSH ORDER
+				<input type="checkbox" ng-model="traveler.international" ng-true-value="1" ng-false-value="0"> &nbsp; INTERNATIONAL SHIPMENT<br />
 			</div>
 			<div class="form-group col-md-3">
 				<input type="checkbox" ng-model="traveler.pickup" ng-true-value="1" ng-false-value="0"> &nbsp; CUSTOMER PICKUP<br />

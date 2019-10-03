@@ -204,6 +204,11 @@ if ($result[0]["consult_highrise"] == TRUE) {
 } else {
 	$column_highrise = '';
 }
+if ($result[0]["international"] == TRUE) {
+	$column_international = 'INTERNATIONAL';
+} else {
+	$column_international = '';
+}
 if ($result[0]["num_earphones_per_order"] > 1) {
 	$column_num_of_earphones = 'GROUP OF ' . "<span style=\"color:red;\">" . $result[0]["num_earphones_per_order"] . "</span>";
 } 
@@ -413,12 +418,12 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
 			 //$rush_process . "
 		"</tr>
 ";
-$right_column_cable = 
+	$right_column_cable = 
 "		<tr style=\"font-weight:bold;\">
     		<td style=\"text-align:left;\"></td>
 		</tr>
 ";
-$right_column_cable_response =  
+	$right_column_cable_response =  
 "		<tr style=\"font-size:14px;\">
 			 <td colspan='2' style=\"text-align:left;font-size:30px;\"></td>
 		</tr>
@@ -430,7 +435,7 @@ $right_column_cable_response =
 			 //$rush_process . "
 		"</tr>
 ";
-$right_column_cable = 
+	$right_column_cable = 
 "		<tr style=\"font-weight:bold;\">
     		<td style=\"text-align:left;\">CABLE:</td>
 		</tr>
@@ -459,15 +464,13 @@ if(strcmp($result[0]["artwork"], 'None')) {
 $right_column_artwork = 
 "	<tr>
     		<td colspan='4' style=\"font-weight:bold;\"><span style=\"background-color: #40D8E0;\">ARTWORK:</span></td>
-	</tr>
-";
+	</tr>";
 //<span style=\"color:red;\"><b>{$result[0]["artwork"]}</b></span></td>
 } else {
 $right_column_artwork = 
 "	<tr>
     		<td colspan='4' style=\"font-weight:bold;\">ARTWORK:</td>
-    	</tr>
-";
+    	</tr>";
 //<span style=\"color:red;\"><b>{$result[0]["artwork"]}</b></span></td>
 }
 
@@ -606,10 +609,14 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model']) < 2)
 
 $right_column_colors_faceplates_response = 
 "	<tr>
+		<td style=\"text-align:left;\"></td>
+    	<td style=\"text-align:left;\"></td>
 	</tr>
 ";
  $right_column_colors_faceplates_response2 = 
 "	<tr  style=\"color:blue;\">
+		<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>"."</b></td>
+    	<td style=\"text-align:left;font-size:{$text_size_right}px;\"><b>"."</b></td>
 	</tr>
 ";
 
@@ -659,9 +666,6 @@ $right_column_colors_faceplates_response =
 	
 }
 	
-
-
-
 $right_column_addons_and_highrise = 
 "	<tr>
 			<td colspan='4' style=\"font-weight:bold;\">ADDED NOTES:</td>
@@ -678,7 +682,8 @@ $right_column_addons_and_highrise =
 			</td>
 		</tr>
 ";
- $right_column_num_of_earphones = 
+
+$right_column_num_of_earphones = 
 "		<tr style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder;\">
 			<td  style=\"white-space:nowrap;\">" .
 					$column_num_of_earphones . "
@@ -725,8 +730,12 @@ $right_column_pickup =
 			<td  style=\"white-space:nowrap;\">" .
 					$column_pickup . "
 			</td>
+			<td  style=\"white-space:nowrap;\">" .
+					$column_international . "
+			</td>	
 		</tr>
 ";
+
 // 2 <td> WERE USED BECAUSE I COULDN'T FIGURE OUT HOW TO NOT MAKE THE TEXT WRAP
  $right_column_highrise = 
 "		<tr style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder\">

@@ -2537,6 +2537,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	 	other: 0,
 	 	additional_items: 0,
 	 	consult_highrise: 0,
+	 	international: 0,
 	 	hearing_protection: 0,
 	 	musicians_plugs: 0,
 	 	musicians_plugs_9db: 0,
@@ -2961,6 +2962,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 		} else {
 			 			$scope.traveler.consult_highrise = 0;
 			 		}
+			 		if ($scope.traveler.international == true) {
+			 			$scope.traveler.international= 1;    
+			 		} else {
+			 			$scope.traveler.international = 0;
+			 		}
 			 		if ($scope.traveler.hearing_protection == true) {
 			 			$scope.traveler.hearing_protection= 1;    
 			 		} else {
@@ -3048,6 +3054,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 	cable_color: '0',
 	additional_items: 0,
 	consult_highrise: 0,
+	international: 0,
 	hearing_protection: 0,
 	hearing_protection_color: '0',
 	musicians_plugs: 0,

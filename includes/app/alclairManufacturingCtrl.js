@@ -285,9 +285,14 @@ $scope.qrcode= {
 		   $scope.order_status_id = 10;
 	   } else if (page == "group_order_holding") {
 		   $scope.order_status_id = 11;
+		} else if (page == "holding") {
+		   $scope.order_status_id = 13;
 	   } else if (page == "holding_for_payment") {
 		   $scope.order_status_id = 14;
+	   } else if (page == "order_received") {
+		   $scope.order_status_id = 99;
 	   }
+	   
 	   if(page == "repair_cart") {
 		   $scope.repair_status_id = 1;
 	   } else if (page == "cathy_cart") {
@@ -320,6 +325,8 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 15;
 	   } else if (page == "holding_for_payment") {
 		   $scope.repair_status_id = 16;
+	   } else if (page == "repair_received") {
+		   $scope.repair_status_id = 99;
 	   }
 	   
 	    

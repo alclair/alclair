@@ -307,11 +307,13 @@ Pickup
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manufacturing <span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li class=" "><a> <span style="margin-right:41px; font-weight:bold;">Order Received </span>
-									  <span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["order_received"] ?>)</span></a></li>
-									  
-								<li class=" "><a> <span style="margin-right:69px;font-weight:bold;">Repair Received </span>
-									  <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["repair_received"] ?>)</span></a></li>
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/order_received" class="nav-link "> 
+									<span style="margin-right:41px; font-weight:bold;">Order Received </span>
+									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["order_received"] ?>)</span></a></li>
+								
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_received" class="nav-link "> 	  
+									<span style="margin-right:69px;font-weight:bold;">Repair Received </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["repair_received"] ?>)</span></a></li>
 									  
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/start_cart" class="nav-link "> 
 									<span style="margin-right:74px;font-weight:bold;">Start Cart</span>

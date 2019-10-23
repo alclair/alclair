@@ -2822,13 +2822,13 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 		
 		// WHEN THE PAGE LOADS THE ORDER STATUS ID IS SAVED AS order_status_id 
 		if (order_status_id == 1 && $scope.traveler.order_status_id == 1) {
-			//var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
-			console.log("INSIDE THE IF")
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
+			console.log("INSIDE THE IF 222 " +	 $scope.traveler.international)
 		} else {
-			//var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
 			console.log("INSIDE THE ELSE")
 		}
-		return;
+		//return;
 	/*		
 		if ($scope.traveler.override == 1) {
 			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;

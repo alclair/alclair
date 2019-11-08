@@ -122,7 +122,11 @@ try
 	//$query2 = pdo_query($pdo, "SELECT *, to_char(date,'MM/dd/yyyy') as date FROM order_status_log WHERE order_status_id = 12 AND date >= :StartDate AND date <= :EndDate AND import_orders_id IS NOT NULL", array(":StartDate"=>$_REQUEST["StartDate"], ":EndDate"=>$_REQUEST["EndDate"]));
 	
 // MAY NEED TO ADD STATUS 11 AND 13	
-$query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
+// NOVEMBER 7TH, 2019 - ADDED "distinct t2.id, t2.*, t1.import_orders_id," BECAUSE SEARCHING FOR ORDER STATUD ID GREATER THAN 9 WAS CAUSING DUPLICATE ROWS
+// ADDING THE DISTINCT ID PREVENTED DUPLICATED IDs FROM OCCURRING 
+// IMPORT_ORDERS_ID HAD TO BE INCLUDE IN THE QUERY BECAUSE IT IS UTILIZED IN A FOR LOOP BELOW
+// IT CAN BE REMOVED, I THINK, IF IMPORT_ORDERS_ID IS REPLACED BY THE ID OF T2 (IMPORTS_ORDERS TABLE) INSTEAD
+$query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_char(t1.date,'MM/dd/yyyy') as date
 						FROM order_status_log AS t1 
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						WHERE t1.order_status_id > 9 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));

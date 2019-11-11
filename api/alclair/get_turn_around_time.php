@@ -126,50 +126,37 @@ try
 // ADDING THE DISTINCT ID PREVENTED DUPLICATED IDs FROM OCCURRING 
 // IMPORT_ORDERS_ID HAD TO BE INCLUDE IN THE QUERY BECAUSE IT IS UTILIZED IN A FOR LOOP BELOW
 // IT CAN BE REMOVED, I THINK, IF IMPORT_ORDERS_ID IS REPLACED BY THE ID OF T2 (IMPORTS_ORDERS TABLE) INSTEAD
+
+/*
 $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_char(t1.date,'MM/dd/yyyy') as date
 						FROM order_status_log AS t1 
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-						WHERE t1.order_status_id > 9 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
+						WHERE t1.order_status_id > 9 AND t1.order_status_id != 99 AND t1.date >= '11/01/2019' AND t1.date <= '11/08/2019' AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
+						*/
+$query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t1.date,'MM/dd/yyyy') as date
+						FROM order_status_log AS t1 
+						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+						WHERE t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 						//WHERE t1.order_status_id = 12 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 	
-	
-	//$just_start_date = pdo_fetch_all( $query1 );
-	$store_done_data = pdo_fetch_all( $query2 );
+	$store_done_data = pdo_fetch_all( $query2 );  // ALL ORDERS COMPLETED WITHIN A CERTAIN TIME FRAME
 	
 	$workingDays = array(1, 2, 3, 4, 5); # date format = N (1 = Monday, ...)
     $holidayDays = array('*-12-25', '*-01-01', '2013-12-23'); # variable and fixed holidays
-	// import_orders_id
 	$store_start_data = array();
 	$difference = array();
 	$ind = 0;
 
 	// LOOPS THROUGH THE OUTPUT FROM THE ABOVE SQL STATEMENT
 	for ($i = 0; $i < count($store_done_data); $i++) {
-	//for ($i = 0; $i < 1; $i++) {
-		
-		//$query = pdo_query($pdo, "SELECT *, to_char(date,'MM/dd/yyyy') as start_date FROM order_status_log WHERE order_status_id = 1 AND import_orders_id = :import_orders_id ORDER BY ID ASC LIMIT 1" , array(":import_orders_id"=>$store_done_data[$i]["import_orders_id"]));
-		//$store_start_data = pdo_fetch_all( $query );
-		//$rowcount = pdo_rows_affected( $query );
-		
 		// QUERY FINDS THE START DATE FOR EACH ORDER THAT IS DONE
 		$query = pdo_query($pdo, "SELECT *, to_char(received_date, 'MM/dd/yyyy') as start_date FROM import_orders WHERE id = :import_orders_id" , array(":import_orders_id"=>$store_done_data[$i]["import_orders_id"]));
 		$store_start_data = pdo_fetch_all( $query );
 		$rowcount = pdo_rows_affected( $query );
 		
-		
 		if ($rowcount != 0 ) {
-			//$store_start_data[$i] = $row[0];
-			
-			
-			/*if ($i == 1) {
-				$testing = $store_start_data[0]['start_date'];
-				$response["test3"] = "Not zero " . $row[0]["start_date"]. " and i is " . $i;
-				echo json_encode($response);
-				exit;
-			}*/
-		
-			$from = $store_start_data[0]["start_date"];
-			$to = $store_done_data[$i]["date"];
+			$from = $store_start_data[0]["start_date"];  // START DATE
+			$to = $store_done_data[$i]["date"];  // DONE DATE
 			$from = new DateTime($from);
 			$from->modify('+1 day');
 			$to = new DateTime($to);
@@ -179,17 +166,12 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
 
 			$days = 0;
 			foreach ($periods as $period) {
-        		//if (!in_array($period->format('N'), $workingDays)) continue;
-				//if (in_array($period->format('Y-m-d'), $holidayDays)) continue;
-				//if (in_array($period->format('*-m-d'), $holidayDays)) continue;
 				$days++;
 			}	
-				
 			$difference[$ind] = $days;
-			
-			if($difference[$ind] == 0 ) {
-				$response["test3"]  = $store_done_data[$i]["import_orders_id"];
-			}
+			//if($difference[$ind] == 0 ) {
+				//$response["test3"]  = $store_done_data[$i]["import_orders_id"];
+			//}
 			$ind++;				
 		}
 	} 
@@ -229,11 +211,6 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
 	$OrdersList_zero = array();
 	$stepper = array();
 	
-	/*
-	$response["test1"] = $store_done_data;
-	echo json_encode($response);
-	exit;
-	*/
 	
 	// THIS LOOP CALCULATES THE NUMBER OF DAYS THE ORDER TOOK TO COMPLETE
 	for ($i = 0; $i < count($store_done_data); $i++) {
@@ -264,13 +241,6 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
 			$difference2[$ind2] = $days;	
 			$difference_zero[$ind3] = $days;	
 			
-			if($i == 1) {
-				$response["test1"]  = $difference2[$ind] . " avg is " . $response["avg"];
-				//echo json_encode($response);
-				//exit;	
-			}
-		
-		
 			// IF THE ORDER TOOK LONGER THAN THE AVERAGE THEN IT GETS SAVED FOR OUTPUT TO THE TURN AROUND TIME SCREEN
 			if($difference2[$ind2] > $response["avg"]) { //$response["avg"] - $response["avg"]) {
 				$ids_to_keep[$ind2] = $store_done_data[$i]["import_orders_id"];
@@ -286,8 +256,6 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
 				  $ind2++;
 			}	
 			
-			
-			
 			if($difference_zero[$ind3] == 0) {
 				$ids_to_keep_zero[$ind3] = $store_done_data[$i]["import_orders_id"];
 				
@@ -299,10 +267,10 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
                   
                   //$response["test"] = pdo_rows_affected( $query4 ) . " and it is also " . count($OrdersList_zero[$ind3]);
 				  if(pdo_rows_affected($query4) != 0) {
-	                  $OrdersList_zero[$ind3] = pdo_fetch_array( $query4 );
+				  		$OrdersList_zero[$ind3] = pdo_fetch_array( $query4 );
 	                  $OrdersList_zero[$ind3]["difference"] = $difference_zero[$ind3];
-					  $OrdersList_zero[$ind3]["done_date"] = $store_done_data[$i]["date"];
-					  $ind3++;
+					  	$OrdersList_zero[$ind3]["done_date"] = $store_done_data[$i]["date"];
+					  	$ind3++;
 				  }
 			}	
 		}		

@@ -208,7 +208,8 @@ if($traveler["order_status_id"] == 1) {
 	// IF THIS ALGORITHM HAS NEVER BEEN RUN BEFORE - THE SYSTEM AUTO-POPULATES ALL OF THE ORDERS IN THE START CART	 
 	// START WITH THE IF STATEMENT
 	// PULLS ALL OF START CART WHICH IS NULL FOR FAKE IMPRESSION DATE
-	if($count == 0) {
+	if($count == 0) { //$count == 0
+		
 		$num = 1;
 		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
 		$stmt3 = pdo_query( $pdo, $query3, null); 
@@ -238,6 +239,7 @@ if($traveler["order_status_id"] == 1) {
 			//echo json_encode($response);
 			//exit;
 		}
+		
 	} else{ // START HAS NO NULL ORDERS IN START CART - THIS CODE HAS RUN BEFORE
 		$query4 = "SELECT * FROM import_orders WHERE active = TRUE AND id = :id";
 		$stmt4 = pdo_query( $pdo, $query4, array("id"=>$traveler["id"])); 

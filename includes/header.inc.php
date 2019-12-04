@@ -711,6 +711,9 @@ Pickup
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_2" class="nav-link "><i class="fa fa-line-chart"></i> &nbsp Manufacturing Screen </a>
                                 </li>
+                                 <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/get_order_items" class="nav-link "><i class="fa fa-search"></i> &nbsp Search WooCommerce </a>
+                                </li>
                                 <?php if($_SESSION["UserName"] == 'Phil' || $_SESSION["UserName"] == 'Zeeshan' || $_SESSION["UserName"] == 'admin' ) { ?>
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_for_phil" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Hey Phil & Z-Man! </a>

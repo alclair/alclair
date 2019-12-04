@@ -40,12 +40,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>ORDERS<span style="margin-left:300px"> REPAIRS</span></h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px"><span style="color:purple;margin-left:180px">{{avg}} </span> <span style="margin-left:490px;color:purple"> {{avg_repairs}} </span></h1><br/>
 		 
-		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED YESTERDAY </h1><br/>
-		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:orange" align=center> {{orders_shipped_yesterday}} </h1><br/>
-		 
-		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED TODAY </h1><br/>
-		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-30px;color:orange" align=center> {{orders_shipped_today}} </h1><br/>
-		 
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> NEW IEMS SHIPPED</h1><br/>
+		  <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>YESTERDAY<span style="margin-left:300px"> TODAY</span></h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px"><span style="color:orange;margin-left:180px">{{orders_shipped_yesterday}} </span> <span style="margin-left:490px;color:orange"> {{orders_shipped_today}} </span></h1><br/>
+		  		 
 	 </div>
 	<div class="form-group col-lg-6">
 		<table>		

@@ -184,9 +184,11 @@ $params = [
 		
 		//echo '<p>TEST 2 IS  ' .  $model_name . " and " . $ind . "<br/>";
                 
-		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPOT
-		//if(is_string($model) == 1 && (stristr($full_product_name, "Driver") !== false ) || stristr($full_product_name, "POS") !== false ))) { 
-		if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
+		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPORT
+		
+	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
+		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Custom Hearing Protection") ) { 
 			
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
 				//$order[$ind]["num_earphones_per_order"] = 0;
@@ -225,7 +227,13 @@ $params = [
 						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
 						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
- 						} else {
+ 						} elseif(!strcmp($full_product_name, "REVX TEN DRIVER") ) {
+	 						$order[$ind]["model"] = "Rev X";  // MODEL -> 4 	
+	 					} elseif(!strcmp($full_product_name, "Alclair UV2 Dual Driver Universal POS") ) {
+	 						$order[$ind]["model"] = "UV2";  // MODEL -> 4 	
+	 					} elseif(!strcmp($full_product_name, "Alclair UV3 Triple Driver Universal POS") ) {
+	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
+	 					} else {
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						}
 					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
@@ -339,6 +347,7 @@ $params = [
 				$ind++;
 			} // CLOSES IF STATEMENT - STATUS
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
+	  } // CLOSES IF STATEMENT - IS IT A UNIVERSAL EARPHONE - LINE 189
 	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
     } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER
 

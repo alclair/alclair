@@ -227,6 +227,10 @@ $params = [
 						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
 						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
+						} elseif(!strcmp($full_product_name, "ELECTRO SIX DRIVER ELECTROSTATIC HYBRID") ) {
+							$order[$ind]["model"] = "Electro";  // MODEL -> 4 		
+						} elseif(!strcmp($full_product_name, "STUDIO3 TRIPLE DRIVER") ) {
+							$order[$ind]["model"] = "Studio3";  // MODEL -> 4 		
  						} elseif(!strcmp($full_product_name, "REVX TEN DRIVER") ) {
 	 						$order[$ind]["model"] = "Rev X";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Alclair UV2 Dual Driver Universal POS") ) {

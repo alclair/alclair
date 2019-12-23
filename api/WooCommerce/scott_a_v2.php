@@ -86,6 +86,8 @@ $number = [];
 $inc = 1;
 $black_cable = 0;
 $clear_cable = 0;
+//$black_cable_accessory = 0;
+//$clear_cable_accessory = 0;
 
 //$date = strtotime('12/01/2019 00:00:00');
 $date = strtotime($_REQUEST["StartDate"]);

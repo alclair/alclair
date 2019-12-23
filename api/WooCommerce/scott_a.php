@@ -58,8 +58,8 @@ $params = [
 
 
 $params = [
-	'before' => '2019-11-23T00:00:00',
-	'after' => '2019-11-22T00:00:00',
+	'before' => '2019-12-02T00:00:00',
+	'after' => '2019-12-01T00:00:00',
 	'per_page' => 100			
 ];
 $result = $woocommerce->get('orders', $params);
@@ -67,13 +67,13 @@ $result = $woocommerce->get('orders', $params);
 $order = [];
 $ind = 0;
 
-$order_index = 0;
+$order_index = 3;
 $arr = get_object_vars($result[$order_index]); //28
 $data = get_object_vars($result[$order_index]);  // STORE THE DATA
 $line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 $full_product_name = $line_item["name"];
-//echo '<pre><code>' . print_r($arr, true) . '</code><pre>';
-//exit;
+echo '<pre><code>' . print_r($arr, true) . '</code><pre>';
+exit;
 
 $store = [];
 $inc = 1;

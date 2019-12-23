@@ -2294,6 +2294,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	$scope.getDesignedFor = function () {
 	    var api_url = window.cfg.apiUrl + "alclair/get_designed_for.php";
 	        $http.get(api_url).success(function (data) {
+		        console.log("TEST IS " + data.test)
 	            $scope.customers = data.data;
 	    })
 	}

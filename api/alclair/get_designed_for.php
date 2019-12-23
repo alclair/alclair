@@ -29,7 +29,6 @@ try
 						$params
 					 );	
         
-        
         while($row=pdo_fetch_array($stmt))
         {
             $data=array();

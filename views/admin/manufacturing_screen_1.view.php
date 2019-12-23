@@ -47,7 +47,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		  <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>YESTERDAY<span style="margin-left:300px"> TODAY</span></h1><br/>
 		  <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px">	
 			 <span style="color:orange;margin-left:180px">{{orders_shipped_yesterday}} </span> 
-			 <span style="margin-left:500px;color:orange"> {{orders_shipped_today}} </span>
+			 <span style="margin-left:500px;color:orange">&nbsp;&nbsp; {{orders_shipped_today}} </span>
 			</h1><br/>
 		  		 
 	 </div>

@@ -41,9 +41,6 @@ try
     $year = $_REQUEST['Year'];
     $month = $_REQUEST['Month'];
     
-    //$year = "2019";
-    //$month = "3";
-    
     $mydate=getdate(date("U"));
     $month_number = $mydate["mon"];
     //$month_number = (int)$month_number;

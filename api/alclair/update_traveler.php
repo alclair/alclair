@@ -161,9 +161,6 @@ if($traveler["order_status_id"] == 1) {
 		return $holidays;
 	}
 	
-	//$holidays = array('03-15', '03-14');
-	//$holidays = array('03-15');	
-	//$date = new DateTime('2019-03-05');
 	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
 		$weekend = array('Sun', 'Sat');
 		$nextDay = clone $date;

@@ -19,7 +19,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
             <div class="col-md-12">
                 <div style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px;">
-                    <b style="font-size: 40px;color:blue">Group Order Holding (Post-)</b>
+                    <b style="font-size: 40px;color:blue">Group Order Holding (Pre-)</b>
                 </div>
             </div>
             <div class="row">
@@ -29,7 +29,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<br/><br/>
 					 <div class = "form-group col-md-9 text-center">
 					 	<span class="input-group-btn">
-							<button class="btn btn-success js-new pull-right  btn-lg" style="font-weight: 600; border-radius: 4px;"  ng-click="Accept('group_order_holding');">
+							<button class="btn btn-success js-new pull-right  btn-lg" style="font-weight: 600; border-radius: 4px;"  ng-click="Accept('pre_group_order_holding');">
 								<span class="fa fa-envelope-o"></span> &nbsp; ACCEPT
 							</button>
 						</span>

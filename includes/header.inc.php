@@ -220,6 +220,8 @@
 					  				count(CASE WHEN order_status_id = 12 THEN 1 END) as done,
 					  				count(CASE WHEN order_status_id = 13 THEN 1 END) as holding,
 					  				count(CASE WHEN order_status_id = 14 THEN 1 END) as holding_for_payment,
+					  				count(CASE WHEN order_status_id = 15 THEN 1 END) as digital_impression_detailing,
+					  				count(CASE WHEN order_status_id = 16 THEN 1 END) as pre_group_order_holding,
 					  				count(CASE WHEN order_status_id = 99 THEN 1 END) as order_received
 					  				FROM import_orders WHERE active = TRUE";
 					  	//$query_alclair = "SELECT username AS order_received FROM auth_user WHERE id=1";	
@@ -262,6 +264,8 @@
 					  				count(CASE WHEN repair_status_id = 14 THEN 1 END) as done,
 					  				count(CASE WHEN repair_status_id = 15 THEN 1 END) as holding,
 					  				count(CASE WHEN repair_status_id = 16 THEN 1 END) as holding_for_payment,
+					  				count(CASE WHEN repair_status_id = 17 THEN 1 END) as digital_impression_detailing,
+					  				count(CASE WHEN repair_status_id = 18 THEN 1 END) as pre_group_order_holding,					  				
 					  				count(CASE WHEN repair_status_id = 99 THEN 1 END) as repair_received
 					  				FROM repair_form WHERE active = TRUE";
 					  				
@@ -331,7 +335,12 @@ Pickup
 									<span style="margin-right:5px;font-weight:bold;">Impression Detailing </span> 
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["impression_detailing"] ?>)</span>  
 									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["impression_detailing"] ?>)</span></a></li>
-								
+
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/digital_impression_detailing" class="nav-link "> 
+									<span style="margin-right:40px;font-weight:bold;">Digital Detailing </span> 
+									<span style="margin-right:10px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["digital_impression_detailing"] ?>)</span>  
+									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["digital_impression_detailing"] ?>)</span></a></li>	
+									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/shell_pouring" class="nav-link "> 
 									<span style="margin-right:53px;font-weight:bold;">Shell Pouring  </span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["shell_pouring"] ?>) </span>
@@ -376,9 +385,14 @@ Pickup
 									<span style="margin-right:129px;font-weight:bold;">Pickup</span> 
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
 								
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pre_group_order_holding" class="nav-link "> 
+									<span style="margin-right:12px;font-weight:bold;">Group Holding (Pre-) </span>
+									<span style="margin-right:9px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["pre_group_order_holding"] ?>) </span>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pre_group_order_holding"] ?>)</span></a></li>
+									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/group_order_holding" class="nav-link "> 
-									<span style="margin-right:4px;font-weight:bold;">Group Order Holding </span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["group_order_holding"] ?>) </span>
+									<span style="margin-right:5px;font-weight:bold;">Group Holding (Post-)</span>
+									<span style="margin-right:6px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["group_order_holding"] ?>) </span>
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["group_order_holding"] ?>)</span></a></li>
 									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/holding" class="nav-link "> 

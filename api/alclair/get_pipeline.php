@@ -68,29 +68,29 @@ try
 		//if( strlen($_REQUEST['TODAY_OR_NEXT_WEEK']) == 17) {   // , 'Today and Tomorrow') ) {
 		if( $_REQUEST['TODAY_OR_NEXT_WEEK'] == '1') {   // MEANS TODAY
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.order_status_id != 12";
-			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14)";
+			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16)";
 			$params[":Date"]=  $today_4_sql;
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '0') { // MEANS PAST DUE
 			//$conditionSql.=" and (t1.estimated_ship_date < :Date) AND t1.order_status_id != 12 ";
-			$conditionSql.=" and (t1.estimated_ship_date < :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14)";
+			$conditionSql.=" and (t1.estimated_ship_date < :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16)";
 			$params[":Date"]= $today_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '2') { // MEANS TOMORROW
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.order_status_id != 12 ";
-			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14)";
+			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16)";
 			$params[":Date"]= $tomorrow_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEZT 5 BUSINESS DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.order_status_id != 12 ";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextweek_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '4') { // MEANS NEXT 15 BUSINESS DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.order_status_id != 12 ";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $threeWeeks_4_sql;	
 		} else {  // NEXT 30 BUSINESS DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.order_status_id != 12 ";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $sixWeeks_4_sql;	
 		}

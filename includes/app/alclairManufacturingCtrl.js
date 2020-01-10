@@ -119,6 +119,9 @@ $scope.qrcode= {
         else if (step == 'impression_detailing') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/impression_detailing.php';
         }
+        else if (step == 'digital_impression_detailing') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/digital_impression_detailing.php';
+        }
         else if (step == 'shell_pouring') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/shell_pouring.php';
         }
@@ -156,6 +159,9 @@ $scope.qrcode= {
         }
         else if (step == 'group_order_holding') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/group_order_holding.php';
+        }
+        else if (step == 'pre_group_order_holding') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/pre_group_order_holding.php';
         }
         else if (step == 'holding') {
 	        //var x = document.getElementById("start").value;
@@ -267,6 +273,8 @@ $scope.qrcode= {
 		   $scope.order_status_id = 1;
 	   } else if (page == "impression_detailing") {
 		   $scope.order_status_id = 2;
+		} else if (page == "digital_impression_detailing") {
+		   $scope.order_status_id = 15;
 	   } else if (page == "shell_pouring") {
 		   $scope.order_status_id = 3;
 	   } else if (page == "shell_detailing") {
@@ -285,6 +293,8 @@ $scope.qrcode= {
 		   $scope.order_status_id = 10;
 	   } else if (page == "group_order_holding") {
 		   $scope.order_status_id = 11;
+		} else if (page == "pre_group_order_holding") {
+		   $scope.order_status_id = 16;
 		} else if (page == "holding") {
 		   $scope.order_status_id = 13;
 	   } else if (page == "holding_for_payment") {
@@ -299,6 +309,8 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 2;
 	   } else if (page == "impression_detailing") {
 		   $scope.repair_status_id = 3;
+		} else if (page == "digital_impression_detailing") {
+		   $scope.repair_status_id = 17;
 	   } else if (page == "shell_pouring") {
 		   $scope.repair_status_id = 4;
 	   } else if (page == "shell_detailing") {
@@ -319,6 +331,8 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 12;
 	   } else if (page == "group_order_holding") {
 		   $scope.repair_status_id = 13;
+		} else if (page == "pre_group_order_holding") {
+		   $scope.repair_status_id = 18;
 	   } else if (page == "done") {
 		   $scope.repair_status_id = 14;
 	   } else if (page == "holding") {

@@ -75,36 +75,36 @@ try
 		if( $_REQUEST['TODAY_OR_NEXT_WEEK'] == '1') {   // MEANS TODAY
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.order_status_id != 12 ";
 			// EVERYTHING BEFORE CASING - CASING IS STATUS 5
-			$conditionSql.=" and (t1.fake_imp_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]=  $today_4_sql;
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '0') { // MEANS PAST DUE
-			$conditionSql.=" and (t1.fake_imp_date < :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date < :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]= $today_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '2') { // MEANS TOMORROW
-			$conditionSql.=" and (t1.fake_imp_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]= $tomorrow_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEZT 7 CALENDAR DAYS
-			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextWeek_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '4') { // MEANS NEXT 14 CALENDAR DAYS
-			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $twoWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '5') { // MEANS NEXT 21 CALENDAR DAYS
-			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $threeWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '6') { // MEANS NEXT 28 CALENDAR DAYS
-			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $fourWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '7') { // MEANS NEXT 35 CALENDAR DAYS
-			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;
 			$params[":Date"]= $fiveWeeks_4_sql;	
 		}  else {  // NEXT 42 CALENDAR DAYS
-			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $sixWeeks_4_sql;	
 		}

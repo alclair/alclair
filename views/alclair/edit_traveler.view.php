@@ -34,7 +34,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 
     <form role="form">
         <div class="row">
-            <div class="col-md-12"  style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px;">
+            <div class="col-md-12"  style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 0px; margin-bottom: 25px;">
                 <!--<div style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px;">-->
                 <div class="col-md-5">  
                     <b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/orders">ORDER # <span style="color: #FF0000">  {{traveler.order_id}}</span></a> - Edit traveler</b> &nbsp;&nbsp;&nbsp;&nbsp;
@@ -44,7 +44,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <i ></i> &nbsp; QC FORM                         
                     </button>
                 </div>
-                <div class="col-md-2">  
+                <div class="col-md-1">  
                 	<b style="font-size: 20px;" id="qcform" style="font-size: 20px;color:blue;cursor: pointer;" >Status:</b>  
                 </div>
                 <div class="col-md-3" style="margin-left:-120px;margin-top:-5px">  
@@ -52,13 +52,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			   			<option value="">Select a status</option>
 					</select>
 					</div>
-					<div class="col-md-2">  
+					<div class="col-md-1">  
 						<button ng-if="(manufacturing_screen==0) && (the_user_is == 'Amanda' || the_user_is == 'Marc' || the_user_is == 'admin' || the_user_is == 'Zeeshan')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
                         	<i ></i> &nbsp; URGENT                         
 						</button>
 						<button ng-if="(manufacturing_screen==1) && (the_user_is == 'Amanda' || the_user_is == 'Marc' || the_user_is == 'admin' || the_user_is == 'Zeeshan')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-danger" ng-click="removeFromManufacturingScreen()">
                        		<i ></i> &nbsp; NOT URGENT                         
 					   	</button>
+					</div>
+					<div class="form-group col-sm-3" style="margin-left:20px;padding-top:10px">
+						<input type="checkbox" ng-model="traveler.nashville_order" ng-true-value="1" ng-false-value="0" style="width:20px;height:20px;"> &nbsp; <b style="vertical-align:bottom;font-size: 20px" > NASHVILLE ORDER </b>
 					</div>
 			</div>
 			

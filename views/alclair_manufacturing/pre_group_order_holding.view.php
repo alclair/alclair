@@ -6,7 +6,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 <br />
 <div id="main-container" class="container" ng-controller="QR_Code_Scanner">
 <script type="text/javascript">
-  var cart = 11;
+  var cart = 16;  // THIS INTEGER DOES NOT ACTUALLY GET USED
 </script>			
     <!-- Main Container Starts -->
 

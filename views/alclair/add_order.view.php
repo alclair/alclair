@@ -35,8 +35,14 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
             <div class="col-md-12">
                 <div style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px; ">
-                    <b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/orders">Add Order</a> </b>
-                </div>
+	                <div class="form-group col-md-3">
+                    	<b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/orders">Add Order</a> </b>
+                	</div>
+					<div class="form-group col-md-4">
+						<input type="checkbox" ng-model="traveler.nashville_order" ng-true-value="1" ng-false-value="0" style="width:20px;height:20px;"> &nbsp; <b style="vertical-align:bottom;font-size: 20px "> NASHVILLE ORDER </b><br />
+            		</div>
+            		<br/>
+        		</div>
             </div>
         </div>
         <div class="row">

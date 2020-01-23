@@ -2546,6 +2546,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	 	musicians_plugs_25db: 0,
 	 	pickup: 0,
 	 	override: 1,
+	 	//nashville_order: 0,
 	};
     $scope.selectedFiles = [];
     
@@ -3001,6 +3002,13 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 		} else {
 			 			$scope.traveler.pickup = 0;
 			 		}
+			 		
+			 		if ($scope.traveler.nashville_order == true) {
+			 			$scope.traveler.nashville_order= 1;    
+			 		} else {
+			 			$scope.traveler.nashville_order = 0;
+			 		}
+			 		
 			 		if ($scope.traveler.rush_process == 'Yes') {
 				 		$scope.traveler.rush_process = 1;    
 			 		} else {
@@ -3066,6 +3074,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 	musicians_plugs_15db: 0,
 	musicians_plugs_25db: 0,
 	pickup: 0,
+	nashville_order: 0,
 	date: window.cfg.CurrentDay,
 };
 
@@ -4004,7 +4013,9 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
        myblockui();
 		
 		$scope.year_month = '2019';
+		$scope.year_month = '2020';
 		$scope.month_month = '05';
+		$scope.month_month = '01';
 		//$scope.year_month = moment().format("YYYY");
 		//$scope.month_month = moment().format("MM")
 		console.log("Year is " + $scope.year_month + " and Month is " + $scope.month_month)
@@ -4050,7 +4061,8 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
             var step = 0;
             for (var i = 0; i < result5.data.length; i++) {
 				//console.log("TESTING " + result5.data[i].the_month_name)
-				if(i == result5.data.length-1 && result5.data[i].the_year != '2019') {
+				//if(i == result5.data.length-1 && result5.data[i].the_year != '2019') {
+				if(i == result5.data.length-1 && result5.data[i].the_year != '2020') {
 					var created5 = parseInt(result5.data[i].the_month);
 					//var created5 = (result5.data[i].the_month_name);
 					var pass_or_fail5 = result5.data[i].the_year;
@@ -4060,11 +4072,13 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 					
 					var created5 = parseInt(result5.data[i].the_month);
 					//var created5 = (result5.data[i].the_month_name);
-					var pass_or_fail5 = '2019';
+					//var pass_or_fail5 = '2019';
+					var pass_or_fail5 = '2020';
 					var num_status5 = 0;
 					console.log("I is " + i + " and " + created5+"-"+pass_or_fail5+"-"+num_status5 )
 					layers5[$scope.labels5.indexOf(pass_or_fail5)][created5].y = num_status5;
-				} else if(i > 0 && result5.data[i].the_year == '2018' && result5.data[i-1].the_year == '2018') {
+				//} else if(i > 0 && result5.data[i].the_year == '2018' && result5.data[i-1].the_year == '2018') {
+				} else if(i > 0 && result5.data[i].the_year == '2019' && result5.data[i-1].the_year == '2019') {
 	              var created5 = parseInt(result5.data[i-1].the_month);
 	              //var created5 = (result5.data[i-1].the_month_name);
 					var pass_or_fail5 = '2019';
@@ -4276,8 +4290,9 @@ $scope.LoadData = function () {
 
 
     $scope.init = function () {
-	    $scope.labels5.push('2018');
+	    //$scope.labels5.push('2018');
 	    $scope.labels5.push('2019');
+	    $scope.labels5.push('2020');
 	    /*
 	    AppDataService.loadStatusTypeList_orders(null, null, function (result) {
         		for (var i = 0; i < result.data.length; i++) {

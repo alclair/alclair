@@ -206,6 +206,11 @@ $params = [
 				$order[$ind]["hearing_protection"] = NULL;
 				$order[$ind]["hearing_protection_color"] = NULL;
 				
+				$order[$ind]["nashville_order"] = NULL;
+				if(!strcmp( substr($data["number"], 0, 4), "AATN") ) {
+					$order[$ind]["nashville_order"] = TRUE; // THIS WILL MARK THE ORDER AS FROM JONNY IN NASHVILLE
+				}
+				
 				// CHECK TO SEE IF ORDER IS ONLY FOR CUSTO HEARING PROTECTION
 				if(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
 					$order[$ind]["hearing_protection"] = TRUE;
@@ -441,7 +446,8 @@ for ($x=0; $x <  count($order); $x++) {
 			->setCellValue("AU1", "Price")
 			->setCellValue("AV1", "Coupon")
 			->setCellValue("AW1", "Discount")
-			->setCellValue("AX1", "Total");
+			->setCellValue("AX1", "Total")
+			->setCellValue("AY1", "Nashville Order");
 			
 		$row = 2;
 		for($k = 0; $k < count($order); $k++) {
@@ -495,7 +501,8 @@ for ($x=0; $x <  count($order); $x++) {
 			->setCellValue("AU".$row, $order[$k]["price"])
 			->setCellValue("AV".$row, $order[$k]["coupon"])
 			->setCellValue("AW".$row, $order[$k]["discount"])
-			->setCellValue("AX".$row, $order[$k]["total"]);
+			->setCellValue("AX".$row, $order[$k]["total"])
+			->setCellValue("AY".$row, $order[$k]["nashville_order"]);
 			
 			$row++;
 
@@ -506,9 +513,9 @@ for ($x=0; $x <  count($order); $x++) {
 			$entered_by = 1;
 			$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
-date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, left_tip, right_tip, pelican_case_name, notes)
+date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, left_tip, right_tip, pelican_case_name, notes, nashville_order)
 VALUES (
-:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, :left_tip, :right_tip, :pelican_case_name, :notes) RETURNING id",
+:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order) RETURNING id",
 array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>$order[$k]['product'], ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model'], ':artwork'=>$order[$k]['artwork'], ':color'=>$order[$k]['color'], ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>$order[$k]['cable_color'], ':clear_canal'=>$order[$k]['clear_canal'], ':left_alclair_logo'=>$order[$k]['left_alclair_logo'], ':right_alclair_logo'=>$order[$k]['right_alclair_logo'], ':left_custom_art'=>$order[$k]['left_custom_art'], ':right_custom_art'=>$order[$k]['right_custom_art'], ':link_to_design_image'=>$order[$k]['link_to_design_image'], ':open_order_in_designer'=>$order[$k]['open_order_in_designer'], 
 ':designed_for' =>$order[$k]['designed_for'], 
 ':my_impressions'=>$order[$k]['my_impressions'], 
@@ -527,7 +534,8 @@ array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product
 ':left_tip'=>$order[$k]['left_tip'],
 ':right_tip'=>$order[$k]['right_tip'],
 ':pelican_case_name'=>$order[$k]['pelican_case_name'],
-':notes'=>$order[$k]['notes']) //=>$order[28])
+':notes'=>$order[$k]['notes'],
+':nashville_order'=>$order[$k]['nashville_order']) //=>$order[28])
 );
 
 	$id_after_import = pdo_fetch_all( $stmt );

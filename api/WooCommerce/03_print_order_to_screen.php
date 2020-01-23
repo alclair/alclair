@@ -26,8 +26,9 @@ $woocommerce = new Client(
 			]
 	);
 $params = [
-			'before' => '2019-06-02T23:59:59',
-			'after' => '2019-06-02T00:00:00',
+			//'before' => '2020-01-07T23:59:59',
+			'before' => '2020-01-22T23:59:59',
+			'after' => '2020-01-22T00:00:00',
 			//'before' => '2019-05-22T23:59:59',
 			//'after' => '2019-05-22T00:00:00',
 			'per_page' => 100			
@@ -94,6 +95,14 @@ $params = [
 		$model_name = $is_earphone["value"];
 		$full_product_name = $line_item["name"];
 		$coupon_lines = get_object_vars($data[coupon_lines][0]); 
+		
+		if(!strcmp( substr($data["number"], 0, 4), "AATN") ) {
+			$jonny = "JONNY";
+		} else {
+			$jonny = "NOT JONNY";
+		}
+		
+		echo "Is it ? " . $jonny . " and the order id is " . $data["id"]. "<br/>" ;
 		
 		echo "LINE ITEM IS " . json_encode($line_item) . "<br/>";
 		echo "PRICE IS  ". $line_item["price"] .  "<br/>";

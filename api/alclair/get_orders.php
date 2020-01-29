@@ -91,43 +91,7 @@ try
 		}
 		
 	} // END ELSE STATEMENT
-	/*if(!empty($_REQUEST["StartDate"]))
-	{
-		if (date('I', time()))
-		{	
-			$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00') + 5 * 3600);
-		}
-		else
-		{
-			$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00')+ 6 * 3600);
-		}
-		$conditionSql.=" and (t1.date>=:StartDate)";
-		$params[":StartDate"]=$TIME_START;
-		//$params[":StartDate"]=$_REQUEST["StartDate"];
-	}
 	
-	if(!empty($_REQUEST["EndDate"]))
-	{
-		if (date('I', time()))
-		{
-			$TIME_END = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59') + 5 * 3600);
-		}
-		else
-		{
-			$TIME_END = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59') + 6 * 3600);
-		}
-		$conditionSql.=" and (t1.date<=:EndDate)";
-		$params[":EndDate"]=$TIME_END;
-		//$params[":EndDate"]=$_REQUEST["EndDate"];
-	}*/
-	
-	
-    /*if(!empty($_REQUEST["SearchDisposalWell"]))
-    {
-        $conditionSql .= " and (t1.disposal_well_id=:DisposalWellId)";
-        
-        $params[":DisposalWellId"]=$_REQUEST["SearchDisposalWell"];
-    }*/
     
     if( !empty($_REQUEST["PageIndex"]) && !empty($_REQUEST["PageSize"]) && intval($_REQUEST["PageIndex"]) > 0 && intval($_REQUEST["PageSize"]) > 0 )
     {

@@ -369,7 +369,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
     window.cfg.operator_list = <?=$viewScope["operator_list"]?>;
 </script>
 
-<script src="<?=$rootScope["RootUrl"]?>/includes/app/alclairCtrl.js"></script>
+<script src="<?=$rootScope["RootUrl"]?>/includes/app/EditTraveler.js"></script>
 <script>
 	</script>
 

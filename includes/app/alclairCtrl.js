@@ -2550,6 +2550,40 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	};
     $scope.selectedFiles = [];
     
+    $scope.EditNotes = function (key, ID) {			
+		var api_url = window.cfg.apiUrl + 'notes_for_traveler/get_note_from_order_for_traveler.php?id=' + ID;
+		console.log("START IS " + window.cfg.Id)
+        $http.get(api_url)
+            .success(function (result) {
+	            $scope.editNotes = result.data;
+	            console.log("THE ID IS " + $scope.editNotes.the_id)
+	            $('#modalEditNotes').modal("show");
+            }).error(function (result) {
+                $.unblockUI();
+				toastr.error(result.message == undefined ? result.data : result.message);
+            });   
+	}
+	$scope.SaveNotes = function (id_to_edit) {		
+		var api_url = window.cfg.apiUrl + 'notes_for_traveler/update_note_from_order_for_traveler.php?id_to_edit=' + id_to_edit; 
+		console.log("The ID to EDIT is " + id_to_edit)
+        myblockui();
+        $http({
+            method: 'POST',
+            url: api_url,
+            data: $.param($scope.editNotes),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+         .success(function (result) {
+			 	$.unblockUI();
+			  	setTimeout(function(){
+			  		location.reload();				 	
+				}, 500);                
+         }).error(function (data) {
+             toastr.error("Error saving notes.");
+         });	
+	}
+
+    
      $scope.open = function ($event) {
         $scope.opened = true;
     };

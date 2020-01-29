@@ -186,7 +186,7 @@ try
     $result = pdo_fetch_all( $stmt );
     $rows_in_result = pdo_rows_affected($stmt);
     
-    $query2 = "SELECT *, to_char(date, 'MM/dd/yyyy    HH24:MI') as date_moved, t2.status_of_order, t3.first_name, t3.last_name
+    $query2 = "SELECT *, to_char(date, 'MM/dd/yyyy    HH24:MI') as date_moved, t2.status_of_order, t3.first_name, t3.last_name, order_status_log.id AS order_id
     					FROM order_status_log 
     					LEFT JOIN order_status_table AS t2 ON order_status_log.order_status_id = t2.order_in_manufacturing
     					LEFT JOIN auth_user AS t3 ON order_status_log.user_id = t3.id

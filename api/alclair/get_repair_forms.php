@@ -159,7 +159,7 @@ try
     }
     else
     {
-        $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.date_entered,'MM/dd/yyyy') as date_entered, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.original_ship_date_of_order,'MM/dd/yyyy') as original_ship_date_of_order
+        $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.date_entered,'MM/dd/yyyy') as date_entered, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.original_ship_date_of_order,'MM/dd/yyyy') as original_ship_date_of_order,
         		  to_char(t1.rma_performed_date,'MM/dd/yyyy') as rma_performed_date,        
                   IEMs.name AS monitor_name, t3.first_name as first_name, t3.last_name as last_name, t4.status_of_repair
                   FROM repair_form AS t1

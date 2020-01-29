@@ -27,7 +27,7 @@ try
         $params = array();
         $params[":ID"] = $_REQUEST["ID"];
         
-        $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.date_entered,'MM/dd/yyyy') as date_entered, to_char(t1.rma_performed_date,'MM/dd/yyyy') as rma_performed_date, t2.name AS model 
+        $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.date_entered,'MM/dd/yyyy') as date_entered, to_char(t1.rma_performed_date,'MM/dd/yyyy') as rma_performed_date, t2.name AS model,  to_char(t1.original_ship_date_of_order,'MM/dd/yyyy') as original_ship_date_of_order
         FROM repair_form AS t1
         LEFT JOIN monitors AS t2 ON t1.monitor_id = t2.id
         WHERE t1.id = :ID";
@@ -573,8 +573,23 @@ $right_column_received_date_response =
         		<td style=\"text-align:left;\">{$result[0]["received_date"]}</td>
         		<td style=\"text-align:left;\">{$result[0]["estimated_ship_date"]}</td>
 		</tr>
-	</table>
+	
 ";
+$testing = 
+"		<tr style=\"font-weight:bold;\">
+    			<td style=\"text-align:left;color:red;\">ORIG ORDER SHIPPED ON</td>
+		</tr>
+		
+";
+$testing2 =  
+"		<tr style=\"color:blue;\">
+        		<td style=\"text-align:left;\">{$result[0]["original_ship_date_of_order"]}</td>
+        		
+		</tr>
+		</table>
+	
+";
+
 $right_column_estimated_ship_date = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;\">EST. SHIP DATE</td>
@@ -680,7 +695,7 @@ $right_column_estimated_ship_date_response =
 				<td style=\"font-size:2px\"></td>
 			</tr>" .
 
-             $right_column_received_date .  $right_column_received_date_response .
+             $right_column_received_date .  $right_column_received_date_response . $testing . $testing2 .
              //$right_column_estimated_ship_date .  $right_column_estimated_ship_date_response .
              "</td></tr></table>";
 

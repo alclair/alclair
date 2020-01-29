@@ -52,6 +52,15 @@ try
 	
 	$repair_form['import_orders_id'] = $_POST['import_orders_id'];
 	
+	$query = "SELECT t1.id, to_char(t2.date, 'MM/dd/yyyy') AS original_ship_date FROM import_orders AS t1 LEFT JOIN order_status_log AS t2 ON t1.id = t2.import_orders_id WHERE t1.id = :id AND t2.order_status_id = 12";
+	$stmt = pdo_query( $pdo, $query, array(":id"=>$repair_form["import_orders_id"])); 
+	$result = pdo_fetch_all( $stmt );
+	
+	//$response["test"] = "The date " . $result[0]["original_ship_date"] . " and ID is " . $repair_form["import_orders_id"];
+	$response["original_ship_date_of_order"] = $result[0]["original_ship_date"];
+	//echo json_encode($response);
+	//exit;
+	
 	if(empty($repair_form['customer_name']))
 	{
 		$response['message'] = 'Please enter a customer name.';
@@ -81,11 +90,11 @@ $repair_form['build_type_id'] = 2;
 	
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO repair_form (
-customer_name, email, phone, monitor_id, address, diagnosis, quotation, artwork_white, artwork_black, artwork_logo, artwork_icon, artwork_stamp, artwork_script, artwork_custom, shell_left_color, shell_right_color, shell_left_face, shell_right_face, shell_left_tip, shell_right_tip, left_alclair_logo, right_alclair_logo, customer_contacted, warranty_repair, customer_billed, consulted, name_contacted, received_date, estimated_ship_date, date_entered, rma_number,  entered_by, active, import_orders_id, repair_status_id)
+customer_name, email, phone, monitor_id, address, diagnosis, quotation, artwork_white, artwork_black, artwork_logo, artwork_icon, artwork_stamp, artwork_script, artwork_custom, shell_left_color, shell_right_color, shell_left_face, shell_right_face, shell_left_tip, shell_right_tip, left_alclair_logo, right_alclair_logo, customer_contacted, warranty_repair, customer_billed, consulted, name_contacted, received_date, estimated_ship_date, date_entered, rma_number,  entered_by, active, import_orders_id, repair_status_id, original_ship_date_of_order)
 VALUES (
-:customer_name, :email, :phone, :monitor_id, :address, :diagnosis, :quotation, :artwork_white, :artwork_black, :artwork_logo, :artwork_icon, :artwork_stamp, :artwork_script, :artwork_custom, :shell_left_color, :shell_right_color, :shell_left_face, :shell_right_face, :shell_left_tip, :shell_right_tip, :left_alclair_logo, :right_alclair_logo, :customer_contacted, :warranty_repair, :customer_billed, :consulted, :name_contacted, :received_date, :estimated_ship_date, now(), :rma_number,  :entered_by, :active, :import_orders_id, :repair_status_id) RETURNING id",
+:customer_name, :email, :phone, :monitor_id, :address, :diagnosis, :quotation, :artwork_white, :artwork_black, :artwork_logo, :artwork_icon, :artwork_stamp, :artwork_script, :artwork_custom, :shell_left_color, :shell_right_color, :shell_left_face, :shell_right_face, :shell_left_tip, :shell_right_tip, :left_alclair_logo, :right_alclair_logo, :customer_contacted, :warranty_repair, :customer_billed, :consulted, :name_contacted, :received_date, :estimated_ship_date, now(), :rma_number,  :entered_by, :active, :import_orders_id, :repair_status_id, :original_ship_date_of_order) RETURNING id",
 array(':customer_name'=>$repair_form['customer_name'], ':email'=>$repair_form['email'],':phone'=>$repair_form['phone'], ':address'=>$repair_form['address'], ':monitor_id'=>$repair_form['monitor_id'], ':diagnosis'=>$repair_form['diagnosis'], ':quotation'=>$repair_form['quotation'], ':artwork_white'=>$repair_form['artwork_white'], ':artwork_black'=>$repair_form['artwork_black'], ':artwork_logo'=>$repair_form['artwork_logo'], ':artwork_icon'=>$repair_form['artwork_icon'], ':artwork_stamp'=>$repair_form['artwork_stamp'], ':artwork_script'=>$repair_form['artwork_script'], ':artwork_custom'=>$repair_form['artwork_custom'], ':shell_left_color'=>$repair_form['shell_left_color'], ':shell_right_color'=>$repair_form['shell_right_color'], ':shell_left_face'=>$repair_form['shell_left_face'], ':shell_right_face'=>$repair_form['shell_right_face'], ':shell_left_tip'=>$repair_form['shell_left_tip'], ':shell_right_tip'=>$repair_form['shell_right_tip'], ':left_alclair_logo'=>$repair_form['left_alclair_logo'], ':right_alclair_logo'=>$repair_form['right_alclair_logo'],
- ':customer_contacted' =>$repair_form['customer_contacted'],  ':warranty_repair' =>$repair_form['warranty_repair'], ':customer_billed'=>$repair_form['customer_billed'], ':consulted'=>$repair_form['consulted'], ':name_contacted'=>$repair_form['name_contacted'], ':received_date'=>$repair_form['received_date'], ':estimated_ship_date'=>$repair_form['estimated_ship_date'], ':rma_number'=>$repair_form['rma_number'], ":entered_by"=>$_SESSION['UserId'], ":active"=>TRUE, ':import_orders_id'=>$repair_form['import_orders_id'], ':repair_status_id'=>99)
+ ':customer_contacted' =>$repair_form['customer_contacted'],  ':warranty_repair' =>$repair_form['warranty_repair'], ':customer_billed'=>$repair_form['customer_billed'], ':consulted'=>$repair_form['consulted'], ':name_contacted'=>$repair_form['name_contacted'], ':received_date'=>$repair_form['received_date'], ':estimated_ship_date'=>$repair_form['estimated_ship_date'], ':rma_number'=>$repair_form['rma_number'], ":entered_by"=>$_SESSION['UserId'], ":active"=>TRUE, ':import_orders_id'=>$repair_form['import_orders_id'], ':repair_status_id'=>99, ':original_ship_date_of_order'=>$response["original_ship_date_of_order"])
 );					 		
 
 $id_after_add_repair = pdo_fetch_all( $stmt );

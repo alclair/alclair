@@ -581,8 +581,13 @@ console.log("Test 1 is " + result.test1)
         	$scope.repair_form.estimated_ship_date = $scope.repair_form.estimated_ship_date.toLocaleString();
 		if($scope.repair_form.received_date)
 			$scope.repair_form.received_date = $scope.repair_form.received_date.toLocaleString();  
-		if($scope.repair_form.original_ship_date_of_order)
+		if($scope.repair_form.original_ship_date_of_order) {
 			$scope.repair_form.original_ship_date_of_order = $scope.repair_form.original_ship_date_of_order.toLocaleString();  
+			console.log("NOT NULL DATE IS " + $scope.repair_form.original_ship_date_of_order)
+		} else {
+			console.log("NULL DATE IS " + $scope.repair_form.original_ship_date_of_order)
+			$scope.repair_form.original_ship_date_of_order = '';
+		}
 
 		console.log("Then est ship is " + $scope.repair_form.estimated_ship_date)
         var api_url = window.cfg.apiUrl + 'alclair/rma_add.php';
@@ -923,12 +928,14 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
        	} else {
 	   		$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
 	   	}
-	   	if($scope.repair_form.original_ship_date_of_order == '') {
-	       	$scope.repair_form.original_ship_date_of_order = null;
+	   	if($scope.repair_form.original_ship_date_of_order == '' || $scope.repair_form.original_ship_date_of_order == null) {
+	       	$scope.repair_form.original_ship_date_of_order = '';
+	       	console.log("IN IF")
        	} else {
 	   		$scope.repair_form.original_ship_date_of_order = moment($scope.repair_form.original_ship_date_of_order).format("MM/DD/YYYY");
+	   		console.log("IN ELSE")
 	   	}
-		
+		return;
 		// COMMENTED OUT LINE 2 LINES DOWN TO REPLACE WITH THE IF STATEMENT ABOVE 07/29/2019 
 		if($scope.repair_form.estimated_ship_date)
         	//$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");
@@ -1054,6 +1061,14 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
        	} else {
 	   		$scope.repair_form.original_ship_date_of_order = moment($scope.repair_form.original_ship_date_of_order).format("MM/DD/YYYY");
 	   	}
+	   	if($scope.repair_form.original_ship_date_of_order == '' || $scope.repair_form.original_ship_date_of_order == null) {
+	       	$scope.repair_form.original_ship_date_of_order = '';
+	       	console.log("IN IF")
+       	} else {
+	   		$scope.repair_form.original_ship_date_of_order = moment($scope.repair_form.original_ship_date_of_order).format("MM/DD/YYYY");
+	   		console.log("IN ELSE  and " + $scope.repair_form.original_ship_date_of_order )
+	   	}
+		//return;
 
 	   	//return;
         
@@ -1343,6 +1358,11 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 	        $scope.repair_form.adjusted_fit_left = 0;
         }
         // END REPAIR PERFORMED STUFF
+
+		if($scope.repair_form.original_ship_date_of_order == '' || $scope.repair_form.original_ship_date_of_order == null) 
+	       	$scope.repair_form.original_ship_date_of_order = '';
+	    
+		//return;
 
                     
                 }

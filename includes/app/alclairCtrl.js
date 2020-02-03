@@ -585,10 +585,10 @@ console.log("Test 1 is " + result.test1)
 			$scope.repair_form.original_ship_date_of_order = $scope.repair_form.original_ship_date_of_order.toLocaleString();  
 			console.log("NOT NULL DATE IS " + $scope.repair_form.original_ship_date_of_order)
 		} else {
+			//$scope.repair_form.original_ship_date_of_order = null;
 			console.log("NULL DATE IS " + $scope.repair_form.original_ship_date_of_order)
-			$scope.repair_form.original_ship_date_of_order = '';
 		}
-
+		//return;
 		console.log("Then est ship is " + $scope.repair_form.estimated_ship_date)
         var api_url = window.cfg.apiUrl + 'alclair/rma_add.php';
 		console.log(api_url+"?"+$scope.repair_form);

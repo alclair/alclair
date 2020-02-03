@@ -935,7 +935,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 	   		$scope.repair_form.original_ship_date_of_order = moment($scope.repair_form.original_ship_date_of_order).format("MM/DD/YYYY");
 	   		console.log("IN ELSE")
 	   	}
-		return;
+		//return;
 		// COMMENTED OUT LINE 2 LINES DOWN TO REPLACE WITH THE IF STATEMENT ABOVE 07/29/2019 
 		if($scope.repair_form.estimated_ship_date)
         	//$scope.repair_form.estimated_ship_date = moment($scope.repair_form.estimated_ship_date).format("MM/DD/YYYY");

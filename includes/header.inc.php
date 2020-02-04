@@ -733,11 +733,11 @@ Pickup
                                     <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_for_phil" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Hey Phil & Z-Man! </a>
                                 </li>
                                 <?php } ?>
-                                 <?php if($_SESSION["UserName"] == 'Jonny' || $_SESSION["UserName"] == 'Grace' || $_SESSION["UserName"] == 'admin' ) { ?>
+                                 
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/alclair/jonny_orders" class="nav-link "><i class="fa fa-coffee"></i> &nbsp Jonny's Shwag </a>
                                 </li>
-                                <?php } ?>
+                                
 							</ul>
 						</li> 
 					<?php } elseif ( $rootScope["SWDCustomer"] == "ifi") { ?>

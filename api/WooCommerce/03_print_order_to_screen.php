@@ -27,8 +27,8 @@ $woocommerce = new Client(
 	);
 $params = [
 			//'before' => '2020-01-07T23:59:59',
-			'before' => '2020-01-22T23:59:59',
-			'after' => '2020-01-22T00:00:00',
+			'before' => '2019-12-30T23:59:59',
+			'after' => '2019-12-30T00:00:00',
 			//'before' => '2019-05-22T23:59:59',
 			//'after' => '2019-05-22T00:00:00',
 			'per_page' => 100			
@@ -48,7 +48,7 @@ $params = [
 		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 	}
 	
-	$order_index = 4;
+	$order_index = 1;
 	$arr = get_object_vars($result[$order_index]); //28
 	$data = get_object_vars($result[$order_index]);  // STORE THE DATA
 	

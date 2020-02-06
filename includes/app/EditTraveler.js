@@ -456,8 +456,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 		            } else {
 			            $scope.traveler.artwork = 'None'; // Not Custom
 		            }
-		            */
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////					
+					*/
+									
+					
+					
+					////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////					
 					if($scope.traveler.artwork == "Yes") {
 	                    $scope.traveler.artwork = 'Yes'; // Custom
 					} else if($scope.traveler.left_alclair_logo != null && $scope.traveler.left_alclair_logo.length > 1) {
@@ -465,14 +468,14 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 		           } else if($scope.traveler.right_alclair_logo != null && $scope.traveler.right_alclair_logo.length > 1) {
 			            $scope.traveler.artwork = 'Yes'; // Custom
 		           } else if($scope.traveler.left_custom_art != null || $scope.traveler.right_custom_art != null) {
-				   		if( $scope.traveler.left_custom_art.length > 1 ) {
+				   		if( $scope.traveler.left_custom_art != null ) { //|| $scope.traveler.left_custom_art.length > 1 ) {
 							$scope.traveler.artwork = 'Yes'; // Custom
 							//console.log("LEFT ONLY") 
 							if($scope.traveler.left_alclair_logo == null || $scope.traveler.left_alclair_logo.length < 2) {
 								$scope.traveler.left_alclair_logo = 'Custom';
 							}
 						}
-						if( $scope.traveler.right_custom_art.length > 1 ) {
+						if( $scope.traveler.right_custom_art != null) { //$scope.traveler.right_custom_art.length > 1 ) {
 							$scope.traveler.artwork = 'Yes'; // Custom
 							//console.log("RIGHT ONLY") 
 							if($scope.traveler.right_alclair_logo == null || $scope.traveler.right_alclair_logo.length < 2) {
@@ -480,7 +483,10 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							}
 						}
 		            } 
-       		           //console.log("AT THE END") 
+		         
+	
+
+       		            
 		            // GREATER OR EQUAL TO 10 IS STUDIO3, STUDIO4, REV X & ELECTRO
 		            // THIS IF STATEMENT ALTERES THE DROPDOWN FOR THE TYPE/COLOR OF CABLE
 		            if($scope.traveler.monitor_id >= 10) {

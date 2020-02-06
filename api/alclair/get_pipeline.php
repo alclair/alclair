@@ -50,8 +50,15 @@ try
 		//exit;
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }
+	if ($_REQUEST['order_status_id'] > 0 ) {
+		//$stmt = pdo_query( $pdo, "SELECT name FROM monitors WHERE id = :monitor_id", array(":monitor_id"=>$_REQUEST['order_status_id'] ));
+		//$order_status_id = pdo_fetch_array( $stmt );
+
+		$conditionSql .= " AND t1.order_status_id = :order_status_id";
+		$params[":order_status_id"] = $_REQUEST['order_status_id'];
+		
+    }
     
-	    
 	    $today=getdate(date("U"));
 		$date_4_sql = $today['m'] . "/". $today['mday'] . "/" . $today['year'];
 		$today_4_sql = date("m/d/Y");

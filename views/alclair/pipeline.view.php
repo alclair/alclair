@@ -51,10 +51,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 </select>
             </div>	
            <div class="form-group col-sm-2">             
+				<select class='form-control' ng-model='order_status_id' ng-options="orderStatus.order_in_manufacturing as orderStatus.status_of_order for orderStatus in OrderStatusList">
+					<option value="">Select a status</option>
+				</select>
+            </div>            
+             <div class="form-group col-sm-2">             
 				<select class='form-control' ng-model='monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
 					<option value="">Select a monitor</option>
 				</select>
-            </div>            <div class="form-group col-sm-1">       
+            </div>  
+            <div class="form-group col-sm-1">       
 				<button style="font-weight: 600" type="button" class="btn btn-primary" ng-click="Search()">
 					<i class="fa fa-search"></i> &nbsp; SEARCH
 				</button>

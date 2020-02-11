@@ -15,6 +15,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	 	additional_items: 0,
 	 	consult_highrise: 0,
 	 	international: 0,
+	 	universals: 0,
 	 	hearing_protection: 0,
 	 	musicians_plugs: 0,
 	 	musicians_plugs_9db: 0,
@@ -512,6 +513,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 			$scope.traveler.international= 1;    
 			 		} else {
 			 			$scope.traveler.international = 0;
+			 		}
+			 		if ($scope.traveler.universals == true) {
+			 			$scope.traveler.universals = 1;    
+			 		} else {
+			 			$scope.traveler.universals = 0;
 			 		}
 			 		if ($scope.traveler.hearing_protection == true) {
 			 			$scope.traveler.hearing_protection= 1;    

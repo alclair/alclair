@@ -209,6 +209,11 @@ if ($result[0]["international"] == TRUE) {
 } else {
 	$column_international = '';
 }
+if ($result[0]["universals"] == TRUE) {
+	$column_universals = 'UNIVERSALS';
+} else {
+	$column_universals = '';
+}
 if ($result[0]["num_earphones_per_order"] > 1) {
 	$column_num_of_earphones = 'GROUP OF ' . "<span style=\"color:red;\">" . $result[0]["num_earphones_per_order"] . "</span>";
 } 
@@ -688,8 +693,9 @@ $right_column_num_of_earphones =
 			<td  style=\"white-space:nowrap;\">" .
 					$column_num_of_earphones . "
 			</td>
-			<td  style=\"white-space:nowrap;\">" . "
-			</td>
+			<td  style=\"white-space:nowrap;\">" .
+					$column_universals . "
+			</td>	
 		</tr>
 ";
 

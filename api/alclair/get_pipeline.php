@@ -169,9 +169,9 @@ try
 
 			$days = 0;
 			foreach ($periods as $period) {
-        		if (!in_array($period->format('N'), $workingDays)) continue;
-				if (in_array($period->format('Y-m-d'), $holidayDays)) continue;
-				if (in_array($period->format('*-m-d'), $holidayDays)) continue;
+        		//if (!in_array($period->format('N'), $workingDays)) continue;
+				//if (in_array($period->format('Y-m-d'), $holidayDays)) continue;
+				//if (in_array($period->format('*-m-d'), $holidayDays)) continue;
 				$days++;
 			}				
 			$result[$i]["days_past_due"] = $days;

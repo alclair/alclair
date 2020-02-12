@@ -737,6 +737,11 @@ Pickup
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/alclair/jonny_orders" class="nav-link "><i class="fa fa-coffee"></i> &nbsp Jonny's Shwag </a>
                                 </li>
+                                 <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' ) { ?>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/reconcile" class="nav-link "><i class="fa fa-adjust"></i> &nbsp Reconciliation </a>
+                                </li>
+                                <?php } ?>
                                 
 							</ul>
 						</li> 

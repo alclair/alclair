@@ -47,13 +47,13 @@ $order_id_is = $start_cart['barcode'];
 		 $date11 = $result2[0]["date_of_log"];
 		 for($j=0; $j<count($result2); $j++) {   
 			//if($result2[$j]["order_status_id"] == $result2[$j+1]["order_status_id"]) {
-			if($result2[0]["order_status_id"] == $result2[1]["order_status_id"]) {	 
+			if($result2[0]["order_status_id"] == $result2[$j+1]["order_status_id"]) {	 
 				 //$date11 = $result2[$j+1]["date_of_log"];
-				 $date11 = $result2[1]["date_of_log"];
+				 $date11 = $result2[$j+1]["date_of_log"];
 				 //break;
 			 } else {
 				 //break;
-				 $date11 = $result2[0]["date_of_log"];
+				 //$date11 = $result2[0]["date_of_log"];
 			 }
 		}
 		

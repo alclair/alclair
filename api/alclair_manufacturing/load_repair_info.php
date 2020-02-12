@@ -42,7 +42,7 @@ $rma_id_is = $start_cart['barcode'];
 		  		//"SELECT * FROM order_status_log WHERE  import_orders_id = :order_id ORDER BY date DESC LIMIT 1",
 		  		array(":repair_id"=>$repair_id));	
 		 $result2 = pdo_fetch_all($stmt2);
-		 
+		 /*
 		 $date11 = $result2[0]["date_of_log"];
 		 for($j=0; $j<count($result2); $j++) {   
 			 if($result2[$j]["repair_status_id"] == $result2[$j+1]["repair_status_id"]) {
@@ -51,6 +51,23 @@ $rma_id_is = $start_cart['barcode'];
 				 //break;
 			 }
 		}
+		*/
+		// COMMENTED OUT CODE ABOVE & ADDED CODE BELOW ON 02/12
+		// THE CALCULATION WAS NOT WORKING CORRECTLY
+		$date11 = $result2[0]["date_of_log"];
+		 for($j=0; $j<count($result2); $j++) {   
+			//if($result2[$j]["order_status_id"] == $result2[$j+1]["order_status_id"]) {
+			if($result2[0]["repair_status_id"] == $result2[1]["repair_status_id"]) {	 
+				 //$date11 = $result2[$j+1]["date_of_log"];
+				 $date11 = $result2[1]["date_of_log"];
+				 //break;
+			 } else {
+				 //break;
+				 $date11 = $result2[0]["date_of_log"];
+			 }
+		}
+
+
 
 		$date1 = new DateTime($date11);
 		$date2 = new DateTime('01/08/2019 12:11:11');

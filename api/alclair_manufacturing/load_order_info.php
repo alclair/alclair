@@ -46,14 +46,25 @@ $order_id_is = $start_cart['barcode'];
 		 
 		 $date11 = $result2[0]["date_of_log"];
 		 for($j=0; $j<count($result2); $j++) {   
+			 if(count($result2) == 1) { // IF ONLY ONE LOG ENTRY THEN USE ITS DATE FOR THE CALCULATION
+				break;	 
+			 }
+			 if($j == 0 && $result2[0]["order_status_id"] != $result2[1]["order_status_id"]) { // THIS IS WHERE 0 DAYS IN CART HAPPENS
+				 $date11 = new DateTime('now');
+				 $date11 = date_format($date11, 'm/d/Y H:i:s');
+				 $response["test2"] = "HERE 1 and " . $result2[0]["order_status_id"] . " AND " . $result2[1]["order_status_id"];
+				 break;
+			 }
 			//if($result2[$j]["order_status_id"] == $result2[$j+1]["order_status_id"]) {
-			if($result2[0]["order_status_id"] == $result2[$j+1]["order_status_id"]) {	 
+			elseif($result2[0]["order_status_id"] == $result2[$j+1]["order_status_id"]) {	 // THIS IS WHERE SYSTEM DETERMINES HOW MANY DAYS IN SAME CART
 				 //$date11 = $result2[$j+1]["date_of_log"];
 				 $date11 = $result2[$j+1]["date_of_log"];
+				 $response["test2"] = "HERE 2";
 				 //break;
 			 } else {
-				 //break;
-				 //$date11 = $result2[0]["date_of_log"];
+				 //$date11 = $result2[$j+1]["date_of_log"];
+				 $response["test2"] = "HERE 3";
+				 break;
 			 }
 		}
 		
@@ -94,6 +105,7 @@ $order_id_is = $start_cart['barcode'];
 		}
 		        
         $response["days"] = $result2[0]["date_of_log"];
+        $response["test"] = $date11;
 		 //$response["random"] = "CART IS " . $cart_id . " and order ID is " . $order_id . " hours " . $hours ;
 		 //$response["random"] = $days . " days and " . $hours . " hours";
 		 $response["days"] = $total_days;

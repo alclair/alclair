@@ -249,6 +249,8 @@ $scope.qrcode= {
                     	 $scope.qrcode.designed_for = result.data[0].designed_for;
                     	 $scope.qrcode.type = "Manufacturing";
                     	 $scope.days = result.days;
+                    	 console.log("DATE IS  " + result.test)
+                    	 console.log(result.test2)
                  	//}
 				 	//else
 				 	//{

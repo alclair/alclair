@@ -113,7 +113,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="!order.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
 					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date_to_post}}</td>
 					
-					<td  style="text-align:center;" data-title="Last Scan">{{order.second_status}}</td>
+					<td  style="text-align:center;" data-title="Last Scan">{{order.date_of_last_scan}}</td>
 					
 					<!--
 					<td  ng-if="order.printed" style="text-align:center;" data-title="Model">Printed</td>

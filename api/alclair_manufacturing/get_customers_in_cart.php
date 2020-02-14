@@ -34,12 +34,13 @@ try
         $inc = 0;
         $second_status = [];
         for($p = 0; $p < count($result); $p++) {
-	         $stmt = pdo_query( $pdo, "SELECT * FROM order_status_log AS t1
+	         $stmt = pdo_query( $pdo, "SELECT *, to_char(t1.date, 'MM/dd/yy') AS date_of_last_scan FROM order_status_log AS t1
 	         LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing 
 	         WHERE import_orders_id = :import_orders_id ORDER BY date DESC", array(":import_orders_id"=>$result[$p]["id"]));
 	    	  $result3 = pdo_fetch_all($stmt);     
 	         $second_status[$p]["second_status"] = $result3[1]["status_of_order"];
 	         $result[$p]["second_status"] = $result3[1]["status_of_order"];
+			 $result[$p]["date_of_last_scan"] = $result3[1]["date_of_last_scan"];
 
 	    }
         

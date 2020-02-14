@@ -21,6 +21,7 @@ $url=$rootScope["RootUrl"]."/api/WooCommerce/02_woocommerce_import.php";
 
 
 $json=file_get_contents($url);
+
 /*
 $list=json_decode($json,true);
 //$file_alclair=$rootScope["RootPath"]."data/export/excel/".$list["data"];

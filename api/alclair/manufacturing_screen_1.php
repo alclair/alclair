@@ -126,7 +126,9 @@ try
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year'";
+						LEFT JOIN monitors AS t4 ON t2.model = t4.name
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year'";
+
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );

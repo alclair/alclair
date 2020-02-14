@@ -31,6 +31,18 @@ try
                          );	
         $result = pdo_fetch_all($stmt);
         
+        $inc = 0;
+        $second_status = [];
+        for($p = 0; $p < count($result); $p++) {
+	         $stmt = pdo_query( $pdo, "SELECT * FROM order_status_log AS t1
+	         LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing 
+	         WHERE import_orders_id = :import_orders_id ORDER BY date DESC", array(":import_orders_id"=>$result[$p]["id"]));
+	    	  $result3 = pdo_fetch_all($stmt);     
+	         $second_status[$p]["second_status"] = $result3[1]["status_of_order"];
+	         $result[$p]["second_status"] = $result3[1]["status_of_order"];
+
+	    }
+        
          $stmt2 = pdo_query( $pdo,
                            "SELECT t1.*, to_char(t1.date_entered, 'MM/dd/yyyy') AS date_entered, IEMs.name as monitor_name, t2.status_of_repair FROM repair_form AS t1
                            LEFT JOIN monitors AS IEMS ON t1.monitor_id = IEMs.id

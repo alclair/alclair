@@ -84,11 +84,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Designed For</th>
 					<th style="text-align:center;">Order Status</th>
 					<th style="text-align:center;">Order ID</th>
-					<th style="text-align:center;">Order Date</th>	
 					<th style="text-align:center;">Model</th>
+					<th style="text-align:center;">Order Date</th>	
 					<th style="text-align:center;">Impressions Received</th>
-					<th style="text-align:center;">Printed</th>
-					<th style="text-align:center;">Check Highrise</th>
+					<th style="text-align:center;">Last Scan</th>
+
+					<!--<th style="text-align:center;">Printed</th>
+					<th style="text-align:center;">Check Highrise</th>-->
 				</tr>
 			</thead>	
 			<tbody>
@@ -100,12 +102,15 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
 					
 					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>
-					<td  style="text-align:center;" data-title="Order Date">{{order.date_to_post}}</td>
 					<td  style="text-align:center;" data-title="Model">{{order.model}}</td>
+					<td  style="text-align:center;" data-title="Order Date">{{order.date_to_post}}</td>
 					
 					<td  ng-if="!order.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
 					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date_to_post}}</td>
 					
+					<td  style="text-align:center;" data-title="Last Scan">{{order.second_status}}</td>
+					
+					<!--
 					<td  ng-if="order.printed" style="text-align:center;" data-title="Model">Printed</td>
 					<td  ng-if="!order.printed" style="text-align:center;" data-title="Model">Not Printed</td>
 					
@@ -115,6 +120,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="!order.printed" style="text-align:center;" data-title="Check Highrise">
 						<input type="checkbox" ng-model="order.highrise"  ng-true-value="1" ng-false-value="0">
 					</td>
+					-->
 					
 				</tr>
 			</tbody>

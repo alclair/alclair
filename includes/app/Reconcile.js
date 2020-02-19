@@ -62,7 +62,10 @@ swdApp.controller('Reconciliation', ['$http', '$scope', 'AppDataService', '$uplo
                 $scope.OrdersList = result.data;
                 $scope.STARTED = result.started;
                 $scope.ENDED = result.ended;
-                console.log("THERE WERE A TOTAL OF " + result.num_shipped + " ORDERS")
+                $scope.InWooNotOtis = result.InWooNotOtis;
+                $scope.InOtisNotWoo = result.InOtisNotWoo;
+                console.log("TOTAL OF " + result.InOtisNotWoo.length)
+                console.log("TEST IS " + JSON.stringify(result.test))
                 
                 //$scope.QC_Form = result.customer_name;
                 $scope.TotalPages = result.TotalPages;

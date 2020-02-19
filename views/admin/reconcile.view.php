@@ -52,8 +52,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<thead>
 				<tr>
 					<th style="text-align:center;">Index</th>
+					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">G</th>
+					<th style="text-align:center;">I</th>
+					<th style="text-align:center;">K</th>
+					<th style="text-align:center;">After</th>
+					<th style="text-align:center;">Before</th>
+					
 					<th style="text-align:center;">Product</th>
-					<th style="text-align:center;">Quantity</th>
+					<th style="text-align:center;">Date Created</th>
+					<th style="text-align:center;">Date Completed</th>
 					<!--<th style="text-align:center;">Order ID</th>-->
 				</tr>
 			</thead>	
@@ -62,8 +70,63 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
 					<td  style="text-align:center;" data-title="Index">{{order.index+1}}</td>				
 					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>
+					<td  style="text-align:center;" data-title="G">{{order.g}}</td>
+					<td  style="text-align:center;" data-title="I">{{order.i}}</td>
+					<td  style="text-align:center;" data-title="K">{{order.k}}</td>
+					<td  style="text-align:center;" data-title="After">{{order.after}}</td>
+					<td  style="text-align:center;" data-title="Before">{{order.before}}</td>
 					
-					<td  style="text-align:center;" data-title="Quantity">{{order.product}}</td>					
+					<td  style="text-align:center;" data-title="Product">{{order.product}}</td>					
+					<td  style="text-align:center;" data-title="DC">{{order.date_created}}</td>					
+					<td  style="text-align:center;" data-title="DC2">{{order.date_completed}}</td>					
+                    
+				</tr>
+			</tbody>
+		</table>
+		</br>
+		<table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Index</th>
+					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">Product</th>
+					<th style="text-align:center;">Date Created</th>
+					<th style="text-align:center;">Date Completed</th>
+					<!--<th style="text-align:center;">Order ID</th>-->
+				</tr>
+			</thead>	
+			<tbody>
+				<tr ng-repeat='WooNotOtis in InWooNotOtis'>
+					
+					<td  style="text-align:center;" data-title="Index">{{WooNotOtis.index+1}}</td>				
+					<td  style="text-align:center;" data-title="Order ID">{{WooNotOtis.order_id}}</td>
+					<td  style="text-align:center;" data-title="Product">{{WooNotOtis.product}}</td>					
+					<td  style="text-align:center;" data-title="DC">{{WooNotOtis.date_created}}</td>					
+					<td  style="text-align:center;" data-title="DC2">{{WooNotOtis.date_completed}}</td>					
+                    
+				</tr>
+			</tbody>
+		</table>
+		</br>
+		<table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Index</th>
+					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">Product</th>
+					<th style="text-align:center;">Date Created</th>
+					<th style="text-align:center;">Date Completed</th>
+					<!--<th style="text-align:center;">Order ID</th>-->
+				</tr>
+			</thead>	
+			<tbody>
+				<tr ng-repeat='OtisNotWoo in InOtisNotWoo'>
+					
+					<td  style="text-align:center;" data-title="Index">{{OtisNotWoo.index+1}}</td>				
+					<td  style="text-align:center;" data-title="Order ID">{{OtisNotWoo.order_id}}</td>
+					<td  style="text-align:center;" data-title="Product">{{OtisNotWoo.product}}</td>					
+					<td  style="text-align:center;" data-title="DC">{{OtisNotWoo.date_created}}</td>					
+					<td  style="text-align:center;" data-title="DC2">{{OtisNotWoo.date_completed}}</td>					
                     
 				</tr>
 			</tbody>

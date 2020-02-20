@@ -87,7 +87,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<option value="">Select a monitor</option>
 				</select>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-1">
 	            <label class="control-label">Artwork:</label><br />
                 <select class='form-control' ng-model='traveler.artwork' ng-options="artworktype.value as artworktype.label for artworktype in ArtworkTypeList">
 				</select>
@@ -95,6 +95,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             <div class="form-group col-md-2">
 	            <label class="control-label">Cable:</label><br />
                 <select class='form-control' ng-model='traveler.cable_color' ng-options="cabletype.value as cabletype.label for cabletype in CableTypeList">
+				</select>
+            </div>
+			<div class="form-group col-md-2">
+	            <label class="control-label">Order Type:</label><br />
+                <select class='form-control' ng-model='traveler.customer_type' ng-options="customertype.value as customertype.label for customertype in CustomerTypeList">
 				</select>
             </div>
             

@@ -402,7 +402,7 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
         { value: 'Mic Cable', label: 'Mic Cable' },
         { value: 'Other', label: 'Other' },
     ];
-        this.ArtworkTypeList = [
+    this.ArtworkTypeList = [
         { value: 'None', label: 'None' },
         { value: 'Yes', label: 'Yes' },
         /*{ value: 'Logo', label: 'Logo' },
@@ -410,6 +410,12 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
         { value: 'V-Stamp', label: 'V-Stamp' },
         { value: 'Script', label: 'Script' },
         { value: 'Custom', label: 'Custom' },*/
+    ];
+    this.CustomerTypeList = [
+        { value: '0', label: 'Customer Type' },
+        { value: 'Customer', label: 'Customer' },
+        { value: 'Demo', label: 'Demo' },
+        { value: 'R&D', label: 'R&D' },
     ];
     this.PRINTED_OR_NOT = [
         { value: '0', label: 'Printed & Not' },

@@ -2065,6 +2065,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 	additional_items: 0,
 	artwork: 'None',
 	cable_color: '0',
+	customer_type: 'Customer',
 	additional_items: 0,
 	consult_highrise: 0,
 	international: 0,
@@ -2082,6 +2083,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 
  $scope.traveler.date=window.cfg.CurrentDay;
  $scope.CableTypeList = AppDataService.CableTypeList;
+ $scope.CustomerTypeList = AppDataService.CustomerTypeList;
  $scope.ArtworkTypeList = AppDataService.ArtworkTypeList;
  $scope.HEARING_PROTECTION_COLORS = AppDataService.HEARING_PROTECTION_COLORS;
 	

@@ -81,7 +81,7 @@ try
 
     //Get Total Records
     $query = "SELECT count(t1.id) FROM import_orders AS t1
-    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id = 12 $conditionSql";
+    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id = 12 AND (t1.customer_type='Customer' OR t1.customer_type IS NULL) $conditionSql";
     //WHERE active = TRUE $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
@@ -136,7 +136,7 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
 $query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t1.date,'MM/dd/yyyy') as date
 						FROM order_status_log AS t1 
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-						WHERE t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
+						WHERE t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 						//WHERE t1.order_status_id = 12 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 	
 	$store_done_data = pdo_fetch_all( $query2 );  // ALL ORDERS COMPLETED WITHIN A CERTAIN TIME FRAME

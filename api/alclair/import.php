@@ -210,9 +210,9 @@ for ($i=1; $i < $inc; $i++) {
  
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
-date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, left_tip, right_tip, pelican_case_name, notes)
+date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, left_tip, right_tip, pelican_case_name, notes, nashville_order, customer_type)
 VALUES (
-:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :left_tip, :right_tip, :pelican_case_name, :notes) RETURNING id",
+:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :customer_type) RETURNING id",
 array(':date'=>$order[0], ':order_id'=>$order[1],':product'=>$order[2], ':quantity'=>$order[3], ':model'=>$order[4], ':artwork'=>$order[5], ':color'=>$order[6], ':rush_process'=>$order[7], ':left_shell'=>$order[8], ':right_shell'=>$order[9], ':left_faceplate'=>$order[10], ':right_faceplate'=>$order[11], ':cable_color'=>$order[12], ':clear_canal'=>$order[13], ':left_alclair_logo'=>$order[14], ':right_alclair_logo'=>$order[15], ':left_custom_art'=>$order[16], ':right_custom_art'=>$order[17], ':link_to_design_image'=>$order[18], ':open_order_in_designer'=>$order[19], 
 ':designed_for' =>$order[20], 
 ':my_impressions'=>$order[21], 
@@ -229,7 +229,9 @@ array(':date'=>$order[0], ':order_id'=>$order[1],':product'=>$order[2], ':quanti
 ':left_tip'=>$left_tip,
 ':right_tip'=>$right_tip,
 ':pelican_case_name'=>$order[29],
-':notes'=>$notes) //=>$order[28])
+':notes'=>$notes,
+':nashville_order'=>$order[$k]['nashville_order'],
+':customer_type'=>'Customer') //=>$order[28])
 );
 
 	$id_after_import = pdo_fetch_all( $stmt );

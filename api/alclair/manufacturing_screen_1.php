@@ -76,7 +76,7 @@ try
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t1.date > '$january_last_year' AND t1.date < '$december_last_year'";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t1.date > '$january_last_year' AND t1.date < '$december_last_year' AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -88,7 +88,7 @@ try
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM')  =  '$current_month' AND to_char(t1.date, 'YYYY') = '$last_year'";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM')  =  '$current_month' AND to_char(t1.date, 'YYYY') = '$last_year' AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -101,7 +101,7 @@ try
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t1.date > '$january_current_year' AND t1.date < '$december_current_year'";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t1.date > '$january_current_year' AND t1.date < '$december_current_year' AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -113,7 +113,7 @@ try
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM') = '$current_month' AND to_char(t1.date, 'YYYY') =  '$current_year'";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM') = '$current_month' AND to_char(t1.date, 'YYYY') =  '$current_year' AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -127,7 +127,7 @@ try
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 						LEFT JOIN monitors AS t4 ON t2.model = t4.name
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year'";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year' AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)";
 
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
@@ -188,7 +188,7 @@ try
 		
     //Get Total Records
     $query = "SELECT count(t1.id) FROM import_orders AS t1
-    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id = 12 $conditionSql";
+    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id = 12 AND (t1.customer_type='Customer' OR t1.customer_type IS NULL) $conditionSql";
     //WHERE active = TRUE $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
@@ -211,7 +211,7 @@ try
 $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 						FROM order_status_log AS t1 
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-						WHERE t1.order_status_id = 12 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
+						WHERE t1.order_status_id = 12 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 	
 	//$just_start_date = pdo_fetch_all( $query1 );
 	$store_done_data = pdo_fetch_all( $query2 );
@@ -361,7 +361,7 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
@@ -383,7 +383,7 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL AND (t2.customer_type='Customer' OR t2.customer_type IS NULL)
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );

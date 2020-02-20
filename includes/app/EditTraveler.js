@@ -90,6 +90,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         $scope.selectedFiles = $files;
     }
     $scope.CableTypeList = AppDataService.CableTypeList;
+    $scope.CustomerTypeList = AppDataService.CustomerTypeList;
     $scope.ArtworkTypeList = AppDataService.ArtworkTypeList;
     $scope.HEARING_PROTECTION_COLORS = AppDataService.HEARING_PROTECTION_COLORS;
         

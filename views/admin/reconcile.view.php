@@ -47,7 +47,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<?php
 		// FORM FOR DELOPMENT PAGE
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
-	?>       
+	?>      
+	
 		<table>		
 			<thead>
 				<tr>
@@ -62,7 +63,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Product</th>
 					<th style="text-align:center;">Date Created</th>
 					<th style="text-align:center;">Date Completed</th>
-					<!--<th style="text-align:center;">Order ID</th>-->
+
 				</tr>
 			</thead>	
 			<tbody>
@@ -84,26 +85,28 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			</tbody>
 		</table>
 		</br>
+	
 		<table>		
 			<thead>
 				<tr>
 					<th style="text-align:center;">Index</th>
 					<th style="text-align:center;">Order ID</th>
 					<th style="text-align:center;">Product</th>
-					<th style="text-align:center;">Date Created</th>
-					<th style="text-align:center;">Date Completed</th>
+				
 					<!--<th style="text-align:center;">Order ID</th>-->
 				</tr>
 			</thead>	
+			
+			<center>
+				<span style="font-size: 34px; font-weight: bolder; color: gray; text-align: center" center>IN WOOCOMMERCE & NOT IN OTIS</span>
+			</center>
 			<tbody>
 				<tr ng-repeat='WooNotOtis in InWooNotOtis'>
-					
 					<td  style="text-align:center;" data-title="Index">{{WooNotOtis.index+1}}</td>				
-					<td  style="text-align:center;" data-title="Order ID">{{WooNotOtis.order_id}}</td>
+					<td  style="text-align:center;" data-title="Order ID">
+						<a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{WooNotOtis.id}}">{{WooNotOtis.order_id}}</a>
+					</td>
 					<td  style="text-align:center;" data-title="Product">{{WooNotOtis.product}}</td>					
-					<td  style="text-align:center;" data-title="DC">{{WooNotOtis.date_created}}</td>					
-					<td  style="text-align:center;" data-title="DC2">{{WooNotOtis.date_completed}}</td>					
-                    
 				</tr>
 			</tbody>
 		</table>
@@ -113,20 +116,31 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr>
 					<th style="text-align:center;">Index</th>
 					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">Designed For</th>
 					<th style="text-align:center;">Product</th>
-					<th style="text-align:center;">Date Created</th>
-					<th style="text-align:center;">Date Completed</th>
+					<th style="text-align:center;">Model <span style="color: yellow; font-weight:bold">(Click me)</span></th>
+					<th style="text-align:center;">Notes</th>
+
 					<!--<th style="text-align:center;">Order ID</th>-->
 				</tr>
 			</thead>	
+			<center>
+				<span style="font-size: 34px; font-weight: bolder; color: gray; text-align: center">IN OTIS & NOT IN WOOCOMMERCE</span>
+			</center>
 			<tbody>
+				
 				<tr ng-repeat='OtisNotWoo in InOtisNotWoo'>
-					
+										
 					<td  style="text-align:center;" data-title="Index">{{OtisNotWoo.index+1}}</td>				
-					<td  style="text-align:center;" data-title="Order ID">{{OtisNotWoo.order_id}}</td>
-					<td  style="text-align:center;" data-title="Product">{{OtisNotWoo.product}}</td>					
-					<td  style="text-align:center;" data-title="DC">{{OtisNotWoo.date_created}}</td>					
-					<td  style="text-align:center;" data-title="DC2">{{OtisNotWoo.date_completed}}</td>					
+					<td  style="text-align:center;" data-title="Order ID">
+						<a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{OtisNotWoo.id}}">{{OtisNotWoo.order_id}}</a>
+					</td>
+					<td  style="text-align:center;" data-title="Designed For">{{OtisNotWoo.designed_for}}</td>					
+
+					<td  style="text-align:center;" data-title="Product" ng-click="goFindOrder(OtisNotWoo.order_id);">{{OtisNotWoo.product}}</td>					
+					<td  style="text-align:center;" data-title="Model" ng-click="goFindOrder(OtisNotWoo.order_id);">{{OtisNotWoo.model}}</td>					
+					<td  style="text-align:center;" data-title="Notes">{{OtisNotWoo.import_order_notes}}</td>					
+			
                     
 				</tr>
 			</tbody>

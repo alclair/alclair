@@ -149,7 +149,7 @@ for($g = 0; $g < $diff->format("%a")+1; $g++) { // ADDED 1 BECAUSE NEED TO GO TO
 $started = $_REQUEST["StartDate"] . ' 00:00:00';
 $ended = $_REQUEST["EndDate"] . ' 23:59:59';
 
-$query = "SELECT DISTINCT t1.import_orders_id, t2.designed_for, t3.status_of_order, t2.order_id AS order_id, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.order_status_id, t1.notes,  t2.id
+$query = "SELECT DISTINCT t1.import_orders_id, t2.designed_for, t3.status_of_order, t2.order_id AS order_id, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.order_status_id, t1.notes, t2.id, t2.model, t2.product, t2.notes AS import_order_notes
 FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing

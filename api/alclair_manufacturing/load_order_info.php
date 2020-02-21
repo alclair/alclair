@@ -43,10 +43,14 @@ $order_id_is = $start_cart['barcode'];
 		  		//"SELECT * FROM order_status_log WHERE  import_orders_id = :order_id ORDER BY date DESC LIMIT 1",
 		  		array(":order_id"=>$order_id));	
 		 $result2 = pdo_fetch_all($stmt2);
+		 $num_rows = pdo_rows_affected( $stmt2 );
 		 
 		 $date11 = $result2[0]["date_of_log"];
 		 for($j=0; $j<count($result2); $j++) {   
-			 if(count($result2) == 1) { // IF ONLY ONE LOG ENTRY THEN USE ITS DATE FOR THE CALCULATION
+			 if($num_rows == 1) { // IF ONLY ONE LOG ENTRY THEN USE ITS DATE FOR THE CALCULATION
+				$date11 = new DateTime('now');
+				$date11 = date_format($date11, 'm/d/Y H:i:s');				
+				$response['code']='success';
 				break;	 
 			 }
 			 if($j == 0 && $result2[0]["order_status_id"] != $result2[1]["order_status_id"]) { // THIS IS WHERE 0 DAYS IN CART HAPPENS

@@ -73,7 +73,7 @@ try
 		echo json_encode($response);
 		exit;
 	}
-	if($traveler['customer_type'] == 0)
+	if(strlen($traveler['customer_type']) < 3)
 	{
 		$response['message'] = 'Please enter a customer type.';
 		echo json_encode($response);

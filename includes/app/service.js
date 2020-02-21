@@ -412,7 +412,7 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
         { value: 'Custom', label: 'Custom' },*/
     ];
     this.CustomerTypeList = [
-        { value: '0', label: 'Customer Type' },
+        { value: '0', label: 'Order Type' },
         { value: 'Customer', label: 'Customer' },
         { value: 'Demo', label: 'Demo' },
         { value: 'R&D', label: 'R&D' },

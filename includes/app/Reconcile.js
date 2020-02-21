@@ -80,6 +80,10 @@ swdApp.controller('Reconciliation', ['$http', '$scope', 'AppDataService', '$uplo
             });
     };
 
+	$scope.goFindOrder = function (order_number) {        
+        console.log("The order number is " + order_number)
+    };
+
     $scope.init = function () {
         $scope.Search();
     }

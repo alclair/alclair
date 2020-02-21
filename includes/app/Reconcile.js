@@ -50,8 +50,8 @@ swdApp.controller('Reconciliation', ['$http', '$scope', 'AppDataService', '$uplo
 	    //return;
 	    
         myblockui();
-		$scope.SearchStartDate = '01/01/2020';
-		$scope.SearchEndDate = '01/31/2020';
+		//$scope.SearchStartDate = '01/01/2020';
+		//$scope.SearchEndDate = '01/31/2020';
         var api_url = window.cfg.apiUrl + "WooCommerce/reconcile.php?StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY")+"&EndDate="+moment($scope.SearchEndDate).format("MM/DD/YYYY");
         
         //alert(api_url);

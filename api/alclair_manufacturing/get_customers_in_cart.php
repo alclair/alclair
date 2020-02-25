@@ -40,7 +40,7 @@ try
 	    	  $result3 = pdo_fetch_all($stmt);     
 	         $second_status[$p]["second_status"] = $result3[1]["status_of_order"];
 	         $result[$p]["second_status"] = $result3[1]["status_of_order"];
-			 $result[$p]["date_of_last_scan"] = $result3[1]["date_of_last_scan"];
+			 $result[$p]["date_of_last_scan"] = $result3[0]["date_of_last_scan"];
 
 	    }
         

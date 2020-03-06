@@ -414,6 +414,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         $http.get(api_url)
             .success(function (result) {
 	           $scope.logList = result.data2;
+	           $scope.ChangelogList = result.data3;
+	           
 	           console.log("THE USER IS " + result.the_user_is)
 	           
 	           if(result.data[0].manufacturing_screen == true) {

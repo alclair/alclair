@@ -177,12 +177,39 @@ try
 			$result2[$i]["date_to_show_hours"] = date("h:i A",strtotime($result2[$i]["date_moved"]) - 5*3600 );
 
 		}
+	}	
+	/////////////////////////       FINDS THE CHANGE LOG INFO TO DISPLAY ON THE TRAVELER PAGE       //////////////////////////////////////////////////	
+	$query3 = "SELECT *, to_char(date, 'MM/dd/yyyy    HH24:MI') as changelog_date, t2.first_name, t2.last_name
+    					FROM traveler_change_log AS t1 
+    					LEFT JOIN auth_user AS t2 ON t1.user_id = t2.id
+    					WHERE t1.import_orders_id = :import_orders_id
+    					ORDER BY date DESC";
+    $params3[":import_orders_id"] = $_REQUEST['id'];
+    $stmt3 = pdo_query( $pdo, $query3, $params3); 
+	$result3 = pdo_fetch_all( $stmt3 );  
+	$rows_in_result3 = pdo_rows_affected($stmt3);
+   
+    for ($i = 0; $i < $rows_in_result3; $i++) {
+    	if (date('I', time()))
+		{
+			$result3[$i]["date_to_show"] = date("m/d/Y  h:i A",strtotime($result3[$i]["changelog_date"]) );
+			$result3[$i]["date_to_show_date"] = date("m/d/Y",strtotime($result3[$i]["changelog_date"]) );
+			$result3[$i]["date_to_show_hours"] = date("h:i A",strtotime($result3[$i]["changelog_date"]) - 6*3600 );
+		}
+		else
+		{
+			$result3[$i]["date_to_show"] = date("m/d/Y  h:i A",strtotime($result3[$i]["changelog_date"]) );
+			$result3[$i]["date_to_show_date"] = date("m/d/Y ",strtotime($result3[$i]["changelog_date"]) );
+			$result3[$i]["date_to_show_hours"] = date("h:i A",strtotime($result3[$i]["changelog_date"]) - 5*3600 );
+		}
 	}
+		
     
     $response['code'] = 'success';
     $response["message"] = $query;
     $response['data'] = $result;
     $response['data2'] = $result2;
+    $response['data3'] = $result3;
         
 	echo json_encode($response);
 }

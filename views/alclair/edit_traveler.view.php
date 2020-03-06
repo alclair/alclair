@@ -318,6 +318,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
     </form>            
     <br/>
 
+		<center><h1><b>ORDER STATUS</b></h1></center>
         <table>		
 			<thead>
 				<tr>
@@ -336,6 +337,25 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</tr>					
 			</tbody>
 		</table>
+		<br/>
+		<center><h1><b>CHANGE LOG</b></h1></center>
+		 <table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Date</th>
+					<th style="text-align:center;">Person</th>
+					<th style="text-align:center;">Change </th>
+				</tr>
+			</thead>	
+			<tbody>
+				<tr ng-repeat='(key, Changelog_entry) in ChangelogList'>
+					<td style="text-align:center;">{{Changelog_entry.date_to_show_date}}  &nbsp;&nbsp; {{Changelog_entry.date_to_show_hours}} </a></td>
+					<td style="text-align:center;">{{Changelog_entry.first_name}} &nbsp; {{Changelog_entry.last_name}}</a></td>
+					<td style="text-align:center;">{{Changelog_entry.change}} </td>
+				</tr>					
+			</tbody>
+		</table>
+
 
     <!--Add Popup Window-->
     <div class="modal fade modal-medium" id="modalEditNotes" tabindex="-1" role="dialog" aria-hidden="true">

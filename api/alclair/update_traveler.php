@@ -83,8 +83,98 @@ try
 	} else {
 		$traveler['rush_process'] = '';
 	}
-	
-	      
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+////////////////////////      ADDING CHANGE LOG INFORMATION HERE       //////////////////////////////////////////////////////////////////////////////////////////////////////////
+	$stmt = pdo_query( $pdo, "SELECT * FROM import_orders WHERE id = :id", array(":id"=>$_REQUEST['id']));
+	$updated = pdo_fetch_all( $stmt );
+	$response['test'] = "New is " . $updated[0]['left_tip'] . " and old is " . $traveler['left_tip'];
+	//echo json_encode($response);
+	//exit;
+
+	if(strcmp($updated[0]['left_tip'], $traveler['left_tip']) ) {
+		$new_entry = $traveler['left_tip'];
+		$old_entry = $updated[0]['left_tip'];
+		if(strlen($traveler['left_tip']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['left_tip']) < 2) { $old_entry = 'blank'; }
+		$change = 'Left tip color changed from  "'. $old_entry . '" to "' . $new_entry . '"'; 
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['right_tip'], $traveler['right_tip']) ) {
+		$new_entry = $traveler['right_tip'];
+		$old_entry = $updated[0]['right_tip'];
+		if(strlen($traveler['right_tip']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['right_tip']) < 2) { $old_entry = 'blank'; }
+		$change = 'Right tip color changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['left_shell'], $traveler['left_shell']) ) {
+		$new_entry = $traveler['left_shell'];
+		$old_entry = $updated[0]['left_shell'];
+		if(strlen($traveler['left_shell']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['left_shell']) < 2) { $old_entry = 'blank'; }
+		$change = 'Left shell color changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['right_shell'], $traveler['right_shell']) ) {
+		$new_entry = $traveler['right_shell'];
+		$old_entry = $updated[0]['right_shell'];
+		if(strlen($traveler['right_shell']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['right_shell']) < 2) { $old_entry = 'blank'; }
+		$change = 'Right shell color changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['left_alclair_logo'], $traveler['left_alclair_logo']) ) {
+		$new_entry = $traveler['left_alclair_logo'];
+		$old_entry = $updated[0]['left_alclair_logo'];
+		if(strlen($traveler['left_alclair_logo']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['left_alclair_logo']) < 2) { $old_entry = 'blank'; }
+		$change = 'Left Alclair logo changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['right_alclair_logo'], $traveler['right_alclair_logo']) ) {
+		$new_entry = $traveler['right_alclair_logo'];
+		$old_entry = $updated[0]['right_alclair_logo'];
+		if(strlen($traveler['right_alclair_logo']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['right_alclair_logo']) < 2) { $old_entry = 'blank'; }
+		$change = 'Right Alclair logo changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['left_faceplate'], $traveler['left_faceplate']) ) {
+		$new_entry = $traveler['left_faceplate'];
+		$old_entry = $updated[0]['left_faceplate'];
+		if(strlen($traveler['left_faceplate']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['left_faceplate']) < 2) { $old_entry = 'blank'; }
+		$change = 'Left faceplate color changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+	if(strcmp($updated[0]['right_faceplate'], $traveler['right_faceplate']) ) {
+		$new_entry = $traveler['right_faceplate'];
+		$old_entry = $updated[0]['right_faceplate'];
+		if(strlen($traveler['right_faceplate']) < 2) { $new_entry = 'blank'; }
+		if(strlen($updated[0]['right_faceplate']) < 2) { $old_entry = 'blank'; }
+		$change = 'Right faceplate color changed from  "'. $old_entry . '" to "' . $new_entry . '"';
+		$stmt = pdo_query( $pdo,  'INSERT INTO traveler_change_log  (user_id, import_orders_id, date, change)
+																VALUES (:user_id, :import_orders_id, now(), :change) RETURNING id', 
+																array(":user_id"=>$_SESSION['UserId'], ":import_orders_id"=>$traveler["id"], ":change"=>$change));
+	}
+////////////////////////      ENDING CHANGE LOG INFORMATION HERE       //////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+  
 	$stmt = pdo_query( $pdo, "SELECT * FROM order_status_log WHERE import_orders_id = :id ORDER BY id DESC LIMIT 1", array(":id"=>$_REQUEST['id']));
 	$is_order_status_same = pdo_fetch_all( $stmt );
 	if($traveler['order_status_id'] != $is_order_status_same[0]["order_status_id"]) { // ADD TO THE LOG

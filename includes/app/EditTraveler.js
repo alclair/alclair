@@ -501,7 +501,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
        		            
 		            // GREATER OR EQUAL TO 10 IS STUDIO3, STUDIO4, REV X & ELECTRO
 		            // THIS IF STATEMENT ALTERES THE DROPDOWN FOR THE TYPE/COLOR OF CABLE
-		            if($scope.traveler.monitor_id >= 10) {
+		            //if($scope.traveler.monitor_id >= 10) {
+			        if($scope.traveler.monitor_id == 9 && $scope.traveler.monitor_id == 10 && $scope.traveler.monitor_id == 12) {
 			            $scope.traveler.cable_color = 'Other'
 		            }          
 

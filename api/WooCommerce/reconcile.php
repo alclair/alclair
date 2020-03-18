@@ -79,17 +79,45 @@ for($g = 0; $g < $diff->format("%a")+1; $g++) { // ADDED 1 BECAUSE NEED TO GO TO
 	$after  = date("Y-m-d", $starting_date);
 	//$before = date("Y-m-d", $ending_date);
 	$before = date("Y-m-d", $starting_date);
-	$after = $after . "T00:00:00";
-	$before = $before . "T23:59:59";
+	$after0 = $after . "T00:00:00";
+	$before0 = $before . "T23:59:59";
 	//$before = $after . "T23:59:59";
 
 	$params = [
-		'before' => $before,
-		'after' => $after,
+		'before' => $before0,
+		'after' => $after0,
 		'per_page' => 100,			
 	];
-
 	$result = $woocommerce->get('orders', $params);
+	
+if(count($result) == 100) {
+	$result = [];
+	$after_hours1 = "T00:00:00";
+	$after_hours2 = "T12:00:01";
+	$before_hours1 = "T12:00:00";
+	$before_hours2 = "T23:59:59";
+	
+	$after1 = $after . $after_hours1;
+	$before1 = $before . $before_hours1;
+	$after2 = $after . $after_hours2;
+	$before2 = $before . $before_hours2;
+	
+	$params = [
+		'before' => $before1,
+		'after' => $after1,
+		'per_page' => 100,			
+	];
+	$result1 = $woocommerce->get('orders', $params);
+	
+	$params = [
+		'before' => $before2,
+		'after' => $after2,
+		'per_page' => 100,			
+	];
+	$result2 = $woocommerce->get('orders', $params);
+	$result = array_merge($result1, $result2);
+}
+
   
 	for($i = 0; $i < count($result); $i++) {
 		$data = get_object_vars($result[$i]);  // STORE THE DATA	
@@ -177,6 +205,9 @@ for($i = 0; $i < count($woo); $i++) {
 		$in_woo_not_otis[$ind] = $order[$i];
 		$ind = $ind+1;
 	}
+	if(!strcmp($woo[$i], '9052602')) {
+		$testtest = $order[$i]["order_id"];
+	}
 }
 $ind2 = 0;
 $in_otis_not_woo = array();
@@ -188,7 +219,7 @@ for($i = 0; $i < count($otis); $i++) {
 }
 
 //$response['test'] = "Started is " . $started . " and Ended is " . $ended;
-$response['test'] = "Num of Woo is " . count($woo) . " and Num of OTIS is " . count($otis) . " ind and ind2 is " . $ind . " and " . $ind2 . " and random is " . $in_otis_not_woo[5]["order_id"];
+$response['test'] = "Num of Woo is " . count($woo) . " and Num of OTIS is " . count($otis) . " ind and ind2 is " . $ind . " and " . $ind2 . " and random is " . $testtest;
 
 $response["InWooNotOits"] = $in_woo_not_otis;
 $response["InOtisNotWoo"] = $in_otis_not_woo;
@@ -201,7 +232,7 @@ $indexes = array_keys($uid, '9049908'); //array(0, 1)
     $response['code'] = 'success';
     $response["message"] = $query;
     $response['data'] = $order;
-    $response['data2'] = $result2;
+    $response['data2'] = $result;
     $response["started"] = $started;
     $response["ended"] = $ended;        
 	echo json_encode($response);

@@ -48,44 +48,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		// FORM FOR DELOPMENT PAGE
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
 	?>      
-	
-		<table>		
-			<thead>
-				<tr>
-					<th style="text-align:center;">Index</th>
-					<th style="text-align:center;">Order ID</th>
-					<th style="text-align:center;">G</th>
-					<th style="text-align:center;">I</th>
-					<th style="text-align:center;">K</th>
-					<th style="text-align:center;">After</th>
-					<th style="text-align:center;">Before</th>
-					
-					<th style="text-align:center;">Product</th>
-					<th style="text-align:center;">Date Created</th>
-					<th style="text-align:center;">Date Completed</th>
-
-				</tr>
-			</thead>	
-			<tbody>
-				<tr ng-repeat='order in OrdersList'>
-					
-					<td  style="text-align:center;" data-title="Index">{{order.index+1}}</td>				
-					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>
-					<td  style="text-align:center;" data-title="G">{{order.g}}</td>
-					<td  style="text-align:center;" data-title="I">{{order.i}}</td>
-					<td  style="text-align:center;" data-title="K">{{order.k}}</td>
-					<td  style="text-align:center;" data-title="After">{{order.after}}</td>
-					<td  style="text-align:center;" data-title="Before">{{order.before}}</td>
-					
-					<td  style="text-align:center;" data-title="Product">{{order.product}}</td>					
-					<td  style="text-align:center;" data-title="DC">{{order.date_created}}</td>					
-					<td  style="text-align:center;" data-title="DC2">{{order.date_completed}}</td>					
-                    
-				</tr>
-			</tbody>
-		</table>
-		</br>
-	
+		
 		<table>		
 			<thead>
 				<tr>
@@ -145,6 +108,76 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</tr>
 			</tbody>
 		</table>
+		<table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">ID</th>
+					<th style="text-align:center;">Designed For</th>
+					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">Product</th>
+					<th style="text-align:center;">Model</th>
+					<th style="text-align:center;">Date Completed</th>
+
+				</tr>
+			</thead>	
+			<center>
+				<span style="font-size: 34px; font-weight: bolder; color: gray; text-align: center" center>ORDERS IN OTIS</span>
+			</center>
+			<tbody>
+				<tr ng-repeat='otis in OtisList'>
+					
+					<td  style="text-align:center;" data-title="ID">{{otis.import_orders_id}}</td>				
+					<td  style="text-align:center;" data-title="Designed For">{{otis.designed_for}}</td>				
+					<td  style="text-align:center;" data-title="Order ID">{{otis.order_id}}</td>
+					<td  style="text-align:center;" data-title="Product">{{otis.product}}</td>
+					<td  style="text-align:center;" data-title="Model">{{otis.model}}</td>
+					<td  style="text-align:center;" data-title="Completed">{{otis.date_done}}</td>				
+				</tr>
+			</tbody>
+		</table>
+		</br>
+		
+		<table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Index</th>
+					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">G</th>
+					<th style="text-align:center;">I</th>
+					<th style="text-align:center;">K</th>
+					<th style="text-align:center;">After</th>
+					<th style="text-align:center;">Before</th>
+					
+					<th style="text-align:center;">Product</th>
+					<th style="text-align:center;">Date Created</th>
+					<th style="text-align:center;">Date Completed</th>
+
+				</tr>
+			</thead>	
+			<center>
+				<span style="font-size: 34px; font-weight: bolder; color: gray; text-align: center" center>ORDERS IN WOO</span>
+			</center>
+			<tbody>
+				<tr ng-repeat='woo in WooList'>
+					
+					<td  style="text-align:center;" data-title="Index">{{woo.index+1}}</td>				
+					<td  style="text-align:center;" data-title="Order ID">{{woo.order_id}}</td>
+					<td  style="text-align:center;" data-title="G">{{woo.g}}</td>
+					<td  style="text-align:center;" data-title="I">{{woo.i}}</td>
+					<td  style="text-align:center;" data-title="K">{{woo.k}}</td>
+					<td  style="text-align:center;" data-title="After">{{woo.after}}</td>
+					<td  style="text-align:center;" data-title="Before">{{woo.before}}</td>
+					
+					<td  style="text-align:center;" data-title="Product">{{woo.product}}</td>					
+					<td  style="text-align:center;" data-title="DC">{{woo.date_created}}</td>					
+					<td  style="text-align:center;" data-title="DC2">{{woo.date_completed}}</td>					
+                    
+				</tr>
+			</tbody>
+		</table>
+		</br>
+	
+		
     <?php
 	    } 
 	?>

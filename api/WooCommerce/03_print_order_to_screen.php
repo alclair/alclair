@@ -37,6 +37,24 @@ $params = [
         ];
     //$result = $woocommerce->get('orders', $params);
 	$result = $woocommerce->get('orders', $params);		
+
+if(count($result) == 100) {
+	echo "IT'S 100 <br/>";
+	$result = [];
+	$params = [
+			'before' => '2019-12-01T12:00:00',
+			'after' => '2019-12-01T00:00:00',
+			'per_page' => 100			
+        ];
+	$result1 = $woocommerce->get('orders', $params);
+	$params = [
+			'before' => '2019-12-01T23:59:59',
+			'after' => '2019-12-01T12:00:01',
+			'per_page' => 100			
+        ];
+	$result2 = $woocommerce->get('orders', $params);
+	$result = array_merge($result1, $result2);
+}
 			
 //}
     

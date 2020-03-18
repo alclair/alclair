@@ -59,7 +59,10 @@ swdApp.controller('Reconciliation', ['$http', '$scope', 'AppDataService', '$uplo
             .success(function (result) {
 	            //console.log("Test is " + result.test)
 	            
-                $scope.OrdersList = result.data;
+                //$scope.OrdersList = result.data;
+                $scope.WooList = result.data;
+                $scope.OtisList = result.data2;
+                
                 $scope.STARTED = result.started;
                 $scope.ENDED = result.ended;
                 $scope.InWooNotOtis = result.InWooNotOtis;

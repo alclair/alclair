@@ -2417,7 +2417,7 @@ swdApp.controller('Orders_Done_By_Date', ['$http', '$scope', 'AppDataService', '
                 //console.log("Num of pages " + result.TotalPages)
                 $scope.TotalRecords = result.TotalRecords;
                 $scope.Printed = result.Printed;
-                console.log("PRINTED IS " + result.Printed)
+                
                 //console.log("Pass or Fail is " + result.testing1)
 
                 $scope.PageRange = [];

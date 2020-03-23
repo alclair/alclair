@@ -118,7 +118,7 @@ for ($i=1; $i < count($arrResult); $i++) {
 	$FacCompID = "<FacCompID>" . $arrResult[$i][0] . "</FacCompID>"; // Well company name
 	$FacName = "<FacName>" . $arrResult[$i][1] . "</FacName>";
 	$Facility2_close = "</Facility2>";
-	$Facility2 = $Facility2_open . $FacID . $FacReportPeriod . $FacType . $FacCompID . $FacName;
+	$Facility2 = $FacID . $FacReportPeriod . $FacType . $FacCompID . $FacName;
 	
 	$qtrqtr = substr($arrResult[$i][3], 0, 5);
 	$location = $arrResult[$i][3];
@@ -140,26 +140,26 @@ for ($i=1; $i < count($arrResult); $i++) {
 	
 	$county = "N/A";
 	$quantity = $arrResult[$i][5];
-	
+
 	$Location2_open = "<Location2>";
 	$LocQtrQtr = "<LocQtrQtr>" . $qtrqtr . " </LocQtrQtr>"; 
 	$LocSection = "<LocSection>" . $section . "</LocSection>";
 	$LocTownship = "<LocTownship>" . $township . "</LocTownship>";
 	$LocRange = "<LocRange>" . $range . "</LocRange>";
-	$LocCountry = "<LocCounty>" . $county . "</LocCounty";
+	$LocCountry = "<LocCounty>" . $county . "</LocCounty>";
 	$Location2_close = "</Location2>";
-	$Location2 = $Location2_open . $LocQtrQtr . $LocSection . $LocTownship . $LocRange . $LocCountry ;
+	$Location2 = $Location2_open . $LocQtrQtr . $LocSection . $LocTownship . $LocRange . $LocCountry . $Location2_close;
 	
 	$Production2_open = "<Production2>";
 	$ProdType = "<ProdType>Water</ProdType>";
 	$ProdUnits = "<ProdUnits>bbls</ProdUnits>";
 	$ProdQuantity = "<ProdQuantity>" . $quantity . "</ProdQuantity>";
 	$ProdSource = "<ProdSource>P</ProdSource>";
-	$Production2_close - "</Production2>";
+	$Production2_close = "</Production2>";
 
 	$Production2 = $Production2_open . $ProdType . $ProdUnits . $ProdQuantity . $ProdSource . $Production2_close;
 	
-	$print2screen[$i-1]["screen"] = $Facility2 . $Location2 . $Production2 . $Facility2_close;
+	$print2screen[$i-1]["screen"] = $Facility2 . $Location2 . $Production2 ;
 	
 	//$order = $arrResult[$i];
 	//$print2screen = 'PRINT ME NOW PLEASE!!!!';
@@ -167,6 +167,9 @@ for ($i=1; $i < count($arrResult); $i++) {
 
 $response["code"] = "success";
 $response["print2screen"] = $print2screen;
+$response["facilty2_open"] = $Facility2_open;
+$response["facilty2_close"] = $Facility2_close;
+
 $response["TotalRows"] = $i;
 //$response["testing1"] = $inc;
 

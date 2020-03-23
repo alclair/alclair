@@ -41,6 +41,8 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
 						console.log("Testing5 is " + data.testing5)
 
 					    $scope.Print2Screen = data.print2screen;
+					    $scope.facility2_open = data.facilty2_open;
+					    $scope.facility2_close = data.facilty2_close;
 					    $scope.TotalRows = data.TotalRows;
                    }
                    else {

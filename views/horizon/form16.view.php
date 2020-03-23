@@ -55,17 +55,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<span style="font-size:20px" ng-if="TotalRows!=null">THERE ARE {{TotalRows}} TOTAL ENTRIES </span>
 	<br/>
 	<br/>
+	<!--<span style="font-size:12px" ng-if="TotalRows!=null">{{facility2_open}}</span>-->
 	<table style="position: absolute; left: 0; ">
 	<tbody>
-		
 		<tr ng-repeat='order in Print2Screen'>					
 			<td  style="text-align:center;font-size: 12px" data-title="Order Status">{{order.screen}}</td>
 		</tr>
 	</tbody>
 	</table>
-
+	
 	<?php 		
-		
 		echo $scope["Print2Screen"];	
 	?>	 	
 

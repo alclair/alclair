@@ -111,14 +111,18 @@ for ($i=1; $i < count($arrResult); $i++) {
 	if(!strcmp($arrResult[$i][0], "Grand Total")) {
 		break;
 	}
-	$Facility2_open = "<Facility2>";
+	
+	//$Facility2_open = "<Facility2>";
+	$number = $i+1;
+	$Facility2_open = "<Facility" . $number . ">";
 	$FacID = "<FacID>" . $arrResult[$i][2] . "</FacID>";  // Well file number
 	$FacReportPeriod = "<FacReportPeriod>" . $month ."/". $year . "<FacReportPeriod>";
 	$FacType = "<FacType>well</FacType>";
 	$FacCompID = "<FacCompID>" . $arrResult[$i][0] . "</FacCompID>"; // Well company name
 	$FacName = "<FacName>" . $arrResult[$i][1] . "</FacName>";
-	$Facility2_close = "</Facility2>";
-	$Facility2 = $FacID . $FacReportPeriod . $FacType . $FacCompID . $FacName;
+	//$Facility2_close = "</Facility2>";
+	$Facility2_close = "</Facility" . $number . ">";
+	$Facility2 = $Facility2_open . $FacID . $FacReportPeriod . $FacType . $FacCompID . $FacName;
 	
 	$qtrqtr = substr($arrResult[$i][3], 0, 5);
 	$location = $arrResult[$i][3];
@@ -159,7 +163,7 @@ for ($i=1; $i < count($arrResult); $i++) {
 
 	$Production2 = $Production2_open . $ProdType . $ProdUnits . $ProdQuantity . $ProdSource . $Production2_close;
 	
-	$print2screen[$i-1]["screen"] = $Facility2 . $Location2 . $Production2 ;
+	$print2screen[$i-1]["screen"] = $Facility2 . $Location2 . $Production2 . $Facility2_close ;
 	
 	//$order = $arrResult[$i];
 	//$print2screen = 'PRINT ME NOW PLEASE!!!!';

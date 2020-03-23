@@ -138,7 +138,7 @@ for ($i=1; $i < count($arrResult); $i++) {
 		}	
 	}
 	
-	$county = "NEED THIS ONE";
+	$county = "N/A";
 	$quantity = $arrResult[$i][5];
 	
 	$Location2_open = "<Location2>";

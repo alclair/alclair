@@ -187,7 +187,7 @@ try
                   FROM repair_form AS t1
                   LEFT JOIN monitors AS IEMs ON t1.monitor_id = IEMs.id
                   LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
-                  WHERE 1=1 AND t1.active = TRUE $conditionSql"; // $orderBySql $pagingSql";
+                  WHERE 1=1 AND t1.active = TRUE $conditionSql ORDER BY t1.estimated_ship_date"; // $orderBySql $pagingSql";
                   
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    

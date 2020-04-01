@@ -114,14 +114,16 @@ for ($i=1; $i < count($arrResult); $i++) {
 	
 	//$Facility2_open = "<Facility2>";
 	$number = $i+1;
-	$Facility2_open = "<Facility" . $number . ">";
+	//$Facility2_open = "<Facility" . $number . ">";
+	$Facility2_open = "<Facility" . "2" . ">";
 	$FacID = "<FacID>" . $arrResult[$i][2] . "</FacID>";  // Well file number
-	$FacReportPeriod = "<FacReportPeriod>" . $month ."/". $year . "<FacReportPeriod>";
+	$FacReportPeriod = "<FacReportPeriod>" . $month ."/". $year . "</FacReportPeriod>";
 	$FacType = "<FacType>well</FacType>";
 	$FacCompID = "<FacCompID>" . $arrResult[$i][0] . "</FacCompID>"; // Well company name
 	$FacName = "<FacName>" . $arrResult[$i][1] . "</FacName>";
 	//$Facility2_close = "</Facility2>";
-	$Facility2_close = "</Facility" . $number . ">";
+	//$Facility2_close = "</Facility" . $number . ">";
+	$Facility2_close = "</Facility" . "2" . ">";
 	$Facility2 = $Facility2_open . $FacID . $FacReportPeriod . $FacType . $FacCompID . $FacName;
 	
 	$qtrqtr = substr($arrResult[$i][3], 0, 5);
@@ -174,7 +176,7 @@ $response["print2screen"] = $print2screen;
 $response["facilty2_open"] = $Facility2_open;
 $response["facilty2_close"] = $Facility2_close;
 
-$response["TotalRows"] = $i;
+$response["TotalRows"] = $i - 1;
 //$response["testing1"] = $inc;
 
 echo json_encode($response);

@@ -1,6 +1,6 @@
 swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload', function ($http, $scope, AppDataService, $upload) {
-	$scope.month = "06";
-	$scope.year = 2019;
+	$scope.month = "2";
+	$scope.year = 2020;
     $scope.selectedFiles = [];
     $scope.onFileSelect = function ($files) {
         $scope.selectedFiles = $files;

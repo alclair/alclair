@@ -29,6 +29,22 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					 <label class="control-label">Year:</label><br />
 					 <input type="text" ng-model="year" placeholder=""  class="form-control"> 
 				</div>
+				 <div class="form-group col-md-2">
+					 <label class="control-label">Injection Quantity:</label><br />
+					 <input type="text" ng-model="injection_quantity" placeholder=""  class="form-control"> 
+				</div>
+				 <div class="form-group col-md-2">
+					 <label class="control-label">Begin Reading:</label><br />
+					 <input type="text" ng-model="begin_reading" placeholder=""  class="form-control"> 
+				</div>
+				 <div class="form-group col-md-2">
+					 <label class="control-label">End Reading:</label><br />
+					 <input type="text" ng-model="end_reading" placeholder=""  class="form-control"> 
+				</div>
+				 <div class="form-group col-md-2">
+					 <label class="control-label">Injection Pressure:</label><br />
+					 <input type="text" ng-model="injection_pressure" placeholder=""  class="form-control"> 
+				</div>
 			 </div>
                     
 	        <div class="row">
@@ -56,6 +72,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<br/>
 	<br/>
 	<!--<span style="font-size:12px" ng-if="TotalRows!=null">{{facility2_open}}</span>-->
+	{{header}}
+	{{begin}}
+	<br/>
 	<table style="position: absolute; left: 0; ">
 	<tbody>
 		<tr ng-repeat='order in Print2Screen'>					
@@ -63,7 +82,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		</tr>
 	</tbody>
 	</table>
-	
+
 	<?php 		
 		echo $scope["Print2Screen"];	
 	?>	 	

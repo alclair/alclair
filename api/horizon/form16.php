@@ -99,6 +99,10 @@ $print2screen = array();
 //for ($i=1; $i < count($arrResult); $i++) {
 $month = $_REQUEST['Month'];
 $year = $_REQUEST['Year'];
+$injection_quantity = $_REQUEST["injection_quantity"];
+$begin_reading = $_REQUEST["begin_reading"];
+$end_reading = $_REQUEST["end_reading"];
+$injection_pressure = $_REQUEST["injection_pressure"];
 
 $response['testing0'] = $arrResult[4][0];
 $response['testing1'] = $arrResult[4][1];
@@ -166,11 +170,11 @@ for ($i=1; $i < count($arrResult); $i++) {
 	$Production2 = $Production2_open . $ProdType . $ProdUnits . $ProdQuantity . $ProdSource . $Production2_close;
 	
 	$print2screen[$i-1]["screen"] = $Facility2 . $Location2 . $Production2 . $Facility2_close ;
-	
 	//$order = $arrResult[$i];
 	//$print2screen = 'PRINT ME NOW PLEASE!!!!';
 }  // END FOR LOOP
 
+$print2screen[$i]["screen"] = "</Facility> </Company></eReport>";
 $response["code"] = "success";
 $response["print2screen"] = $print2screen;
 $response["facilty2_open"] = $Facility2_open;
@@ -178,6 +182,61 @@ $response["facilty2_close"] = $Facility2_close;
 
 $response["TotalRows"] = $i - 1;
 //$response["testing1"] = $inc;
+$response["header"] = '<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<eReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.dmr.nd.gov/oilgas/xml/eReport36.xsd https://www.dmr.nd.gov/oilgas/xml/eReport36.xsd" xmlns="https://www.dmr.nd.gov/oilgas/xml/eReport36.xsd">';
+
+$response["begin"] = 
+"<Company>
+<CompID>4256</CompID>
+<CompName>HORIZON-OLSON, LLC</CompName> 
+<Contact>
+			<ContactFirstName>Stephanie</ContactFirstName> 
+			<ContactLastName>Avery</ContactLastName> 
+			<ContactTitle>Disposal Supervisor</ContactTitle> 
+			<ContactStreetName>1625 BIOSCIENCE DR</ContactStreetName> 
+			<ContactCity>WORTHINGTON</ContactCity> 
+			<ContactState>MN</ContactState> 
+			<ContactZip>56187</ContactZip> 
+			<ContactCountry>USA</ContactCountry> 
+			<ContactPhone>5137060902</ContactPhone>
+</Contact> 
+<Facility>
+			<FacID>W0391S0865D</FacID> 
+			<FacReportPeriod>" . $month ."/". $year . "</FacReportPeriod> 
+			<FacAmend>0</FacAmend> 
+			<FacType>well</FacType> 
+			<FacFormation>DAKOTA</FacFormation> 
+			<FacName>KILLDEER WEST SWD #1</FacName> 
+			<FacGroup>SWD</FacGroup> 
+			<FacComment></FacComment>
+			<Location> 
+				<LocQtrQtr>NWNW</LocQtrQtr> 
+				<LocSection>29</LocSection> 
+				<LocTownship>145</LocTownship> 
+				<LocRange>96</LocRange> 
+				<LocCounty>DUNN</LocCounty>
+			</Location> 
+			<Injection>
+				<InjFluid>Water</InjFluid>
+				<InjQuantity>" . $injection_quantity . "</InjQuantity> 
+				<InjUnit>Bbls</InjUnit> 
+				<InjPress>
+					<InjPressAvg>" . $injection_pressure . "</InjPressAvg> 
+				</InjPress>
+			</Injection> 
+			<Meters>
+				<TypeReading>Begin</TypeReading>
+				<Reading>" . $begin_reading . "</Reading> 
+			</Meters>
+			<Meters>
+				<TypeReading>End</TypeReading>
+				<Reading>" . $end_reading . "</Reading> 
+			</Meters>";
+
+$response["end"] = 
+"</Facility> 
+	</Company>
+</eReport>";												
 
 echo json_encode($response);
 }

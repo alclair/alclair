@@ -8,7 +8,7 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
 
     
     $scope.UploadData = function () {
-        var api_url = window.cfg.apiUrl + 'horizon/form16.php?Month=' + $scope.month + '&Year='  + $scope.year;
+        var api_url = window.cfg.apiUrl + 'horizon/form16.php?Month=' + $scope.month + '&Year='  + $scope.year + '&injection_quantity=' + $scope.injection_quantity + '&begin_reading=' + $scope.begin_reading + '&end_reading=' + $scope.end_reading +  '&injection_pressure=' + $scope.injection_pressure;
         
         //alert(api_url);)
         if ($scope.selectedFiles.length == $scope.selectedFiles.length > 0) {
@@ -39,6 +39,9 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
 						console.log("Testing3 is " + data.testing3)
 						console.log("Testing4 is " + data.testing4)
 						console.log("Testing5 is " + data.testing5)
+
+						$scope.header = data.header;
+						$scope.begin = data.begin;
 
 					    $scope.Print2Screen = data.print2screen;
 					    $scope.facility2_open = data.facilty2_open;

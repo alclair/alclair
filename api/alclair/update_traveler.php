@@ -218,7 +218,7 @@ $stmt = pdo_query( $pdo,
 		$stmt = pdo_query($pdo, "UPDATE qc_form SET customer_name = :designed_for WHERE id = :id", array(":designed_for"=>$traveler["designed_for"], ":id"=>$result2[0]["id_of_qc_form"]));
 		$response["message"] = "Updated order and QC Form.";
 	}
-	
+
 if($traveler["order_status_id"] == 1) {
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -261,14 +261,22 @@ if($traveler["order_status_id"] == 1) {
 		$finalDay = clone $date;
 		$work_days = 0;
 		$days_to_final_date = 0;
+		$response["test"] = " and holiday is " . $holidays[4]["holiday_date"];
+		for ($i = 0; $i < count($holidays); $i++) {
+			$store_holidays[$i] = $holidays[$i]["holiday_date"];	
+		}
+		$response["test"] = in_array($nextDay->format('m/d/Y'), $store_holidays);  // MM/dd/yyyy
+		
 		while ($work_days < $shop_days)
 		{
    	 		$nextDay->modify('+1 day'); // Add 1 day
    	 		if($nextDay->format('D'))
-   	 		if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
-	   	 		$response["test"] = "HERE"; 
+   	 		//if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
+	   	 	if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m/d/Y'), $store_holidays)) {
+	   	 		$response["test"] = "IN HERE"; 
 	   	 		$days_to_final_date++;
 	   	 	} else {		   	 
+		   	 	$response["test"] = "IN ELSE"; 
 		   		$days_to_final_date++;
 		   		$work_days++;
 	   	 	}

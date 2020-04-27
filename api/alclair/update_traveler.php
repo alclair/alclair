@@ -231,9 +231,12 @@ if($traveler["order_status_id"] == 1) {
     $stmt = pdo_query( $pdo, $query, null); 
 	$holidays = pdo_fetch_all( $stmt );  
 	$rows_in_result = pdo_rows_affected($stmt);
+	for ($p = 0; $p < count($holidays); $p++) {
+		$store_holidays[$p] = $holidays[$p]["holiday_date"];	
+	}
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////     GET THE DAILY BUILD RATE INFORMATION     /////////////////////////////////////////////////////
-	$query2 = "SELECT * FROM daily_build_rate ";
+	$query2 = "SELECT * FROM daily_build_rate";
     $stmt2 = pdo_query( $pdo, $query2, null); 
 	$daily_build_rate= pdo_fetch_all( $stmt2 );  
 
@@ -261,18 +264,15 @@ if($traveler["order_status_id"] == 1) {
 		$finalDay = clone $date;
 		$work_days = 0;
 		$days_to_final_date = 0;
-		$response["test"] = " and holiday is " . $holidays[4]["holiday_date"];
 		for ($i = 0; $i < count($holidays); $i++) {
 			$store_holidays[$i] = $holidays[$i]["holiday_date"];	
 		}
-		$response["test"] = in_array($nextDay->format('m/d/Y'), $store_holidays);  // MM/dd/yyyy
-		
 		while ($work_days < $shop_days)
 		{
    	 		$nextDay->modify('+1 day'); // Add 1 day
    	 		if($nextDay->format('D'))
-   	 		//if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
-	   	 	if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m/d/Y'), $store_holidays)) {
+   	 		if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m/d/Y'), $store_holidays)) {
+	   	 	//if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
 	   	 		$response["test"] = "IN HERE"; 
 	   	 		$days_to_final_date++;
 	   	 	} else {		   	 
@@ -316,14 +316,16 @@ if($traveler["order_status_id"] == 1) {
 		$count = pdo_rows_affected($stmt3);
 		$date = new DateTime(); // TODAY'S DATE
 		$date->modify('+1 day'); // NEEDS TO START WITH TOMORROW
-		while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+		while (in_array($date->format('D'), $weekend) || in_array($date->format('m/d/Y'), $store_holidays)) {
+		//while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
 			$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 		}
 		
 		for ($i = 0; $i < $count; $i++) {
 			if($num > $daily_rate) {
 				$date->modify('+1 day'); 
-				while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+				while (in_array($date->format('D'), $weekend) || in_array($date->format('m/d/Y'), $store_holidays)) {
+				//while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
 					$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 				}
 				$num = 1;
@@ -344,11 +346,11 @@ if($traveler["order_status_id"] == 1) {
 		$stmt4 = pdo_query( $pdo, $query4, array("id"=>$traveler["id"])); 
 		$order= pdo_fetch_all( $stmt4 ); 
 		
-		
 		if($count == $daily_rate && ($find_last_fake_imp_date[0]["fake_imp_date"] == $find_last_fake_imp_date[$daily_rate-1]["fake_imp_date"]) ) {
 			$date = new DateTime($find_last_fake_imp_date[0]["fake_imp_date"]); 
 			$date->modify('+1 day');
-			while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+			//while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+			while (in_array($date->format('D'), $weekend) || in_array($date->format('m/d/Y'), $store_holidays)) {
 				$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 			}
 		} else {
@@ -358,6 +360,7 @@ if($traveler["order_status_id"] == 1) {
 		//$response["test"] = "fasdfasdfadsf";
 		//echo json_encode($response);
 		//exit;
+		// $order - order details / $date - 
 		$response["test"] = calc_estimate_ship_date($order[0], $date, $holidays, $shop_days, $pdo);
 	}
 /////////////////////////////////////////////////////////////////////// END CALC ESTIMATED SHIP DATE ///////////////////////////////////////////////////////////////////////////////////////

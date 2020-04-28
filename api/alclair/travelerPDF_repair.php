@@ -291,7 +291,7 @@ if ($result[0]["customer_contacted"] == TRUE || $result[0]["customer_billed"] ==
 	}
 	$left_column_customer_contacted = 
 	"<tr style=\"font-weight:bold;\">
-    	<td style=\"text-align:left;\"><span style=\"color:red;\"> CUSTOMER</span>
+    	<td style=\"text-align:left;\"><span style=\"color:black;\"> CUSTOMER</span>
     		<br/>
     		$customer_contacted
 			$customer_billed

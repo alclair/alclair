@@ -113,6 +113,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                     <label class="control-label">Name:</label><br />
 					<input type="text" ng-model="repair_form.customer_name" placeholder="Enter customer's name"  class="form-control"> 
                 </div>
+                <!--
                 <div class="form-group col-md-3">
                     <label class="control-label">Email:</label><br />
 					<input type="text" ng-model="repair_form.email" placeholder="Enter customer's email address"  class="form-control"> 
@@ -121,7 +122,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                     <label class="control-label">Phone:</label><br />
 					<input type="text" ng-model="repair_form.phone" placeholder="Enter customer's phone #"  class="form-control"> 
                 </div>  
-                          
+				-->
                 <div class="form-group col-md-3">
 	                 <label class="control-label">Monitor:</label><br />                    
                     <select class='form-control' ng-model='repair_form.monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
@@ -132,25 +133,27 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <br />
             
         	<div class="row">
+	        	<!--
 	        	<div class="form-group col-md-6">
 					<label class="control-label">Address</label><br />
 					<textarea type="text" name="notes" ng-model="repair_form.address" value="" class='form-control' rows='3'></textarea>
 				</div>
-
+				-->
 				<div class="form-group col-md-6">
 					<label class="control-label">Diagnosis</label><br />
 					<textarea type="text" name="notes" ng-model="repair_form.diagnosis" value="" class='form-control' rows='3'></textarea>
             	</div>
 			</div>
 			<div class="row">
+				<!--
 				<div class="form-group col-md-3">
 					<label class="control-label">Quote:</label><br />
 						<div class="left-inner-addon">    
 							<span>$</span>
 							<input type="text" ng-model="repair_form.quotation" placeholder="Enter quotation" value="" class="form-control" >
 						</div>
-						<!--<div style="margin-left:20px; margin-top:-30px !important">{{repair_form.quotation  | currency}}</div>-->
 				</div>
+				-->
 				<div class="form-group col-md-3">		
 				</div>
 				<!--<div class="form-group col-md-6">
@@ -173,12 +176,17 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             
 			<div class="row">
 	        	<div class="form-group col-md-4">
+		 			<!--
 		 			<label style="padding-right:6px; padding-top:15px"><input type="checkbox" ng-model="repair_form.customer_contacted" ng-true-value="1" ng-false-value="0">     &nbsp; CUSTOMER CONTACTED</label>
+		 			-->
+		 			<!--
 		 			<label><input type="checkbox" ng-model="repair_form.warranty_repair" ng-true-value="1" ng-false-value="0">     &nbsp; WARRANTY REPAIR</label><br />
-		 			
+		 			-->
+		 			<br />
 		 			<label style="padding-right:38px"><input type="checkbox" ng-model="repair_form.customer_billed" ng-true-value="1" ng-false-value="0"> &nbsp; CUSTOMER BILLED</label>
+		 			<!--
 		 			<label><input type="checkbox" ng-model="repair_form.consulted" ng-true-value="1" ng-false-value="0"> &nbsp; CONSULT BEFORE SHIP</label><br />
-		 			
+		 			-->
 		 			<label style="padding-right:3px"><input type="checkbox" ng-model="repair_form.personal_item" ng-true-value="1" ng-false-value="0"> &nbsp; PERSONAL ITEMS REC'D</label>
 		 			<label><input type="checkbox" ng-model="repair_form.rep_fit_issue" ng-true-value="1" ng-false-value="0"> &nbsp; REPAIR W/ FIT ISSUE</label><br />
 
@@ -200,6 +208,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<input type="text" ng-model="repair_form.shell_right_face" placeholder="Enter right face color"  class="form-control"> 
 				</div>
         	</div>
+        	<br />
 			<div class="row">
 				<div class="form-group col-md-3" style="margin-top:-15px;">
 					<label class="control-label">Name:</label>	

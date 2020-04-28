@@ -791,8 +791,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            console.log("Test1 is " + result.test1)
-	            console.log("Test2 is " + result.test2)
+	            console.log("Test1 is " + result.test)
 	            
                 $scope.OrdersList = result.data;
                 $scope.PartsList = result.data2;

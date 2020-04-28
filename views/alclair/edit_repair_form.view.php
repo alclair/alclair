@@ -211,8 +211,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         	<br />
 			<div class="row">
 				<div class="form-group col-md-3" style="margin-top:-15px;">
+					<!--
 					<label class="control-label">Name:</label>	
 					<input type="text" ng-model="repair_form.name_contacted" placeholder="Name of person contacted"  class="form-control">
+					-->
             	</div>
             	<div class="form-group col-md-1">
             	</div>
@@ -294,15 +296,17 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 	<label style="padding-left:10px; padding-top:15px"><input type="checkbox" ng-model="repair_form.date_null" ng-true-value="1" ng-false-value="0" ng-click="Date2Null()">     &nbsp; REMOVE ESTIMATED SHIP DATE </label>
                 </div>
                  <div class="form-group col-md-3">
-					<div class="text-left">
-						<label class="control-label" style="font-size: large;color: #007FFF">ORDER'S ORIGINAL SHIP DATE</label><br />
-		 			</div>
+	             <!--
+						<div class="text-left">
+							<label class="control-label" style="font-size: large;color: #007FFF">ORDER'S ORIGINAL SHIP DATE</label><br />
+		 				</div>
         			<div class="input-group">
                     	<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="repair_form.original_ship_date_of_order" is-open="openedOriginal" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" />
 						<span class="input-group-btn">
                         	<button type="button" class="btn btn-default" ng-click="openOriginal($event)"><i class="fa fa-calendar"></i></button>
 						</span>
                 	</div>			
+                	-->
 				</div>
 			</div>
 			<div class="row">    

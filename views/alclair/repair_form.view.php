@@ -123,8 +123,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         	<br />
 			<div class="row">
 				<div class="form-group col-md-3" style="margin-top:-15px;">
+					<!--
 					<label class="control-label">Name:</label>	
 					<input type="text" ng-model="repair_form.name_contacted" placeholder="Name of person contacted"  class="form-control">
+					-->
             	</div>
             	<div class="form-group col-md-1">
             	</div>
@@ -204,6 +206,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 	</div>			
                 </div>
                  <div class="form-group col-md-3">
+					<!--
 					<div class="text-left">
 						<label class="control-label" style="font-size: large;color: #007FFF">ORDER'S ORIGINAL SHIP DATE</label><br />
 		 			</div>
@@ -212,7 +215,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 						<span class="input-group-btn">
                         	<button type="button" class="btn btn-default" ng-click="openOriginal($event)"><i class="fa fa-calendar"></i></button>
 						</span>
-                	</div>			
+                	</div>
+                	-->			
 				</div>
 			</div>
 			<div class="row"> 

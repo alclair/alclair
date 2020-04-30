@@ -90,7 +90,8 @@ try
     //Get Total Records Active 
     // Amanda request on 11/24/2018
     $query2 = "SELECT count(t1.id) FROM import_orders AS t1
-    					WHERE 1=1 AND t1.active = TRUE AND (t1.order_status_id >= 1 AND t1.order_status_id <=11)"; // $conditionSql";
+    					   WHERE t1.active = TRUE AND (t1.order_status_id = 1 OR t1.order_status_id = 2 OR t1.order_status_id = 3 OR t1.order_status_id = 4 OR t1.order_status_id = 5 OR t1.order_status_id = 6 OR t1.order_status_id = 7 OR t1.order_status_id = 8 OR t1.order_status_id = 9 OR t1.order_status_id = 15)"; // $conditionSql";
+    					//WHERE 1=1 AND t1.active = TRUE AND (t1.order_status_id >= 1 AND t1.order_status_id <=11)"; // $conditionSql";
     //WHERE active = TRUE $conditionSql";
     //$stmt2 = pdo_query( $pdo, $query2, $params );
     $stmt2 = pdo_query( $pdo, $query2, null );

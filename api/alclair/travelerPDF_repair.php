@@ -243,6 +243,7 @@ $left_column_note_response =
 		</tr>
 ";
 
+/*
 if ($result[0]["personal_item"] == TRUE) {
 	$left_column_impression_date = 
 	"<tr style=\"font-weight:bold;\">
@@ -255,6 +256,15 @@ if ($result[0]["personal_item"] == TRUE) {
     	<td style=\"text-align:left;\">QUOTE </td>
 	</tr>
 	";	
+}
+*/
+
+if ($result[0]["personal_item"] == TRUE) {
+	$left_column_impression_date = 
+	"<tr style=\"font-weight:bold;\">
+    	<td style=\"text-align:left;\"><span style=\"color:red;\"> PERSONAL ITEM</span></td>
+	</tr>
+	";
 }
 
 // WARRANTY REPAIR
@@ -565,9 +575,23 @@ $right_column_addons_and_highrise =
 $right_column_received_date = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;\">RECEIVED DATE</td>
+		</tr>
+";
+/*
+$right_column_received_date = 
+"		<tr style=\"font-weight:bold;\">
+    			<td style=\"text-align:left;\">RECEIVED DATE</td>
     			<td style=\"text-align:left;\">ESTIMATED SHIP DATE</td>
 		</tr>
 ";
+*/
+$right_column_received_date_response =  
+"		<tr style=\"color:blue;\">
+        		<td style=\"text-align:left;\">{$result[0]["received_date"]}</td>
+		</tr>
+	
+";
+/*
 $right_column_received_date_response =  
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;\">{$result[0]["received_date"]}</td>
@@ -575,6 +599,7 @@ $right_column_received_date_response =
 		</tr>
 	
 ";
+*/
 $testing = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;color:red;\">ORIG ORDER SHIPPED ON</td>
@@ -654,7 +679,7 @@ $right_column_estimated_ship_date_response =
              "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
 			$left_column_report_fit_issue . $left_column_report_fit_issue_response .
 			 "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-            $left_column_impression_date  . $left_column_impression_date_response  . 
+            $left_column_impression_date  . //$left_column_impression_date_response  . 
             //"</td>" .
             "<tr><td colspan=\"2\" style='height:4px;'></td></tr>" .
             $left_column_warranty_repair .

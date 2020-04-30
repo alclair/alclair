@@ -177,12 +177,14 @@ try
   
 	$stmt = pdo_query( $pdo, "SELECT * FROM order_status_log WHERE import_orders_id = :id ORDER BY id DESC LIMIT 1", array(":id"=>$_REQUEST['id']));
 	$is_order_status_same = pdo_fetch_all( $stmt );
+// HERE
+/*
 	if($traveler['order_status_id'] != $is_order_status_same[0]["order_status_id"]) { // ADD TO THE LOG
 		$stmt = pdo_query( $pdo, "INSERT INTO order_status_log (date, import_orders_id, order_status_id, notes,  user_id) 
 				VALUES (now(), :import_orders_id, :order_status_id, :notes, :user_id) RETURNING id",
 									array(':import_orders_id'=>$_REQUEST['id'], ':order_status_id'=>$traveler['order_status_id'], ':notes'=>"From the Edit Traveler Page", ':user_id'=>$_SESSION['UserId']));			
 	}
-
+*/
 	$response["testing"] = $is_order_status_same[0]["order_status_id"];
 	$response["testing2"] = $traveler['order_status_id'];
 	
@@ -191,7 +193,8 @@ try
 	$query = "SELECT * FROM monitors WHERE id = :monitor_id";
 	$stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
-
+// HERE
+/*
 $stmt = pdo_query( $pdo, 
 					   'UPDATE import_orders SET designed_for=:designed_for, phone=:phone, band_church=:band_church, address=:address, notes=:notes, model=:model, left_tip=:left_tip, right_tip=:right_tip, left_shell=:left_shell, right_shell=:right_shell, left_faceplate=:left_faceplate, right_faceplate=:right_faceplate, cable_color=:cable_color, artwork=:artwork, left_alclair_logo=:left_alclair_logo, right_alclair_logo=:right_alclair_logo, additional_items=:additional_items, consult_highrise=:consult_highrise, international=:international, universals=:universals, hearing_protection=:hearing_protection, musicians_plugs=:musicians_plugs, musicians_plugs_9db=:musicians_plugs_9db, musicians_plugs_15db=:musicians_plugs_15db, musicians_plugs_25db=:musicians_plugs_25db, pickup=:pickup, rush_process=:rush_process, date=:date, received_date=:received_date, impression_color_id=:impression_color_id, order_status_id=:order_status_id, estimated_ship_date=:estimated_ship_date, hearing_protection_color=:hearing_protection_color, nashville_order=:nashville_order, customer_type=:customer_type
                        WHERE id = :id',
@@ -200,6 +203,7 @@ $stmt = pdo_query( $pdo,
 	
 	$query = pdo_query($pdo, "SELECT * FROM import_orders WHERE id = :id", array(":id"=>$traveler["id"]));
 	$result2 = pdo_fetch_all( $stmt );
+	*/
 	
 	if($result2[0]["id_of_qc_form"] === null) { // SOME LINES FROM import_orders WON'T HAVE AN id_of_qc_form BECAUSE THE ORIGINAL PROGRAMMING DIDN'T INCLUDE THAT COLUMN
 		$stmt = pdo_query($pdo, "SELECT * FROM qc_form WHERE order_id = :order_id", array(":order_id"=>$traveler['order_id']));
@@ -240,9 +244,9 @@ if($traveler["order_status_id"] == 1) {
     $stmt2 = pdo_query( $pdo, $query2, null); 
 	$daily_build_rate= pdo_fetch_all( $stmt2 );  
 
-	$daily_rate = $daily_build_rate[0]["daily_rate"];
+	$daily_rate = $daily_build_rate[0]["daily_rate"];     // NUMBER BUILD/SHIP A DAY
 	$fudge = $daily_build_rate[0]["fudge"];
-	$shop_days = $daily_build_rate[0]["shop_days"];	 
+	$shop_days = $daily_build_rate[0]["shop_days"];	 // NUMBER OF DAYS TO BUILD AN EARPHONE
 	
 	//$daily_rate = 5;
 	//$fudge = 1;
@@ -259,31 +263,51 @@ if($traveler["order_status_id"] == 1) {
 	}
 	
 	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
+		$today = new DateTime(); // TODAY'S DATE
+		$today->modify('+1 day'); // NEEDS TO START WITH TOMORROW
+		if($today->format('m/d/Y') > $date->format('m/d/Y') ) {
+			$nextDay = clone $today;
+			$finalDay = clone $today;
+		} else {
+			$nextDay = clone $date;
+			$finalDay = clone $date;
+		}
+		
 		$weekend = array('Sun', 'Sat');
-		$nextDay = clone $date;
-		$finalDay = clone $date;
+		//$nextDay = clone $date;
+		//$finalDay = clone $date;
 		$work_days = 0;
 		$days_to_final_date = 0;
+		
 		for ($i = 0; $i < count($holidays); $i++) {
 			$store_holidays[$i] = $holidays[$i]["holiday_date"];	
 		}
-		while ($work_days < $shop_days)
+		
+		while ($work_days < $shop_days) // BUILDING THE DAYS THE EARPHONE WILL BE WORKED ON
 		{
    	 		$nextDay->modify('+1 day'); // Add 1 day
    	 		if($nextDay->format('D'))
    	 		if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m/d/Y'), $store_holidays)) {
 	   	 	//if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
-	   	 		$response["test"] = "IN HERE"; 
 	   	 		$days_to_final_date++;
+	   	 		$response["test"] = "Date is " . $nextDay->format('m/d/Y');
+	   	 		//echo json_encode($response);
+	   	 		//exit;
 	   	 	} else {		   	 
 		   	 	$response["test"] = "IN ELSE"; 
+		   	 	//echo json_encode($response);
+	   	 		//exit;
 		   		$days_to_final_date++;
 		   		$work_days++;
 	   	 	}
 		}
+		
 		$finalDay->modify('+' . $days_to_final_date .  ' day');
 		$ship_day = $finalDay->format('Y-m-d');
 		$imp_date = $date->format('Y-m-d');
+		$response["test"] = "Date here is " . $ship_day;
+	   	 //echo json_encode($response);
+	   	 //exit;
 		
 		$query = "UPDATE import_orders SET fake_imp_date = :imp_date, estimated_ship_date = :estimated_ship_date WHERE id = :id";
 		//$query = "UPDATE import_orders SET estimated_ship_date=:estimated_ship_date WHERE id = :id";
@@ -333,12 +357,6 @@ if($traveler["order_status_id"] == 1) {
 
 			$response["test"] = calc_estimate_ship_date($populate_new[$i], $date, $holidays, $shop_days, $pdo);
 			$num++;
-			//$response["test"] = "Count is " .  $count . " and " . $date->format('Y-m-d') . " Num is " . $num;
-			//echo json_encode($response);
-			//exit;
-			//$response["test"] = "Array is " . test_function($pdo);
-			//echo json_encode($response);
-			//exit;
 		}
 		
 	} else{ // START HAS NO NULL ORDERS IN START CART - THIS CODE HAS RUN BEFORE
@@ -356,11 +374,6 @@ if($traveler["order_status_id"] == 1) {
 		} else {
 			$date = new DateTime($find_last_fake_imp_date[0]["fake_imp_date"]); 
 		}
-		$response["test"] = $order[0]["id"];
-		//$response["test"] = "fasdfasdfadsf";
-		//echo json_encode($response);
-		//exit;
-		// $order - order details / $date - 
 		$response["test"] = calc_estimate_ship_date($order[0], $date, $holidays, $shop_days, $pdo);
 	}
 /////////////////////////////////////////////////////////////////////// END CALC ESTIMATED SHIP DATE ///////////////////////////////////////////////////////////////////////////////////////

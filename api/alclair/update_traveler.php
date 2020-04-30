@@ -177,14 +177,13 @@ try
   
 	$stmt = pdo_query( $pdo, "SELECT * FROM order_status_log WHERE import_orders_id = :id ORDER BY id DESC LIMIT 1", array(":id"=>$_REQUEST['id']));
 	$is_order_status_same = pdo_fetch_all( $stmt );
-// HERE
-/*
+
 	if($traveler['order_status_id'] != $is_order_status_same[0]["order_status_id"]) { // ADD TO THE LOG
 		$stmt = pdo_query( $pdo, "INSERT INTO order_status_log (date, import_orders_id, order_status_id, notes,  user_id) 
 				VALUES (now(), :import_orders_id, :order_status_id, :notes, :user_id) RETURNING id",
 									array(':import_orders_id'=>$_REQUEST['id'], ':order_status_id'=>$traveler['order_status_id'], ':notes'=>"From the Edit Traveler Page", ':user_id'=>$_SESSION['UserId']));			
 	}
-*/
+
 	$response["testing"] = $is_order_status_same[0]["order_status_id"];
 	$response["testing2"] = $traveler['order_status_id'];
 	
@@ -193,8 +192,8 @@ try
 	$query = "SELECT * FROM monitors WHERE id = :monitor_id";
 	$stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
-// HERE
-/*
+
+
 $stmt = pdo_query( $pdo, 
 					   'UPDATE import_orders SET designed_for=:designed_for, phone=:phone, band_church=:band_church, address=:address, notes=:notes, model=:model, left_tip=:left_tip, right_tip=:right_tip, left_shell=:left_shell, right_shell=:right_shell, left_faceplate=:left_faceplate, right_faceplate=:right_faceplate, cable_color=:cable_color, artwork=:artwork, left_alclair_logo=:left_alclair_logo, right_alclair_logo=:right_alclair_logo, additional_items=:additional_items, consult_highrise=:consult_highrise, international=:international, universals=:universals, hearing_protection=:hearing_protection, musicians_plugs=:musicians_plugs, musicians_plugs_9db=:musicians_plugs_9db, musicians_plugs_15db=:musicians_plugs_15db, musicians_plugs_25db=:musicians_plugs_25db, pickup=:pickup, rush_process=:rush_process, date=:date, received_date=:received_date, impression_color_id=:impression_color_id, order_status_id=:order_status_id, estimated_ship_date=:estimated_ship_date, hearing_protection_color=:hearing_protection_color, nashville_order=:nashville_order, customer_type=:customer_type
                        WHERE id = :id',
@@ -203,7 +202,7 @@ $stmt = pdo_query( $pdo,
 	
 	$query = pdo_query($pdo, "SELECT * FROM import_orders WHERE id = :id", array(":id"=>$traveler["id"]));
 	$result2 = pdo_fetch_all( $stmt );
-	*/
+	
 	
 	if($result2[0]["id_of_qc_form"] === null) { // SOME LINES FROM import_orders WON'T HAVE AN id_of_qc_form BECAUSE THE ORIGINAL PROGRAMMING DIDN'T INCLUDE THAT COLUMN
 		$stmt = pdo_query($pdo, "SELECT * FROM qc_form WHERE order_id = :order_id", array(":order_id"=>$traveler['order_id']));

@@ -131,9 +131,19 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 	}
 	
 	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
+		$today = new DateTime(); // TODAY'S DATE
+		$today->modify('+1 day'); // NEEDS TO START WITH TOMORROW
+		if($today->format('m/d/Y') > $date->format('m/d/Y') ) {
+			$nextDay = clone $today;
+			$finalDay = clone $today;
+		} else {
+			$nextDay = clone $date;
+			$finalDay = clone $date;
+		}
+		
 		$weekend = array('Sun', 'Sat');
-		$nextDay = clone $date;
-		$finalDay = clone $date;
+		//$nextDay = clone $date;
+		//$finalDay = clone $date;
 		$work_days = 0;
 		$days_to_final_date = 0;
 		for ($i = 0; $i < count($holidays); $i++) {
@@ -186,14 +196,16 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 		$count = pdo_rows_affected($stmt3);
 		$date = new DateTime(); // TODAY'S DATE
 		$date->modify('+1 day'); // NEEDS TO START WITH TOMORROW
-		while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+		//while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+		while (in_array($date->format('D'), $weekend) || in_array($date->format('m/d/Y'), $store_holidays)) {
 			$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 		}
 		
 		for ($i = 0; $i < $count; $i++) {
 			if($num > $daily_rate) {
 				$date->modify('+1 day'); 
-				while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+				//while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+				while (in_array($date->format('D'), $weekend) || in_array($date->format('m/d/Y'), $store_holidays)) {
 					$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 				}
 				$num = 1;
@@ -201,12 +213,6 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 
 			$response["test"] = calc_estimate_ship_date($populate_new[$i], $date, $holidays, $shop_days, $pdo);
 			$num++;
-			//$response["test"] = "Count is " .  $count . " and " . $date->format('Y-m-d') . " Num is " . $num;
-			//echo json_encode($response);
-			//exit;
-			//$response["test"] = "Array is " . test_function($pdo);
-			//echo json_encode($response);
-			//exit;
 		}
 	} else{ // START HAS NO NULL ORDERS IN START CART - THIS CODE HAS RUN BEFORE
 		$query4 = "SELECT * FROM import_orders WHERE active = TRUE AND id = :id";
@@ -216,7 +222,8 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 		if($count == $daily_rate && ($find_last_fake_imp_date[0]["fake_imp_date"] == $find_last_fake_imp_date[$daily_rate-1]["fake_imp_date"]) ) {
 			$date = new DateTime($find_last_fake_imp_date[0]["fake_imp_date"]); 
 			$date->modify('+1 day');
-			while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+			//while (in_array($date->format('D'), $weekend) || in_array($date->format('m-d'), $holidays)) {
+			while (in_array($date->format('D'), $weekend) || in_array($date->format('m/d/Y'), $store_holidays)) {
 				$date->modify('+1 day'); // ADDING A DAY UNTIL NOT A WEEKEND OR A HOLIDAY	
 			}
 		} else {

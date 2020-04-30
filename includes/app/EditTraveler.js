@@ -379,7 +379,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
          .success(function (result) {
-	         console.log("TEST IS " + result.test)
+	         console.log(result.test)
              if (result.code == "success") {
                  $.unblockUI();
                  //console.log("TESTING IS " + result.testing + " and the other is " + result.testing2)
@@ -394,9 +394,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
              }
              else {
                  $.unblockUI();
-                 console.log("In here for an error.")
-                 console.log("Test is " + result.test)
-                 console.log("Code is " + result.code)
+                 //console.log( result.test)
                  //location.reload();
                  //window.location.href = window.cfg.rootUrl + "/alclair/orders/";
                  toastr.error(result.message == undefined ? result.data : result.message);

@@ -84,7 +84,7 @@ try
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '2') { // MEANS TOMORROW
 			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]= $tomorrow_4_sql;	
-		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEZT 7 CALENDAR DAYS
+		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEXT 7 CALENDAR DAYS
 			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextWeek_4_sql;	

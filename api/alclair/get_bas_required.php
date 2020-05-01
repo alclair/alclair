@@ -20,8 +20,8 @@ try
     $params = array();
     $params2 = array();
     
-    $result_for_view_file = [];
-    $result_for_view_file2 = [];
+    $Earphones_list = [];
+    $BAs_list = [];
     
     if( !empty($_REQUEST['id']) )
     {
@@ -58,8 +58,6 @@ try
 		$date_4_sql = $today['m'] . "/". $today['day'] . "/" . $today['year'];
 		$today_4_sql = date("m/d/Y");
 		
-		
-		
 		$tomorrow_4_sql = date('m/d/Y', strtotime('+1 days'));
 		$nextWeek_4_sql = date('m/d/Y', strtotime('+7 days'));
 		$threeWeeks_4_sql = date('m/d/Y', strtotime('+21 days'));
@@ -69,54 +67,45 @@ try
 		$fourWeeks_4_sql = date('m/d/Y', strtotime('+28 days'));
 		$fiveWeeks_4_sql = date('m/d/Y', strtotime('+35 days'));
 
-		//if(!empty($_REQUEST["StartDate"])) {
-		
 		
 		//if( strlen($_REQUEST['TODAY_OR_NEXT_WEEK']) == 17) {   // , 'Today and Tomorrow') ) {
 		if( $_REQUEST['TODAY_OR_NEXT_WEEK'] == '1') {   // MEANS TODAY
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.order_status_id != 12 ";
 			// EVERYTHING BEFORE CASING - CASING IS STATUS 5
-			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]=  $today_4_sql;
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '0') { // MEANS PAST DUE
-			$conditionSql.=" and (t1.estimated_ship_date < :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date < :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]= $today_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '2') { // MEANS TOMORROW
-			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date = :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Date"]= $tomorrow_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEXT 7 CALENDAR DAYS
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextWeek_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '4') { // MEANS NEXT 14 CALENDAR DAYS
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $twoWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '5') { // MEANS NEXT 21 CALENDAR DAYS
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $threeWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '6') { // MEANS NEXT 28 CALENDAR DAYS
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $fourWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '7') { // MEANS NEXT 35 CALENDAR DAYS
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;
 			$params[":Date"]= $fiveWeeks_4_sql;	
 		}  else {  // NEXT 42 CALENDAR DAYS
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
+			$conditionSql.=" and (t1.fake_imp_date > :Today) AND (t1.fake_imp_date <= :Date) AND (t1.order_status_id <= 5 AND t1.order_status_id >=1 OR t1.order_status_id = 15) ";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $sixWeeks_4_sql;	
 		}
     
-    if( !empty($_REQUEST["PageIndex"]) && !empty($_REQUEST["PageSize"]) && intval($_REQUEST["PageIndex"]) > 0 && intval($_REQUEST["PageSize"]) > 0 )
-    {
-        $start = ( intval($_REQUEST["PageIndex"]) - 1 ) * intval( $_REQUEST["PageSize"] );        
-       
-        $pagingSql=" limit ".intval($_REQUEST["PageSize"])." offset $start";          
-    }
-
     //Get Total Records
     $query = "SELECT count(t1.id) FROM import_orders AS t1
     					WHERE 1=1 AND t1.active = TRUE $conditionSql";
@@ -124,15 +113,6 @@ try
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
     $response['TotalRecords'] = $row[0];
-    
-     if( !empty($_REQUEST["PageSize"]) && intval($_REQUEST["PageSize"]) > 0 )
-    {
-        $response["TotalPages"] = ceil( $row[0]/intval($_REQUEST["PageSize"]) );
-    }
-    else
-    {
-        $response["TotalPages"] = 1; 
-    }
     
     //Get Total Passed
     $query = "SELECT count(t1.id) FROM import_orders AS t1
@@ -148,7 +128,7 @@ try
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE 1=1 AND t1.active = TRUE $conditionSql"; // $orderBySql $pagingSql";
+                  WHERE 1=1 AND t1.active = TRUE $conditionSql";
                   
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    
@@ -156,14 +136,6 @@ try
     $result = pdo_fetch_all( $stmt );
     $rows_in_result = pdo_rows_affected($stmt);
     
-    $response["test"] = count($result);
-		echo json_encode($response);
-		exit;
-    
-    // CALCULATE NUMBER OF DAYS PAST DUE
-    // DETERMINE NUMBER OF QC FORMS AND STATUS OF INITIAL PASS
-    $workingDays = array(1, 2, 3, 4, 5); # date format = N (1 = Monday, ...)
-	$holidayDays = array('*-12-25', '*-01-01', '2013-12-23'); # variable and fixed holidays
 	$count_dual = 0;
 	$count_dualxb = 0;
 	$count_reference = 0;
@@ -190,7 +162,6 @@ try
 	$part_6500 = 0;
 	$part_1723WT03_9 = 0;
 
-	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < $rows_in_result; $i++) {
 	    $response["test"] = $result[$i]["model"];
@@ -273,16 +244,8 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $part_1723WT03_9 = $get_parts[$j]["quantity"] + $part_1723WT03_9;
 	     } 
 	 }
-	 
-	 $response["test"] = $part_2389;
-	 //echo json_encode($response);
-	 //exit;
-   //$result_for_view_file[3]["monitor_count"] = $count_reference;
 }
 
-   
-   
-   
    // BUILDING THE FINAL TABLES TO SEND TO THE VIEW FILE
    // THIS IS ALL OF THE MONITOR NAMES
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X");
@@ -291,32 +254,32 @@ for ($i = 0; $i < $rows_in_result; $i++) {
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
-		$result_for_view_file[$i]["monitors"] = $get_result[$i]["name"];
+		$Earphones_list[$i]["monitors"] = $get_result[$i]["name"];
 		
 		if($i == 0) {
-			$result_for_view_file[$i]["monitor_count"]  = $count_versa;
+			$Earphones_list[$i]["monitor_count"]  = $count_versa;
 		} else if ( $i == 1) {
-			$result_for_view_file[$i]["monitor_count"]  = $count_dual;
+			$Earphones_list[$i]["monitor_count"]  = $count_dual;
 		} else if ( $i == 2) {
-			$result_for_view_file[$i]["monitor_count"]  = $count_dualxb;
+			$Earphones_list[$i]["monitor_count"]  = $count_dualxb;
    		} elseif ( $i == 3) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_reference;
+   			$Earphones_list[$i]["monitor_count"]  = $count_reference;
    		} elseif ( $i == 4) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_tour;
+   			$Earphones_list[$i]["monitor_count"]  = $count_tour;
    		} elseif ( $i == 5) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_rsm;
+   			$Earphones_list[$i]["monitor_count"]  = $count_rsm;
    		} elseif ( $i == 6) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_cmvk;
+   			$Earphones_list[$i]["monitor_count"]  = $count_cmvk;
    		} elseif ( $i == 7) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_spire;
+   			$Earphones_list[$i]["monitor_count"]  = $count_spire;
    		} elseif ( $i == 8) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_studio4;
+   			$Earphones_list[$i]["monitor_count"]  = $count_studio4;
    		} elseif ( $i == 9) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_studio3;
+   			$Earphones_list[$i]["monitor_count"]  = $count_studio3;
    		} elseif ( $i == 10) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_revx;
+   			$Earphones_list[$i]["monitor_count"]  = $count_revx;
    		} elseif ( $i == 11) {
-   			$result_for_view_file[$i]["monitor_count"]  = $count_electro;
+   			$Earphones_list[$i]["monitor_count"]  = $count_electro;
    		}	elseif ( $i == 12) {
 	   		
    		}
@@ -328,46 +291,41 @@ for ($i = 0; $i < $rows_in_result; $i++) {
    $get_part_table = pdo_fetch_all( $stmt4 );
    
    for ($i = 0; $i < count($get_part_table); $i++) {
-   		$result_for_view_file2[$i]["part"] = $get_part_table[$i]["part"];
+   		$BAs_list[$i]["part"] = $get_part_table[$i]["part"];
    		
 	     if($get_part_table[$i]["id"] == 1) {
-		     $result_for_view_file2[$i]["quantity"] = $part_2389;
+		     $BAs_list[$i]["quantity"] = $part_2389;
 	     } elseif($get_part_table[$i]["id"] == 2) {
-		     $result_for_view_file2[$i]["quantity"] = $part_2015;
+		     $BAs_list[$i]["quantity"] = $part_2015;
 	     } elseif($get_part_table[$i]["id"] == 3) {
-		     $result_for_view_file2[$i]["quantity"] = $part_2091;
+		     $BAs_list[$i]["quantity"] = $part_2091;
 	     } elseif($get_part_table[$i]["id"] == 4) {
-		     $result_for_view_file2[$i]["quantity"] = $part_33A007;
+		     $BAs_list[$i]["quantity"] = $part_33A007;
 	     } elseif($get_part_table[$i]["id"] == 5) {
-		     $result_for_view_file2[$i]["quantity"] = $part_3800;
+		     $BAs_list[$i]["quantity"] = $part_3800;
 	     } elseif($get_part_table[$i]["id"] == 6) {
-		      $result_for_view_file2[$i]["quantity"] = $part_2800;
+		      $BAs_list[$i]["quantity"] = $part_2800;
 	     } elseif($get_part_table[$i]["id"] == 7) {
-		    $result_for_view_file2[$i]["quantity"] = $part_E25;
+		    $BAs_list[$i]["quantity"] = $part_E25;
 	     } elseif($get_part_table[$i]["id"] == 8) {
-		     $result_for_view_file2[$i]["quantity"] = $part_35A007;
+		     $BAs_list[$i]["quantity"] = $part_35A007;
 	     } elseif($get_part_table[$i]["id"] == 9) {
-		     $result_for_view_file2[$i]["quantity"] = $part_36A007;
+		     $BAs_list[$i]["quantity"] = $part_36A007;
 	     } elseif($get_part_table[$i]["id"] == 10) {
-		     $result_for_view_file2[$i]["quantity"] = $part_17A003;
+		     $BAs_list[$i]["quantity"] = $part_17A003;
 	     } elseif($get_part_table[$i]["id"] == 11) {
-		     $result_for_view_file2[$i]["quantity"] = $part_6500;
+		     $BAs_list[$i]["quantity"] = $part_6500;
 	     } elseif($get_part_table[$i]["id"] == 12) {
-		     $result_for_view_file2[$i]["quantity"] = $part_1723WT03_9;
+		     $BAs_list[$i]["quantity"] = $part_1723WT03_9;
 	     } 
    }
-   
-    
-    //$response['code'] = 'success';
-    //$response["message"] = $query;
-    $response['data'] = $result_for_view_file;
-    $response['data2'] = $result_for_view_file2;
-    
+       
+//////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////// THIS PORTION IS TO DETERMINE THE COUNTS IN CASING AND BEFORE /////////////////////////////////////////////////
     $query_casing = "SELECT *, IEMs.id AS monitor_id  FROM import_orders 
     								LEFT JOIN monitors AS IEMs ON import_orders.model = IEMs.name
-									WHERE order_status_id <= 5 AND import_orders.active = TRUE"; // $orderBySql $pagingSql";
+									WHERE order_status_id <= 5 OR order_status_id = 15 AND import_orders.active = TRUE"; // $orderBySql $pagingSql";
 
 	$stmt_casing = pdo_query( $pdo, $query_casing, null); 
     $result = pdo_fetch_all( $stmt_casing );
@@ -491,32 +449,32 @@ for ($i = 0; $i < $rows_in_result; $i++) {
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
-		$result_for_view_file[$i]["monitors"] = $get_result[$i]["name"];
+		$Earphones_list[$i]["monitors"] = $get_result[$i]["name"];
 		
 		if($i == 0) {
-			$result_for_view_file[$i]["casing_count"]  = $count_versa_casing;
+			$Earphones_list[$i]["casing_count"]  = $count_versa_casing;
 		} else if ( $i == 1) {
-			$result_for_view_file[$i]["casing_count"]  = $count_dual_casing;
+			$Earphones_list[$i]["casing_count"]  = $count_dual_casing;
 		} else if ( $i == 2) {
-			$result_for_view_file[$i]["casing_count"]  = $count_dualxb_casing;
+			$Earphones_list[$i]["casing_count"]  = $count_dualxb_casing;
    		} elseif ( $i == 3) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_reference_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_reference_casing;
    		} elseif ( $i == 4) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_tour_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_tour_casing;
    		} elseif ( $i == 5) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_rsm_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_rsm_casing;
    		} elseif ( $i == 6) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_cmvk_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_cmvk_casing;
    		} elseif ( $i == 7) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_spire_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_spire_casing;
    		} elseif ( $i == 8) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_studio4_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_studio4_casing;
    		} elseif ( $i == 9) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_studio3_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_studio3_casing;
    		} elseif ( $i == 10) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_revx_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_revx_casing;
    		} elseif ( $i == 11) {
-   			$result_for_view_file[$i]["casing_count"]  = $count_electro_casing;
+   			$Earphones_list[$i]["casing_count"]  = $count_electro_casing;
    		}	elseif ( $i == 12) {
 	   		
    		}
@@ -528,48 +486,49 @@ for ($i = 0; $i < $rows_in_result; $i++) {
    $get_part_table = pdo_fetch_all( $stmt4 );
    
    for ($i = 0; $i < count($get_part_table); $i++) {
-   		//$result_for_view_file2[$i]["part"] = $get_part_table[$i]["part"];
+   		//$BAs_list[$i]["part"] = $get_part_table[$i]["part"];
    			$response["test"] = "RIGHT HERE";
 		    //echo json_encode($response);
 			//exit;
 	     if($get_part_table[$i]["id"] == 1) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_2389_casing;
-		     //$response["test"] = "THE NUMBER IS " . $result_for_view_file2[$i]["casing_quantity"];
+		     $BAs_list[$i]["casing_quantity"] = $part_2389_casing;
+		     //$response["test"] = "THE NUMBER IS " . $BAs_list[$i]["casing_quantity"];
 		     //echo json_encode($response);
 			 //exit;
 	     } elseif($get_part_table[$i]["id"] == 2) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_2015_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_2015_casing;
 	     } elseif($get_part_table[$i]["id"] == 3) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_2091_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_2091_casing;
 	     } elseif($get_part_table[$i]["id"] == 4) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_33A007_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_33A007_casing;
 	     } elseif($get_part_table[$i]["id"] == 5) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_3800_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_3800_casing;
 	     } elseif($get_part_table[$i]["id"] == 6) {
-		      $result_for_view_file2[$i]["casing_quantity"] = $part_2800_casing;
+		      $BAs_list[$i]["casing_quantity"] = $part_2800_casing;
 	     } elseif($get_part_table[$i]["id"] == 7) {
-		    $result_for_view_file2[$i]["casing_quantity"] = $part_E25_casing;
+		    $BAs_list[$i]["casing_quantity"] = $part_E25_casing;
 	     } elseif($get_part_table[$i]["id"] == 8) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_35A007_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_35A007_casing;
 	     } elseif($get_part_table[$i]["id"] == 9) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_36A007_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_36A007_casing;
 	     } elseif($get_part_table[$i]["id"] == 10) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_17A003_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_17A003_casing;
 	     } elseif($get_part_table[$i]["id"] == 11) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_6500_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_6500_casing;
 	     } elseif($get_part_table[$i]["id"] == 12) {
-		     $result_for_view_file2[$i]["casing_quantity"] = $part_1723WT03_9_casing;
+		     $BAs_list[$i]["casing_quantity"] = $part_1723WT03_9_casing;
 	     } 
    }
    
     $response['code'] = 'success';
     $response["message"] = $query;
-    $response['data'] = $result_for_view_file;
-    $response['data2'] = $result_for_view_file2;
+    $response['data'] = $Earphones_list;
+    $response['data2'] = $BAs_list;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-        
+
+//////        
 	echo json_encode($response);
 }
 catch(PDOException $ex)

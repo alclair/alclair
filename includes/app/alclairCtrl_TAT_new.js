@@ -787,7 +787,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 		console.log("rush is " + $scope.order_status_id)
 		console.log("Monitor ID is " + $scope.monitor_id)
 		console.log("Hearing protection is " + $scope.remove_hearing_protection)
-        var api_url = window.cfg.apiUrl + "alclair/get_bas_required.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&TODAY_OR_NEXT_WEEK=" + $scope.today_or_next_week + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&REMOVE_HEARING_PROTECTION=" + $scope.remove_hearing_protection + "&monitor_id=" + $scope.monitor_id;
+        var api_url = window.cfg.apiUrl + "alclair/get_bas_required_backup2.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&TODAY_OR_NEXT_WEEK=" + $scope.today_or_next_week + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&REMOVE_HEARING_PROTECTION=" + $scope.remove_hearing_protection + "&monitor_id=" + $scope.monitor_id;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {

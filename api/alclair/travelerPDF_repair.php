@@ -572,26 +572,29 @@ $right_column_addons_and_highrise =
 		</tr>
 ";
 
+/*
 $right_column_received_date = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;\">RECEIVED DATE</td>
 		</tr>
 ";
-/*
+*/
+
 $right_column_received_date = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;\">RECEIVED DATE</td>
     			<td style=\"text-align:left;\">ESTIMATED SHIP DATE</td>
 		</tr>
 ";
-*/
+/*
 $right_column_received_date_response =  
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;\">{$result[0]["received_date"]}</td>
 		</tr>
 	
 ";
-/*
+*/
+
 $right_column_received_date_response =  
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;\">{$result[0]["received_date"]}</td>
@@ -599,7 +602,7 @@ $right_column_received_date_response =
 		</tr>
 	
 ";
-*/
+
 $testing = 
 "		<tr style=\"font-weight:bold;\">
     			<td style=\"text-align:left;color:red;\">ORIG ORDER SHIPPED ON</td>

@@ -723,7 +723,7 @@ $right_column_estimated_ship_date_response =
 				<td style=\"font-size:2px\"></td>
 			</tr>" .
 
-             $right_column_received_date .  $right_column_received_date_response . $testing . $testing2 .
+             $right_column_received_date .  $right_column_received_date_response . "</table>" .//$testing . $testing2 .
              //$right_column_estimated_ship_date .  $right_column_estimated_ship_date_response .
              "</td></tr></table>";
 

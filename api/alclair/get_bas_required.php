@@ -129,9 +129,7 @@ try
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
                   WHERE 1=1 AND t1.active = TRUE $conditionSql";
-                  
-                  //active = TRUE $conditionSql $orderBySql $pagingSql";
-    //}    
+                
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
     $rows_in_result = pdo_rows_affected($stmt);

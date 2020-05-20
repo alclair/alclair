@@ -37,14 +37,22 @@
 	<link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/site.css" media="screen,print">
     <link href="<?=$rootScope["RootUrl"]?>/css/lightbox.css" rel="stylesheet" />
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/moment.js"></script>
-    <script src="<?=$rootScope["RootUrl"]?>/js/angular.1.4.7.js"></script>
+    
+    <!--<script src="<?=$rootScope["RootUrl"]?>/js/angular.1.4.7.js"></script>-->
+    <script src="<?=$rootScope["RootUrl"]?>/js/angular-1.5.0/angular.js"></script>
+    
     <script src="<?=$rootScope["RootUrl"]?>/js/ui-bootstrap-tpls-0.14.3.js"></script>
     <script src="<?=$rootScope["RootUrl"]?>/js/lightbox-2.6.js"></script>
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-file-upload-shim.js"></script>
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-file-upload.js"></script>
-    <script src="<?=$rootScope["RootUrl"]?>/js/angular-animate.1.4.7.js"></script>
+    
+    <!--<script src="<?=$rootScope["RootUrl"]?>/js/angular-animate.1.4.7.js"></script>
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-sanitize.1.4.7.js"></script>
-    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-cookies.1.4.7.js"></script>
+    <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/angular-cookies.1.4.7.js"></script>-->
+    <script src="<?=$rootScope["RootUrl"]?>/js/angular-1.5.0/angular-animate.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/js/angular-1.5.0/angular-sanitize.js"></script>
+    <script src="<?=$rootScope["RootUrl"]?>/js/angular-1.5.0/angular-cookies.js"></script>
+    
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/toastr.min.js"></script>
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/ng-pattern-restrict.min.js"></script>
 

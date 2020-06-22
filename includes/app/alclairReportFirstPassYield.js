@@ -275,7 +275,8 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
 		var api_url = window.cfg.apiUrl + "reports/alclairImpressionsReceived.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
 
         $http.get(api_url).success(function (result5) {
-
+			$scope.num_impressions = result5.num_impressions;
+			$scope.num_shipped = result5.num_shipped;
             $.unblockUI();
             //console.log(JSON.stringify(result5.data));
             //console.log("data length is " + result.data.length)
@@ -318,8 +319,8 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
                 //var water_type = result.data[i].water_type;
                 var num_status5 = result5.data[i].num_in_day;
                 created5 = created5 - 1;
-                console.log("I is " + i)
-                console.log("C is " + created5 + " PF is " + pass_or_fail5 + " Num is " + num_status5)
+                //console.log("I is " + i)
+                //console.log("C is " + created5 + " PF is " + pass_or_fail5 + " Num is " + num_status5)
                 layers5[$scope.labels5.indexOf(pass_or_fail5)][created5].y = num_status5;
             }
 
@@ -372,8 +373,8 @@ $scope.loadRepairsReceived = function () {
                 //var water_type = result.data[i].water_type;
                 var num_status6 = result6.data[i].num_in_day;
                 created6 = created6 - 1;
-                console.log("I is " + i)
-                console.log("C is " + created6 + " PF is " + pass_or_fail6 + " Num is " + num_status6)
+                //console.log("I is " + i)
+                //console.log("C is " + created6 + " PF is " + pass_or_fail6 + " Num is " + num_status6)
                 layers6[$scope.labels6.indexOf(pass_or_fail6)][created6].y = num_status6;
             }
 

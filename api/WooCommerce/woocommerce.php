@@ -20,7 +20,6 @@ $params = [
 $query_string = http_build_query( $params );
 echo $store_url . $endpoint . '?' . $query_string;
 
-
 $url = 'https://alclair.com';
 $consumer_key = 'ck_acc872e19a1908cd5abadfd29a84e5edf8d34469';
 $consumer_secret = 'cs_87fe15086357b7e90a8d2457552ddb957ba939fb';

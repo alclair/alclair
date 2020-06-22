@@ -7,7 +7,6 @@ if(empty($_SESSION["UserId"])||empty($_SESSION["IsAdmin"]))
 $response = array();
 $response["code"] = "";
 $response["message"] = "";
-
 try
 {	
 	$theID =$_REQUEST["id"];

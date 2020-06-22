@@ -3136,9 +3136,9 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
             
             	var svgWidth = 1600, svgHeight = 800, barPadding = 10;
             	var shift_x_from_0 = 75;
-			var barWidth = svgWidth / dataset.length;
-			var svg = d3.select('svg')
-		    		.attr("width", svgWidth+300)
+				var barWidth = svgWidth / dataset.length;
+				var svg = d3.select('svg')
+		    	.attr("width", svgWidth+300)
 				.attr("height", svgHeight+300);
 			
 			var xScale = d3.scaleLinear()

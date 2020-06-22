@@ -130,9 +130,8 @@
         <div style="text-align: center;">
             <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
              <h2>Impressions Received by Date</h2>
-			
-            <br />
-
+            	<h3><b>{{num_impressions}} Impressions / {{num_shipped}} Shipped for the Month</b></h3>
+			<br />
             <div class="col-md-12">
                 <span ng-repeat="label5 in labelRange5">
                     <span style="display: inline-block; width: 10px; height: 10px; background: {{label5.color}};"></span><span>{{label5.text}}</span>

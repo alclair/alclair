@@ -78,8 +78,18 @@ ORDER BY the_day ASC";
     $stmt = pdo_query( $pdo, $query, $params ); 
 	 $num_in_day = pdo_fetch_all( $stmt );
 	 
-	 
+	$num_impressions = 0;
+	$num_shipped = 0; 
+	for($j=0; $j<count($num_in_day); $j++) {    
+		if(stristr($num_in_day[$j]["type"], "# of Impressions") ) {
+			$num_impressions = $num_impressions + $num_in_day[$j]["num_in_day"];		
+		} elseif(stristr($num_in_day[$j]["type"], "# Shipped") ) {
+			$num_shipped = $num_shipped + $num_in_day[$j]["num_in_day"];	
+		}
+	}
   
+	//$response["test"] = $num_in_day;
+	//$response["test"] = "Num imp is " . $num_impressions . " and num shipped is " . $num_shipped;
    $result = array();
    $result = array_merge($num_of_impressions_in_day, $num_of_shipped_in_day);
 
@@ -93,8 +103,8 @@ ORDER BY the_day ASC";
 		$result[$the_day_shipped-1]["num_shipped"] = $num_shipped;
 	}
 	*/
-	$response["test"] = $num_in_day;
-	
+	$response["num_impressions"] = $num_impressions;
+	$response["num_shipped"] = $num_shipped;
     $response['code'] = 'success';
     $response['data'] = $num_in_day;
     //$response['data'] = $num_of_impressions_in_day;

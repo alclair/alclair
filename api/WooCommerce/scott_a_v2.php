@@ -29,7 +29,6 @@ try
         	'version' => 'wc/v3', 
 			]
 	);
-
 //$after  = date("Y-m-d H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));
 //$before = date("Y-m-d H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00'));
 	

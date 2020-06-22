@@ -30,7 +30,6 @@ try
 			]
 	);
 	
-	
 $START = strtotime($_REQUEST["StartDate"] . "00:00:00");
 $END = strtotime($_REQUEST["EndDate"] . "23:59:59");
 $START  = date("Y-m-d H:i:s", $START);

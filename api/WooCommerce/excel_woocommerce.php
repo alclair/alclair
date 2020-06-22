@@ -26,7 +26,6 @@ try
         	'version' => 'wc/v3', 
 			]
 	);
-
 //print_r($woocommerce);
 // DATE -> 0 
 // ORDER ID -> 1

@@ -11,7 +11,7 @@ use Automattic\WooCommerce\HttpClient\HttpClientException;
 //require '/var/www/html/otisdev/vendor/autoload.php';
 require $rootScope["RootPath"] . '/vendor/autoload.php';
 //require '/var/www/html/otis/vendor/autoload.php';
-//require $rootScope["RootPath"]."vendor/autoload.php";
+
 
 $response = array();
 $response["code"] = "";

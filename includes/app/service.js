@@ -422,6 +422,10 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
         { value: 'TRUE', label: 'Printed' },
         { value: 'FALSE', label: 'Not Printed' },
     ];  
+     this.marc_plot = [
+        { value: 'day', label: 'By Day' },
+        { value: 'month', label: 'By Month' },
+    ];  
     this.TODAY_OR_NEXT_WEEK = [
 	    { value: '0', label: 'Past Due' },
         { value: '1', label: 'Today' },

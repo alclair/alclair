@@ -1600,8 +1600,20 @@ pre code {
 .voffset8 { margin-top: 100px; }
 .voffset9 { margin-top: 150px; }
 
-img{
-   display: none
+img3{
+   display: block;
+   position: absolute;
+   z-index:1;
+    left:-100px;
+    top:0;
+}
+
+p.img3{
+   display: block;
+   position: absolute;
+   z-index:1;
+   left:-200px;
+   top:0;
 }
 
 p.one:hover + img{  /*//img is a sibling*/

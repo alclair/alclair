@@ -154,6 +154,7 @@
 				<?php if ( $rootScope["SWDCustomer"] != "lng" && $rootScope["SWDCustomer"] != "trd" && $rootScope["SWDCustomer"] != "wwl" && $rootScope["SWDCustomer"] != "alclair" && $rootScope["SWDCustomer"] != "ifi"  ) { ?>	
 					<li class="active"><a href="<?=$rootScope["RootUrl"]?>">Dashboard </a></li>
 				<?php } ?> 
+				
 
 				<?php
 					if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "ifi") {
@@ -424,12 +425,28 @@ Pickup
 				<?php } ?> 
 				
 				<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Batches <span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_batch/batch_list" class="nav-link "> Batch List</a></li>
-
-							</ul>
-						</li>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Batches <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_batch/batch_list" class="nav-link "> Batch List</a></li>
+					</ul>
+				</li>
+				<?php
+				if ( $_SESSION["IsAdmin"] || $rootScope["SWDCustomer"] == "dev" ) {
+				?>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TRD <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class=" "><a href="<?=$rootScope['RootUrl']?>/trd/tickets" class="nav-link "> Tickets</a></li>
+						<li class=" "><a href="<?=$rootScope['RootUrl']?>/trd/customers" class="nav-link "> Customers</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SOS <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class=" "><a href="<?=$rootScope['RootUrl']?>/sos/sos" class="nav-link "> SOS</a></li>
+					</ul>
+				</li>
+				<?php } ?> 
 				<!-- Adding a tab named "Monitor"-->
 				<!-- Customers that pay for monitoring will have this tab added-->
 				<?php
@@ -738,9 +755,12 @@ Pickup
                                  <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/get_order_items" class="nav-link "><i class="fa fa-search"></i> &nbsp Search WooCommerce </a>
                                 </li>
-                                <?php if($_SESSION["UserName"] == 'Phil' || $_SESSION["UserName"] == 'Zeeshan' || $_SESSION["UserName"] == 'admin' ) { ?>
+                                <?php if($_SESSION["UserName"] == 'Marc' || $_SESSION["UserName"] == 'Zeeshan' || $_SESSION["UserName"] == 'admin' ) { ?>
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_for_phil" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Hey Phil & Z-Man! </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/marc" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Marc! </a>
                                 </li>
                                 <?php } ?>
                                  

@@ -15,7 +15,6 @@ $response["message"] = "";
 $response['data'] = null;
 try 
 {
- 
 //otisdev.alclr.co/api/WooCommerce/03_print_order_to_screen.php 
 $woocommerce = new Client(
     	'https://alclair.com',
@@ -25,19 +24,62 @@ $woocommerce = new Client(
         	'version' => 'wc/v3', 
 			]
 	);
+
+$HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 $params = [
 			//'before' => '2020-01-07T23:59:59',
 			//'before' => '2020-01-13T23:59:59',
 			//'after' => '2020-01-13T00:00:00',
-			'before' => '2019-12-01T23:59:59',
-			'after' => '2019-12-01T00:00:00',
+			//'before' => '2019-12-01T23:59:59',
+			//'after' => '2019-12-01T00:00:00',
+			'before' => '2019-12-01' . $HOURS[7],
+			'after' => '2019-12-01' . $HOURS[0],
 			'per_page' => 100			
 			//'created_at_min' => '2014-01-01',
 			//'created_at_max' => '2014-01-31'
         ];
     //$result = $woocommerce->get('orders', $params);
-	$result = $woocommerce->get('orders', $params);		
+	//$result = $woocommerce->get('orders', $params);		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//if(count($result) == 100) {
+	$date = '2019-12-01';
+	$date = '2020-04-23';
+	$result = [];
+	$params = [
+		'before' =>  $date . $HOURS[1],
+		'after' => $date . $HOURS[0],
+		'per_page' => 100			
+	];
+	$result1 = $woocommerce->get('orders', $params);
+	
+	$params = [
+		'before' => $date . $HOURS[3],
+		'after' => $date . $HOURS[2],
+		'per_page' => 100			
+	];
+	$result2 = $woocommerce->get('orders', $params);
 
+	$params = [
+		'before' => $date . $HOURS[5],
+		'after' => $date . $HOURS[4],
+		'per_page' => 100			
+	];
+	$result3 = $woocommerce->get('orders', $params);
+
+	$params = [
+		'before' => $date . $HOURS[7],
+		'after' => $date . $HOURS[6],
+		'per_page' => 100			
+	];
+	$result4 = $woocommerce->get('orders', $params);
+	$order_number = '9052388';
+	$result = $woocommerce->get('orders/' . $order_number);
+	$result = array_merge($result1, $result2, $result3, $result4);
+	
+//}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 if(count($result) == 100) {
 	echo "IT'S 100 <br/>";
 	$result = [];
@@ -55,18 +97,20 @@ if(count($result) == 100) {
 	$result2 = $woocommerce->get('orders', $params);
 	$result = array_merge($result1, $result2);
 }
-			
+
+*/		
 //}
-    
-    for($i = 0; $i <count($result); $i++) {
+ 
+    for($i = 0; $i < count($result); $i++) {
+	    //echo "IN HERE";
 	    $data = get_object_vars($result[$i]);  // STORE THE DATA
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$line_item = get_object_vars($data[line_items][$i]); // PRODUCT -> 2
 		//echo "Name is " . $line_item["name"] . "<br/>";
 		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 	}
-	
-	$order_index = 5;
+
+	$order_index = 2;
 	$arr = get_object_vars($result[$order_index]); //28
 	$data = get_object_vars($result[$order_index]);  // STORE THE DATA
 	
@@ -129,7 +173,7 @@ if(count($result) == 100) {
 		echo "COUPON IS  ". $coupon_lines["code"] . "<br/>";
 		echo json_encode($response);
     //}
-
+    
 } catch (HttpClientException $e) {
     echo '<pre><code>' . print_r( $e->getMessage(), true ) . '</code><pre>'; // Error message.
     echo '<pre><code>' . print_r( $e->getRequest(), true ) . '</code><pre>'; // Last request data.

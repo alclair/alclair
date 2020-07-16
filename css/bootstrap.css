@@ -1620,13 +1620,15 @@ p.one:hover + img{  /*//img is a sibling*/
    display: block;
 }
 
-p.two:hover img{ /*//image is a child*/
+p.two	 img{
+	display: none;
+}
+
+p.two:hover img{ 
    display: block;
    position: absolute;
    z-index:1;
 }
-
-
 
 .row {
   margin-right: -15px;

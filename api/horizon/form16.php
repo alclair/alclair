@@ -52,6 +52,7 @@ $inc = 0;
 // PUT ALL OF THE DATA INTO $arrResult
 $arrResult  = array();
 $handle     = fopen($File, "r");
+
 if(empty($handle) === false) {
     while(($data = fgetcsv($handle, 1000, ",")) !== FALSE){
         $arrResult[$inc] = $data;

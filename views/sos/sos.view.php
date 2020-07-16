@@ -17,10 +17,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		        <button type="button" class="btn btn-primary" ng-click="Update()"> Update</button>
 	        </div>
 	        <div class="col-md-2">
-		        <button type="button" class="btn btn-primary" ng-click="Simulate()"> Simulate</button>
+		        <button type="button" class="btn btn-primary" ng-click="BuildSalesOrder('13823')"> Simulate</button>
 	        </div>
 	        <div class="col-md-2">
-		        <button type="button" class="btn btn-primary" ng-click="Customer()"> Customer</button>
+		        <button type="button" class="btn btn-primary" ng-click="CreateCustomer()"> Customer</button>
 	        </div>
 	        <div class="col-md-2">
 		        <button type="button" class="btn btn-primary" ng-click="SalesOrder()"> Sales Order</button>
@@ -37,7 +37,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			</div>    
 			<div class="form-group col-md-3">
 				<label class="control-label"></label><br />
-		        <button type="button" class="btn btn-primary" ng-click="Process()"> PROCESS</button>
+		        <button type="button" class="btn btn-primary" ng-click="Process3()"> PROCESS</button>
 	        </div>
          </div>
 	
@@ -48,7 +48,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<?php
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
 	?>
-			<script src="<?=$rootScope["RootUrl"]?>/includes/app/SOS.js"></script>
+			<script src="<?=$rootScope["RootUrl"]?>/includes/app/SOS_4.js"></script>
     <?php  } 	?>	<?php
 include_once $rootScope["RootPath"]."includes/footer.inc.php";
 ?>

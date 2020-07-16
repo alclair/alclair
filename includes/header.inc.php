@@ -431,7 +431,7 @@ Pickup
 					</ul>
 				</li>
 				<?php
-				if ( $_SESSION["IsAdmin"] || $rootScope["SWDCustomer"] == "dev" ) {
+				if ( $_SESSION["UserName"] == 'admin' || $rootScope["SWDCustomer"] == "dev" ) {
 				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">TRD <span class="caret"></span></a>
@@ -440,12 +440,16 @@ Pickup
 						<li class=" "><a href="<?=$rootScope['RootUrl']?>/trd/customers" class="nav-link "> Customers</a></li>
 					</ul>
 				</li>
+				<?php
+				if ( $_SESSION["UserName"] == 'admin'  || $rootScope["SWDCustomer"] == "dev" ) {
+				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SOS <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li class=" "><a href="<?=$rootScope['RootUrl']?>/sos/sos" class="nav-link "> SOS</a></li>
 					</ul>
 				</li>
+				<?php } ?> 
 				<?php } ?> 
 				<!-- Adding a tab named "Monitor"-->
 				<!-- Customers that pay for monitoring will have this tab added-->

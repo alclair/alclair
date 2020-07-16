@@ -43,7 +43,9 @@ $params = [
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //if(count($result) == 100) {
 	$date = '2019-12-01';
-	$date = '2020-04-23';
+	$date = '2020-05-26';
+	$date = '2020-07-08';
+	$order_index = 7;
 	$result = [];
 	$params = [
 		'before' =>  $date . $HOURS[1],
@@ -110,7 +112,7 @@ if(count($result) == 100) {
 		echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . "<br/>";
 	}
 
-	$order_index = 2;
+	
 	$arr = get_object_vars($result[$order_index]); //28
 	$data = get_object_vars($result[$order_index]);  // STORE THE DATA
 	

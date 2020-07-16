@@ -107,7 +107,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
 	        <div class="form-group col-md-4">
 				<p ng-if="traveler.link_to_design_image!=' '" class="two" style="font-size: large;color: #007FFF"> <b>HOVER TO SEE EARPHONES</b>
-					<img src="{{traveler.link_to_design_image}}" alt="Design Image" style="parent:hover img {display: block}">
+					<img src="{{traveler.link_to_design_image}}" alt="Design Image" > <!--style="parent:hover img {display: block}"-->
 		        </p>
 		        <p ng-if="traveler.link_to_design_image==' '" style="font-size: large;color: #007FFF"> <b>NO EARPHONES TO SEE</b>
 		        </p>
@@ -386,19 +386,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 
 </div>
 
-
-    
-
-<script type="text/javascript">
-    window.cfg.county_list = <?=$viewScope["county_list"]?>;  
-    window.cfg.field_list = <?=$viewScope["field_list"]?>;  
-    window.cfg.operator_list = <?=$viewScope["operator_list"]?>;
-</script>
-
 <script src="<?=$rootScope["RootUrl"]?>/includes/app/EditTraveler.js"></script>
-<script>
-	</script>
-
 
 <?php
 include_once $rootScope["RootPath"]."includes/footer.inc.php";

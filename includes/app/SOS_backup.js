@@ -25,7 +25,7 @@ var sos_code = 'we will get there';
         console.log("In Get " )
 		$http({
 		  method: 'GET',
-		  url: 'https://api.sosinventory.com/api/v2/salesorder/10', 
+		  url: 'https://api.sosinventory.com/api/v2/customer/191', 
 		  headers: {
 			  'Content-Type': 'application/x-www-form-urlencoded',
 			  'Host': 'api.sosinventory.com',
@@ -34,6 +34,7 @@ var sos_code = 'we will get there';
 		}).then(function successCallback(response) {
 			console.log("Success 1 " + JSON.stringify(response.data))
 			json = response.data.data;
+			console.log("The status is " + response.data.status)
 			//json.name = 'Test Name 94';
 			console.log("JSON is " + json.number)
 		    // this callback will be called asynchronously
@@ -216,8 +217,11 @@ $scope.DecideIfCustomerGetsCreated = function (order_number) {
             	});			
 		}
 	};	
-$scope.CreateCustomer = function (customer_info) {
+$scope.CreateCustomer2 = function (customer_info) { //customer_info
     console.log("In Post ")
+	//customer_name = "Tyler Folsom";
+	//email = "tyler.folsom@gmail.com";
+	//var customer_info = '{"Name": ' + '"' + customer_name + '"' + ', "Email": ' + '"' +  email + '"' + '}';
 	$http({
 	  method: 'POST',
 	  url: 'https://api.sosinventory.com/api/v2/customer/',
@@ -230,11 +234,25 @@ $scope.CreateCustomer = function (customer_info) {
 	}).then(function successCallback(response) {
 		console.log("Success 1 " + JSON.stringify(response.data.data))
 		json = response.data.data;
-		console.log("JSON is " + json.name)
+		//console.log("JSON is " + json.name + " and ID is " + json.id)
+		return(json.id)
 	  }, function errorCallback(response) {
 		  console.log("Failed to create customer")
 	  });	
 } 
+
+$scope.CreateCustomer = function (customer_info) { //customer_info
+	customer_name = "Tyler Folsom4";
+	email = "tyler.folsom4@gmail.com";
+	var customer_info = '{"Name": ' + '"' + customer_name + '"' + ', "Email": ' + '"' +  email + '"' + '}';
+	$scope.CreateCustomer2(customer_info).success(function (result) {
+		console.log("The returned ID is now " + result)
+	}).error(function (result) {
+		console.log("DID NOT WORK")
+    });	
+	console.log("The returned ID is " + returned_id)
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////// CLOSE ////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////// GRABS ALL ORDER NUMBERS & BUILD SALES ORDERS  ///////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
@@ -539,26 +557,35 @@ async function getSOSauthorizationCode() {
 };
 
 $scope.Process = function() {
-	$scope.order_number_to_get = '10065004';
+	$scope.order_number_to_get = '10067200';
 	var api_url = window.cfg.apiUrl + "sos/get_woo_order_processing_button.php?order_number="+ $scope.order_number_to_get;
 		$http.get(api_url)
 		.success(function (result) {
 			console.log("TEST IS " + result.test)
+			for(p=0; p < result.test; p++) {
+				console.log("Index is " + p + " and SKU is "+ result.SKUs[p])
+			}
 			num_of_skus = result.SKUs.length;
 			CUSTOMER_ID  = 1;
 			ORDER_DATE = result.order_date;
 			//SALES_ORDER = { "number":"5565", "date":"2020-06-08T23:18:00", "customer":{ "id":5, }, "lines":[{ "lineNumber":1, 	"item":{"id":53}},{ "lineNumber":2, "item":{"id":54}}]},
 			LINES = "'lines':[";
+			console.log("Earphone " + num_of_skus)
 			for(p=0; p < num_of_skus; p++) {
 				lineNumber = p+1;
 				ITEM_INDEX = $scope.sos_sku.indexOf(result.SKUs[p]);
 				ITEM_ID =$scope.sos_id[ITEM_INDEX];
 				QUANTITY = 1;
 				//if(p == 0) {
+				DISCOUNT = result.DISCOUNT;
+				SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
+				TAXES = result.TAXES;
 				if(result.Is_Earphone[p] == "YES") {
 					//UNITPRICE = result.price_original_sku;
 					UNITPRICE = result.SUBTOTALs[p];
-					SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
+					//SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
+					//DISCOUNT = result.DISCOUNT;
+					console.log("IN THIS IF STATEMENT")
 				} else { 
 					UNITPRICE = result.SUBTOTALs[p];
 				}
@@ -569,9 +596,10 @@ $scope.Process = function() {
 			LINES = LINES + "]";
 			//ITEM_INDEX = $scope.item_sku.indexOf(result.SKUs[0]);
 			//ITEM_ID = $scope.item_id[ITEM_INDEX];
-			ORDER_NUMBER = 1234; //$scope.order_number_to_get; //9121; 
+			//ORDER_NUMBER = 1234; //$scope.order_number_to_get; //9121; 
+			ORDER_NUMBER = result.order_number;
 			//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}, 'lines' : [{'lineNumber' : 1, 'item': {'id':" + ITEM_ID + "}}, ]}";  
-			SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'shippingAmount': " + SHIPPING_AMOUNT +", " + LINES + "}";  
+			SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'discountAmount': " + DISCOUNT + ","  +"'taxAmount':" + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT +", " + LINES + "}";  
 			//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + LINES + "}";  
 			//console.log("Sales order is " + SALES_ORDER)
 			$scope.CreateSalesOrder(SALES_ORDER)
@@ -587,6 +615,80 @@ $scope.Process = function() {
 
 }
 
+$scope.Process2 = function() {
+	var api_url = window.cfg.apiUrl + "sos/get_number_of_woo_orders.php";
+		$http.get(api_url).success(function (result) {
+			num_of_orders = result.num_of_orders;
+			for(p=0; p < num_of_orders; p++) {
+				console.log("# " + p + " is " + result.order_numbers[p])
+				
+				//var api_url = window.cfg.apiUrl + "sos/get_orders_before_july_1.php";
+				var api_url = window.cfg.apiUrl + "sos/get_woo_order_processing_button.php?order_number="+ result.order_numbers[p];
+					$http.get(api_url)
+					.success(function (result) {
+						console.log("TEST IS " + result.test)
+						for(p=0; p < result.test; p++) {
+							//console.log("Index is " + p + " and SKU is "+ result.SKUs[p])
+						}
+						num_of_skus = result.SKUs.length;
+						CUSTOMER_ID  = 1;
+						ORDER_DATE = result.order_date;
+						//SALES_ORDER = { "number":"5565", "date":"2020-06-08T23:18:00", "customer":{ "id":5, }, "lines":[{ "lineNumber":1, 	"item":{"id":53}},{ "lineNumber":2, "item":{"id":54}}]},
+						LINES = "'lines':[";
+						console.log("Earphone " + num_of_skus)
+						var customer_info = '{"Name": ' + '"' + result.customer_name + '"' + ', "Email": ' + '"' +  result.email + '"' + '}';
+						$scope.CreateCustomer(customer_info);
+
+						for(p=0; p < num_of_skus; p++) {
+							lineNumber = p+1;
+							ITEM_INDEX = $scope.sos_sku.indexOf(result.SKUs[p]);
+							ITEM_ID =$scope.sos_id[ITEM_INDEX];
+							QUANTITY = 1;
+							//if(p == 0) {
+							DISCOUNT = result.DISCOUNT;
+							SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
+							TAXES = result.TAXES;
+							if(result.Is_Earphone[p] == "YES") {
+								//UNITPRICE = result.price_original_sku;
+								UNITPRICE = result.SUBTOTALs[p];
+								//SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
+								//DISCOUNT = result.DISCOUNT;
+								//console.log("IN THIS IF STATEMENT")
+							} else { 
+								UNITPRICE = result.SUBTOTALs[p];
+							}
+							lineNumber_line = "{'lineNumber':" + lineNumber + ", 'item':{'id':" + ITEM_ID + "}, 'class':{'id': 1, 'name': 'Alclair'}, 'quantity':" + 1 + ", 'unitprice':" + UNITPRICE + ", 'amount':" + UNITPRICE + "},";
+							//lineNumber_line = "{'lineNumber':" + lineNumber + ", 'item':{'id':" + ITEM_ID + "}, 'unitprice':" + UNITPRICE + "},";
+							LINES = LINES + lineNumber_line;
+						}
+						LINES = LINES + "]";
+						//ITEM_INDEX = $scope.item_sku.indexOf(result.SKUs[0]);
+						//ITEM_ID = $scope.item_id[ITEM_INDEX];
+						//ORDER_NUMBER = 1234; //$scope.order_number_to_get; //9121; 
+						ORDER_NUMBER = result.order_number;
+						//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}, 'lines' : [{'lineNumber' : 1, 'item': {'id':" + ITEM_ID + "}}, ]}";  
+						SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'discountAmount': " + DISCOUNT + ","  +"'taxAmount':" + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT +", " + LINES + "}";  
+						//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + LINES + "}";  
+						//console.log("Sales order is " + SALES_ORDER)
+						$scope.CreateSalesOrder(SALES_ORDER)
+						
+						//resolve(SALES_ORDER);
+						$.unblockUI();
+			    		}).error(function (result) {
+						//toastr.error("Did not grab a single order.");
+						console.log("Order number that could not be found was " + order_number)
+						//resolve(order_number);
+						//location.reload();	
+			    		});
+			
+			}
+
+		}).error(function (result) {
+			console.log("Order number that could not be found was " + order_number)
+    	});
+}
+
+	
 $scope.getItemsFromDB = function() {
 	$scope.sos_sku = [];
 	$scope.sos_id = [];
@@ -619,6 +721,8 @@ $scope.getItemsFromDB();
 	//console.log("Grabbing WooCommerce order numbers - 2nd Time")
     //await GrabOrderNumbersWoo_2nd_Time();
 })();	
+
+
 
 ////////////////////////////////////////////////////////////////////////////////////////// CLOSE ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////// GRABS ALL ITEMS INSIDE SOS ////////////////////////////////////////////////////////////////////////////////////

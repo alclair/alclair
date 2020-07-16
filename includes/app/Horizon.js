@@ -29,6 +29,7 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
                 fileFormDataName: 'documentfile'
             })
                .success(function (data) {
+
 	               //console.log("Test2222 is " + data.test)
 	               //console.log("Testing3 is " + data.testing3)
                   if (data.code == "success") {

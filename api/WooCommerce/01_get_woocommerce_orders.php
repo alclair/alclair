@@ -232,6 +232,8 @@ $params = [
 				$order[$ind]["shipping_name"] = $data[shipping]->first_name . " " . $data[shipping]->last_name;
 				
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
+					$order[$ind]["iem_owner_first_name"] = " ";
+					$order[$ind]["iem_owner_last_name"] = " ";
 					if(!strcmp($line_item[meta_data][$j]->key, "Model") ) {
 						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
 						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
@@ -290,6 +292,12 @@ $params = [
 						$order[$ind]["open_order_in_designer"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Designed For") ) {
 						$order[$ind]["designed_for"] = $line_item[meta_data][$j]->value;	
+						
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "IEM Owner First Name") ) {
+						$order[$ind]["iem_owner_first_name"] = $line_item[meta_data][$j]->value;	
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "IEM Owner Last Name") ) {
+						$order[$ind]["iem_owner_Last_name"] = $line_item[meta_data][$j]->value;		
+						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "My Impressions") ) {
 						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "64in. Cable") ) {
@@ -306,15 +314,20 @@ $params = [
 						$order[$ind]["dotz_clip"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Pelican Case") ) {
 						$order[$ind]["pelican_case"] = $line_item[meta_data][$j]->value;	
+						
+						$value = "Pelican Case Logo Only";
+						$notes = $value;	 
+						$order[$ind]["notes"] = $notes;  
+						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Pelican Case Name") ) {
 						$order[$ind]["pelican_case_name"] = $line_item[meta_data][$j]->value;
 						$value = $line_item[meta_data][$j]->value;
 						// IF STRING LENGTH IS GREATER THAN 1 AND DOES NOT EQUAL BLANK SPACES
 						if(strlen($value) > 1 && (strcmp($value, "  ") || strcmp($value, "   ") || strcmp($value, "    ") || strcmp($value, "     ") )  ) {
-	    						$notes = 'Pelican case name "' . $value . '"';	   
-    						} else {
+	    					$notes = 'Pelican case name "' . $value . '"';	   
+    					} else {
 							$notes = "";
-    						}
+    					}
 						$order[$ind]["notes"] = $notes;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Soft Case") ) {
 						$order[$ind]["soft_case"] = $line_item[meta_data][$j]->value;	
@@ -355,6 +368,7 @@ $params = [
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Long Cable") ) {
 						$order[$ind]["long_cable"] = $line_item[meta_data][$j]->value;	
 					}
+					$order[$ind]["designed_for"] = $order[$ind]["iem_owner_first_name"] . " " . $order[$ind]["iem_owner_first_name"];
 					//echo "Key is " . $line_item[meta_data][$j]->key . " and Value is " . $line_item[meta_data][$j]->value . " <br/>";			
 				} // CLOSES FOR LOOP - METADATA
 				$ind++;

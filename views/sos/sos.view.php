@@ -8,7 +8,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
     <!-- Main Container Starts -->
         <div class="row">
 	        <div class="col-md-2">
-		        <button type="button" class="btn btn-primary" ng-click="Get()"> Get</button>
+		        <button type="button" class="btn btn-primary" ng-click="GetSalesOrder()"> Get</button>
 	        </div>
 	        <div class="col-md-2">
 		        <button type="button" class="btn btn-primary" ng-click="Post()"> Post</button>
@@ -23,7 +23,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		        <button type="button" class="btn btn-primary" ng-click="CreateCustomer()"> Customer</button>
 	        </div>
 	        <div class="col-md-2">
-		        <button type="button" class="btn btn-primary" ng-click="SalesOrder()"> Sales Order</button>
+		        <button type="button" class="btn btn-primary" ng-click="SalesOrder()"> Sales Orders</button>
 	        </div>
         </div>
         <br/>

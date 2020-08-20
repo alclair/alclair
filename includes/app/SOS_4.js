@@ -44,7 +44,7 @@ async function GrabOrderNumbersWoo_1st_Time() {
 			//num_of_orders = result.num_of_orders;
 			$scope.num_of_orders = result.num_of_orders;
 			loop_thru = $scope.num_of_orders;
-			console.log("Number of orders for November is " + $scope.num_of_orders)
+			console.log("Number of orders is " + $scope.num_of_orders)
 			for(p=0; p < loop_thru; p++) {
 				//var customer_info = '{"Name": ' + '"' + result.customer_names[p] + '"' + ', "Email": ' + '"' +  result.emails[p] + '"' + '}';
 				//console.log("P is " + p + " and " + customer_info)
@@ -130,14 +130,15 @@ function STEP3(customer_info, delay, loop_thru, i) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $scope.customer_email = [];
 $scope.customer_id = [];
+$scope.customer_name = [];
 $scope.index = 0;
 $scope.end = "NO";
 function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
-	var num_customers = 550;
-	var start_at = 470;
+	var start_at = 700; 
+	var num_customers = 880; 
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -180,8 +181,9 @@ async function GrabCustomersSOS_4(i, delay, num_customers) {
 						if(typeof json.name != "undefined") {
 							$scope.customer_email[$scope.index] = json.email;
 							$scope.customer_id[$scope.index] = json.id;  //i;
+							$scope.customer_name[$scope.index] = name;  //i;
 							$scope.index = $scope.index + 1;
-							console.log("Array name " + json.name + " " + json.id)	
+							console.log("Array name " + json.name + " " + json.id + " email is " + json.email)	
 						} else {
 							console.log("COULD NOT GRAB NAME " + JSON.stringify(response.data.data))
 						}
@@ -215,7 +217,7 @@ async function GrabCustomersSOS_4(i, delay, num_customers) {
 				}
 			}
 		}, function errorCallback(response) {
-			console.log("Fail")
+			console.log("Fail and I is " + i)
 		});
     }, delay+1000)
 };
@@ -250,13 +252,16 @@ $scope.BuildSalesOrder = function (order_number) {
 				//console.log("Email is " + email)
 				if(email == $scope.customer_email[s]) {
 					CUSTOMER_ID = $scope.customer_id[s]
+					CUSTOMER_NAME = $scope.customer_name[s];
+					CUSTOMER_EMAIL = $scope.customer_email[s];
 					break;
 				} else if(s == $scope.customer_email.length-1) {
-					console.log("EMAIL WAS NOT FOUND INSIDE FOR LOOP")
+					console.log(email + " EMAIL WAS NOT FOUND INSIDE FOR LOOP")
 				}
 			}
 			ORDER_DATE = result.order_date;
 			LINES = "'lines':[";
+			console.log("C ID is " + CUSTOMER_ID + " and C name is " + CUSTOMER_NAME + " and C email is " + CUSTOMER_EMAIL)
 			setTimeout(function(){
 				for(p=0; p < num_of_skus; p++) {
 					lineNumber = p+1;
@@ -267,6 +272,10 @@ $scope.BuildSalesOrder = function (order_number) {
 					DISCOUNT = result.DISCOUNT;
 					SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
 					TAXES = result.TAXES;
+					ORDERSTAGE = result.orderStage;
+					EMAIL = result.email;
+					CUSTOMER = result.customer_name;
+					console.log("THE ORDER STAGE IS " + ORDERSTAGE)
 					if(result.Is_Earphone[p] == "YES") {
 						UNITPRICE = result.SUBTOTALs[p];
 						//console.log("A" + UNITPRICE)
@@ -277,11 +286,11 @@ $scope.BuildSalesOrder = function (order_number) {
 							var q = str.search(";");
 							//console.log("Q is " + q)
 							var res = str.slice(q+1, 	result.SUBTOTALs[p].length);
-							console.log("RES is " + res + " IS A STRING")
+							//console.log("RES is " + res + " IS A STRING")
 							UNITPRICE =  res;
 						} else {
 							UNITPRICE = result.SUBTOTALs[p];
-							console.log(" NOT A STRING")
+							//console.log(" NOT A STRING")
 						}
 						/*
 						var str = result.SUBTOTALs[p];
@@ -311,7 +320,20 @@ $scope.BuildSalesOrder = function (order_number) {
 	
 				LINES = LINES + "]";
 				ORDER_NUMBER = result.order_number;
-				SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'discountAmount': " + DISCOUNT + ","  +"'taxAmount':" + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT +", " + LINES + "}";  
+				//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'discountAmount': " + DISCOUNT + ","  +"'taxAmount':" + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT +", " + LINES + "}";  
+
+				// HAS CONTACT NAME AND EMAIL IN SHIPPING FIELDS
+				//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'shipping' : {'contact': " +  '"' + CUSTOMER_NAME + '"' + ", 'email' : " +  '"' + CUSTOMER_EMAIL + '"' + "}," + "'orderStage' : {'id': "+ ORDERSTAGE + ",}," + "'discountAmount': " + DISCOUNT + ","  +"'taxAmount':" + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES +"}";  
+						
+				// FROM THE SOS INVENTORY PEOPLE
+				//SALES_ORDER ='{"Number": ' + ORDER_NUMBER + ', "date": ' + ORDER_DATE + ', "customer": {"id": ' + CUSTOMER_ID + ' }, ' + ' "shipping": {"company": ' + null + ', "contact": "' + CUSTOMER_NAME + '", "phone": ' + null + ', "email": "' + CUSTOMER_EMAIL + '", "addressName": ' + null + ', "addressType": ' + null + ', "address": { "line1": ' + null + ', "line2": ' + null + ', "line3": ' + null + ', "line4": ' + null + ', "line5": ' + null + ', "city": ' + null + ', "stateProvince": ' + null + ', "postalCode": ' +  null + ', "country": ' +  null + '}}, ' + '"orderStage": {"id": ' + ORDERSTAGE + ' },' + '"discountAmount": ' + DISCOUNT + ', ' + '"taxAmount": ' + TAXES + ', ' + '"shippingAmount": ' + SHIPPING_AMOUNT + ', ' + LINES + ' }';
+				
+				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
+
+
+
+
+				//SALES_ORDER = "{'Number' : " + ORDER_NUMBER + ", 'date' : '" + ORDER_DATE + "', 'customer' : {'id': " + CUSTOMER_ID + ",}," + "'orderStage' : {'id': "+ ORDERSTAGE + ",}," + "'discountAmount': " + DISCOUNT + ","  +"'taxAmount':" + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES +"}";  
 				//console.log(SALES_ORDER)
 				$scope.CreateSalesOrder(SALES_ORDER,  1000*(i+1))
 			}, 500)	

@@ -24,39 +24,14 @@ try
 	);
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$the_order_number = $_REQUEST["order_number"];
+$the_order_number = 10570381;
 
-$HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
-//$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
-//$before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
-$date = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day;
-$date = '2016-12-11';
-$result = [];
-$params = ['before' =>  $date . $HOURS[1], 'after' => $date . $HOURS[0], 'per_page' => 100];
-$result1 = $woocommerce->get('orders', $params);
-
-$params = ['before' => $date . $HOURS[3], 'after' => $date . $HOURS[2], 'per_page' => 100];
-$result2 = $woocommerce->get('orders', $params);
-
-$params = ['before' => $date . $HOURS[5], 'after' => $date . $HOURS[4], 'per_page' => 100];
-$result3 = $woocommerce->get('orders', $params);
-
-$params = ['before' => $date . $HOURS[7], 'after' => $date . $HOURS[6], 'per_page' => 100	];
-$result4 = $woocommerce->get('orders', $params);
-
-//$result = array_merge($result1, $result2, $result3, $result4);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//$the_order_number = '10571202';
 $result = $woocommerce->get('orders/' . $the_order_number);
 $order = [];
 $ind = 0;
   
 $data = get_object_vars($result);  // STORE THE DATA
-$email = strtolower($data[billing]->email);
-$response['email'] = $email;
-$customer_name = $data[billing]->first_name . " " . $data[billing]->last_name;
-$response['customer_name'] = $customer_name;
+$email = $data[billing]->email;
 $order_date =  date_format(date_create($data["date_created"]), DATE_ATOM);
 $order_number = $data["id"];
 
@@ -67,18 +42,12 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		$is_earphone = get_object_vars($line_item[meta_data][$k]); // MODEL -> 4
 		$coupon_lines = get_object_vars($data[coupon_lines][$k]); 
 		
-		if(!strcmp($data["status"], "processing")) {
-			$response['orderStage'] = 1;
-		} elseif(!strcmp($data["status"], "completed")) {
-			$response['orderStage'] = 2;
-		}
-		
 		$model_name[$ind] = $is_earphone["value"];
 		$full_product_name[$ind] = $line_item["name"];
 		$SKU[$ind] = $line_item["sku"];
 		$shipping_total = $data["shipping_total"];
 		$cart_tax = $data["cart_tax"];
-				
+		
 		if($ind == 0 ) {
 			$response["test"] = $SKU[$ind];
 			//echo json_encode($response);
@@ -87,8 +56,8 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		$total[$ind] = $data["total"]; // BELIEVE THIS IS SUBTOTAL PLUS SHIPPING
 		$subtotal[$ind] = $line_item["subtotal"];
 		$price_original_sku = $subtotal[$ind];
-		//$discount[$ind] = -(double) $data["discount_total"];
-		$discount = -(double) $data["discount_total"];
+		$discount[$ind] = -(double) $data["discount_total"]; // DISCOUNT
+		
 		$coupon[$ind] = $coupon_lines["code"];
 
 		if( stristr($full_product_name[$ind], "Driver") || stristr($full_product_name[$ind], "POS") ) {
@@ -114,10 +83,9 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		
 	if( stristr($full_product_name[$ind], "Driver") || stristr($full_product_name[$ind], "POS") || stristr($full_product_name[$ind], "Custom Hearing Protection") ) { 
 	//if( stristr($full_product_name[$ind], "Driver") || stristr($full_product_name[$ind], "POS")  ) { 		
-		if(!strcmp($data["status"], "processing") || !strcmp($data["status"], "completed") ) { // || !strcmp($data["status"], "completed") ) {
-			
+		if(!strcmp($data["status"], "processing") ) { // || !strcmp($data["status"], "completed") ) {
+		
 			for($j = 0; $j < count($line_item[meta_data]); $j++) {
-				
 				if(!strcmp($line_item[meta_data][$j]->key, "Model") ) {
 					// DELETED WHAT WAS HERE BECAUSE IT WAS NOT NEEDED
 				
@@ -272,7 +240,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-CABLE-64CUG';
 					} elseif(stristr($line_item[meta_data][$j]->value, "64_black") ) {
 						$SKU[$ind] = 'ALCLR-CABLE-64BUG';
-					} elseif(stristr($line_item[meta_data][$j]->value, "mic_cable") || stristr($line_item[meta_data][$j]->value, "mic") ) {
+					} elseif(stristr($line_item[meta_data][$j]->value, "mic_cable") ) {
 						$SKU[$ind] = 'ALCLR-CABLE-MIC';
 					} 
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
@@ -454,18 +422,20 @@ if($cart_tax > 0) {
 	//$earphone[1] = 'ALCLR-ELECTRO';
 	//$MSRP[1] = 1499;
 	// LOOK UP TABLE/ARRAY
-	/*
 	$earphone = array('ALCLR-VERSA-1', 'ALCLR-VERSA-POS', 'ALCLR-DUAL', 'ALCLR-DUAL-POS', 'ALCLR-DUALXB', 'ALCLR-DUALXB-POS', 'ALCLR-REFERENCE-POS', 'ALCLR-REFERENCE', 'ALCLR-TOUR-POS', 'ALCLR-TOUR', 'ALCLR-RSM-POS', 'ALCLR-RSM', 'ALCLR-CMVK', 'ALCLR-CMVK-POS', 'ALCLR-SPIRE-POS', 'ALCLR-SPIRE', 'ALCLR-STUDIO3-POS', 'ALCLR-STUDIO3', 'ALCLR-STUDIO4-POS', 'ALCLR-STUDIO4', 'ALCLR-REVX-POS', 'ALCLR-REVX', 'ALCLR-ELECTRO', 'ALCLR-ELECTRO-POS', 'VERSA-DUAL');
 	$MSRP = array(349, 349, 349, 349, 349, 349, 499, 499, 499, 499, 649, 649, 649, 649, 849, 849, 749, 749, 949, 949, 1499, 1499, 1499, 1499, 249);
-	
+	/*
 	$discount = 0;
-	for($k = 0; $k < count($SKU); $k++) {
+	for($k = 0; $k < count($SKU); $k++) {  // COUNT SKUs
 		if(!strcmp($yes_no_earphone[$k], "YES")	 ) {
 			for($p = 0; $p < count($earphone); $p++) {	
 				if(!strcmp($SKU[$k], $earphone[$p])) {
-					if($subtotal[$k] != $MSRP[$p]) {
-						$discount = $discount + ($MSRP[$p] - $subtotal[$k]);
+					
+					if($total[$k] != $MSRP[$p]) {
+						$discount = $discount + ($MSRP[$p] - $total[$k]);
 						$subtotal[$k] = $MSRP[$p];
+						echo "The price is " . $total[$k] . " and the discount is " . $MSRP[$p];
+					exit;
 					}
 					if(!strcmp($SKU[$k], "VERSA-DUAL") ) {
 						//$response["test"] = "SKU is " . $SKU[$k] . " and order # is " . $order_number;
@@ -479,10 +449,14 @@ if($cart_tax > 0) {
 	}
 	*/
 	//$response['SKUs'] = $SKUs;
+	
 	$response['SKUs'] = $SKU;
 	$response['SUBTOTALs'] = $subtotal;
 	$response['SHIPPING_AMOUNT'] = $shipping_total;
+	
+	//$discount = array_map('intval', $discount);
 	$response['DISCOUNT'] = $discount;
+	
 	$response['TAXES'] = $cart_tax;
 	$response['price_original_sku'] = $price_original_sku;
 	$response['order_number'] = $order_number;
@@ -494,6 +468,8 @@ if($cart_tax > 0) {
 	$response['ind'] = $ind;
 	$response["num_items"] = count($data[line_items]);			
 	$response['code'] = 'success';
+	echo "The price is " . $subtotal[0] . " and the discount is " . $discount . " and type is " . gettype($discount[0]);
+	exit;
 	echo json_encode($response);
 	
 }

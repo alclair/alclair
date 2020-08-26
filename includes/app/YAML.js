@@ -49,9 +49,17 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
 		the_files.forEach(function(item, index, the_files) {
 			//console.log("item: " + item + " at index: " + index + " in the array: " + the_files)
 		//setTimeout(function(){
+			
+			
+			
+			/*
 			setTimeout(function(){
-				console.log("Index Is " + index)
+				//console.log("Index Is " + index)
 			}, 250 * (index+1) )  
+			*/
+			
+			
+			
 		  var api_url = window.cfg.apiUrl + 'yaml/read.php' ; 
 	        //if ($scope.selectedFiles.length == $scope.selectedFiles.length > 0) {
 		    //if ($scope.selectedFiles.length > 0) {
@@ -73,7 +81,7 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
 	                fileFormDataName: 'documentfile'
 	            })
 	               .success(function (data) {
-				   		//console.log("Test is " + data.test)
+				   		console.log("Test is " + data.test)
 		               $scope.store_data = {
 					   		customer_id: data.customer_id,
 					   		date: data.date,
@@ -85,11 +93,11 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
 					   	$scope.date = $scope.date + data.date;
 					   	$scope.author = $scope.author + data.author;
 					   	$scope.no_record = $scope.no_record + data.no_record;
-					   	//body2 = body2 + data.body;
+					   	//console.log("Date is " + $scope.date)
 					   	
 	                  if (data.code == "success") {
 	                  	toastr.success("Document is saved successfully.");
-							console.log("TESTING IS " + data.test)
+							//console.log("TESTING IS " + data.test)
 	                   } else {
 						
 						}
@@ -110,22 +118,32 @@ swdApp.controller('ImportFile', ['$http', '$scope', 'AppDataService', '$upload',
     //} // CLOSE FOR LOOP		
     //}, 1000 * (index+1) )   			
 	    }) // CLOSE FOREACH  
+	    
+	   
 	    setTimeout(function(){
-	    	console.log("All the dates " + $scope.date)
+	    	//console.log("Body is " + $scope.body)
 	    	
-			var api_url = window.cfg.apiUrl + "yaml/create_excel.php?customer_id=" + $scope.c_id + "&date=" + $scope.date + "&author=" + $scope.author + "&body=" + $scope.body + "&no_record=" + $scope.no_record;
+			var str_concat = $scope.body.replace(/"/g, ""); // REMOVING "
+			var str_concat = str_concat.replace(/#/g, "");   // REMOVING #
+			var str_concat = str_concat.replace(/&/g, "");   // REMOVING #
+			var str_concat = str_concat.replace(/\\n/g, " ");    // REMOVING \n
+	    	//console.log("Str Concat is " + str_concat)
+			var api_url = window.cfg.apiUrl + "yaml/create_excel.php?customer_id=" + $scope.c_id + "&date=" + $scope.date + "&author=" + $scope.author + "&body=" + str_concat + "&no_record=" + $scope.no_record;
 			//var api_url = window.cfg.apiUrl + 'yaml/create_excel.php';
-			console.log("asfdasf")
 			$http.get(api_url)
 				.success(function (result) {
+					//console.log("Test is " + result.test)
 					console.log("Who did not get in is " + result.yaml_not_working)
 					$scope.print_YAML = result.yaml_not_working;
 					$.unblockUI();
    				}).error(function (result) {
-   					console.log("Order number that could not be found was ")
+   					//console.log("Order number that could not be found was " + $scope.c_id)
+   					console.log("Line 126 - Failed")
     		});
 	    	
 	    }, 350 * the_files.length )  
+	    
+	    
     }
                
     $scope.init=function()

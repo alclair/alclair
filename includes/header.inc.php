@@ -81,6 +81,7 @@
 		<?php
 		$CurrentMonthFirstDate=date("m")."/01/".date("Y");
 		$CurrentDay=date("m")."/".date("d")."/".date("Y");
+		$CurrentDay_football = date("m/d/Y", strtotime("-6 hours"));
 		$CurrentDay_plus_2weeks = date("m/d/Y", strtotime("+2 weeks"));
 		$date=date_create($CurrentMonthFirstDate);
 		date_add($date,date_interval_create_from_date_string("1 month"));
@@ -92,6 +93,7 @@
 		window.cfg.CurrentMonthFirstDate="<?=$CurrentMonthFirstDate?>";
 		window.cfg.CurrentMonthLastDate="<?=$CurrentMonthLastDate?>";
 		window.cfg.CurrentDay="<?=$CurrentDay?>";
+		window.cfg.CurrentDay_football="<?=$CurrentDay_football?>";
 		window.cfg.CurrentDay_plus_2weeks="<?=$CurrentDay_plus_2weeks?>";
 		window.cfg.OctoberOne="<?=$OctoberOne?>";
 		window.cfg.TwoMonthsPrior="<?=$TwoMonthsPrior?>";
@@ -450,6 +452,17 @@ Pickup
 					</ul>
 				</li>
 				<?php } ?> 
+				<?php
+				if ( $_SESSION["UserName"] == 'admin'  || $rootScope["SWDCustomer"] == "dev" ) {
+				?>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Football <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class=" "><a href="<?=$rootScope['RootUrl']?>/zfootball/roster" class="nav-link "> Roster</a></li>
+					</ul>
+				</li>
+				<?php } ?> 
+
 				<?php } ?> 
 				<!-- Adding a tab named "Monitor"-->
 				<!-- Customers that pay for monitoring will have this tab added-->

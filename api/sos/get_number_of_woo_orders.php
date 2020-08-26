@@ -34,7 +34,7 @@ $date = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day;
 $date = '2017-12-01';
 $date = '2017-12-31';
 
-$month = '07';
+$month = '08';
 $year = '2020';
 
 $date1 = $year . '-' . $month . '-01';
@@ -118,6 +118,8 @@ $result18 = $woocommerce->get('orders', $params);
 $params = ['before' =>  $date19 . $HOURS[1], 'after' => $date19 . $HOURS[0], 'per_page' => 100];
 $result19 = $woocommerce->get('orders', $params);
 $params = ['before' =>  $date20 . $HOURS[1], 'after' => $date20 . $HOURS[0], 'per_page' => 100];
+
+$params = ['before' =>  $date20 . 'T15:25:00', 'after' => $date20 . 'T15:20:00', 'per_page' => 100];
 $result20 = $woocommerce->get('orders', $params);
 
 $params = ['before' =>  $date21 . $HOURS[1], 'after' => $date21 . $HOURS[0], 'per_page' => 100];
@@ -148,8 +150,10 @@ $result = [];
 
 //$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7, $result8, $result9, $result10, $result11, $result12, $result13, $result14, $result15, $result16, $result17, $result18, $result19, $result20, $result21, $result22, $result23, $result24, $result25, $result26, $result27, $result28, $result29, $result30);
 
-//$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7, $result8, $result9, $result10, $result11, $result12, $result13, $result14, $result15, $result16, $result17, $result18, $result19, $result20, $result21, $result22, $result23, $result24, $result25, $result26, $result27, $result28, $result29, $result30, $result31);
-$result = array_merge($result15);
+//$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7,$result8,$result9,$result11,$result12,$result13,$result14,$result15,$result16, $result17, $result18, $result19, $result20);
+//$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7, $result8, $result9, $result10, $result11, $result12, $result13, $result14, $result15, $result16, $result17, $result18, $result19, $result20, $result21, $result22,$result23,$result24,$result25,$result26, $result27, $result28, $result29, $result30, $result31);
+
+$result = array_merge($result24);
 /*
 $params = ['before' => '2017-12-04T23:59:59', 'after' => '2017-12-04T00:00:00', 'per_page' => 100];
 $before = '2017-12-04T23:59:59';
@@ -166,10 +170,10 @@ $result = $woocommerce->get('orders', $params);
 $inc = 0;
 for($k = 0; $k < count($result); $k++) { 
 	$data = get_object_vars($result[$k]);  // STORE THE DATA
-	if(!strcmp($data["status"], "processing") ) { // || !strcmp($data["status"], "completed") ) {
+	if(!strcmp($data["status"], "processing") || !strcmp($data["status"], "completed") ) { // || !strcmp($data["status"], "completed") ) {
 		$order_numbers[$inc] = $data["id"];
 		$customer_names[$inc] = $data[billing]->first_name . " " . $data[billing]->last_name;
-		$emails[$inc] = $data[billing]->email;
+		$emails[$inc] = strtolower($data[billing]->email);
 		$inc = $inc + 1;
 	}
 }

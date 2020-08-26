@@ -31,8 +31,9 @@ $author = $_POST["author"];
 $body = $_POST["body"];
 $no_record = '';
 
+
 if($_REQUEST["loop_number"] == 1) {
-	$response['test'] = $body;
+	$response['test'] = $body . " and right here";
 	echo json_encode($response);
 	exit;
 }
@@ -74,6 +75,9 @@ $customer_index = 0;
 	
 	$File = $target_file;
 	$parsed2 = yaml_parse_file($File);
+	$response['test'] =count($parsed2);
+	$response['test'] =array_keys($parsed2) . " and here";
+
 		
 	if(count($parsed2) > 1) {
 		//$response["things"] = "Has records - " . $_FILES["documentfile"]["name"];
@@ -87,9 +91,9 @@ $customer_index = 0;
 			$customer_id_store[$customer_index] = $parsed2[$i]["ID"];
 			$customer_index = $customer_index + 1;
 			
-		} elseif($i == 1) { // COMPANY INFO & DO NOT NEED
+		//} elseif($i == 1) { // COMPANY INFO & DO NOT NEED
 		
-		} elseif($i == 2) { // CONTACT INFO & DO NOT NEED
+		//} elseif($i == 2) { // CONTACT INFO & DO NOT NEED
 			/*
 			$hold = $parsed2[2]["Contact"];
 			for ($k=0; $k < count($parsed2[2]["Contact"]); $k++) {
@@ -100,48 +104,109 @@ $customer_index = 0;
 				}
 			}
 			*/
-		} elseif($i >= 3) {
+		} elseif($i >= 1) {
 			//$customer_id[$index] = $customer_id[$customer_index-1];	
-			$customer_id = $customer_id . "," .  $customer_id_store[$customer_index-1];	
+			
 			$string = json_encode($parsed2[$i]);
-			$ind = strpos($string, "Note");
-			$note_id = "Note " . substr($string, $ind+5, 9);
+						
+			if(stristr($string, "Note ") || stristr($string, "Email ") ) {  
+				
+				$ind = strpos($string, "Note");
+				$ind2 = strpos($string, "Email");
+				if(stristr(substr($string, 0, 24), "Note")) {  // NOTE IS NOT PART OF THIS ITERATION THROUGH THE FOR LOOP
+					$customer_id = $customer_id . "," .  $customer_id_store[$customer_index-1];	
 					
-			$hold = $parsed2[$i][$note_id];
-			$written = json_encode($hold[1]["Written"]);
-			$written = substr($written, 1, strlen($written)-2);
-			//$date[$index]= date('m/d/Y H:m', strtotime($written));
-			$date = $date. "," .  date('m/d/Y H:i', strtotime($written));
-			//$date = $date. "," .  $written;
-			
-			$about = json_encode($hold[2]["About"]);
-			//$body[$index] = json_encode($hold[3]["Body"]);
-			$body = $body . "," .   json_encode($hold[3]["Body"]);
-			
-			$employee = json_encode($hold[0]["Author"]);
-			if( stristr($employee, "Amanda") ) {
-				$this_author = "amanda@alclair.com";
-			} elseif( stristr($employee, "Amy") ) {
-				$this_author = "amy@alclair.com";
-			} elseif( stristr($employee, "Marc") ) {
-				$this_author = "marc@alclair.com";
-			} elseif( stristr($employee, "Andy") ) {
-				$this_author = "andy@alclair.com";
-			} elseif( stristr($employee, "Scott") ) {
-				$this_author = "scott@alclair.com";
-			} elseif( stristr($employee, "Jonny") ) {
-				$this_author = "jonny@alclair.com";
-			} elseif( stristr($employee, "Jeremy") ) {
-				$this_author = "jeremy.lee@alclair.com";
-			} elseif( stristr($employee, "Stephen") ) {
-				$this_author = "stephen@alclair.com";
-			} else {
-				//$author[$index] = "sales@alclair.com";
-				$this_author = "sales@alclair.com";
-			}
-			$author = $author . "," .   $this_author;
-			$index = $index + 1;		
-		}	
+					$colon_pos = strpos($string,":");
+					$note_id = "Note" . substr($string, 6, $colon_pos-7);
+
+					$response["test"] = "Test is " . $note_id . " and note 2 is " . $note_id2;
+						//echo json_encode($response);
+						//exit;
+					
+					//$note_id = "Note " . substr($string, $ind+5, 9);
+					$hold = $parsed2[$i][$note_id];
+					
+					$string_hold = json_encode($hold[3]["Body"]);
+					$string_hold = str_replace(",", " ", $string_hold); // REMOVING COMMAS FROM THE BODY
+					$string_hold = str_replace("|-", "", $string_hold); // REMOVING |- FROM THE BODY
+					$body = $body . "," .  $string_hold;
+					//$body = $body . "," .   json_encode($hold[3]["Body"]);
+					if($i == 5) {
+						$response["test"] = "TESTHERE " . $i . " IS  " .  json_encode($hold[3]["Body"]);//$parsed2[$i][$note_id];
+						//echo json_encode($response);
+						//exit;
+					}
+				} elseif(stristr(substr($string, 0, 24), "Email")) {				
+					$customer_id = $customer_id . "," .  $customer_id_store[$customer_index-1];	
+				
+					$colon_pos = strpos($string,":");
+					$note_id = "Email" . substr($string, 7, $colon_pos-8);
+					$response["test"] = "Test is " . $note_id;
+						//echo json_encode($response);
+						//exit;
+					//$note_id = "Email " . substr($string, $ind2+6, 9);
+					$hold = $parsed2[$i][$note_id];
+					
+					if($i == 5) {
+						$response["test"] = "TEST " . $i . " IS  " .  json_encode($hold[3]["Body"]);//$parsed2[$i][$note_id];
+						//echo json_encode($response);
+						//exit;
+					}
+					
+					$string_hold = json_encode($hold[4]["Body"]);
+					if(strlen($string_hold) > 500) {
+						$string_hold = "Truncated due to size.";
+						$body = $body . "," .  $string_hold;
+					} else {
+						$string_hold = str_replace(",", " ", $string_hold); // REMOVING COMMAS FROM THE BODY
+						$string_hold = str_replace("|-", "", $string_hold); // REMOVING |- FROM THE BODY
+						$body = $body . "," .  $string_hold;
+						//$body = $body . "," .   json_encode($hold[4]["Body"]);	
+					}
+	
+				} else {
+					$response["test"] = "IN ELSE and I is " . $i;
+					//echo json_encode($response);
+					//exit;
+				}
+	
+						
+				
+				$written = json_encode($hold[1]["Written"]);  // THIS IS THE DATE
+				$written = substr($written, 1, strlen($written)-2);
+				//$date[$index]= date('m/d/Y H:m', strtotime($written));
+				$date = $date. "," .  date('m/d/Y H:i', strtotime($written));
+				//$date = $date. "," .  $written;
+				
+				$about = json_encode($hold[2]["About"]);
+				//$body[$index] = json_encode($hold[3]["Body"]);
+				
+				
+				$employee = json_encode($hold[0]["Author"]);
+				if( stristr($employee, "Amanda") ) {
+					$this_author = "amanda@alclair.com";
+				} elseif( stristr($employee, "Amy") ) {
+					$this_author = "amy@alclair.com";
+				} elseif( stristr($employee, "Marc") ) {
+					$this_author = "marc@alclair.com";
+				} elseif( stristr($employee, "Andy") ) {
+					$this_author = "andy@alclair.com";
+				} elseif( stristr($employee, "Scott") ) {
+					$this_author = "scott@alclair.com";
+				} elseif( stristr($employee, "Jonny") ) {
+					$this_author = "jonny@alclair.com";
+				} elseif( stristr($employee, "Jeremy") ) {
+					$this_author = "jeremy.lee@alclair.com";
+				} elseif( stristr($employee, "Stephen") ) {
+					$this_author = "stephen@alclair.com";
+				} else {
+					//$author[$index] = "sales@alclair.com";
+					$this_author = "sales@alclair.com";
+				}
+				$author = $author . "," .   $this_author;
+				$index = $index + 1;		
+			} // CLOSE IF STATEMENT TO SEE IF NOTE OR EMAIL NEEDS TO BE FOUND
+		}	// CLOSE IF STATEMENT
 	}  // END FOR LOOP FOR PARSING THROUGH EACH FILE
 //} // END FOR LOOP FOR EACH FILE
 	$response["customer_id"] = $customer_id;

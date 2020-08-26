@@ -46,6 +46,32 @@ var sos_code = 'we will get there';
 		  });
 	}    
 	
+	  $scope.GetSalesOrder = function () {
+        console.log("In Get 2" )
+        order_number = '10570415';
+		$http({
+		  method: 'GET',
+		  url: 'https://api.sosinventory.com/api/v2/salesorder/' + order_number, 
+		  headers: {
+			  'Content-Type': 'application/x-www-form-urlencoded',
+			  'Host': 'api.sosinventory.com',
+			  'Authorization': 'Bearer ' + sos_code
+			}
+		}).then(function successCallback(response) {
+			console.log("Success 1 " + JSON.stringify(response.data))
+			json = response.data.data;
+			console.log("The status is " + response.data.status)
+			//json.name = 'Test Name 94';
+			//console.log("JSON is " + json.number)
+		    // this callback will be called asynchronously
+		    // when the response is available
+		  }, function errorCallback(response) {
+			  console.log("Fail")
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		  });
+	}    
+	
 	$scope.Post = function () {
         console.log("In Post ")
 		$http({

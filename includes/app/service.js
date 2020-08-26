@@ -253,6 +253,24 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
         });
     };
 	
+	
+	
+	this.load_football_TeamList = function (name, params, success, error) {
+		var api_url = window.cfg.apiUrl + name + "/get_teams.php";
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+	        console.log("WORKING " + result.test)
+            success(result);
+        }).error(function (result) {
+	        console.log("NOT WORKING")
+            error(result);
+        });
+    };
+
   
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
@@ -344,6 +362,15 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
 
         this.load_alclair_repairStatusTableList('alclair', params, success, error);
     };
+    
+    
+    this.loadTeamList = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_football_TeamList('zfootball', params, success, error);
+    };
+
 /////////////////////////////////////////////////////////////////////////////////////////////////// BATCH STUFF ////////////////////////////////////////////////////////////////////////    
     this.loadBatchTypeList = function (params, before, success, error) {
         if (before != null && before != undefined)

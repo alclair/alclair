@@ -47,7 +47,7 @@ $result4 = $woocommerce->get('orders', $params);
 //$result = array_merge($result1, $result2, $result3, $result4);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+//$the_order_number = '10571202';
 $result = $woocommerce->get('orders/' . $the_order_number);
 $order = [];
 $ind = 0;
@@ -78,7 +78,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		$SKU[$ind] = $line_item["sku"];
 		$shipping_total = $data["shipping_total"];
 		$cart_tax = $data["cart_tax"];
-		
+				
 		if($ind == 0 ) {
 			$response["test"] = $SKU[$ind];
 			//echo json_encode($response);
@@ -116,41 +116,8 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 	//if( stristr($full_product_name[$ind], "Driver") || stristr($full_product_name[$ind], "POS")  ) { 		
 		if(!strcmp($data["status"], "processing") || !strcmp($data["status"], "completed") ) { // || !strcmp($data["status"], "completed") ) {
 			
-			/*$order[$ind]["status"] = $data["status"];
-			$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
-			$order[$ind]["order_id"] = $data["id"]; // ORDER ID -> 1
-			$order[$ind]["product"] = $full_product_name; // PRODUCT -> 2 
-			$order[$ind]["price"] = $price[$ind];
-			$order[$ind]["total"] = $total[$ind];
-			$order[$ind]["discount"] = $discount;
-			$order[$ind]["coupon"] = $coupon;
-			*/
-			// CHECK TO SEE IF ORDER IS ONLY FOR CUSTOM HEARING PROTECTION
-			/*if(stristr( substr($full_product_name, 0, 25), "Hearing Protection (") ) {
-				
-				$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
-				$str_pos = $str_pos + 2; // JUMP PAST THE PARENTHESIS AND THE $ SIGN AND KEEP ONLY THE DOLLAR AMOUNT
-				$dollar_value = substr($line_item[meta_data][$j]->key, $str_pos, -1);
-				$price_original_sku = $price_original_sku - $dollar_value;
-				$earphone_price = $earphone_price - $dollar_value;
-
-				$ind = $ind+1;
-				$subtotal[$ind] = $dollar_value;
-								
-				$SKU[$ind] = 'ALCLR-HP-BLK';
-				$SKU[$ind] = 'ALCLR-HP-BLU';
-				$SKU[$ind] = 'ALCLR-HP-BRN';
-				$SKU[$ind] = 'ALCLR-HP-CLR';
-				$SKU[$ind] = 'ALCLR-HP-GRN';
-				$SKU[$ind] = 'ALCLR-HP-ORNG';
-				$SKU[$ind] = 'ALCLR-HP-PNK';
-				$SKU[$ind] = 'ALCLR-HP-RED';
-				$SKU[$ind] = 'ALCLR-HP-YLW';
-				$yes_no_earphone[$ind] = "NO";
-				
-			}
-				*/
 			for($j = 0; $j < count($line_item[meta_data]); $j++) {
+				
 				if(!strcmp($line_item[meta_data][$j]->key, "Model") ) {
 					// DELETED WHAT WAS HERE BECAUSE IT WAS NOT NEEDED
 				
@@ -305,7 +272,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-CABLE-64CUG';
 					} elseif(stristr($line_item[meta_data][$j]->value, "64_black") ) {
 						$SKU[$ind] = 'ALCLR-CABLE-64BUG';
-					} elseif(stristr($line_item[meta_data][$j]->value, "mic_cable") ) {
+					} elseif(stristr($line_item[meta_data][$j]->value, "mic_cable") || stristr($line_item[meta_data][$j]->value, "mic") ) {
 						$SKU[$ind] = 'ALCLR-CABLE-MIC';
 					} 
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS

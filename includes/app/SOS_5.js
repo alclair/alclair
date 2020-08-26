@@ -1,5 +1,6 @@
 swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
 
+// STEP 1 - RETRIEVE SOS AUTHORIZATION CODE TO ACCESS THEIR SYSTEM
 async function getSOSauthorizationCode() {
     return new Promise(
         (resolve, reject) => {
@@ -16,6 +17,7 @@ async function getSOSauthorizationCode() {
         }
     );
 };
+// STEP 2 - RETRIEVE ITEMS/SKUS FROM OTIS DATABASE
 $scope.getItemsFromDB = function() {
 	$scope.sos_sku = [];
 	$scope.sos_id = [];
@@ -32,7 +34,10 @@ $scope.getItemsFromDB = function() {
 		console.log("Order number that could not be found was " + order_number)
     });
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// STEP 3 - RETRIEVE THE ORDER NUMBERS FROM WOOCOMMERCE FROM A CERTAIN DAY OR MONTH
+// ALSO DETERMINE WHO THE CUSTOMERS ARE (NAME & EMAIL)
 $scope.customer_info = [];
 $scope.num_of_orders = [];
 async function GrabOrderNumbersWoo_1st_Time() {
@@ -46,14 +51,9 @@ async function GrabOrderNumbersWoo_1st_Time() {
 			loop_thru = $scope.num_of_orders;
 			console.log("Number of orders is " + $scope.num_of_orders)
 			for(p=0; p < loop_thru; p++) {
-				//var customer_info = '{"Name": ' + '"' + result.customer_names[p] + '"' + ', "Email": ' + '"' +  result.emails[p] + '"' + '}';
-				//console.log("P is " + p + " and " + customer_info)
 				$scope.customer_info[index] = '{"Name": ' + '"' + result.customer_names[p] + '"' + ', "Email": ' + '"' +  result.emails[p] + '"' + '}';
 				console.log("P is " + p + " and " + $scope.customer_info[index])
-				//$scope.CreateCustomersinSOS2($scope.customer_info[index]);
 				index = index + 1;
-				//return;
-				//$scope.CreateCustomersinSOS(result.order_numbers, result.customer_names, result.emails);
 			}
 			(async () => {
 				//await CreateCustomersInSOS4();
@@ -79,6 +79,7 @@ async function GrabOrderNumbersWoo_1st_Time() {
        	return;
 }
 
+// STEP 4 - ATTEMPT TO POST/ENTER THE CUSTOMER(S) INTO SOS INVENTORY
 function STEP3(customer_info, delay, loop_thru, i) { 
 //async function STEP3(customer_info) {
 	var move_on = "NO";
@@ -94,7 +95,6 @@ function STEP3(customer_info, delay, loop_thru, i) {
 			  'Authorization': 'Bearer ' + sos_code
 			}
 		}).then(function successCallback(response) {
-			//console.log("CUSTOMER CREATED " + JSON.stringify(response.data.data))
 			console.log("CUSTOMER CREATED " + JSON.stringify(response.data.data))
 			var move_on = "YES";
 			json = response.data.data;
@@ -137,8 +137,8 @@ function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
-	var start_at = 880; 
-	var num_customers = 906; 
+	var start_at = 600; 
+	var num_customers = 900; 
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -248,7 +248,7 @@ $scope.BuildSalesOrder = function (order_number) {
 			num_of_skus = result.SKUs.length;
 			email = result.email;
 			CUSTOMER_ID  = 0;
-			//console.log("Customer email length is " + $scope.customer_email.length )
+			console.log("Customer email length is " + $scope.customer_email.length )
 			for(s=0; s < $scope.customer_email.length; s++) {
 				//console.log("Email is " + email)
 				if(email == $scope.customer_email[s]) {
@@ -305,8 +305,6 @@ $scope.BuildSalesOrder = function (order_number) {
 				ORDER_NUMBER = result.order_number;
 				
 				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
-				
-
 
 
 				$scope.CreateSalesOrder(SALES_ORDER,  1000*(i+1))

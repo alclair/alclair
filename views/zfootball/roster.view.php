@@ -9,40 +9,53 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
     <div class="press-enter" style="width:99%;margin-left:10px;">
         <div class="row">
             <div class="col-md-4">
-                <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Roster</a> (# of players: {{TotalRecords}})</b>&nbsp;&nbsp;</a>
+                <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Roster</a> (# of players: {{TotalRecords}}) </b>&nbsp;&nbsp;</a>
             </div>
         </div>
         
 		<!--<div class="row alert" style='background-color:#ddd;'>-->
             
             
-		<div class="row alert" style='background-color:#ddd;'>
-            <div class="form-group col-sm-1">                  
-                <!--<select class='form-control' ng-model='build_type_id' ng-options="buildType.id as buildType.type for buildType in buildTypeList">
-					<option value="">Select a build type</option>
-				</select>-->
-            </div>
-			<div class="form-group col-sm-2">
-                <select class='form-control' ng-model='team_id' ng-options="team.id as team.team_name for team in teamList">
+		<div class="row alert" style='background-color:#ddd;'> <!--class="row alert"-->
+			<div class="row">
+				<div class="form-group col-sm-4">
+              	  <select class='form-control input-lg' ng-model='team_id' ng-options="team.id as team.team_name for team in teamList" ng-blur="refresh_page()">
 	                <option value="">-- Teams --</option>
                 </select>
-            </div>	
-
-			<div class="col-sm-2">
-				<div class="input-group">
-                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="SearchEndDate" is-open="openedEnd" datepicker-options="dateOptions"  ng-inputmask="99/99/9999" close-text="Close" />
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-default" ng-click="openEnd($event)"><i class="fa fa-calendar"></i></button>
-                    </span>
-                </div>
+            	</div>	
 			</div>
-           <div class="form-group col-sm-1">       
+			<div class="row">
+				<div class="form-group col-sm-4">
+					<div class="input-group">
+                    <input type="text" class="form-control input-lg" uib-datepicker-popup="{{format}}" ng-model="SearchEndDate" is-open="openedEnd" datepicker-options="dateOptions"  ng-inputmask="99/99/9999" close-text="Close" ng-click="openEnd($event)"disabled/>
+                    <span class="input-group-btn" >
+                        <button style="padding: 20px 20px;" type="button" class="btn btn-default" ng-click="openEnd($event)" ><i class="fa fa-calendar"></i></button>
+                    </span>
+                	</div>
+				</div>
+		</div>
+		<div class="row">
+           <div class="form-group col-sm-2">       
 				<button style="font-weight: 600" type="button" class="btn btn-primary" ng-click="refresh_page()">
-					 &nbsp; LOAD
+					 &nbsp; RELOAD
 				</button>
             </div>		
-             <div class="form-group col-sm-4">       	
-				 <span style="font-size:40px; color:blue; vertical-align: middle;">{{TEAM_NAME}}</span>
+            <div class="form-group col-sm-2" ng-show="team_id>=1">       
+				<button style="font-weight: 600" type="button" class="btn btn-success" ng-click="UpdateAttendance3()">
+					 &nbsp; SAVE
+				</button>
+            </div>	
+		</div>	
+	</div>
+		
+		
+		<div  style='background-color:#ddd;'>
+             <div class="form-group col-sm-12">       	
+				 <span style="font-size:40px; color:blue; vertical-align: middle;">{{TEAM_NAME}}  <br/> 
+				 <span ng-show="team_id>=1"> {{DATE_DISPLAYED}}</span>  <br/> 
+				 <span ng-show="team_id>=1 && ATTENDANCE_YET=='YES'" style="color:red"> Attendance Taken</span>
+				 <span ng-show="team_id>=1 && ATTENDANCE_YET=='NO'" style="color:red"> No Attendance Yet</span>
+				 </span>
              </div>
 		</div>
         
@@ -53,17 +66,20 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;">Absent?</th>
-					<th style="text-align:center;">Name</th>
-					<th style="text-align:center;">Key</th>
+					<!--<th style="text-align:center;">Check if absent</th>-->
+					<th style="text-align:left;font-size:40px">Name (check if absent)</th>
 				</tr>
 			</thead>	
 			<tbody>
-				<tr ng-repeat='(key, person) in personnelList'>
-										
-					<td  style="text-align:center;" data-title="Absent?">{{person.person_id}}</td>
-					<td  style="text-align:center;" data-title="Name">{{person.first_name}} {{person.last_name}}</td>
-					<td  style="text-align:center;" data-title="Key">{{key}}</td>
+				<tr ng-repeat='(key, person) in personnelList'>					
+					<!--<td  style="text-align:center;" data-title="Check if absent">
+						<input type="checkbox" ng-model="person.absent"  ng-true-value="1" ng-false-value="0">
+					</td>-->
+					<td  style="text-align:left;font-size:46px;" data-title="Name">
+						<input type="checkbox" ng-model="person.absent"  ng-true-value="1" ng-false-value="0" style=" transform: scale(2.5);margin-left:80px">
+						&nbsp;&nbsp;&nbsp;&nbsp;{{person.first_name}} {{person.last_name}}
+					</td>
+					<!--<td  style="text-align:center;" data-title="Key">{{key}}</td>-->
 				</tr>
 			</tbody>
 		</table>

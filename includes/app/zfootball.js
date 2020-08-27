@@ -1,6 +1,7 @@
 swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
 	$scope.personnelList = {};
 	$scope.TEAM_NAME = "";
+	$scope.DATE_DISPLAYED = "";
     $scope.PageIndex = 1;
     $scope.PageSize = window.cfg.PageSize;
     $scope.TotalPages = 0;
@@ -32,7 +33,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	$scope.openStart = function ($event) {        
         $scope.openedStart = true;
     };
-	$scope.openEnd = function ($event) {        
+	$scope.openEnd = function ($event) {      
         $scope.openedEnd = true;
     };
 	$scope.dateOptions = {
@@ -69,6 +70,43 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
         $scope.LoadData();
     }
 
+	$scope.UpdateAttendance3 = function () {
+		myblockui();
+		//console.log("Length is " + $scope.personnelList.length)
+		 for (var i = 0; i < $scope.personnelList.length; i++) {
+			 
+			 if($scope.personnelList[i].absent != 1) {
+				 $scope.personnelList[i].absent = 0;
+			 }
+			 //console.log("Person absent " + $scope.personnelList[i].absent + " and Person ID " +  $scope.personnelList[i].person_id)
+			 var api_url = window.cfg.apiUrl + "zfootball/update_attendance2.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize+"&DATE="+moment($scope.SearchEndDate).format("MM/DD/YYYY")+"&TEAM_ID=" + $scope.team_id + "&ABSENT=" + $scope.personnelList[i].absent + "&PERSONNEL_ID=" + $scope.personnelList[i].person_id + "&LOG_ID=" + $scope.personnelList[i].log_id;
+       myblockui();
+        $http({
+            method: 'POST',
+            url: api_url,
+            data: $.param($scope.personnelList),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+         .success(function (result) {
+	         console.log("Test is " + result.test)
+             if (result.code == "success") {
+                 $.unblockUI();
+                 
+                 $scope.LoadData();
+                 //toastr.success(result.message) 
+             }
+             else {
+                 $.unblockUI();
+                 console.log("Error Here")
+                 toastr.error(result.message == undefined ? result.data : result.message);
+             }
+         }).error(function (data) {
+             toastr.error("Broken");
+
+         });
+		}
+	}
+	
     
     $scope.LoadData = function () {
         myblockui();
@@ -79,14 +117,22 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            console.log("Test is " + result.test)
+	            
 	            
                 $scope.personnelList = result.data;
                 $scope.TEAM_NAME = result.TEAM_NAME;
-                //console.log("PLIST is " + $scope.personnelList[0]["first_name"]);
+                $scope.DATE_DISPLAYED = result.DATE_DISPLAYED;
+                $scope.ATTENDANCE_YET = result.ATTENDANCE_YET;
+                console.log("Team Name is " + $scope.TEAM_NAME)
                 $scope.TotalPages = result.TotalPages;
                 $scope.TotalRecords = result.TotalRecords;
-                console.log("TotalRecords " + result.TotalRecords)
+                console.log("TotalRecords " + result.data.length)
+                
+                for (var i = 0; i < result.data.length; i++) {
+	                if($scope.personnelList[i]["present"] == "NO") {
+		            	$scope.personnelList[i]["absent"] = 1;	    
+	                }					
+				}
 
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
@@ -148,10 +194,6 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
         }, function (result) { });
         $scope.LoadData();
     }
-    			        
-    $scope.openDone = function ($event) {        
-        $scope.openedDone = true;
-    };
 
     $scope.LoadSelectDateModal=function(id) {
         $('#SelectDateModal').modal("show");   

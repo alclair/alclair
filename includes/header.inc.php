@@ -124,6 +124,9 @@
 				<?php if(!empty($_SESSION["UserId"])) { ?>
 				
 				<?php if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair"  ) { ?>	
+				<?php
+						if ( $_SESSION["UserName"] != 'Football' ) {
+					?>
 					<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/dashboard" class="nav-link "> Dashboard</a></li>
 					
 					<li class="dropdown">
@@ -151,6 +154,7 @@
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repairs_done_by_date" class="nav-link "> Repairs Done By Date</a></li>
 						</ul>
 					</li>
+					<?php } ?> 
 				<?php } ?> 
 				
 				<?php if ( $rootScope["SWDCustomer"] != "lng" && $rootScope["SWDCustomer"] != "trd" && $rootScope["SWDCustomer"] != "wwl" && $rootScope["SWDCustomer"] != "alclair" && $rootScope["SWDCustomer"] != "ifi"  ) { ?>	
@@ -289,7 +293,11 @@
 					  	
 					  	$test = 100;
 					  	
-				?>	<li class="dropdown">
+				?>	
+				 <?php
+						if ( $_SESSION["UserName"] != 'Football' ) {
+					?>
+					<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Orders <span class="caret"></span></a>
 							<ul class="dropdown-menu">
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/orders" class="nav-link "> Orders List</a></li>
@@ -301,7 +309,7 @@
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/open_orders" class="nav-link "> Open Orders</a></li>
 							</ul>
 						</li>
-						
+						<?php } ?>
 											<!--
 						Repair States
 Repairs on Hold
@@ -320,7 +328,9 @@ Pickup
 - Group Order Hold
 - Done
 -->
-						
+						<?php
+							if ( $_SESSION["UserName"] != 'Football' ) {
+						?>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manufacturing <span class="caret"></span></a>
 							<ul class="dropdown-menu">
@@ -424,14 +434,18 @@ Pickup
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["done"] ?>)</span></a></li>
 							</ul>
 						</li>
+						<?php } ?>
 				<?php } ?> 
-				
+				<?php
+				if ( $_SESSION["UserName"] != 'Football' ) {
+				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Batches <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_batch/batch_list" class="nav-link "> Batch List</a></li>
 					</ul>
 				</li>
+				<?php } ?> 
 				<?php
 				if ( $_SESSION["UserName"] == 'admin' || $rootScope["SWDCustomer"] == "dev" ) {
 				?>
@@ -443,7 +457,7 @@ Pickup
 					</ul>
 				</li>
 				<?php
-				if ( $_SESSION["UserName"] == 'admin'  || $rootScope["SWDCustomer"] == "dev" ) {
+				if ( $_SESSION["UserName"] == 'admin'  || $rootScope["SWDCustomer"] == "dev" &&  $_SESSION["UserName"] != 'Football') {
 				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SOS <span class="caret"></span></a>
@@ -452,8 +466,9 @@ Pickup
 					</ul>
 				</li>
 				<?php } ?> 
+				<?php } ?> 
 				<?php
-				if ( $_SESSION["UserName"] == 'admin'  || $rootScope["SWDCustomer"] == "dev" ) {
+				if ( $_SESSION["UserName"] == 'admin'  ||  $_SESSION["UserName"] == 'Football' ) {
 				?>
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Football <span class="caret"></span></a>
@@ -463,7 +478,7 @@ Pickup
 				</li>
 				<?php } ?> 
 
-				<?php } ?> 
+
 				<!-- Adding a tab named "Monitor"-->
 				<!-- Customers that pay for monitoring will have this tab added-->
 				<?php
@@ -693,7 +708,7 @@ Pickup
 
 	
 				<?php if($_SESSION["IsAdmin"]==1 || ($_SESSION["IsManager"] == 1 && $rootScope["SWDCustomer"] == "lng")) { ?>
-					<?php if ( $rootScope["SWDCustomer"] != "lng" && $rootScope["SWDCustomer"] != "alclair" && $rootScope["SWDCustomer"] != "ifi") { ?> 
+					<?php if ( $rootScope["SWDCustomer"] != "lng" && $rootScope["SWDCustomer"] != "alclair" && $rootScope["SWDCustomer"] != "ifi") { ?>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
 							<ul class="dropdown-menu" style="width:260px;">
@@ -751,6 +766,9 @@ Pickup
                             </ul>
 					</lI>
 					<?php } elseif($rootScope["SWDCustomer"] == "alclair") { ?>
+					<?php
+						if ( $_SESSION["UserName"] != 'Football' ) {
+					?> 
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
 							<ul class="dropdown-menu" style="width:260px;">
@@ -788,6 +806,7 @@ Pickup
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/reconcile" class="nav-link "><i class="fa fa-adjust"></i> &nbsp Reconciliation </a>
                                 </li>
+                                 <?php } ?>
                                 <?php } ?>
                                 
 							</ul>

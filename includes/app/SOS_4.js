@@ -138,7 +138,7 @@ function GrabCustomersSOS_3() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
 	var start_at = 880; 
-	var num_customers = 906; 
+	var num_customers = 940; 
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -305,6 +305,8 @@ $scope.BuildSalesOrder = function (order_number) {
 				ORDER_NUMBER = result.order_number;
 				
 				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
+				
+				//SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + ", 'address': { 'line1': " + null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
 				
 
 

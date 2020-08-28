@@ -138,7 +138,7 @@ function GrabCustomersSOS_3() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
 	var start_at = 880; 
-	var num_customers = 940; 
+	var num_customers = 960; 
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();

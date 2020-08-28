@@ -63,8 +63,8 @@ $response['testing4'] = $inc - 1; // NUMBER OF ROWS
 
 if (count($arrResult[0]) != 50) {
 	$response['error_message'] = "Something is wrong with the file.  Please contact Tyler";
-	echo json_encode($response);
-	exit;
+	//echo json_encode($response);
+	//exit;
 }
 
 

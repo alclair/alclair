@@ -61,10 +61,10 @@ $response['testing4'] = $inc - 1; // NUMBER OF ROWS
 //echo json_encode($response);
 //exit;
 
-if (count($arrResult[0]) != 50) {
+if (count($arrResult[0]) != 53) {
 	$response['error_message'] = "Something is wrong with the file.  Please contact Tyler";
-	//echo json_encode($response);
-	//exit;
+	echo json_encode($response);
+	exit;
 }
 
 
@@ -81,7 +81,7 @@ for ($x=1; $x < $inc; $x++) {  // 	START ROW 2 TO IGNORE HEADER
 			// COMMENTED OUT LINE BELOW BECAUSE IMPORT FORM CHANGED
 			// HAD TO CHANGE 28 TO 50
 			//$arrResult[$x][28] = $num_of_earphones_in_order; 
-			$arrResult[$x][50] = $num_of_earphones_in_order;
+			$arrResult[$x][53] = $num_of_earphones_in_order;
 		}
 	}
 }
@@ -171,14 +171,20 @@ for ($x=1; $x < $inc; $x++) {  // 	START ROW 2 TO IGNORE HEADER
 // LINK TO DESIGN IMAGE -> 18
 // OPEN ORDER IN DESIGNER -> 19
 // DESIGNED FOR -> 20
-// MY IMPRESSIONS -> 21
+// IEM OWNER FIRST NAME -> 21
+// IEM OWNER LAST NAME -> 22
+// IEM OWNER EMAIL -> 23
 
-// BILLING NAME -> 22  NEW -> 44
-// SHIPPING NAME -> 23  NEW -> 45
-// PRICE -> 24  NEW -> 46
-// COUPON ->25   NEW -> 47
-// DISCOUNT -> 26  NEW -> 48
-// TOTAL -> 27  NEW -> 49
+
+
+// MY IMPRESSIONS -> 24
+
+// BILLING NAME -> 22  NEW -> 44  NEW -> 47
+// SHIPPING NAME -> 23  NEW -> 45  NEW -> 48
+// PRICE -> 24  NEW -> 46  NEW -> 49
+// COUPON ->25   NEW -> 47  NEW -> 50
+// DISCOUNT -> 26  NEW -> 48  NEW -> 51
+// TOTAL -> 27  NEW -> 49  NEW -> 52
 // ENTERED BY = INTEGER
 // ACTIVE = TRUE
 // ORDER STATUS ID = 99
@@ -212,24 +218,25 @@ for ($i=1; $i < $inc; $i++) {
 	    $notes = "";
     }
  
+$designed_for = $order[21] . " " . $order[22];
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
 date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, left_tip, right_tip, pelican_case_name, notes, nashville_order, customer_type)
 VALUES (
 :date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :customer_type) RETURNING id",
 array(':date'=>$order[0], ':order_id'=>$order[1],':product'=>$order[2], ':quantity'=>$order[3], ':model'=>$order[4], ':artwork'=>$order[5], ':color'=>$order[6], ':rush_process'=>$order[7], ':left_shell'=>$order[8], ':right_shell'=>$order[9], ':left_faceplate'=>$order[10], ':right_faceplate'=>$order[11], ':cable_color'=>$order[12], ':clear_canal'=>$order[13], ':left_alclair_logo'=>$order[14], ':right_alclair_logo'=>$order[15], ':left_custom_art'=>$order[16], ':right_custom_art'=>$order[17], ':link_to_design_image'=>$order[18], ':open_order_in_designer'=>$order[19], 
-':designed_for' =>$order[20], 
-':my_impressions'=>$order[21], 
-':billing_name'=>$order[44], //=>$order[22], 
-':shipping_name'=>$order[45], //=>$order[23], 
-':price'=>$order[46], //$order[24], 
-':coupon'=>$order[47], //=>$order[25], 
-':discount'=>$order[48], //=>$order[26], 
-':total'=>$order[49], //$order[27],
+':designed_for' =>$designed_for, 
+':my_impressions'=>$order[24], 
+':billing_name'=>$order[47], //=>$order[22], 
+':shipping_name'=>$order[48], //=>$order[23], 
+':price'=>$order[49], //$order[24], 
+':coupon'=>$order[50], //=>$order[25], 
+':discount'=>$order[51], //=>$order[26], 
+':total'=>$order[52], //$order[27],
 ':entered_by'=>$_SESSION['UserId'],
 ':active'=>TRUE,
 ':order_status_id'=>99, 
-':num_earphones_per_order'=>$order[50],
+':num_earphones_per_order'=>$order[53],
 ':left_tip'=>$left_tip,
 ':right_tip'=>$right_tip,
 ':pelican_case_name'=>$order[29],

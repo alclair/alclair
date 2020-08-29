@@ -1,4 +1,5 @@
 <?php
+	
 include_once "../../config.inc.php";
 include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
 
@@ -28,7 +29,7 @@ try
         	'version' => 'wc/v3', 
 			]
 	);
-
+	
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////// CALC ESTIMATED SHIP DATE CODE  ////////////////////////////////////////////////////////////////
 
@@ -92,42 +93,6 @@ try
 	}
 						///////////////////////////////////////////////////////  FUNCTIONS END    /////////////////////////////////////////////////
 						
-//print_r($woocommerce);
-// DATE -> 0 
-// ORDER ID -> 1
-// PRODUCT -> 2
-// QUANTITY -> 3
-// MODEL -> 4
-// ARTWORK-> 5
-// COLOR-> 6
-// RUSH PROCESS -> 7
-// LEFT SHELL -> 8
-// RIGHT SHELL -> 9
-// LEFT FACEPLATE -> 10
-// RIGHT FACEPLATE -> 11
-// CABLE COLOR -> 12
-// CLEAR CANAL -> 13
-// LEFT ALCLAIR LOGO -> 14
-// RIGHT ALCLAIR LOGO -> 15
-// LEFT CUSTOM ART -> 16
-// RIGHT CUSTOM ART -> 17
-// LINK TO DESIGN IMAGE -> 18
-// OPEN ORDER IN DESIGNER -> 19
-// DESIGNED FOR -> 20
-// MY IMPRESSIONS -> 21
-
-// BILLING NAME -> 22  NEW -> 44
-// SHIPPING NAME -> 23  NEW -> 45
-// PRICE -> 24  NEW -> 46
-// COUPON ->25   NEW -> 47
-// DISCOUNT -> 26  NEW -> 48
-// TOTAL -> 27  NEW -> 49
-// ENTERED BY = INTEGER
-// ACTIVE = TRUE
-// ORDER STATUS ID = 99
-// NUM EARPHONES PER ORDER -> 28  NEW -> 50
-
-// PELICAN CASE NAME -> 29
 $current_day = date("d");
 $current_month = date("m");
 $current_year = date("Y");
@@ -153,15 +118,17 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2019-04-17T23:59:59',
-			'after' => '2019-04-17T00:00:00',
+			'before' => '2020-08-28T23:59:59',
+			'after' => '2020-08-28T00:00:00',
 			'per_page' => 100			
         ];
-   */     
+*/        
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
     $ind = 0;
+  
+ 
   
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
@@ -295,9 +262,15 @@ $params = [
 						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "IEM Owner First Name") ) {
 						$order[$ind]["iem_owner_first_name"] = $line_item[meta_data][$j]->value;	
+						$order[$ind]["designed_for"] = $order[$ind]["iem_owner_first_name"];
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "IEM Owner Last Name") ) {
-						$order[$ind]["iem_owner_Last_name"] = $line_item[meta_data][$j]->value;		
-						
+						$order[$ind]["iem_owner_last_name"] = $line_item[meta_data][$j]->value;		
+
+						if($order[$ind]["designed_for"]) {  // IF DESIGNED FOR EXISTS THEN ADD LAST NAME TO THE END
+							$order[$ind]["designed_for"] = $order[$ind]["designed_for"] . " " . $order[$ind]["iem_owner_last_name"];	
+						} else {  // DESIGNED FOR DOES NOT EXIST SO USE ONLY LAST NAME
+							$order[$ind]["designed_for"] = $order[$ind]["iem_owner_last_name"];	
+						}
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "My Impressions") ) {
 						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "64in. Cable") ) {
@@ -368,7 +341,7 @@ $params = [
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Long Cable") ) {
 						$order[$ind]["long_cable"] = $line_item[meta_data][$j]->value;	
 					}
-					$order[$ind]["designed_for"] = $order[$ind]["iem_owner_first_name"] . " " . $order[$ind]["iem_owner_first_name"];
+					
 					//echo "Key is " . $line_item[meta_data][$j]->key . " and Value is " . $line_item[meta_data][$j]->value . " <br/>";			
 				} // CLOSES FOR LOOP - METADATA
 				$ind++;
@@ -393,7 +366,6 @@ for ($x=0; $x <  count($order); $x++) {
 		}
 	}
 }
-
 
 	// Create new Spreadsheet object
 	$spreadsheet = new Spreadsheet();

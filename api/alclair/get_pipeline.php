@@ -185,6 +185,12 @@ try
 			}				
 			$result[$i]["days_past_due"] = $days;
 			
+			$stmt = pdo_query( $pdo, "SELECT *, to_char(t1.date, 'MM/dd/yy') AS date_of_last_scan FROM order_status_log AS t1
+	       LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing 
+	       WHERE import_orders_id = :import_orders_id ORDER BY date DESC", array(":import_orders_id"=>$result[$i]["id"]));
+	    	$result3 = pdo_fetch_all($stmt);     
+	    	$result[$i]["date_of_last_scan"] = $result3[0]["date_of_last_scan"];
+			
 			$query = pdo_query($pdo, "SELECT * FROM qc_form WHERE id_of_order = :id_of_order", array(":id_of_order"=>$result[$i]["id"]));
 			$output = pdo_fetch_all($query);
 			$result[$i]["num_of_qc_forms"] = pdo_rows_affected($query);
@@ -198,7 +204,7 @@ try
 					//}
 				}
 			}
-			
+						
 	}
 	
 function array_orderby(&$array,$orderby = null,$order = 'desc',$children = false) {

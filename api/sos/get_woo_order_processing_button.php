@@ -78,6 +78,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		$SKU[$ind] = $line_item["sku"];
 		$shipping_total = $data["shipping_total"];
 		$cart_tax = $data["cart_tax"];
+		$QUANTITY[$ind] = $line_item["quantity"];
 				
 		if($ind == 0 ) {
 			$response["test"] = $SKU[$ind];
@@ -86,11 +87,14 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		}
 		$total[$ind] = $data["total"]; // BELIEVE THIS IS SUBTOTAL PLUS SHIPPING
 		$subtotal[$ind] = $line_item["subtotal"];
-		$price_original_sku = $subtotal[$ind];
-		//$discount[$ind] = -(double) $data["discount_total"];
+		//$price_original_sku = $subtotal[$ind];
+		$price_original_sku =  $line_item["price"];
 		$discount = -(double) $data["discount_total"];
-		$coupon[$ind] = $coupon_lines["code"];
-
+		//$coupon[$ind] = $coupon_lines["code"];
+		//$coupon[$ind] = $coupon_lines["discount"];
+		$coupon= $coupon_lines["discount"];
+		//$discount = $discount - $coupon;
+		
 		if( stristr($full_product_name[$ind], "Driver") || stristr($full_product_name[$ind], "POS") ) {
 			$yes_no_earphone[$ind] = "YES";	
 			$earphone_price = $line_item["subtotal"];
@@ -131,6 +135,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					$earphone_price = $earphone_price - $dollar_value;
 					$yes_no_earphone[$ind] = "NO";
+					$QUANTITY[$ind] =1;
 					
 					if(!strcmp($line_item[meta_data][$j+1]->value, "Black")) {
 						$SKU[$ind] = 'ALCLR-HP-BLK';
@@ -167,6 +172,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					//$earphone_price = $earphone_price - $dollar_value;
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 
 					
 				} elseif(!strcmp($line_item[meta_data][$j]->key, "64in. Cable") ) {
@@ -190,6 +196,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$price_original_sku = $price_original_sku - $dollar_value;
 						$earphone_price = $earphone_price - $dollar_value;
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 					}
 
 				} elseif( stristr($line_item[meta_data][$j]->key, "Color ($") ) { // IF THE WORD COLOR EXISTS IN THE KEY
@@ -209,6 +216,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					$earphone_price = $earphone_price - $dollar_value;
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 					
 				//} elseif(!strcmp($line_item[meta_data][$j]->key, "Cleaning Kit") ) {
 				} elseif(stristr($line_item[meta_data][$j]->key, "Cleaning Kit") ) {
@@ -221,6 +229,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$earphone_price = $earphone_price - $dollar_value;
 					$SKU[$ind] = 'ALCLR-CLEAN-KIT';
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 
 				//} elseif(!strcmp($line_item[meta_data][$j]->key, "Cleaning Tools") ) {
 				} elseif(stristr($line_item[meta_data][$j]->key, "Cleaning Tools") ) {	
@@ -233,6 +242,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$earphone_price = $earphone_price - $dollar_value;
 					$SKU[$ind] = 'ALCLR-CLNTOOL';
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 				} elseif(stristr($line_item[meta_data][$j]->key, "Dotz Clip ($") ) {
 					$ind = $ind+1;
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
@@ -243,6 +253,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$earphone_price = $earphone_price - $dollar_value;
 					$SKU[$ind] = 'ALCLR-DOTZ-1';
 					$yes_no_earphone[$ind] = "NO";
+					$QUANTITY[$ind] =1;
 				} elseif(stristr($line_item[meta_data][$j]->key, "Pelican Case (") ) {
 					$ind = $ind+1;
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
@@ -256,6 +267,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					//exit;	
 					$SKU[$ind] = 'ALCLR-CASE-PELICAN';
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 				} elseif(stristr($line_item[meta_data][$j]->key, "Soft Case") ) {
 					$ind = $ind+1;
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
@@ -266,6 +278,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$earphone_price = $earphone_price - $dollar_value;
 					$SKU[$ind] = 'ALCLR-CASE-CLAM';
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 				} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade ($5.00)") || !strcmp($line_item[meta_data][$j]->key, "Cable Upgrade ($20.00)") ) {
 					$ind = $ind+1;
 					if(stristr($line_item[meta_data][$j]->value, "64_clear") ) { 
@@ -282,6 +295,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					$earphone_price = $earphone_price - $dollar_value;
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 				} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade Type") ) {
 					//$order[$ind]["cable_upgrade_type"] = $line_item[meta_data][$j]->value;
 				} elseif(stristr($line_item[meta_data][$j]->key, "Cable Addon ($") ) {
@@ -305,6 +319,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					$earphone_price = $earphone_price - $dollar_value;
 					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
 					
 				} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Addon Type") ) {
 					//$order[$ind]["cable_addon_type"] = $line_item[meta_data][$j]->value;	
@@ -331,56 +346,68 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$subtotal[$ind] = 125;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 					} elseif(!strcmp($line_item[meta_data][$j]->value, "15dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 125;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 					} elseif(!strcmp($line_item[meta_data][$j]->value, "25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 125;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 					} elseif(!strcmp($line_item[meta_data][$j]->value, "9dB_15dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";
+						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 					} elseif(!strcmp($line_item[meta_data][$j]->value, "9dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";
+						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";		
+						$QUANTITY[$ind] =1;
 					} elseif(!strcmp($line_item[meta_data][$j]->value, "15dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";
+						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";			
+						$QUANTITY[$ind] =1;
 					} elseif(!strcmp($line_item[meta_data][$j]->value, "9dB_15dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";
+						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
 						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
 						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
 					}
 					
 					
@@ -447,6 +474,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 if($cart_tax > 0) {
 	$SKU[$ind] = 'ALCLAIR-SALESTAXPAYABLE';
 	$subtotal[$ind] = $cart_tax;
+	$QUANTITY[$ind] = 1;
 }
 	
 	//$earphone[0] = 'ALCLR-DUALXB';
@@ -478,8 +506,8 @@ if($cart_tax > 0) {
 		}
 	}
 	*/
-	//$response['SKUs'] = $SKUs;
 	$response['SKUs'] = $SKU;
+	$response['QUANTITY'] = $QUANTITY;
 	$response['SUBTOTALs'] = $subtotal;
 	$response['SHIPPING_AMOUNT'] = $shipping_total;
 	$response['DISCOUNT'] = $discount;

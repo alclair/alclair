@@ -137,8 +137,8 @@ function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
-	var start_at = 860; 
-	var num_customers = 900; 
+	var start_at = 1080;//1150; //1150;
+	var num_customers = 1350;//1350; //
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -270,7 +270,8 @@ $scope.BuildSalesOrder = function (order_number) {
 					ITEM_INDEX = $scope.sos_sku.indexOf(result.SKUs[p]);
 					ITEM_ID =$scope.sos_id[ITEM_INDEX];
 					console.log("Line 271 ITEM_ID is " + ITEM_ID + " and ITEM INDEX is " + ITEM_INDEX + " and name is " + result.customer_name)
-					QUANTITY = 1;
+					//QUANTITY = 1;
+					
 					//if(p == 0) {
 					DISCOUNT = result.DISCOUNT;
 					SHIPPING_AMOUNT = result.SHIPPING_AMOUNT;
@@ -278,11 +279,19 @@ $scope.BuildSalesOrder = function (order_number) {
 					ORDERSTAGE = result.orderStage;
 					EMAIL = result.email;
 					CUSTOMER = result.customer_name;
-					console.log("THE ORDER STAGE IS " + ORDERSTAGE)
+					//console.log("THE ORDER STAGE IS " + ORDERSTAGE)
 					if(result.Is_Earphone[p] == "YES") {
 						UNITPRICE = result.SUBTOTALs[p];
+						QUANTITY = result.QUANTITY[p];
 						//console.log("A" + UNITPRICE)
 					} else { 
+						//QUANTITY = result.QUANTITY[p];
+						if(result.QUANTITY[p] != 1) {
+							QUANTITY = result.QUANTITY[p];
+						} else {
+							QUANTITY = 1;	
+						}
+						
 						if (typeof result.SUBTOTALs[p] === 'string' || result.SUBTOTALs[p] instanceof String) {
 							var str = result.SUBTOTALs[p];
 							//var q = str.search("#36;");
@@ -291,16 +300,22 @@ $scope.BuildSalesOrder = function (order_number) {
 							var res = str.slice(q+1, 	result.SUBTOTALs[p].length);
 							//console.log("RES is " + res + " IS A STRING")
 							UNITPRICE =  res;
+							//QUANTITY = 1;
 						} else {
 							UNITPRICE = result.SUBTOTALs[p];
+							QUANTITY = result.QUANTITY[p];
 							//console.log(" NOT A STRING")
 						}
 					
 					}
-					lineNumber_line = "{'lineNumber':" + lineNumber + ", 'item':{'id':" + ITEM_ID + "}, 'class':{'id': 1, 'name': 'Alclair'}, 'quantity':" + 1 + ", 'unitprice':" + UNITPRICE + ", 'amount':" + UNITPRICE + "},";
+					//lineNumber_line = "{'lineNumber':" + lineNumber + ", 'item':{'id':" + ITEM_ID + "}, 'class':{'id': 1, 'name': 'Alclair'}, 'quantity':" + 1 + ", 'unitprice':" + UNITPRICE + ", 'amount':" + UNITPRICE + "},";
+					//LINES = LINES + lineNumber_line;
+					UNITPRICE = UNITPRICE / QUANTITY;
+					AMOUNT = UNITPRICE * QUANTITY;
+					lineNumber_line = "{'lineNumber':" + lineNumber + ", 'item':{'id':" + ITEM_ID + "}, 'class':{'id': 1, 'name': 'Alclair'}, 'quantity':" + QUANTITY + ", 'unitprice':" + UNITPRICE + ", 'amount':" + AMOUNT + "},";
 					LINES = LINES + lineNumber_line;
 				}
-	
+				
 				LINES = LINES + "]";
 				ORDER_NUMBER = result.order_number;
 				

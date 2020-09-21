@@ -80,6 +80,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr>
 					<th style="text-align:center;">Designed For</th>
 					<th style="text-align:center;">Order Status</th>
+					<th style="text-align:center;">Date of Last Scan</th>	
 					
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Days Past Due</th>
@@ -100,6 +101,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="order.designed_for!=' '" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.designed_for}} </a></td>
 					
 					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
+					
+					<td  style="text-align:center;" data-title="Date of Last Scane">{{order.date_of_last_scan}}</td>
+					
 					<td  ng-if="order.model && !order.hearing_protection" style="text-align:center;" data-title="Model">{{order.model}}</td>
 					<td  ng-if="order.hearing_protection && !order.model" style="text-align:center;" data-title="Model">Hearing Protection</td>
 					<td  ng-if="order.hearing_protection && order.model" style="text-align:center;" data-title="Model">{{order.model}} & Hearing Protection</td>
@@ -109,6 +113,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
 					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>
 					<td  style="text-align:center;" data-title="Order Date">{{order.date}}</td>
+					
+
 					
 					<td  class="bg-success" ng-if="order.rush_process == 'Yes'" style="text-align:center;font-weight: bold; color:white" data-title="Rush">RUSH</td>
 					<td ng-if="order.rush_process != 'Yes'" style="text-align:center;" data-title="Rush">No</td>

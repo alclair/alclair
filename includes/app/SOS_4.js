@@ -137,8 +137,8 @@ function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
-	var start_at = 1080;//1150; //1150;
-	var num_customers = 1350;//1350; //
+	var start_at = 700;//1200;//1080;//1150; //1150;
+	var num_customers = 1350; //
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();

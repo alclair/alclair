@@ -74,6 +74,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr>
 					<th style="text-align:center;">Repair Forr</th>
 					<th style="text-align:center;">Repair Status</th>
+					<th style="text-align:center;">Date of Last Scan</th>
 					
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Days Past Due</th>
@@ -92,6 +93,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td style="text-align:center;" data-title="Repair For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{repair.id}}">{{repair.customer_name}} </a></td>
 					
 					<td  style="text-align:center;" data-title="Order Status">{{repair.status_of_repair}}</td>
+					
+					<td  style="text-align:center;" data-title="Date of Last Scane">{{repair.date_of_last_scan}}</td>
+					
 					<td  style="text-align:center;" data-title="Model">{{repair.model}}</td>
 										
 					<td  style="text-align:center;" data-title="Days Past Due">{{repair.days_past_due}}</td>

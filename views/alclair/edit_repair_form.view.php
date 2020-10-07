@@ -96,10 +96,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 							</select>
 						</div>
 						<div class="col-md-2">  
-							<button ng-if="(manufacturing_screen==0) && (the_user_is == 'Amanda' || the_user_is == 'Marc' || the_user_is == 'admin'  || the_user_is == 'Zeeshan')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
+							<button ng-if="(manufacturing_screen==0) && (the_user_is == 'Amanda' || the_user_is == 'Marc' || the_user_is == 'admin'  || the_user_is == 'Zeeshan' || the_user_is == 'Will')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-warning" ng-click="showOnManufacturingScreen()">
                         		<i ></i> &nbsp; URGENT                         
 							</button>
-							<button ng-if="(manufacturing_screen==1) && (the_user_is == 'Amanda' || the_user_is == 'Marc' || the_user_is == 'admin' || the_user_is == 'Zeeshan')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-danger" ng-click="removeFromManufacturingScreen()">
+							<button ng-if="(manufacturing_screen==1) && (the_user_is == 'Amanda' || the_user_is == 'Marc' || the_user_is == 'admin' || the_user_is == 'Zeeshan' || the_user_is == 'Will')" style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-danger" ng-click="removeFromManufacturingScreen()">
 								<i ></i> &nbsp; NOT URGENT                         
 							</button>
 						</div>

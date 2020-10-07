@@ -160,7 +160,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                    <div style="text-align:center;" >  
 		                    
 		                    &nbsp;&nbsp;<button ng-disabled="order.highrise != 1" type="button" class="btn btn-primary btn-xs" ng-click="PDF(order.id);">Traveler</button>					
-						<?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' || $_SESSION["UserName"] == 'Amanda') { ?>
+						<?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Will') { ?>
 							&nbsp;&nbsp;<button ng-disabled="order.status_of_order == 'Done'" type="button" class="btn btn-primary btn-xs" ng-click="LoadSelectDateModal(order.id);">DONE</button>		
 						<?php } ?>
 

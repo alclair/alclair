@@ -137,8 +137,8 @@ function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS")
 	index = 0;
-	var start_at = 700;//1200;//1080;//1150; //1150;
-	var num_customers = 1350; //
+	var start_at = 1325;//1080;//1150; //1150;
+	var num_customers = 1400; //
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -233,6 +233,11 @@ async function GrabOrderNumbersWoo_2nd_Time() {
 		.success(function (result) {
 			loop_thru = result.order_numbers.length;
 			for(i=0; i < loop_thru; i++) {
+				if(result.order_numbers[i] == '10573304') {
+					//console.log("THE ORDER IS 10573304")
+					//alert("This alert!");
+					//break;
+				}
 				$scope.BuildSalesOrder(result.order_numbers[i]);
 			}
 			$.unblockUI();
@@ -262,6 +267,7 @@ $scope.BuildSalesOrder = function (order_number) {
 			}
 			ORDER_DATE = result.order_date;
 			LINES = "'lines':[";
+			console.log("CUSTOMER ID is " + CUSTOMER_ID)
 			console.log("C ID is " + CUSTOMER_ID + " and C name is " + CUSTOMER_NAME + " and C email is " + CUSTOMER_EMAIL)
 			setTimeout(function(){
 				console.log("Number of SKUs is " + num_of_skus + " and email is " + email)
@@ -321,6 +327,11 @@ $scope.BuildSalesOrder = function (order_number) {
 				
 				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
 				
+				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
+"'channel': {'id': 1, 'name': 'Alclair'}," + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
+				
+				
+							
 				//SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + ", 'address': { 'line1': " + null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
 				
 

@@ -17,6 +17,8 @@ try
 		$start_cart['notes'] = "Moved to done by Scott through the Repairs page. ";
 	} elseif($_SESSION["UserName"] == 'Amanda') {
 		$start_cart['notes'] = "Moved to done by Amanda through the Repairs page. ";
+	} elseif($_SESSION["UserName"] == 'Will') {
+		$start_cart['notes'] = "Moved to done by Will through the Repairs page. ";
 	} else {
 		$start_cart['notes'] = "Moved to done by Tyler through the Repairs page. ";
 	}

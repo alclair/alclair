@@ -117,7 +117,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
                     <td data-title="Options">
 	                    <div style="text-align:center;" >  
-		                <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin'  || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Grace') { ?>
+		                <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin'  || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Will') { ?>
 							&nbsp;&nbsp;<button ng-disabled="repair_form.status_of_repair == 'Done'" type="button" class="btn btn-primary btn-xs" ng-click="LoadSelectDateModal(repair_form.id);">DONE</button>	
 						<?php } ?>
                         	<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="View Form" href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{repair_form.id}}"></a>

@@ -134,7 +134,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		                    
 		                    <!-- ng-disabled="order.highrise != 1" -->
 		                    &nbsp;&nbsp;<button  type="button" class="btn btn-primary btn-xs" ng-click="PDF(order.id);">Traveler</button>					
-						<?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin'  || $_SESSION["UserName"] == 'Amanda') { ?>
+						<?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin'  || $_SESSION["UserName"] == 'Amanda' || $_SESSION["UserName"] == 'Will') { ?>
 							<!-- ng-disabled="order.status_of_order == 'Done'" -->
 							&nbsp;&nbsp;<button  type="button" class="btn btn-primary btn-xs" ng-click="LoadSelectDateModal(order.id);">DONE</button>		
 						<?php } ?>

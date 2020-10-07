@@ -25,7 +25,7 @@ try
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $the_order_number = $_REQUEST["order_number"];
-//$the_order_number = '10573038';
+//$the_order_number = '10573244';
 
 $HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
@@ -71,7 +71,8 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		if(!strcmp($data["status"], "processing")) {
 			$response['orderStage'] = 1;
 		} elseif(!strcmp($data["status"], "completed")) {
-			$response['orderStage'] = 2;
+			//$response['orderStage'] = 2;
+			$response['orderStage'] = 1; // ON 09/30/2020 SCOTT ASKED TO MAKE ALL ORDERS BE PROCESSING
 		}
 		
 		$model_name[$ind] = $is_earphone["value"];
@@ -110,7 +111,18 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 			//$ind = $ind + 1;
 		}
 		if( stristr($full_product_name[$ind], "Headphone Vacuum - Headphone Vac Jr.") ) {
-			//$ind = $ind + 1;
+			//$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
+			//$str_pos = $str_pos + 2; // JUMP PAST THE PARENTHESIS AND THE $ SIGN AND KEEP ONLY THE DOLLAR AMOUNT
+			/*
+			$dollar_value = $line_item["total"];
+					
+			$ind = $ind+1;
+			$subtotal[$ind] = $dollar_value;
+			$price_original_sku = $price_original_sku - $dollar_value;
+			$earphone_price = $earphone_price - $dollar_value;
+			$yes_no_earphone[$ind] = "NO";
+			$QUANTITY[$ind] =1;
+			*/
 		}
 	
 		
@@ -274,6 +286,18 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$yes_no_earphone[$ind] = "NO";	
 					$QUANTITY[$ind] =1;
 				} elseif(stristr($line_item[meta_data][$j]->key, "Soft Case") ) {
+					$ind = $ind+1;
+					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
+					$str_pos = $str_pos + 2; // JUMP PAST THE PARENTHESIS AND THE $ SIGN AND KEEP ONLY THE DOLLAR AMOUNT
+					$dollar_value = substr($line_item[meta_data][$j]->key, $str_pos, -1);
+					$subtotal[$ind] = $dollar_value;
+					$price_original_sku = $price_original_sku - $dollar_value;
+					$earphone_price = $earphone_price - $dollar_value;
+					$SKU[$ind] = 'ALCLR-CASE-CLAM';
+					$yes_no_earphone[$ind] = "NO";	
+					$QUANTITY[$ind] =1;
+				
+				} elseif(stristr($line_item[meta_data][$j]->key, "Headphone Vacuum - Headphone Vac Jr.") ) {
 					$ind = $ind+1;
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
 					$str_pos = $str_pos + 2; // JUMP PAST THE PARENTHESIS AND THE $ SIGN AND KEEP ONLY THE DOLLAR AMOUNT
@@ -537,6 +561,14 @@ if($cart_tax > 0) {
 			}	
 		}
 	}
+	*/
+	
+/*
+	for($k = 0; $k < count($SKU); $k++) {
+		echo "SKU # " . $k . " is and the SKU is " . $SKU[$k] . "<br>";
+	}
+	echo json_encode($response);
+	exit;
 	*/
 	$response['SKUs'] = $SKU;
 	$response['QUANTITY'] = $QUANTITY;

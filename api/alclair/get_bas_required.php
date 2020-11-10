@@ -146,6 +146,7 @@ try
 	$count_studio4 = 0;
 	$count_electro = 0;
 	$count_versa = 0;
+	$count_esm = 0;
 	
 	$part_2389 = 0;
 	$part_2015 = 0;
@@ -159,6 +160,8 @@ try
 	$part_17A003 = 0;
 	$part_6500 = 0;
 	$part_1723WT03_9 = 0;
+	$part_EST65DB01 = 0;
+	$part_38D2XJ007Mi_8c = 0;
 
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < $rows_in_result; $i++) {
@@ -200,6 +203,10 @@ try
 	     elseif(strcmp($result[$i]["model"], "Versa") == 0) {
 		    $count_versa = $count_versa + 1;
 	    }	
+	    elseif(strcmp($result[$i]["model"], "ESM") == 0) {
+		    $count_esm = $count_esm + 1;
+	    }	
+	    
 	}
 	$response["test"] = $count_reference;
 	//echo json_encode($response);
@@ -240,6 +247,10 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $part_6500 = $get_parts[$j]["quantity"] + $part_6500;
 	     } elseif($get_parts[$j]["part_id"] == 12) {
 		     $part_1723WT03_9 = $get_parts[$j]["quantity"] + $part_1723WT03_9;
+	     } elseif($get_parts[$j]["part_id"] == 13) {
+		     $part_EST65DB01 = $get_parts[$j]["quantity"] + $part_EST65DB01;
+	     } elseif($get_parts[$j]["part_id"] == 14) {
+		     $part_38D2XJ007Mi_8c = $get_parts[$j]["quantity"] + $part_38D2XJ007Mi_8c;
 	     } 
 	 }
 }
@@ -248,7 +259,9 @@ for ($i = 0; $i < $rows_in_result; $i++) {
    // THIS IS ALL OF THE MONITOR NAMES
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X");
 	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND id < 13 ORDER BY id", null);  
+	
+	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND id < 13 ORDER BY id", null);  
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id != 13 AND id != 14 ORDER BY id", null);  
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
@@ -278,8 +291,8 @@ for ($i = 0; $i < $rows_in_result; $i++) {
    			$Earphones_list[$i]["monitor_count"]  = $count_revx;
    		} elseif ( $i == 11) {
    			$Earphones_list[$i]["monitor_count"]  = $count_electro;
-   		}	elseif ( $i == 12) {
-	   		
+   		}	elseif ( $i == 14) {
+	   		$Earphones_list[$i]["monitor_count"]  = $count_esm;
    		}
 	}
 
@@ -315,7 +328,12 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $BAs_list[$i]["quantity"] = $part_6500;
 	     } elseif($get_part_table[$i]["id"] == 12) {
 		     $BAs_list[$i]["quantity"] = $part_1723WT03_9;
+	     } elseif($get_part_table[$i]["id"] == 13) {
+		     $BAs_list[$i]["quantity"] = $part_EST65DB01;
+	     } elseif($get_part_table[$i]["id"] == 14) {
+		     $BAs_list[$i]["quantity"] = $part_38D2XJ007Mi_8c;
 	     } 
+
    }
        
 //////
@@ -343,6 +361,7 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 	$count_studio4_casing = 0;
 	$count_electro_casing = 0;
 	$count_versa_casing = 0;
+	$count_esm_casing = 0;
 	
 	$part_2389_casing = 0;
 	$part_2015_casing = 0;
@@ -356,6 +375,8 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 	$part_17A003_casing = 0;
 	$part_6500_casing = 0;
 	$part_1723WT03_9_casing = 0;
+	$part_EST65DB01_casing = 0;
+	$part_38D2XJ007Mi_8c_casing = 0;
 	
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
@@ -395,6 +416,9 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 	    }	
 	     if(strcmp($result[$i]["model"], 'Versa') == 0) {
 		    $count_versa_casing = $count_versa_casing + 1;
+	    }	
+	    if(strcmp($result[$i]["model"], 'ESM') == 0) {
+		    $count_esm_casing = $count_esm_casing + 1;
 	    }	
 	}
 	$response["test"] = $count_reference_casing;
@@ -436,6 +460,10 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $part_6500_casing = $get_parts[$j]["quantity"] + $part_6500_casing;
 	     } elseif($get_parts[$j]["part_id"] == 12) {
 		     $part_1723WT03_9_casing = $get_parts[$j]["quantity"] + $part_1723WT03_9_casing;
+	     } elseif($get_parts[$j]["part_id"] == 13) {
+		     $part_EST65DB01_casing = $get_parts[$j]["quantity"] + $part_EST65DB01_casing;
+	     } elseif($get_parts[$j]["part_id"] == 14) {
+		     $part_38D2XJ007Mi_8c_casing = $get_parts[$j]["quantity"] + $part_38D2XJ007Mi_8c_casing;
 	     } 
 	 }
 }
@@ -473,8 +501,8 @@ for ($i = 0; $i < $rows_in_result; $i++) {
    			$Earphones_list[$i]["casing_count"]  = $count_revx_casing;
    		} elseif ( $i == 11) {
    			$Earphones_list[$i]["casing_count"]  = $count_electro_casing;
-   		}	elseif ( $i == 12) {
-	   		
+   		}	elseif ( $i == 14) {
+	   		$Earphones_list[$i]["casing_count"]  = $count_esm_casing;
    		}
 	}
 	
@@ -515,6 +543,10 @@ for ($i = 0; $i < $rows_in_result; $i++) {
 		     $BAs_list[$i]["casing_quantity"] = $part_6500_casing;
 	     } elseif($get_part_table[$i]["id"] == 12) {
 		     $BAs_list[$i]["casing_quantity"] = $part_1723WT03_9_casing;
+	     } elseif($get_part_table[$i]["id"] == 13) {
+		     $BAs_list[$i]["casing_quantity"] = $part_EST65DB01_casing;
+	     } elseif($get_part_table[$i]["id"] == 14) {
+		     $BAs_list[$i]["casing_quantity"] = $part_38D2XJ007Mi_8c_casing;
 	     } 
    }
    

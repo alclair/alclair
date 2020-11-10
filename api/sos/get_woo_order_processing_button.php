@@ -25,7 +25,7 @@ try
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $the_order_number = $_REQUEST["order_number"];
-//$the_order_number = '10573244';
+//$the_order_number = '10573915';
 
 $HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
@@ -394,47 +394,23 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					$earphone_price = $earphone_price - $dollar_value;
 					
-					if(stristr($line_item[meta_data][$j-1]->key, "9dB") ) {
+					if(stristr($line_item[meta_data][$j]->value, "9dB_15dB_25dB") ) {
 						$ind = $ind+1;
-						$subtotal[$ind] = 125;
-						$SKU[$ind] = 'ALCLR-PLUG-9';
-						$yes_no_earphone[$ind] = "NO";	
-						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j-1]->key, "15dB") ) {
-						$ind = $ind+1;
-						$subtotal[$ind] = 125;
-						$SKU[$ind] = 'ALCLR-PLUG-15';
-						$yes_no_earphone[$ind] = "NO";	
-						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j-1]->key, "25dB") ) {
-						$ind = $ind+1;
-						$subtotal[$ind] = 125;
-						$SKU[$ind] = 'ALCLR-PLUG-9';
-						$yes_no_earphone[$ind] = "NO";	
-						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j-1]->key, "9dB_15dB") ) {
-						$ind = $ind+1;
-						$subtotal[$ind] = 100;
+						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";
 						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
-						$subtotal[$ind] = 100;
+						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j-1]->key, "9dB_25dB") ) {
 						$ind = $ind+1;
-						$subtotal[$ind] = 100;
-						$SKU[$ind] = 'ALCLR-PLUG-9';
-						$yes_no_earphone[$ind] = "NO";
-						$QUANTITY[$ind] =1;
-						$ind = $ind+1;
-						$subtotal[$ind] = 100;
+						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-25';
-						$yes_no_earphone[$ind] = "NO";		
+						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j-1]->key, "15dB_25dB") ) {
+					} elseif(stristr($line_item[meta_data][$j]->value, "15dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
@@ -445,23 +421,47 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";			
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j-1]->key, "9dB_15dB_25dB") ) {
+					} elseif(stristr($line_item[meta_data][$j]->value, "9dB_25dB") ) {
 						$ind = $ind+1;
-						$subtotal[$ind] = 75;
+						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";
 						$QUANTITY[$ind] =1;
 						$ind = $ind+1;
-						$subtotal[$ind] = 75;
+						$subtotal[$ind] = 100;
+						$SKU[$ind] = 'ALCLR-PLUG-25';
+						$yes_no_earphone[$ind] = "NO";		
+						$QUANTITY[$ind] =1;
+					} elseif(stristr($line_item[meta_data][$j]->value, "9dB_15dB") ) {
+						$ind = $ind+1;
+						$subtotal[$ind] = 100;
+						$SKU[$ind] = 'ALCLR-PLUG-9';
+						$yes_no_earphone[$ind] = "NO";
+						$QUANTITY[$ind] =1;
+						$ind = $ind+1;
+						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
+					} elseif(stristr($line_item[meta_data][$j]->value, "9dB") ) {
 						$ind = $ind+1;
-						$subtotal[$ind] = 75;
-						$SKU[$ind] = 'ALCLR-PLUG-25';
+						$subtotal[$ind] = 125;
+						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					}
+					} elseif(stristr($line_item[meta_data][$j]->value, "15dB") ) {
+						$ind = $ind+1;
+						$subtotal[$ind] = 125;
+						$SKU[$ind] = 'ALCLR-PLUG-15';
+						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
+					} elseif(stristr($line_item[meta_data][$j]->value, "25dB") ) {
+						$ind = $ind+1;
+						$subtotal[$ind] = 125;
+						$SKU[$ind] = 'ALCLR-PLUG-9';
+						$yes_no_earphone[$ind] = "NO";	
+						$QUANTITY[$ind] =1;
+					} 
 					
 					//echo ("INDEX is " . $ind . "SKU is " . $SKU[2] . "<br>");
 					//echo json_encode($response);

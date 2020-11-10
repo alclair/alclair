@@ -451,6 +451,11 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
 		"<tr style=\"font-size:14px;\">
 			 <td colspan='2' style=\"text-align:left;font-size:30px;\"><b style=\"color:green;\">" . "Forza" . "</b></td>
 		</tr>";
+	} elseif ($result[0]['model'] == "ESM") {
+		$right_column_cable_response =  
+		"<tr style=\"font-size:14px;\">
+			 <td colspan='2' style=\"text-align:left;font-size:30px;\"><b style=\"color:green;\">" . "SuperBaX" . "</b></td>
+		</tr>";
 	} else {
 		$right_column_cable_response =  
 		"<tr style=\"font-size:14px;\">

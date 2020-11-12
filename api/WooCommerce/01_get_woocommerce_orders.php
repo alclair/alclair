@@ -206,7 +206,9 @@ $params = [
 						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
 						} elseif(!strcmp($full_product_name, "ELECTRO SIX DRIVER ELECTROSTATIC HYBRID") ) {
-							$order[$ind]["model"] = "Electro";  // MODEL -> 4 		
+							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
+						} elseif(!strcmp($full_product_name, "ESM Thirteen Driver") ) {
+							$order[$ind]["model"] = "ESM";  // MODEL -> 4 		
 						} elseif(!strcmp($full_product_name, "STUDIO3 TRIPLE DRIVER") ) {
 							$order[$ind]["model"] = "Studio3";  // MODEL -> 4 		
  						} elseif(!strcmp($full_product_name, "REVX TEN DRIVER") ) {

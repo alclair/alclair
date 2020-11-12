@@ -31,7 +31,7 @@ try
     else
     {
         $stmt = pdo_query( $pdo,
-                           'select * from monitors WHERE id < 13 order by id',
+                           'select * from monitors WHERE id != 13 AND id != 14 order by id',
                             null
                          );	
         $result = pdo_fetch_all($stmt);

@@ -434,12 +434,22 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
 		</tr>
 ";
 } else {
-	$right_column_monitor_response =  
+	if(!strcmp($result[0]['model'], 'ESM')) {
+		$right_column_monitor_response =  
+"		<tr style=\"font-size:14px;\">
+			 <td colspan='2' style=\"text-align:left;font-size:30px;margin-top:-50px;display:inline-block;\"><b style=\"color:green;\">" . "Super ESM" . "</b></td>" . 
+			 //$rush_process . "
+		"</tr>
+";	
+	} else {
+		$right_column_monitor_response =  
 "		<tr style=\"font-size:14px;\">
 			 <td colspan='2' style=\"text-align:left;font-size:30px;margin-top:-50px;display:inline-block;\"><b style=\"color:green;\">" . $result[0]['model'] . "</b></td>" . 
 			 //$rush_process . "
 		"</tr>
-";
+";	
+	}
+	
 	$right_column_cable = 
 "		<tr style=\"font-weight:bold;\">
     		<td style=\"text-align:left;\">CABLE:</td>

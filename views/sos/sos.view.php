@@ -28,17 +28,45 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         </div>
         <br/>
          <div class="row">
-	         <div class="col-lg-2">
-		         
+	         <div class="form-group col-md-2">
 	        </div>
-	        <div class="form-group col-md-3">
+	        <!--
+	        <div class="form-group col-md-2">
 		   		<label class="control-label">Order #:</label><br />
-		   		<input type="text" ng-model="order_number_to_get" designed_fo placeholder="Order #"  class="form-control"> 
+		   		<input type="text" ng-model="order_number_to_get" placeholder="Order #"  class="form-control"> 
 			</div>    
+			-->
+	        
+	        <div class="form-group col-md-2">
+		   		<label class="control-label">Low:</label><br />
+		   		<input type="text" ng-model="low_customer_id"  class="form-control" style="text-align: center"> 
+			</div>    
+			<div class="form-group col-md-2">
+		   		<label class="control-label">High:</label><br />
+		   		<input type="text" ng-model="high_customer_id"  class="form-control" style="text-align: center"> 
+			</div>    
+			<div class="col-sm-2">
+				<label class="control-label">Date</label><br />
+				<div class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="SearchStartDate" is-open="openedStart" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="openStart($event)"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </div>			
+			</div>
+			
+			
 			<div class="form-group col-md-3">
+				<label class="control-label"></label><br />
+		        <button type="button" class="btn btn-primary" ng-click="Run_Program()"> RUN</button>
+	        </div>
+	        	
+	        <!--
+	        <div class="form-group col-md-3">
 				<label class="control-label"></label><br />
 		        <button type="button" class="btn btn-primary" ng-click="Process3()"> PROCESS</button>
 	        </div>
+	        -->
          </div>
 	
     <!--Edit Popup Window End-->

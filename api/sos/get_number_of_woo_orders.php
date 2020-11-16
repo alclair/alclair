@@ -28,16 +28,28 @@ try
 
 //$HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 $HOURS = array("T00:00:00", "T23:59:59");	
-//$HOURS = array("T14:00:00", "T14:20:59");	
+//$HOURS = array("T09:30:00", "T09:30:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
 //$before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
 $date = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day;
 $date = '2017-12-01';
 $date = '2017-12-31';
 
+$start_date_passed = $_REQUEST["Start_Date_Passed"];
+$end_date_passed = $_REQUEST["End_Date_Passed"]; // DO NOT USE THIS AT THE MOMENT
+$month = date("m",strtotime($start_date_passed));
+$year = date("yy",strtotime($start_date_passed));
+$day = date("d",strtotime($start_date_passed));
+$response["test"] = $day;
+//echo json_encode($response);
+//exit;
+
 $month = '11';
 $year = '2020';
+$day = '15';
 
+$date = $year . '-' . $month . '-' . $day;
+/*
 $date1 = $year . '-' . $month . '-01';
 $date2 = $year . '-' . $month . '-02';
 $date3 = $year . '-' . $month . '-03';
@@ -78,7 +90,11 @@ $date28 = $year . '-' . $month . '-28';
 $date29 = $year . '-' . $month . '-29';
 $date30 = $year . '-' . $month . '-30';
 $date31 = $year . '-' . $month . '-31';
+*/
 
+$params = ['before' =>  $date . $HOURS[1], 'after' => $date . $HOURS[0], 'per_page' => 100];
+$result = $woocommerce->get('orders', $params);
+/*
 $params = ['before' =>  $date1 . $HOURS[1], 'after' => $date1 . $HOURS[0], 'per_page' => 100];
 $result1 = $woocommerce->get('orders', $params);
 $params = ['before' =>  $date2 . $HOURS[1], 'after' => $date2 . $HOURS[0], 'per_page' => 100];
@@ -143,18 +159,17 @@ $params = ['before' =>  $date29 . $HOURS[1], 'after' => $date29 . $HOURS[0], 'pe
 $result29 = $woocommerce->get('orders', $params);
 $params = ['before' =>  $date30 . $HOURS[1], 'after' => $date30 . $HOURS[0], 'per_page' => 100];
 $result30 = $woocommerce->get('orders', $params);
-
 $params = ['before' =>  $date31 . $HOURS[1], 'after' => $date31 . $HOURS[0], 'per_page' => 100];
 $result31 = $woocommerce->get('orders', $params);
 
 $result = [];
-
-//$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7, $result8, $result9, $result10, $result11, $result12, $result13, $result14, $result15, $result16, $result17, $result18, $result19, $result20, $result21, $result22, $result23, $result24, $result25, $result26, $result27, $result28, $result29, $result30);
+$result = array_merge($result13);
+*/
 
 //$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7);
 //$result = array_merge($result1, $result2, $result3, $result4, $result5, $result6, $result7, $result8, $result9, $result10, $result11, $result12, $result13, $result14, $result15, $result16, $result17, $result18, $result19, $result20, $result21, $result22,$result23,$result24,$result25,$result26, $result27, $result28, $result29, $result30, $result31);
 
-$result = array_merge($result11);
+
 /*
 $params = ['before' => '2017-12-04T23:59:59', 'after' => '2017-12-04T00:00:00', 'per_page' => 100];
 $before = '2017-12-04T23:59:59';

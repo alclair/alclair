@@ -1,4 +1,15 @@
 swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
+	$scope.openStart = function ($event) {        
+		$scope.openedStart = true;
+	};
+	$scope.formats = ['MM/dd/yyyy'];
+	$scope.format = $scope.formats[0];
+
+	$scope.SearchStartDate=window.cfg.CurrentDay;
+	$scope.openStart = function ($event) {        
+		$scope.openedStart = true;
+	};
+
 
 async function getSOSauthorizationCode() {
     return new Promise(
@@ -38,9 +49,13 @@ $scope.num_of_orders = [];
 async function GrabOrderNumbersWoo_1st_Time() {
 	//var api_url = window.cfg.apiUrl + "sos/all_woocommerce_order_numbers.php";
 	index = 0;
+	console.log("The date is " + moment($scope.SearchStartDate).format("MM/DD/YYYY"));
+	
 	var api_url = window.cfg.apiUrl + "sos/get_number_of_woo_orders.php";
+	//var api_url = window.cfg.apiUrl + "sos/get_number_of_woo_orders.php?Start_Date_Passed="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&End_Date_Passed="+moment($scope.SearchEndDate).format("MM/DD/YYYY");
 	$http.get(api_url)
 		.success(function (result) {
+			console.log("TEST IS " + result.test)
 			//num_of_orders = result.num_of_orders;
 			$scope.num_of_orders = result.num_of_orders;
 			loop_thru = $scope.num_of_orders;
@@ -135,20 +150,22 @@ $scope.index = 0;
 $scope.end = "NO";
 function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
-	console.log("HERE IN GRAB CUSTOMERS")
+	console.log("HERE IN GRAB CUSTOMERS and LOW/HIGH is 2 " + $scope.customer_id_low)
 	index = 0;
-	var start_at = 200;//1530;//1450;//1480;//1080;//1150; //1150;
-	var num_customers = 1800; //
+	var start_at = 1850;//1800;//1700;//$scope.customer_id_low;//200;//1530;//1450;//1480;//1080;//1150; //1150;
+	var num_customers = 1900;//$scope.customer_id_high;//1850; //
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
 	try {
 		for(i=start_at; i < num_customers; i++) {
-			//console.log("I FIRST is " + i  )
-			(async () => {
-				await GrabCustomersSOS_4(i, 1000*(i- (start_at-1) ), num_customers).then(function() { // REMOVED json FROM HERE
+			console.log("I FIRST is " + i + " and " + num_customers )
+			//(async () => { // ON NOVEMBER 15TH, 2020 (11/15/2020) COMMENTED THIS LINE OUT BECAUSE THE CODE STOPPED WORKING
+				console.log("In Async now")
+				//await GrabCustomersSOS_4(i, 1000*(i- (start_at-1) ), num_customers).then(function() { // REMOVED json FROM HERE
+					GrabCustomersSOS_4(i, 1000*(i- (start_at-1) ), num_customers).then(function() { // REMOVED json FROM HERE
 				})
-			})();
+			//})();
 		} // CLOSE FOR LOOP
 	} catch (error) {
        //console.log("Broken here & number of customers is now " + num_customers + " and I is " + i);
@@ -228,7 +245,9 @@ async function GrabCustomersSOS_4(i, delay, num_customers) {
 
 async function GrabOrderNumbersWoo_2nd_Time() {
 	console.log("IN GRAB ORDERS 2ND TIME")
+	
 	var api_url = window.cfg.apiUrl + "sos/get_number_of_woo_orders.php";
+	//var api_url = window.cfg.apiUrl + "sos/get_number_of_woo_orders.php?Start_Date_Passed="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&End_Date_Passed="+moment($scope.SearchEndDate).format("MM/DD/YYYY");
 	$http.get(api_url)
 		.success(function (result) {
 			loop_thru = result.order_numbers.length;
@@ -259,6 +278,7 @@ $scope.BuildSalesOrder = function (order_number) {
 				if(email == $scope.customer_email[s]) {
 					CUSTOMER_ID = $scope.customer_id[s]
 					CUSTOMER_NAME = $scope.customer_name[s];
+					//CUSTOMER_NAME = 'Ryan OHara';
 					CUSTOMER_EMAIL = $scope.customer_email[s];
 					break;
 				} else if(s == $scope.customer_email.length-1) {
@@ -325,17 +345,11 @@ $scope.BuildSalesOrder = function (order_number) {
 				LINES = LINES + "]";
 				ORDER_NUMBER = result.order_number;
 				
-				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
-				
+				/* SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
+			*/	
 				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
 "'channel': {'id': 1, 'name': 'Alclair'}," + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
 				
-				
-							
-				//SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + ", 'address': { 'line1': " + null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
-				
-
-
 
 				$scope.CreateSalesOrder(SALES_ORDER,  1000*(i+1))
 			}, 500)	
@@ -370,28 +384,47 @@ $scope.CreateSalesOrder = function (add_order, delay) {
 
 $scope.getItemsFromDB();
 // async await it here too
-(async () => {
-	await getSOSauthorizationCode();
-	
-	// GRAB ORDERS TO PROCESS
-	
-	
-	//console.log("Grabbing SOS Items")
-	//await GrabItemsSOS_1();
-	//console.log("Grabbing SOS Customers - 1st Time")
-    //await GrabCustomersSOS_3();
-    //console.log("Grabbing WooCommerce order numbers - 1st Time")
-	
-	//await CreateCustomersInSOS4();
-	//await CreateCustomersInSOS3();
-	//console.log("Grabbing SOS Customers - 2nd Time")
-	
-	await GrabOrderNumbersWoo_1st_Time(); // STARTS HERE
-	//await GrabCustomersSOS_3(); 
-	//console.log("Grabbing WooCommerce order numbers - 2nd Time")
-	//await GrabOrderNumbersWoo_2nd_Time();
-	//console.log("DONE")
-})();	
+
+//$scope.Run_Program = function() {
+	/*
+	$scope.customer_id_low = $scope.low_customer_id;
+	$scope.customer_id_high = $scope.high_customer_id;
+	$scope.SearchEndDate = $scope.SearchStartDate;
+	*/
+	(async () => {
+		await getSOSauthorizationCode();
+		
+		// GRAB ORDERS TO PROCESS
+		
+		//console.log("Grabbing SOS Items")
+		//await GrabItemsSOS_1();
+		//console.log("Grabbing SOS Customers - 1st Time")
+	    //await GrabCustomersSOS_3();
+	    //console.log("Grabbing WooCommerce order numbers - 1st Time")
+		
+		//await CreateCustomersInSOS4();
+		//await CreateCustomersInSOS3();
+		//console.log("Grabbing SOS Customers - 2nd Time")
+		
+		await GrabOrderNumbersWoo_1st_Time(); // STARTS HERE
+		//await GrabCustomersSOS_3(); 
+		//console.log("Grabbing WooCommerce order numbers - 2nd Time")
+		//await GrabOrderNumbersWoo_2nd_Time();
+		//console.log("DONE")
+	})();	
+//
+/*}	
+$scope.Run_Program_Month = function() {
+	$scope.customer_id_low = $scope.low_customer_id;
+	$scope.customer_id_high = $scope.high_customer_id;
+	$scope.SearchStartDate=window.cfg.CurrentMonthFirstDate;//OctoberOne;
+	$scope.SearchEndDate=window.cfg.CurrentDay;
+	(async () => {
+		await getSOSauthorizationCode();
+		await GrabOrderNumbersWoo_1st_Time(); // STARTS HERE
+	})();	
+}	
+*/
 
 
 

@@ -28,7 +28,7 @@ try
 
 //$HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 $HOURS = array("T00:00:00", "T23:59:59");	
-//$HOURS = array("T09:30:00", "T09:30:59");	
+//$HOURS = array("T12:00:00", "T14:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
 //$before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
 $date = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day;
@@ -44,9 +44,9 @@ $response["test"] = $day;
 //echo json_encode($response);
 //exit;
 
-$month = '11';
+$month = '12';
 $year = '2020';
-$day = '15';
+$day = '03';
 
 $date = $year . '-' . $month . '-' . $day;
 /*

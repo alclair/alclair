@@ -97,6 +97,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 		$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
 		$is_earphone = get_object_vars($line_item[meta_data][$k]); // MODEL -> 4
 		$coupon_lines = get_object_vars($data[coupon_lines][$k]); 
+		$fee_lines = get_object_vars($data[fee_lines][$k]); 
 		
 		$model_name[$ind] = $is_earphone["value"];
 		$full_product_name[$ind] = $line_item["name"];
@@ -453,6 +454,25 @@ for($k = 0; $k < count($data[line_items]); $k++) {
   $subtotal[$remember_index] = $earphone_price;
 //echo $data["number"] . " is and I is " . $i ." and date is " . $data["date_created"] . " PRODUCT IS " . $SKU[7]. " and first name is " . $first_name. "<br/>";
 } // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED 
+
+for($k = 0; $k < count($data[fee_lines]); $k++) {
+	//for($j = 0; $j < count($fee_lines[meta_data]); $j++) {
+//	if(!strcmp($data[fee_lines]))
+		/*
+		$ind = $ind+1;
+		$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
+		$str_pos = $str_pos + 2; // JUMP PAST THE PARENTHESIS AND THE $ SIGN AND KEEP ONLY THE DOLLAR AMOUNT
+		$dollar_value = substr($line_item[meta_data][$j]->key, $str_pos, -1);
+		$subtotal[$ind] = $dollar_value;
+		$price_original_sku = $price_original_sku - $dollar_value;
+		$earphone_price = $earphone_price - $dollar_value;
+		$SKU[$ind] = 'ALCLR-CASE-CLAM';
+		$yes_no_earphone[$ind] = "NO";	
+		*/
+	//}
+}
+
+
 } // CLOSES IF STATEMENT - STATUS
 }
 //$SKUs[$i] = implode(" / ", $SKU);

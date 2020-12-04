@@ -152,8 +152,8 @@ function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS and LOW/HIGH is 2 " + $scope.customer_id_low)
 	index = 0;
-	var start_at = 1850;//1800;//1700;//$scope.customer_id_low;//200;//1530;//1450;//1480;//1080;//1150; //1150;
-	var num_customers = 1900;//$scope.customer_id_high;//1850; //
+	var start_at = 2370;//2000;//1955;//1870;//1800;//1700;//$scope.customer_id_low;//200;//1530;//1450;//1480;//1080;//1150; //1150;
+	var num_customers = 2400;//$scope.customer_id_high;//1850; //
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -278,7 +278,7 @@ $scope.BuildSalesOrder = function (order_number) {
 				if(email == $scope.customer_email[s]) {
 					CUSTOMER_ID = $scope.customer_id[s]
 					CUSTOMER_NAME = $scope.customer_name[s];
-					//CUSTOMER_NAME = 'Ryan OHara';
+					//CUSTOMER_NAME = 'VEanna Marsden';
 					CUSTOMER_EMAIL = $scope.customer_email[s];
 					break;
 				} else if(s == $scope.customer_email.length-1) {
@@ -288,7 +288,7 @@ $scope.BuildSalesOrder = function (order_number) {
 			ORDER_DATE = result.order_date;
 			LINES = "'lines':[";
 			console.log("CUSTOMER ID is " + CUSTOMER_ID)
-			console.log("C ID is " + CUSTOMER_ID + " and C name is " + CUSTOMER_NAME + " and C email is " + CUSTOMER_EMAIL)
+			//console.log("C ID is " + CUSTOMER_ID + " and C name is " + CUSTOMER_NAME + " and C email is " + CUSTOMER_EMAIL)
 			setTimeout(function(){
 				console.log("Number of SKUs is " + num_of_skus + " and email is " + email)
 				for(p=0; p < num_of_skus; p++) {
@@ -347,8 +347,13 @@ $scope.BuildSalesOrder = function (order_number) {
 				
 				/* SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
 			*/	
+
+/*
 				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
 "'channel': {'id': 1, 'name': 'Alclair'}," + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
+*/
+			SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'billing': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +" 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
+"'channel': {'id': 1, 'name': 'Alclair'}," + "'terms': {'id': 9, 'name': 'Payment With Order' },"+ "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }" ;
 				
 
 				$scope.CreateSalesOrder(SALES_ORDER,  1000*(i+1))

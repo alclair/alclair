@@ -25,7 +25,8 @@ try
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $the_order_number = $_REQUEST["order_number"];
-//$the_order_number = '10573915';
+// FOR LOOKING AT A SINGLE ORDER UNCOMMENT LINE BELOW
+//$the_order_number = '10578683';
 
 $HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
@@ -63,6 +64,14 @@ $order_number = $data["id"];
 
 $ind = 0;	
 
+if(count($data[line_items]) == 0) {
+	$response['orderStage'] = 1;
+	$shipping_total = $data["shipping_total"];
+	$cart_tax = $data["total_tax"]; //$data["cart_tax"];
+	$total[$ind] = $data["total"]; // BELIEVE THIS IS SUBTOTAL PLUS SHIPPING
+	$discount = -(double) $data["discount_total"];
+	$coupon= $coupon_lines["discount"];
+}
 for($k = 0; $k < count($data[line_items]); $k++) {
 		$line_item = get_object_vars($data[line_items][$k]); // PRODUCT -> 2
 		$is_earphone = get_object_vars($line_item[meta_data][$k]); // MODEL -> 4
@@ -222,6 +231,8 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					} elseif(stristr($line_item[meta_data][$j]->value, "Pearlescent") ) {
 						$SKU[$ind] = 'ALCLR-PEARL';
 					} elseif(stristr($line_item[meta_data][$j]->value, "Wood or Fashion") ) {
+						$SKU[$ind] = 'ALCLR-WOOD';
+					} elseif(stristr($line_item[meta_data][$j]->value, "Carbon") ) {
 						$SKU[$ind] = 'ALCLR-WOOD';
 					}
 					
@@ -394,7 +405,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$price_original_sku = $price_original_sku - $dollar_value;
 					$earphone_price = $earphone_price - $dollar_value;
 					
-					if(stristr($line_item[meta_data][$j]->value, "9dB_15dB_25dB") ) {
+					if(stristr($line_item[meta_data][$j-1]->key, "9dB_15dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 75;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
@@ -410,7 +421,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j]->value, "15dB_25dB") ) {
+					} elseif(stristr($line_item[meta_data][$j-1]->key, "15dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
@@ -421,7 +432,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";			
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j]->value, "9dB_25dB") ) {
+					} elseif(stristr($line_item[meta_data][$j-1]->key, "9dB_25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
@@ -432,7 +443,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-PLUG-25';
 						$yes_no_earphone[$ind] = "NO";		
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j]->value, "9dB_15dB") ) {
+					} elseif(stristr($line_item[meta_data][$j-1]->key, "9dB_15dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 100;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
@@ -443,19 +454,19 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j]->value, "9dB") ) {
+					} elseif(stristr($line_item[meta_data][$j-1]->key, "9dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 125;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j]->value, "15dB") ) {
+					} elseif(stristr($line_item[meta_data][$j-1]->key, "15dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 125;
 						$SKU[$ind] = 'ALCLR-PLUG-15';
 						$yes_no_earphone[$ind] = "NO";	
 						$QUANTITY[$ind] =1;
-					} elseif(stristr($line_item[meta_data][$j]->value, "25dB") ) {
+					} elseif(stristr($line_item[meta_data][$j-1]->key, "25dB") ) {
 						$ind = $ind+1;
 						$subtotal[$ind] = 125;
 						$SKU[$ind] = 'ALCLR-PLUG-9';
@@ -527,6 +538,39 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 //$SKUs[$i] = implode(" / ", $SKU);
 //$emails[$i] = implode(" / ", $email);
 
+// FOR LOOP ADDED TO STEP THRU EACH OF THE FEES
+// ONLY TESTED WHEN 1 FEE EXISTED WHICH WAS CUSTOM ARTWORK
+// NOT SURE WHAT WILL HAPPEN IF MORE THAN 1 FEE EXISTS
+// INCREMENTED THE INDEX (ind) AT THE END OF THE IF STATEMENT INSTEAD OF THE BEGINNING BECAUSE IN THE LOOP ABOVE THE INDEX INCREMENTS ON EXITING
+	for($k = 0; $k < count($data[fee_lines]); $k++) {
+		$fee_lines = get_object_vars($data[fee_lines][$k]); 
+
+		if(!strcmp($fee_lines["name"], "Custom artwork") ) {	
+			//$ind = $ind+1;
+			$dollar_value = $fee_lines["total"];
+			$subtotal[$ind] = $dollar_value;
+			$price_original_sku = $price_original_sku - $dollar_value;
+			$earphone_price = $earphone_price - $dollar_value;
+			$SKU[$ind] = 'ALCLR-ARTWORK';
+			$yes_no_earphone[$ind] = "NO";	
+			$QUANTITY[$ind] =1;
+			$ind = $ind + 1;
+		}
+		if(!strcmp($fee_lines["name"], "Woodgrain - upgrade") ) {	
+			//$ind = $ind+1;
+			$dollar_value = $fee_lines["total"];
+			$subtotal[$ind] = $dollar_value;
+			$price_original_sku = $price_original_sku - $dollar_value;
+			$earphone_price = $earphone_price - $dollar_value;
+			$SKU[$ind] = 'ALCLR-WOOD';
+			$yes_no_earphone[$ind] = "NO";	
+			$QUANTITY[$ind] =1;
+			$ind = $ind + 1;
+		}
+
+	}
+
+
 if($cart_tax > 0) {
 	$SKU[$ind] = 'ALCLAIR-SALESTAXPAYABLE';
 	$subtotal[$ind] = $cart_tax;
@@ -563,13 +607,16 @@ if($cart_tax > 0) {
 	}
 	*/
 	
-/*
+	// UNCOMMENT THE FOR LOOP BELOW FOR LOOKING AT A SINGLE ORDER
+	/*
 	for($k = 0; $k < count($SKU); $k++) {
 		echo "SKU # " . $k . " is and the SKU is " . $SKU[$k] . "<br>";
 	}
+	//echo "The test # is " . $test . "<br>";
 	echo json_encode($response);
 	exit;
 	*/
+	
 	$response['SKUs'] = $SKU;
 	$response['QUANTITY'] = $QUANTITY;
 	$response['SUBTOTALs'] = $subtotal;

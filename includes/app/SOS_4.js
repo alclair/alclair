@@ -152,8 +152,8 @@ function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
 	console.log("HERE IN GRAB CUSTOMERS and LOW/HIGH is 2 " + $scope.customer_id_low)
 	index = 0;
-	var start_at = 2370;//2000;//1955;//1870;//1800;//1700;//$scope.customer_id_low;//200;//1530;//1450;//1480;//1080;//1150; //1150;
-	var num_customers = 2400;//$scope.customer_id_high;//1850; //
+	var start_at = 2380;//2000;//1955;//1870;//1800;//1700;//$scope.customer_id_low;//200;//1530;//1450;//1480;//1080;//1150; //1150;
+	var num_customers = 2420;//$scope.customer_id_high;//1850; //
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();

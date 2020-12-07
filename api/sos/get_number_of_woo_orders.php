@@ -46,7 +46,7 @@ $response["test"] = $day;
 
 $month = '12';
 $year = '2020';
-$day = '03';
+$day = '06';
 
 $date = $year . '-' . $month . '-' . $day;
 /*

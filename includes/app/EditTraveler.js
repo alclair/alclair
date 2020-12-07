@@ -341,7 +341,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
 			console.log("INSIDE THE IF " +	 $scope.traveler.international)
 		} else {
-			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+			//var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + 11345;
 			console.log("INSIDE THE ELSE")
 		}
 		//return;
@@ -379,10 +380,10 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         })
          .success(function (result) {
-	         console.log(result.test)
+	         console.log(result.test2)
              if (result.code == "success") {
                  $.unblockUI();
-                 //console.log("TESTING IS " + result.testing + " and the other is " + result.testing2)
+                 console.log("TEST IS " + result.test2)
                  console.log("CODE IS " + result.code + " and the MESSAGE is " + result.message)
                  toastr.success("Updates saved!")
                  setTimeout(function(){

@@ -264,12 +264,21 @@ if($traveler["order_status_id"] == 1) {
 	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
 		$today = new DateTime(); // TODAY'S DATE
 		$today->modify('+1 day'); // NEEDS TO START WITH TOMORROW
-		if($today->format('m/d/Y') > $date->format('m/d/Y') ) {
+		//$right_now = $today->format('m/d/Y');
+		//$later = $date->format('m/d/Y');
+		//if($today->format('m/d/Y') > $date->format('m/d/Y') ) {
+		if($today->format('Y/m/d') > $date->format('Y/m/d') ) {
 			$nextDay = clone $today;
 			$finalDay = clone $today;
+			//$response["test2"] = "IN IF 270 " . " and Today is " . $right_now . " and Later is " . $later;
+			//echo json_encode($response);
+			//exit;
 		} else {
 			$nextDay = clone $date;
 			$finalDay = clone $date;
+			//$response["test2"] = "IN ELSE 276";
+			//echo json_encode($response);
+			//exit;
 		}
 		
 		$weekend = array('Sun', 'Sat');
@@ -304,7 +313,9 @@ if($traveler["order_status_id"] == 1) {
 		$finalDay->modify('+' . $days_to_final_date .  ' day');
 		$ship_day = $finalDay->format('Y-m-d');
 		$imp_date = $date->format('Y-m-d');
-		$response["test"] = "Date here is " . $ship_day;
+		//$response["test"] = "Date here is " . $imp_day;
+		$response["test2"] = "Ship day is " . $ship_day . " and Imp date is " . $imp_date;
+		//$string = "Ship day is " . $ship_day . " and Imp date is " . $imp_date;
 	   	 //echo json_encode($response);
 	   	 //exit;
 		
@@ -373,6 +384,11 @@ if($traveler["order_status_id"] == 1) {
 		} else {
 			$date = new DateTime($find_last_fake_imp_date[0]["fake_imp_date"]); 
 		}
+		
+		$testing_day = $date->format('Y-m-d');
+		//$response["test2"] = "Daily rate is " . $daily_rate . " and 0 index is " . $find_last_fake_imp_date[0]["fake_imp_date"] . " and 11-1 is " . $find_last_fake_imp_date[$daily_rate-1]["fake_imp_date"] . " and date is " . $testing_day;
+		//echo json_encode($response);
+		//exit;
 		$response["test"] = calc_estimate_ship_date($order[0], $date, $holidays, $shop_days, $pdo);
 	}
 /////////////////////////////////////////////////////////////////////// END CALC ESTIMATED SHIP DATE ///////////////////////////////////////////////////////////////////////////////////////

@@ -36,7 +36,7 @@ try
     }
     
      // GETS ALL ORDERS BETWEEN START CART AND CASING
-    $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'MM/dd/yyyy') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order
+    $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'yyyy/MM/dd') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
@@ -48,15 +48,16 @@ try
 	$first_fake_imp_date = $first_sql[0]["estimated_ship_date"];
 	//$today_4_sql = date("m/d/Y");	
 	
-   $tomorrow_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+1 days'));
-   $threeDays_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+3 days'));
-   $nextWeek_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+7 days'));
-   $twoWeeks_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+14 days'));
-   $threeWeeks_4_sql =date('m/d/Y', strtotime($first_fake_imp_date. '+21 days'));
-   $fourWeeks_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+28 days'));
-   $fiveWeeks_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+35 days'));
-   $sixWeeks_4_sql = date('m/d/Y', strtotime($first_fake_imp_date. '+42 days'));
-
+   // 01/04/2020 CHANGED FROM 'm/d/Y' to 'Y/m/d' SO THE LESS THAN EQUAL EQUATION ON 85 WOULD WORK
+   $tomorrow_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+1 days'));
+   $threeDays_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+3 days'));
+   $nextWeek_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+7 days'));
+   $twoWeeks_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+14 days'));
+   $threeWeeks_4_sql =date('Y/m/d', strtotime($first_fake_imp_date. '+21 days'));
+   $fourWeeks_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+28 days'));
+   $fiveWeeks_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+35 days'));
+   $sixWeeks_4_sql = date('Y/m/d', strtotime($first_fake_imp_date. '+42 days'));
+   
 	if( $_REQUEST['TODAY_OR_NEXT_WEEK'] == '1') {   // MEANS TODAY
 		$date_to_use = $first_fake_imp_date;
 	} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '0') { // MEANS PAST DUE
@@ -104,6 +105,7 @@ try
 	$count_studio3_casing = 0;
 	$count_studio4_casing = 0;
 	$count_electro_casing = 0;
+	$count_esm_casing = 0;
 	$count_versa_casing = 0;
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
@@ -132,6 +134,8 @@ try
 		    $count_studio4_casing = $count_studio4_casing + 1;
 	    }	elseif(strcmp($store_order[$i]["model"], "Electro") == 0) {
 		    $count_electro_casing = $count_electro_casing + 1;
+		}	elseif(strcmp($store_order[$i]["model"], "ESM") == 0) {
+			$count_esm_casing = $count_esm_casing + 1;    
 	    }	elseif(strcmp($store_order[$i]["model"], "Versa") == 0) {
 		    $count_versa_casing = $count_versa_casing + 1;
 	    }	
@@ -153,6 +157,7 @@ try
 	$part_17A003_casing = 0;
 	$part_6500_casing = 0;
 	$part_1723WT03_9_casing = 0;
+	$part_3800_filtered_casing= 0;
 	       
 for ($i = 0; $i < count($store_order); $i++) {
    
@@ -185,6 +190,8 @@ for ($i = 0; $i < count($store_order); $i++) {
 		     $part_6500_casing = $get_parts[$j]["quantity"] + $part_6500_casing;
 	     } elseif($get_parts[$j]["part_id"] == 12) {
 		     $part_1723WT03_9_casing = $get_parts[$j]["quantity"] + $part_1723WT03_9_casing;
+	     } elseif($get_parts[$j]["part_id"] == 13) {
+		     $part_3800_filtered_casing = $get_parts[$j]["quantity"] + $part_3800_filtered_casing;
 	     } 
 	 }
 }
@@ -222,8 +229,8 @@ for ($i = 0; $i < count($store_order); $i++) {
    			$Earphones_list[$i]["casing_count"]  = $count_revx_casing;
    		} elseif ( $i == 11) {
    			$Earphones_list[$i]["casing_count"]  = $count_electro_casing;
-   		}	elseif ( $i == 12) {
-	   		
+   		}	elseif ( $i == 14) {
+	   		$Earphones_list[$i]["casing_count"]  = $count_esm_casing;
    		}
 	}
 	
@@ -258,6 +265,8 @@ for ($i = 0; $i < count($store_order); $i++) {
 		     $BAs_list[$i]["casing_quantity"] = $part_6500_casing;
 	     } elseif($get_part_table[$i]["id"] == 12) {
 		     $BAs_list[$i]["casing_quantity"] = $part_1723WT03_9_casing;
+	     } elseif($get_part_table[$i]["id"] == 13) {
+		     $BAs_list[$i]["casing_quantity"] = $part_3800_filtered_casing;
 	     } 
    }
    

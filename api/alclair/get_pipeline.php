@@ -60,15 +60,25 @@ try
     }
     
 	    $today=getdate(date("U"));
-		$date_4_sql = $today['m'] . "/". $today['mday'] . "/" . $today['year'];
-		$today_4_sql = date("m/d/Y");
+		//$date_4_sql = $today['m'] . "/". $today['mday'] . "/" . $today['year'];
+		$date_4_sql = $today['year'] . "/" . $today['m'] . "/". $today['mday'];
+		//$today_4_sql = date("m/d/Y");
+		$today_4_sql = date("Y/m/d");
 		
+		/*
 		$tomorrow_4_sql = date('m/d/Y', strtotime('+1 days'));
 		$next_3days_sql = date('m/d/Y', strtotime('+3 days'));
 		$nextweek_4_sql = date('m/d/Y', strtotime('+7 days'));
 		$next_14days_sql = date('m/d/Y', strtotime('+14 days'));
 		$threeWeeks_4_sql = date('m/d/Y', strtotime('+21 days'));
 		$sixWeeks_4_sql = date('m/d/Y', strtotime('+42 days'));
+		*/
+		$tomorrow_4_sql = date('Y/m/d', strtotime('+1 days'));
+		$next_3days_sql = date('Y/m/d', strtotime('+3 days'));
+		$nextweek_4_sql = date('Y/m/d', strtotime('+7 days'));
+		$next_14days_sql = date('Y/m/d', strtotime('+14 days'));
+		$threeWeeks_4_sql = date('Y/m/d', strtotime('+21 days'));
+		$sixWeeks_4_sql = date('Y/m/d', strtotime('+42 days'));
 
 		
 		//if(!empty($_REQUEST["StartDate"])) {
@@ -158,13 +168,14 @@ try
     $result = pdo_fetch_all( $stmt );
     $rows_in_result = pdo_rows_affected($stmt);
     
-    $response["test"] = $rows_in_result;
+    $response["test"] = $rows_in_result . " and today is " . $today_4_sql . " and tomorrow is " . $nextweek_4_sql;
     //echo json_encode($response);
     //exit;
+    
     // CALCULATE NUMBER OF DAYS PAST DUE
     // DETERMINE NUMBER OF QC FORMS AND STATUS OF INITIAL PASS
     $workingDays = array(1, 2, 3, 4, 5); # date format = N (1 = Monday, ...)
-	$holidayDays = array('*-12-25', '*-01-01', '2013-12-23'); # variable and fixed holidays
+	//$holidayDays = array('*-12-25', '*-01-01', '2013-12-23'); # variable and fixed holidays
     for ($i = 0; $i < $rows_in_result; $i++) {
 	    		
 	    	$to = $today_4_sql;

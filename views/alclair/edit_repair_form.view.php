@@ -345,7 +345,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Date</th>
 					<th style="text-align:center;">Status</th>
 					<th style="text-align:center;">Person</th>
-					<th style="text-align:center;">Notes</th>
+					<th style="text-align:center;">Notes  <span style="color:yellow">(Click to edit)</span></th>
+					<!--<th style="text-align:center;">Notes</th>-->
 				</tr>
 			</thead>	
 			<tbody>
@@ -353,10 +354,39 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td style="text-align:center;">{{log_entry.date_to_show_date}}  &nbsp;&nbsp; {{log_entry.date_to_show_hours}} </a></td>
 					<td style="text-align:center;">{{log_entry.status_of_repair}}</a></td>
 					<td style="text-align:center;">{{log_entry.first_name}} &nbsp; {{log_entry.last_name}}</a></td>
-					<td style="text-align:center;">{{log_entry.notes}}</a></td>
+					<td style="text-align:center;" ng-click="EditNotes(key, log_entry.repair_id)">{{log_entry.notes}} </td>
+					<!--<td style="text-align:center;">{{log_entry.notes}}</a></td>-->
 				</tr>					
 			</tbody>
 		</table>
+		
+		 <!--Add Popup Window-->
+    <div class="modal fade modal-medium" id="modalEditNotes" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <form name="frmEditNotes">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><b>Edit <span style="color:red;" > {{editNotes.status_of_order}} </span>Notes</b></h4>
+                    </div>
+                    <div class="modal-body">
+                    		<div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label"><b>Notes:</b></label><br />
+									<textarea type="text" value="" ng-model="editNotes.notes" class='form-control' rows='6'></textarea>
+
+                            </div>                  
+                        </div>
+                		</div>
+                		<div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="SaveNotes(editNotes.the_id)" ng-disabled="!frmEditNotes.$valid">SUBMIT</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">EXIT</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     
  <?php
  	} 

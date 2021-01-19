@@ -261,8 +261,8 @@ swdApp.controller('Manufacturing_Screen_For_Phil', ['$http', '$scope', 'AppDataS
        
     $scope.init = function () {
 	    //$scope.labels5.push('2018');
-	    $scope.labels5.push('2019');
 	    $scope.labels5.push('2020');
+	    $scope.labels5.push('2021');
 	    var store_the_month = localStorage.getItem("store_the_month");
         $scope.LoadData(store_the_month);
     }

@@ -194,7 +194,7 @@ try
 		}
 	}*/
 	
-	 $query2 = "SELECT *, to_char(date, 'MM/dd/yyyy    HH24:MI') as date_moved, t2.status_of_repair, t3.first_name, t3.last_name
+	 $query2 = "SELECT *, to_char(date, 'MM/dd/yyyy    HH24:MI') as date_moved, t2.status_of_repair, t3.first_name, t3.last_name, repair_status_log.id AS repair_id
     					FROM repair_status_log 
     					LEFT JOIN repair_status_table AS t2 ON repair_status_log.repair_status_id = t2.order_in_repair
     					LEFT JOIN auth_user AS t3 ON repair_status_log.user_id = t3.id

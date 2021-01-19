@@ -449,8 +449,8 @@ swdApp.controller('Manufacturing_Screen_For_Marc', ['$http', '$scope', 'AppDataS
     $scope.init = function () {
 	    //$scope.labels5.push('2018');
 	    //$cookies.get("the_plot");
-	    $scope.labels5.push('2019');
 	    $scope.labels5.push('2020');
+	    $scope.labels5.push('2021');
 	    $scope.marc_plot = AppDataService.marc_plot;
 	    var store_the_month = localStorage.getItem("store_the_month");
 	    var store_the_plot = localStorage.getItem("store_the_plot");

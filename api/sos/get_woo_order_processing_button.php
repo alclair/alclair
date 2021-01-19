@@ -545,7 +545,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 	for($k = 0; $k < count($data[fee_lines]); $k++) {
 		$fee_lines = get_object_vars($data[fee_lines][$k]); 
 
-		if(!strcmp($fee_lines["name"], "Custom artwork") ) {	
+		if( strpos($fee_lines["name"], "Artwork") !== false) {	
 			//$ind = $ind+1;
 			$dollar_value = $fee_lines["total"];
 			$subtotal[$ind] = $dollar_value;
@@ -556,7 +556,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 			$QUANTITY[$ind] =1;
 			$ind = $ind + 1;
 		}
-		if(!strcmp($fee_lines["name"], "Woodgrain - upgrade") ) {	
+		if( strpos($fee_lines["name"], "Wood") !== false || strpos($fee_lines["name"], "wood") !== false ) {	
 			//$ind = $ind+1;
 			$dollar_value = $fee_lines["total"];
 			$subtotal[$ind] = $dollar_value;
@@ -567,9 +567,59 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 			$QUANTITY[$ind] =1;
 			$ind = $ind + 1;
 		}
+		if( strpos($fee_lines["name"], "CMVK") !== false || strpos($fee_lines["name"], "Tour") !== false  || strpos($fee_lines["name"], "Spire") !== false || strpos($fee_lines["name"], "RSM") !== false || strpos($fee_lines["name"], "Reference") !== false) {	
+			//$ind = $ind+1;
+			$dollar_value = $fee_lines["total"];
+			$subtotal[$ind] = $dollar_value;
+			$price_original_sku = $price_original_sku - $dollar_value;
+			$earphone_price = $earphone_price - $dollar_value;
+			$SKU[$ind] = 'ALCLR-CUSTOMUP';
+			$yes_no_earphone[$ind] = "NO";	
+			$QUANTITY[$ind] =1;
+			$ind = $ind + 1;
+		}
+		if( strpos($fee_lines["name"], "Transfer") !== false || strpos($fee_lines["name"], "transfer") !== false ) {	
+			//$ind = $ind+1;
+			$dollar_value = $fee_lines["total"];
+			$subtotal[$ind] = $dollar_value;
+			$price_original_sku = $price_original_sku - $dollar_value;
+			$earphone_price = $earphone_price - $dollar_value;
+			$SKU[$ind] = 'ALCLR-CUSTOMUP';
+			$yes_no_earphone[$ind] = "NO";	
+			$QUANTITY[$ind] =1;
+			$ind = $ind + 1;
+		}
+	
+		if( strpos($fee_lines["name"], "Shipping") !== false || strpos($fee_lines["name"], "shipping") !== false || strpos($fee_lines["name"], "Shiping") !== false || strpos($fee_lines["name"], "shiping") !== false ) {	
+			//$ind = $ind+1;
+			$dollar_value = $fee_lines["total"];
+			$subtotal[$ind] = $dollar_value;
+			$price_original_sku = $price_original_sku - $dollar_value;
+			$earphone_price = $earphone_price - $dollar_value;
+			$SKU[$ind] = 'ALCLR-SHIP-RUSH';
+			$yes_no_earphone[$ind] = "NO";	
+			$QUANTITY[$ind] =1;
+			$ind = $ind + 1;
+		}
 
 	}
-
+	if (count($data[line_items]) == 0) { // WANT TO ENTER THE FOR LOOP ONLY IF JUST A SHIPPING CHARGE/FEE
+		$shipping_total = 0; // HAD TO ZERO OUT SHIPPING TOTAL SO IT DOES NOT APPEAR AS A SHIPPING CHARGE TWICE
+		for($k = 0; $k < count($data[shipping_lines]); $k++) {
+			$shipping_lines = get_object_vars($data[shipping_lines][$k]); 
+			if( strpos($shipping_lines["method_title"], "Shipping") !== false || strpos($shipping_lines["method_title"], "shipping") !== false || strpos($shipping_lines["method_title"], "Shiping") !== false || strpos($shipping_lines["method_title"], "shiping") !== false ) {	
+				//$ind = $ind+1;
+				$dollar_value = $shipping_lines["total"];
+				$subtotal[$ind] = $dollar_value;
+				$price_original_sku = $price_original_sku - $dollar_value;
+				$earphone_price = $earphone_price - $dollar_value;
+				$SKU[$ind] = 'ALCLR-SHIP-RUSH';
+				$yes_no_earphone[$ind] = "NO";	
+				$QUANTITY[$ind] =1;
+				$ind = $ind + 1;
+			}
+		}
+	}
 
 if($cart_tax > 0) {
 	$SKU[$ind] = 'ALCLAIR-SALESTAXPAYABLE';

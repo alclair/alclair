@@ -150,10 +150,10 @@ $scope.index = 0;
 $scope.end = "NO";
 function GrabCustomersSOS_3() {
 //$scope.GrabCustomersSOS_3 = function() {
-	console.log("HERE IN GRAB CUSTOMERS and LOW/HIGH is 2 " + $scope.customer_id_low)
+	console.log("HERE IN GRAB CUSTOMERS and LOW/HIGH is 3 " + $scope.customer_id_low)
 	index = 0;
-	var start_at = 2620;//$scope.customer_id_low;//200;//1530;//1450;//1480;//1080;//1150; //1150;
-	var num_customers = 2680;//$scope.customer_id_high;//1850; //
+	var start_at = 2780; //$scope.customer_id_low;
+	var num_customers = 2820; //$scope.customer_id_high;
 	var customer_id = new Array();
 	var customer_name = new Array();
 	var customer_email = new Array();
@@ -250,6 +250,7 @@ async function GrabOrderNumbersWoo_2nd_Time() {
 	//var api_url = window.cfg.apiUrl + "sos/get_number_of_woo_orders.php?Start_Date_Passed="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&End_Date_Passed="+moment($scope.SearchEndDate).format("MM/DD/YYYY");
 	$http.get(api_url)
 		.success(function (result) {
+			console.log("what is going on?")
 			loop_thru = result.order_numbers.length;
 			for(i=0; i < loop_thru; i++) {
 				if(result.order_numbers[i] == '10573304') {
@@ -352,7 +353,9 @@ $scope.BuildSalesOrder = function (order_number) {
 				SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
 "'channel': {'id': 1, 'name': 'Alclair'}," + "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }";
 */
-			SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'billing': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +" 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
+
+			
+			SALES_ORDER ="{'Number': " + ORDER_NUMBER + ", 'date': " + "'" + ORDER_DATE + "'" + ", 'customer': {'id': " + CUSTOMER_ID + " }, " + " 'Location': {'id': 1, 'name': 'Default'}," + " 'billing': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +" 'shipping': {'company': " + null + ", 'contact': '" + CUSTOMER_NAME + "', 'phone': " + null + ", 'email': '" + CUSTOMER_EMAIL + "', 'addressName': " + null + ", 'addressType': " + null + ", 'address': { 'line1': " + null + ", 'line2': " + null + ", 'line3': " + null + ", 'line4': " + null + ", 'line5': " + null + ", 'city': " + null + ", 'stateProvince': " + null + ", 'postalCode': " +  null + ", 'country': " +  null + "}}, " +
 "'channel': {'id': 1, 'name': 'Alclair'}," + "'terms': {'id': 9, 'name': 'Payment With Order' },"+ "'orderStage': {'id': " + ORDERSTAGE + " }," + "'discountAmount': " + DISCOUNT + ", " + "'taxAmount': " + TAXES + ", " + "'shippingAmount': " + SHIPPING_AMOUNT + ", " + LINES + " }" ;
 				
 

@@ -28,7 +28,7 @@ try
 
 //$HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 $HOURS = array("T00:00:00", "T23:59:59");	
-//$HOURS = array("T14:00:00", "T14:59:59");	
+//$HOURS = array("T10:00:00", "T11:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
 //$before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
 $date = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day;
@@ -40,13 +40,10 @@ $end_date_passed = $_REQUEST["End_Date_Passed"]; // DO NOT USE THIS AT THE MOMEN
 $month = date("m",strtotime($start_date_passed));
 $year = date("yy",strtotime($start_date_passed));
 $day = date("d",strtotime($start_date_passed));
-$response["test"] = $day;
-//echo json_encode($response);
-//exit;
 
 $month = '01';
 $year = '2021';
-$day = '04';
+$day = '18';
 
 $date = $year . '-' . $month . '-' . $day;
 /*
@@ -94,6 +91,11 @@ $date31 = $year . '-' . $month . '-31';
 
 $params = ['before' =>  $date . $HOURS[1], 'after' => $date . $HOURS[0], 'per_page' => 100];
 $result = $woocommerce->get('orders', $params);
+
+$response["test"] = "BROKEN RIGHT HERE";
+//echo json_encode($response);
+//exit;
+
 /*
 $params = ['before' =>  $date1 . $HOURS[1], 'after' => $date1 . $HOURS[0], 'per_page' => 100];
 $result1 = $woocommerce->get('orders', $params);

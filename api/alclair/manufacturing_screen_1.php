@@ -219,7 +219,7 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 	$store_done_data = pdo_fetch_all( $query2 );
 	
 	$workingDays = array(1, 2, 3, 4, 5); # date format = N (1 = Monday, ...)
-    $holidayDays = array('*-12-25', '*-01-01', '2020-11-26'); # variable and fixed holidays
+    $holidayDays = array('*-12-25', '*-01-01', '2021-11-26'); # variable and fixed holidays
 	// import_orders_id
 	$store_start_data = array();
 	$difference = array();

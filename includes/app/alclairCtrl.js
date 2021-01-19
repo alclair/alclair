@@ -722,6 +722,40 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
     };
     
 
+	$scope.EditNotes = function (key, ID) {			
+		var api_url = window.cfg.apiUrl + 'notes_for_repair_form/get_note_from_repair_for_traveler.php?id=' + ID;
+		console.log("START IS " + window.cfg.Id)
+        $http.get(api_url)
+            .success(function (result) {
+	            $scope.editNotes = result.data;
+	            console.log("THE ID IS " + $scope.editNotes.the_id)
+	            $('#modalEditNotes').modal("show");
+            }).error(function (result) {
+                $.unblockUI();
+				toastr.error(result.message == undefined ? result.data : result.message);
+            });   
+	}
+	$scope.SaveNotes = function (id_to_edit) {		
+		var api_url = window.cfg.apiUrl + 'notes_for_repair_form/update_note_from_repair_for_traveler.php?id_to_edit=' + id_to_edit; 
+		console.log("The ID to EDIT is " + id_to_edit)
+        myblockui();
+        $http({
+            method: 'POST',
+            url: api_url,
+            data: $.param($scope.editNotes),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+         .success(function (result) {
+			 	$.unblockUI();
+			  	setTimeout(function(){
+			  		location.reload();				 	
+				}, 500);                
+         }).error(function (data) {
+             toastr.error("Error saving notes.");
+         });	
+	}
+
+
     $scope.faults = [];
     var faults_IDs = [];
     $scope.newFault = function($event){
@@ -3017,8 +3051,8 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
     $scope.loadImpressionsReceived = function () {
        myblockui();
 		
-		$scope.year_month = '2019';
 		$scope.year_month = '2020';
+		$scope.year_month = '2021';
 		$scope.month_month = '05';
 		$scope.month_month = '01';
 		//$scope.year_month = moment().format("YYYY");
@@ -3027,7 +3061,7 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
         var api_url = window.cfg.apiUrl + "reports/manufacturing_screen2.php?year=" + $scope.year_month + "&month=" + $scope.month_month;
 
         $http.get(api_url).success(function (result5) {
-
+				
             $.unblockUI();
             //console.log(JSON.stringify(result5.data));
             //console.log("data length is " + result.data.length)
@@ -3067,7 +3101,7 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
             for (var i = 0; i < result5.data.length; i++) {
 				//console.log("TESTING " + result5.data[i].the_month_name)
 				//if(i == result5.data.length-1 && result5.data[i].the_year != '2019') {
-				if(i == result5.data.length-1 && result5.data[i].the_year != '2020') {
+				if(i == result5.data.length-1 && result5.data[i].the_year != '2021') {
 					var created5 = parseInt(result5.data[i].the_month);
 					//var created5 = (result5.data[i].the_month_name);
 					var pass_or_fail5 = result5.data[i].the_year;
@@ -3078,7 +3112,7 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 					var created5 = parseInt(result5.data[i].the_month);
 					//var created5 = (result5.data[i].the_month_name);
 					//var pass_or_fail5 = '2019';
-					var pass_or_fail5 = '2020';
+					var pass_or_fail5 = '2021';
 					var num_status5 = 0;
 					console.log("I is " + i + " and " + created5+"-"+pass_or_fail5+"-"+num_status5 )
 					layers5[$scope.labels5.indexOf(pass_or_fail5)][created5].y = num_status5;
@@ -3296,8 +3330,8 @@ $scope.LoadData = function () {
 
     $scope.init = function () {
 	    //$scope.labels5.push('2018');
-	    $scope.labels5.push('2019');
 	    $scope.labels5.push('2020');
+	    $scope.labels5.push('2021');
 	    /*
 	    AppDataService.loadStatusTypeList_orders(null, null, function (result) {
         		for (var i = 0; i < result.data.length; i++) {

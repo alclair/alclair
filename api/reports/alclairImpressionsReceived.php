@@ -61,6 +61,7 @@ ORDER BY the_day ASC";
 	 $num_in_day = pdo_fetch_all( $stmt );
 	 */
 
+/* // CODE COMMENTED OUT ON 01/18/2021
 	$query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char(received_date, 'dd') ) ) AS num_in_day, t2.type
               FROM import_orders
               LEFT JOIN status_type_orders AS t2 ON 1 = t2.id
@@ -75,6 +76,28 @@ GROUP BY the_day, type
               WHERE to_char(date,'yyyy') = '$year' AND to_char(date,'MM') = '$month'  AND order_status_id = 12
 GROUP BY the_day, type
 ORDER BY the_day ASC";
+*/
+
+// ON 01/18/2021 ADDED LINES OF CODE TO OBTAIN THE CORRECT NUMBER OF EARPHONES SHIPPED BY MONTH
+// BORROWED CODE FROM /api/reports/manufacturing_screen_2 where it determines $num_in_day
+	$query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char(received_date, 'dd') ) ) AS num_in_day, t2.type
+              FROM import_orders
+              LEFT JOIN status_type_orders AS t2 ON 1 = t2.id
+              WHERE to_char(received_date,'yyyy') = '$year' AND to_char(received_date,'MM') = '$month' 
+GROUP BY the_day, type
+
+
+    UNION ALL
+    SELECT to_char(t1.date, 'dd') AS the_day, ( SELECT COUNT(to_char(t1.date, 'dd') ) ) AS num_in_day, t5.type
+              FROM order_status_log as t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+LEFT JOIN monitors AS t4 ON t2.model = t4.name
+          LEFT JOIN status_type_orders AS t5 ON 2 = t5.id
+              WHERE to_char(t1.date,'yyyy') = '$year' AND to_char(t1.date,'MM') = '$month'  AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL)
+GROUP BY the_day, type
+ORDER BY the_day ASC";
+
     $stmt = pdo_query( $pdo, $query, $params ); 
 	 $num_in_day = pdo_fetch_all( $stmt );
 	 

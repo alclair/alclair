@@ -41,16 +41,19 @@ try
     if ($_REQUEST['monitor_id'] > 0 ) {
 		$stmt = pdo_query( $pdo, "SELECT name FROM monitors WHERE id = :monitor_id", array(":monitor_id"=>$_REQUEST['monitor_id'] ));
 		$name_of_monitor = pdo_fetch_array( $stmt );
-
-		$conditionSql .= " AND t1.model = :name_of_monitor";
-		$params[":name_of_monitor"] = $name_of_monitor["name"];
 		
-		//$response["test"] = $name_of_monitor["name"];
-		//echo json_encode($response);
-		//exit;
-			//$params[":OrderStatusID"] = $_REQUEST['repair_status_id']; 
+		$conditionSql .= " AND t1.monitor_id = :monitor_id";
+		$params[":monitor_id"] = $_REQUEST['monitor_id'];
     }
-    
+    if ($_REQUEST['repair_status_id'] > 0 ) {
+		//$stmt = pdo_query( $pdo, "SELECT name FROM monitors WHERE id = :monitor_id", array(":monitor_id"=>$_REQUEST['order_status_id'] ));
+		//$order_status_id = pdo_fetch_array( $stmt );
+
+		$conditionSql .= " AND t1.repair_status_id = :repair_status_id";
+		$params[":repair_status_id"] = $_REQUEST['repair_status_id'];
+		
+    }
+
 	    
 	    $today=getdate(date("U"));
 		$date_4_sql = $today['m'] . "/". $today['mday'] . "/" . $today['year'];

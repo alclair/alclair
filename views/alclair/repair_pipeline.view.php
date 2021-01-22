@@ -50,6 +50,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 <select class='form-control' ng-model='today_or_next_week' ng-options="day.value as day.label for day in TODAY_OR_NEXT_WEEK" ng-blur="Search();">
                 </select>
             </div>	
+            <div class="form-group col-sm-2">             
+				<select class='form-control' ng-model='repair_status_id' ng-options="repairStatus.order_in_repair as repairStatus.status_of_repair for repairStatus in RepairStatusList">
+					<option value="">Select a status</option>
+				</select>
+            </div>           
            <div class="form-group col-sm-2">             
 				<select class='form-control' ng-model='monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
 					<option value="">Select a monitor</option>

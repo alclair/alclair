@@ -923,6 +923,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 	$scope.entityName = "Traveler";
 	$scope.printed_or_not = '0';
 	$scope.today_or_next_week = '0';
+	$scope.repair_status_id = 0;
 	//$scope.remove_hearing_protection = 1;
     
     //SearchStartDate = "10/1/2017";
@@ -1016,7 +1017,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 		console.log("rush is " + $scope.order_status_id)
 		console.log("Monitor ID is " + $scope.monitor_id)
 		console.log("Hearing protection is " + $scope.remove_hearing_protection)
-        var api_url = window.cfg.apiUrl + "alclair/get_pipeline_repair.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&TODAY_OR_NEXT_WEEK=" + $scope.today_or_next_week + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&REMOVE_HEARING_PROTECTION=" + $scope.remove_hearing_protection + "&monitor_id=" + $scope.monitor_id;
+        var api_url = window.cfg.apiUrl + "alclair/get_pipeline_repair.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&TODAY_OR_NEXT_WEEK=" + $scope.today_or_next_week + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&REMOVE_HEARING_PROTECTION=" + $scope.remove_hearing_protection + "&monitor_id=" + $scope.monitor_id + "&repair_status_id=" + $scope.repair_status_id;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
@@ -1095,15 +1096,16 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
         if (isEmpty($scope.cust_name)) $scope.cust_name = "";
         if (isEmpty($scope.qc_form.cust_name)) $scope.qc_form.cust_name = "";
         $scope.PASS_OR_FAIL = AppDataService.PASS_OR_FAIL;
-        AppDataService.loadMonitorList(null, null, function (result) {
+        AppDataService.loadMonitorList_not_Universals(null, null, function (result) {
            $scope.monitorList = result.data;
         }, function (result) { });
         AppDataService.loadBuildTypeList(null, null, function (result) {
            $scope.buildTypeList = result.data;
         }, function (result) { });
-        AppDataService.loadOrderStatusTableList(null, null, function (result) {
-           $scope.orderStatusTableList = result.data;
+        AppDataService.loadRepairStatusTableList(null, null, function (result) {
+           $scope.RepairStatusList = result.data;
         }, function (result) { });
+        
    		/*if($cookies.get("SearchStartDate")!=undefined)
 		{
 			$scope.SearchStartDate=moment($cookies.get("SearchStartDate")).format("MM/DD/YYYY");

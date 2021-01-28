@@ -28,7 +28,7 @@ try
 
 //$HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 $HOURS = array("T00:00:00", "T23:59:59");	
-//$HOURS = array("T10:00:00", "T11:59:59");	
+//$HOURS = array("T20:00:00", "T23:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
 //$before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
 $date = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day;
@@ -43,7 +43,7 @@ $day = date("d",strtotime($start_date_passed));
 
 $month = '01';
 $year = '2021';
-$day = '21';
+$day = '27';
 
 $date = $year . '-' . $month . '-' . $day;
 /*

@@ -156,7 +156,7 @@ try
     $response["test"] = $conditionSql;
     $response["test2"] = $_REQUEST['id'];
 
-        $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date,IEMs.id AS monitor_id, t2.status_of_order
+        $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, IEMs.id AS monitor_id, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing

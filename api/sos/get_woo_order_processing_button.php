@@ -26,7 +26,7 @@ try
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $the_order_number = $_REQUEST["order_number"];
 // FOR LOOKING AT A SINGLE ORDER UNCOMMENT LINE BELOW
-//$the_order_number = '10578683';
+//$the_order_number = '10581673';
 
 $HOURS = array("T00:00:00", "T06:00:00", "T06:00:01", "T12:00:00", "T12:00:01", "T18:00:00", "T18:00:01", "T23:59:59");	
 //$after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00:00:00";
@@ -185,7 +185,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 						// DO NOTHING
 					} else {
 						$ind = $ind+1;
-						if(!strcmp($line_item[meta_data][$j]->value, "Black") ) {
+						if(!strcmp($line_item[meta_data][$j]->value, "Black") || !strcmp($line_item[meta_data][$j]->value, "black") ) {
 							$SKU[$ind] = 'ALCLR-CABLE-50BINC';	
 						} elseif(!strcmp($line_item[meta_data][$j]->value, "Clear") ) {
 							$SKU[$ind] = 'ALCLR-CABLE-50CINC';
@@ -296,6 +296,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 					$SKU[$ind] = 'ALCLR-CASE-PELICAN';
 					$yes_no_earphone[$ind] = "NO";	
 					$QUANTITY[$ind] =1;
+					
 				} elseif(stristr($line_item[meta_data][$j]->key, "Soft Case") ) {
 					$ind = $ind+1;
 					$str_pos = strrpos($line_item[meta_data][$j]->key, "("); // FIND OPEN PARENTHESIS
@@ -567,7 +568,7 @@ for($k = 0; $k < count($data[line_items]); $k++) {
 			$QUANTITY[$ind] =1;
 			$ind = $ind + 1;
 		}
-		if( strpos($fee_lines["name"], "CMVK") !== false || strpos($fee_lines["name"], "Tour") !== false  || strpos($fee_lines["name"], "Spire") !== false || strpos($fee_lines["name"], "RSM") !== false || strpos($fee_lines["name"], "Reference") !== false) {	
+		if( strpos($fee_lines["name"], "CMVK") !== false || strpos($fee_lines["name"], "Tour") !== false  || strpos($fee_lines["name"], "Spire") !== false || strpos($fee_lines["name"], "RSM") !== false || strpos($fee_lines["name"], "Reference") !== false || strpos($fee_lines["name"], "Dual XB") !== false) {	
 			//$ind = $ind+1;
 			$dollar_value = $fee_lines["total"];
 			$subtotal[$ind] = $dollar_value;

@@ -16,27 +16,34 @@ try
     $orderBySql = " ORDER BY id $orderBySqlDirection";
     $params = array();
 
-    if( !empty($_REQUEST['id']) )
-    {
-        $conditionSql .= " AND id = :id";
-        $params[":id"] = $_REQUEST['id'];
-    }
-        
-	if(!empty($_REQUEST["StartDate"]))
-	{
-		if (date('I', time()))
-		{	
-			$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00') + 5 * 3600);
-		}
-		else
-		{
-			$TIME_START = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00')+ 6 * 3600);
-		}
-		$conditionSql.=" and (t1.received_date>=:StartDate)";
-		$params[":StartDate"]=$TIME_START;
-		//$params[":StartDate"]=$_REQUEST["StartDate"];
-	}
+    $query5 = "SELECT *, to_char(estimated_ship_date, 'MM/dd/yyyy') AS estimated_ship_date2 FROM import_orders WHERE order_status_id = 1 AND active = TRUE AND estimated_ship_date IS NOT NULL ORDER BY estimated_ship_date DESC";
+	$stmt5 = pdo_query( $pdo, $query5, null); 
+	$result5 = pdo_fetch_all( $stmt5 );  
 	
+	$current_ship_date = $result5[0]["estimated_ship_date2"];
+    
+    if(!empty($_REQUEST["StartDate"]) || !is_null($_REQUEST["StartDate"])) {
+	    if (date('I', time())) {	
+			$StartDate = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00') + 5 * 3600);
+		} else {
+			$StartDate = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00')+ 6 * 3600);
+		}
+	
+		if (date('I', time())) {	
+			$EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '00:00:00') + 5 * 3600);
+		} else {
+			$EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '00:00:00')+ 6 * 3600);
+		}
+		
+		$response["test"] = $_REQUEST["StartDate"];
+		//echo json_encode($response);
+		//exit;
+
+	} else {
+		$StartDate = $current_ship_date;
+		$EndDate = $current_ship_date;
+	}
+		
         $query = "SELECT * FROM daily_build_rate";
 		$stmt = pdo_query( $pdo, $query, null); 
 		$result = pdo_fetch_all( $stmt );
@@ -97,16 +104,21 @@ try
     					LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.id
     					WHERE t1.active = TRUE AND t1.fake_imp_date = :fake_imp_date
     					ORDER BY t1.fake_imp_date ASC";
+	// STARTED USING THIS QUERY ON FEBRUARY 10TH, 2021
+	$query4 = "SELECT t1.*, to_char(t1.fake_imp_date, 'MM/dd/yyyy') as fake_imp_date, to_char(t1.estimated_ship_date, 'MM/dd/yyyy') as estimated_ship_date, IEMs.name AS monitor_name, t2.status_of_order
+    					FROM import_orders AS t1
+    					LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
+    					LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.id
+    					WHERE t1.active = TRUE AND t1.estimated_ship_date >= :start_date AND t1.estimated_ship_date <= :end_date
+    					ORDER BY t1.fake_imp_date ASC";
+
     //$params2[":repair_form_id"] = $_REQUEST['id'];
     //$stmt4 = pdo_query( $pdo, $query4, array(":today"=>$today, ":tomorrow"=>$tomorrow)); 
-    $stmt4 = pdo_query( $pdo, $query4, array(":fake_imp_date"=>$fake_imp_date)); 
+    //$stmt4 = pdo_query( $pdo, $query4, array(":fake_imp_date"=>$fake_imp_date)); 
+    $stmt4 = pdo_query( $pdo, $query4, array(":start_date"=>$StartDate, ":end_date"=>$EndDate)); 
 	$DailyList = pdo_fetch_all( $stmt4 );  
 	
-	$query5 = "SELECT *, to_char(estimated_ship_date, 'MM/dd/yyyy') AS estimated_ship_date2 FROM import_orders WHERE order_status_id = 1 AND active = TRUE AND estimated_ship_date IS NOT NULL ORDER BY estimated_ship_date DESC";
-	$stmt5 = pdo_query( $pdo, $query5, null); 
-	$result5 = pdo_fetch_all( $stmt5 );  
 	
-	$current_ship_date = $result5[0]["estimated_ship_date2"];
 	$response["test"] = $current_ship_date;
     $response['code'] = 'success';
     $response["message"] = $query;

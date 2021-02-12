@@ -13,7 +13,28 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
     $scope.formats = ['MM/dd/yyyy'];
     $scope.format = $scope.formats[0];
    	//$scope.SearchStartDate=window.cfg.CurrentDay;
-   	
+   	$scope.SearchStartDate=window.cfg.CurrentMonthFirstDate;//OctoberOne;
+	$scope.SearchEndDate=window.cfg.CurrentDay;
+   	$scope.openStartDay = function ($event) {        
+        $scope.openedStartDay = true;
+    };
+	$scope.openEndDay = function ($event) {        
+        $scope.openedEndDay = true;
+    };
+
+	$scope.openStart = function ($event, index) {        
+        $scope.openedStart = true;
+        console.log("INDEX IS " + index)
+    };
+    //$scope.openStart = function ($event) {        
+    //    $scope.openedStart = true;
+    //};
+
+	$scope.openStart2 = function ($event) {        
+        $scope.openedStart2 = true;
+    };
+
+
  $scope.greeting = 'Hola!';
  $scope.daily = {
  	ticket_number: '',
@@ -37,18 +58,7 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
         $count_holidays = $count_holidays + 1;
     }
     
-    $scope.openStart = function ($event, index) {        
-        $scope.openedStart = true;
-        console.log("INDEX IS " + index)
-    };
-    //$scope.openStart = function ($event) {        
-    //    $scope.openedStart = true;
-    //};
-
-	$scope.openStart2 = function ($event) {        
-        $scope.openedStart2 = true;
-    };
-
+    
     $scope.removeHoliday = function($event){
         // prevent submission
         $event.preventDefault();
@@ -100,9 +110,13 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
 	            console.log("HERE IS " + JSON.stringify(result.test))
                 if (result.data.length > 0) {
 	                $scope.DailyList = result.DailyList;
-					  $scope.current_ship_date = result.current_ship_date;
+					$scope.current_ship_date = result.current_ship_date;
                     $scope.daily = result.data[0];
                     //$scope.repair_form_fileList = result.data2;
+                    
+                    console.log("LOOKING HERE " + $scope.current_ship_date)
+					$scope.SearchStartDate=$scope.current_ship_date;//window.cfg.CurrentMonthFirstDate;//OctoberOne;
+					$scope.SearchEndDate=$scope.current_ship_date;window.cfg.CurrentDay;
                     
                     $scope.holidays = result.data_holidays;
                     $scope.num_of_holidays = $scope.holidays.length;
@@ -121,7 +135,8 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
 	$scope.LoadData2 = function () {
 		console.log("Day to view is " + $scope.day_to_view)
         myblockui();
-        var api_url = window.cfg.apiUrl + "alclair_daily_build_rate/get_daily_build_rate.php?day_to_view=" + $scope.day_to_view;
+        //var api_url = window.cfg.apiUrl + "alclair_daily_build_rate/get_daily_build_rate.php?day_to_view=" + $scope.day_to_view;
+        var api_url = window.cfg.apiUrl + "alclair_daily_build_rate/get_daily_build_rate.php?StartDate=" + moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&EndDate=" + moment($scope.SearchEndDate).format("MM/DD/YYYY");
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
@@ -385,6 +400,7 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
     {
 	    $scope.LoadData();
 	    $scope.DAY_TO_VIEW = AppDataService.day_to_view;
+	    
         $http.get(window.cfg.rootUrl + "/api/settings/get.php").success(function (data) {
             //$scope.minimum_barrel_warning = data.minimum_barrel_warning;
             //$scope.maximum_barrel_warning = data.maximum_barrel_warning;

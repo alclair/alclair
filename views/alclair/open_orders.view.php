@@ -91,6 +91,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Order Status</th>
 					<th style="text-align:center;">Order ID</th>
 					<th style="text-align:center;">Order Date</th>	
+					<th style="text-align:center;">Est. Ship Date</th>	
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Impressions Received</th>
 				</tr>
@@ -105,6 +106,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
 					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>
 					<td  style="text-align:center;" data-title="Order Date">{{order.date}}</td>
+					<td  style="text-align:center;" data-title="Est. Ship Date">{{order.estimated_ship_date}}</td>
 					<td  style="text-align:center;" data-title="Model">{{order.model}}</td>
 					<td  ng-if="!order.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
 					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date}}</td>					

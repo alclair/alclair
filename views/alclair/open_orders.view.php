@@ -87,29 +87,27 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;">Designed For</th>
-					<th style="text-align:center;">Order Status</th>
 					<th style="text-align:center;">Order ID</th>
-					<th style="text-align:center;">Order Date</th>	
-					<th style="text-align:center;">Est. Ship Date</th>	
+					<th style="text-align:center;">Designed For</th>
 					<th style="text-align:center;">Model</th>
+					<th style="text-align:center;">Order Status</th>
+					<th style="text-align:center;">Est. Ship Date</th>	
 					<th style="text-align:center;">Impressions Received</th>
+					<th style="text-align:center;">Order Date</th>	
 				</tr>
 			</thead>	
 			<tbody>
 				<tr ng-repeat='order in OrdersList'>
-					
+					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>										
 					<td  ng-if="(order.designed_for==null || order.designed_for=='') && order.billing_name==order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.billing_name}}</a></td>
 					<td  ng-if="(order.designed_for==null || order.designed_for=='') && order.billing_name!=order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">Billing -{{order.billing_name}} / Shipping-{{order.shipping_name}}</a></td>
 					<td  ng-if="order.designed_for!=null && order.designed_for!=''" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.designed_for}} </a></td>
-					
-					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
-					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>
-					<td  style="text-align:center;" data-title="Order Date">{{order.date}}</td>
-					<td  style="text-align:center;" data-title="Est. Ship Date">{{order.estimated_ship_date}}</td>
 					<td  style="text-align:center;" data-title="Model">{{order.model}}</td>
+					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
+					<td  style="text-align:center;" data-title="Est. Ship Date">{{order.estimated_ship_date}}</td>
 					<td  ng-if="!order.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
 					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date}}</td>					
+					<td  style="text-align:center;" data-title="Order Date">{{order.date}}</td>
 				</tr>
 			</tbody>
 		</table>

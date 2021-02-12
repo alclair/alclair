@@ -302,7 +302,7 @@
 							<ul class="dropdown-menu">
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/orders" class="nav-link "> Orders List</a></li>
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/pipeline" class="nav-link "> Pipeline</a></li>
-								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/bas_required" class="nav-link "> BAs Required</a></li>
+								<!--<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/bas_required" class="nav-link "> BAs Required</a></li> -->
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/bas_required_new" class="nav-link "> BAs Required (New!)</a></li>
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/import" class="nav-link "> Import</a></li>
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/orders_done_by_date" class="nav-link "> Orders Done By Date</a></li>

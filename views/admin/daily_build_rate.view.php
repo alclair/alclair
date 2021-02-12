@@ -53,7 +53,63 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             </div>
             
         <br />
-                	
+		<div class="row">
+		<!--
+	    <div class="col-md-2">  
+            <b style="font-size: 20px; margin-left:20px" id="qcform" style="font-size: 20px;color:blue;cursor: pointer;" >Day:</b>  
+		</div>
+
+		<div class="col-md-3" style="margin-left:-120px;margin-top:-5px">  
+			<select class='form-control' ng-model='day_to_view' ng-options="day.value as day.label for day in DAY_TO_VIEW" ng-blur="LoadData2(add_item.customer_status);"></select>
+		</div>
+		-->
+
+		<div class="col-sm-2">
+			<label  class="control-label" style="font-size: large;color: #007FFF">Start Date:</label><br />
+			<div class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="SearchStartDate" is-open="openedStartDay" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openStartDay($event)"><i class="fa fa-calendar"></i></button>
+				</span>
+			</div>				
+		</div>
+		<div class="col-sm-2">
+			<label  class="control-label" style="font-size: large;color: #007FFF">End Date:</label><br />
+			<div class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="SearchEndDate" is-open="openedEndDay" datepicker-options="dateOptions"  ng-inputmask="99/99/9999" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openEndDay($event)"><i class="fa fa-calendar"></i></button>
+				</span>
+			</div>
+		</div>
+		<div class="col-sm-2">
+			<label  class="control-label" style="font-size: large;color: #FFFFFF"> d</label><br />
+			<button style="border-radius: 4px; border-color: blue" class="btn btn-warning" ng-click="LoadData2($event)">RUN</button>
+		</div>
+    </div>
+	<br/>
+    
+    <table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Customer's Name</th>
+					<th style="text-align:center;">Monitor</th>
+					<th style="text-align:center;">Impression Detailing Date</th>
+					<th style="text-align:center;">Estimated Ship Date</th>
+					<th style="text-align:center;">Station</th>
+				</tr>
+			</thead>	
+			<tbody>
+				<tr ng-repeat='list in DailyList'>
+					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{list.id}}">{{list.designed_for}}</a></td>
+					<td  style="text-align:center;" data-title="Monitor">{{list.monitor_name}}</td>	
+					<td  style="text-align:center;" data-title="Imp. Det. Date">{{list.fake_imp_date}}</td>
+					<td  style="text-align:center;" data-title="Est. Ship Date">{{list.estimated_ship_date}}</td>
+					<td  style="text-align:center;" data-title="Station">{{list.status_of_order}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
         	<h3 style="color: #006400"><b>HOLIDAYS</b></h3>
 			<form name="HolidaysForm" ng-submit="save()">
 				<div id="{{$index}}" ng-repeat="(key, celebrate) in holidays">
@@ -93,36 +149,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <br />
     </form>
     
-    <div class="row">
-	    <div class="col-md-2">  
-            <b style="font-size: 20px; margin-left:20px" id="qcform" style="font-size: 20px;color:blue;cursor: pointer;" >Day:</b>  
-		</div>
-		<div class="col-md-3" style="margin-left:-120px;margin-top:-5px">  
-			<select class='form-control' ng-model='day_to_view' ng-options="day.value as day.label for day in DAY_TO_VIEW" ng-blur="LoadData2(add_item.customer_status);"></select>
-		</div>
-    </div>
-	<br/>
     
-    <table>		
-			<thead>
-				<tr>
-					<th style="text-align:center;">Customer's Name</th>
-					<th style="text-align:center;">Monitor</th>
-					<th style="text-align:center;">Impression Detailing Date</th>
-					<th style="text-align:center;">Estimated Ship Date</th>
-					<th style="text-align:center;">Station</th>
-				</tr>
-			</thead>	
-			<tbody>
-				<tr ng-repeat='list in DailyList'>
-					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{list.id}}">{{list.designed_for}}</a></td>
-					<td  style="text-align:center;" data-title="Monitor">{{list.monitor_name}}</td>	
-					<td  style="text-align:center;" data-title="Imp. Det. Date">{{list.fake_imp_date}}</td>
-					<td  style="text-align:center;" data-title="Est. Ship Date">{{list.estimated_ship_date}}</td>
-					<td  style="text-align:center;" data-title="Station">{{list.status_of_order}}</td>
-				</tr>
-			</tbody>
-		</table>
  <?php
  	} 
  ?>	 

@@ -15,7 +15,7 @@ try
     $conditionSql_printed = "";
     $pagingSql = "";
     $orderBySqlDirection = "ASC";
-    $orderBySql = " ORDER BY order_id $orderBySqlDirection";
+    $orderBySql = " ORDER BY t1.estimated_ship_date $orderBySqlDirection";
     $params = array();
     
     if( !empty($_REQUEST['id']) )

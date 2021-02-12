@@ -82,9 +82,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</span>
 			</div>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-4">
 			<label  class="control-label" style="font-size: large;color: #FFFFFF"> d</label><br />
 			<button style="border-radius: 4px; border-color: blue" class="btn btn-warning" ng-click="LoadData2($event)">RUN</button>
+			<label  class="control-label" style="font-size: large;color: #000000">&nbsp;&nbsp; Total orders:  {{DailyListCount}}</label><br />
 		</div>
     </div>
 	<br/>

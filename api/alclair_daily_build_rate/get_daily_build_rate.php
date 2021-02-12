@@ -30,9 +30,9 @@ try
 		}
 	
 		if (date('I', time())) {	
-			$EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '00:00:00') + 5 * 3600);
+			$EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59') + 5 * 3600);
 		} else {
-			$EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '00:00:00')+ 6 * 3600);
+			$EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59')+ 6 * 3600);
 		}
 		
 		$response["test"] = $_REQUEST["StartDate"];
@@ -117,7 +117,7 @@ try
     //$stmt4 = pdo_query( $pdo, $query4, array(":fake_imp_date"=>$fake_imp_date)); 
     $stmt4 = pdo_query( $pdo, $query4, array(":start_date"=>$StartDate, ":end_date"=>$EndDate)); 
 	$DailyList = pdo_fetch_all( $stmt4 );  
-	
+	$DailyListCount = pdo_rows_affected($stmt4);
 	
 	$response["test"] = $current_ship_date;
     $response['code'] = 'success';
@@ -126,6 +126,7 @@ try
     $response['data_holidays'] = $result2;
     $response['DailyList'] = $DailyList;
 	$response['current_ship_date'] = $current_ship_date;
+	$response['DailyListCount'] = $DailyListCount;
             
 	echo json_encode($response);
 }

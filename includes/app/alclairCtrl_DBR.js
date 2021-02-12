@@ -112,6 +112,7 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
 	                $scope.DailyList = result.DailyList;
 					$scope.current_ship_date = result.current_ship_date;
                     $scope.daily = result.data[0];
+                    $scope.DailyListCount = result.DailyListCount;
                     //$scope.repair_form_fileList = result.data2;
                     
                     console.log("LOOKING HERE " + $scope.current_ship_date)
@@ -145,6 +146,7 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
 	                $scope.DailyList = result.DailyList;
 	                $scope.current_ship_date = result.current_ship_date;
                     $scope.daily = result.data[0];
+                    $scope.DailyListCount = result.DailyListCount;
                     //$scope.repair_form_fileList = result.data2;
                     
                     $scope.holidays = result.data_holidays;

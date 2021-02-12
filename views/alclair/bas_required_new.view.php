@@ -61,11 +61,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<button style="font-weight: 600" type="button" class="btn btn-primary" ng-click="Search()">
 					<i class="fa fa-search"></i> &nbsp; SEARCH
 				</button>
+            </div>
 				<!--<select class='form-control' ng-model='monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
 					<option value="">Monitor</option>
 				</select>-->
-            </div>
-			
+			<div class="form-group col-sm-8"> 
+				<label  class="control-label" style="font-size: large;color: #000000"> Includes orders from Start Cart, Impression, Digital detailing, Shell Pouring, Shell Detailing & Casing</label><br />
+			</div>
 		</div>
         
 	<?php

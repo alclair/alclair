@@ -19,33 +19,40 @@ try
     
     if( !empty($_REQUEST['id']) )
     {
-        $conditionSql .= " AND t1.id = :id";
-        $params[":id"] = $_REQUEST['id'];
+        //$conditionSql .= " AND t1.id = :id";
+        //$params[":id"] = $_REQUEST['id'];
     }
    
     if ($_REQUEST['RUSH_OR_NOT'] == 1) {
-			$conditionSql .=" AND (t1.rush_process = 'Yes')";
-			$conditionSql .= " AND (t1.order_status_id != 12)";
-			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
+			//$conditionSql .=" AND (t1.rush_process = 'Yes')";
+			//$conditionSql .= " AND (t1.order_status_id != 12)";
     }
     if ($_REQUEST['REMOVE_HEARING_PROTECTION'] == 1) {
-			//$conditionSql .=" AND (t1.hearing_protection != TRUE)";
-			$conditionSql .=" AND ( (t1.hearing_protection != TRUE AND t1.model IS NOT NULL) OR (t1.hearing_protection != TRUE AND t1.model IS NULL) )";
-			$conditionSql .= " AND (t1.order_status_id != 12)";
+			//$conditionSql .=" AND (t1.hearing_protection != TRUE AND (t1.product IS NOT NULL AND t1.model IS NOT NULL)";
+			$conditionSql .= " AND (t1.product IS NOT NULL AND t1.model IS NOT NULL)";
+			//$conditionSql .=" AND ( (t1.hearing_protection != TRUE AND t1.model IS NOT NULL) OR (t1.hearing_protection != TRUE AND t1.model IS NULL) )";
+			//$conditionSql .= " AND (t1.order_status_id != 12)";
+			
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }
     
      // GETS ALL ORDERS BETWEEN START CART AND CASING
-    $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'yyyy/MM/dd') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order
+    $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'yyyy/MM/dd') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'yyyy/MM/dd') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE t1.active = TRUE AND (t1.order_status_id <=5 OR t1.order_status_id = 15) $conditionSql ORDER BY t1.estimated_ship_date ASC";
+                  WHERE t1.active = TRUE AND (t1.order_status_id <= 5 OR t1.order_status_id = 16)  AND (t1.product IS NOT NULL AND t1.model IS NOT NULL) ORDER BY t1.estimated_ship_date ASC";
                 
-    $stmt = pdo_query( $pdo, $query, $params); 
+    $stmt = pdo_query( $pdo, $query, null); 
     $first_sql = pdo_fetch_all( $stmt );
     $rows_first_sql = pdo_rows_affected($stmt);
-	$first_fake_imp_date = $first_sql[0]["estimated_ship_date"];
+   
+    $todays_date = new DateTime();
+	$todays_date->modify('+1 day'); // TOMORROW'S DATE
+	$tomorrow = $todays_date;
+	$tomorrow = $tomorrow->format('Y-m-d');
+	$first_fake_imp_date = $tomorrow;
+	//$first_fake_imp_date = $first_sql[0]["estimated_ship_date"];
 	//$today_4_sql = date("m/d/Y");	
 	
    // 01/04/2020 CHANGED FROM 'm/d/Y' to 'Y/m/d' SO THE LESS THAN EQUAL EQUATION ON 85 WOULD WORK
@@ -80,10 +87,15 @@ try
 		$date_to_use = $sixWeeks_4_sql;
 	}
 		
+	$response["test"] = "First is " . $first_sql[0]["estimated_ship_date"] . " and Second is " . $date_to_use;
+	//echo json_encode($response);
+	//exit;
 	$store_order = array();
+	$testing = '';
 	for ($i = 0; $i < $rows_first_sql; $i++) {
-		if($first_sql[$i]["fake_imp_date"] <= $date_to_use) {
+		if($first_sql[$i]["estimated_ship_date"] <= $date_to_use ) {
 			$store_order[$i] = $first_sql[$i];
+			$testing .= " " . $first_sql[$i]["order_id"];
 		} else {
 			break;
 		}
@@ -91,6 +103,8 @@ try
 	
 	 //Get Total Records
     $response['TotalRecords'] = count($store_order);
+    $response['testing'] = $testing;
+    $response['TotalRows'] = $rows_first_sql;
 
 
         
@@ -110,7 +124,7 @@ try
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < count($store_order); $i++) {
-	    $response["test"] = $store_order[$i]["model"];
+	    //$response["test"] = $store_order[$i]["model"];
 	    
 	    if(strcmp($store_order[$i]["model"], "Dual") == 0) {
 		    $count_dual_casing = $count_dual_casing + 1;

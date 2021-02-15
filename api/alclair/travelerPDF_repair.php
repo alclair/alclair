@@ -260,12 +260,20 @@ if ($result[0]["personal_item"] == TRUE) {
 */
 
 if ($result[0]["personal_item"] == TRUE) {
-	$left_column_impression_date = 
+	$left_column_personal_item = 
 	"<tr style=\"font-weight:bold;\">
     	<td style=\"text-align:left;\"><span style=\"color:red;\"> PERSONAL ITEM</span></td>
 	</tr>
 	";
 }
+if ($result[0]["personal_item"] == TRUE) {
+	$left_column_personal_item_response = 
+	"<tr style=\"color:blue;\">
+        		<td style=\"text-align:left;\"> {$result[0]["personal_item_text"]}</td>
+		</tr>
+	";
+}
+
 
 // WARRANTY REPAIR
 if ($result[0]["warranty_repair"] == TRUE) {
@@ -682,7 +690,7 @@ $right_column_estimated_ship_date_response =
              "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
 			$left_column_report_fit_issue . $left_column_report_fit_issue_response .
 			 "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-            $left_column_impression_date  . //$left_column_impression_date_response  . 
+            $left_column_personal_item  . $left_column_personal_item_response  . 
             //"</td>" .
             "<tr><td colspan=\"2\" style='height:4px;'></td></tr>" .
             $left_column_warranty_repair .

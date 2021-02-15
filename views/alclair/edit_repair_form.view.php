@@ -210,13 +210,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         	</div>
         	<br />
 			<div class="row">
-				<div class="form-group col-md-3" style="margin-top:-15px;">
-					<!--
-					<label class="control-label">Name:</label>	
-					<input type="text" ng-model="repair_form.name_contacted" placeholder="Name of person contacted"  class="form-control">
-					-->
-            	</div>
-            	<div class="form-group col-md-1">
+				<div class="form-group col-md-4" style="margin-top:-15px;">
+					<textarea ng-if="repair_form.personal_item" type="text" name="notes" ng-model="repair_form.personal_item_text" value="" class='form-control' rows='3' placeholder="Enter personal item notes here"></textarea>
             	</div>
 				<div class="form-group col-md-2" style="margin-top:-15px;">
 					<label class="control-label">LEFT TIP:</label><br />

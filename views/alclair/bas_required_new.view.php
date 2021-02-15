@@ -45,30 +45,44 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             
             
 		<div class="row alert" style='background-color:#ddd;'>
-
+			<!--
             <div class="form-group col-sm-3">
                 <select class='form-control' ng-model='today_or_next_week' ng-options="day.value as day.label for day in TODAY_OR_NEXT_WEEK" ng-blur="Search();">
                 </select>
             </div>	
-           <!--
-           <div class="form-group col-sm-2">             
-				<select class='form-control' ng-model='monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
-					<option value="">Select a monitor</option>
-				</select>
-            </div>
-            -->            
+            -->
+            
+            <div class="col-sm-2">
+			<label  class="control-label" style="font-size: large;color: #007FFF">Start Date:</label><br />
+			<div class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="SearchStartDate" is-open="openedStartDay" datepicker-options="dateOptions" ng-inputmask="99/99/9999" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openStartDay($event)"><i class="fa fa-calendar"></i></button>
+				</span>
+			</div>				
+		</div>
+		<div class="col-sm-2">
+			<label  class="control-label" style="font-size: large;color: #007FFF">End Date:</label><br />
+			<div class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="SearchEndDate" is-open="openedEndDay" datepicker-options="dateOptions"  ng-inputmask="99/99/9999" close-text="Close" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="openEndDay($event)"><i class="fa fa-calendar"></i></button>
+				</span>
+			</div>
+		</div>
+		<div class="col-sm-2">
+		<br />
+			<button style="border-radius: 4px; border-color: blue; margin-top:10px" class="btn btn-warning" ng-click="Search($event)">RUN</button>
+			<label  class="control-label" style="font-size: large;color: #000000">&nbsp;&nbsp; Total orders:  {{DailyListCount}}</label><br />
+		</div>
+<!--
             <div class="form-group col-sm-1">       
 				<button style="font-weight: 600" type="button" class="btn btn-primary" ng-click="Search()">
 					<i class="fa fa-search"></i> &nbsp; SEARCH
 				</button>
             </div>
-				<!--<select class='form-control' ng-model='monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
-					<option value="">Monitor</option>
-				</select>-->
-			<div class="form-group col-sm-8"> 
-				<label  class="control-label" style="font-size: large;color: #000000"> Includes orders from Start Cart, Impression, Digital detailing, Shell Pouring, Shell Detailing & Casing</label><br />
-			</div>
-		</div>
+-->
+	</div>
         
 	<?php
 		// FORM FOR DELOPMENT PAGE
@@ -84,7 +98,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<tbody>
 				<tr ng-repeat='order in OrdersList'>
 					<td  style="text-align:center;" data-title="Monitor">{{order.monitors}}</td>
-					<td  style="text-align:center;" data-title="Casing">{{order.casing_count}}</td>
+					<td  ng-if="order.casing_count>0" style="text-align:center;" data-title="Casing & before"><a href="<?=$rootScope['RootUrl']?>/alclair/orders_from_bas_required/monitor-{{order.monitors}}start_{{SearchStartDate}}end_{{SearchEndDate}}">{{order.casing_count}}</a></td>
+					
+					<td  ng-if="!order.casing_count >= 1" style="text-align:center;" data-title="Casing & before">{{order.casing_count}}</td>
+					
+					<!--<td  style="text-align:center;" data-title="Casing">{{order.casing_count}}</td>-->
 				</tr>
 			</tbody>
 		</table>

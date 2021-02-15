@@ -94,16 +94,43 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Monitor</th>
 					<th style="text-align:center;">Casing & Before</th>
 				</tr>
+<!--	
+				<tr>
+					<th style="text-align:center;">Order ID</th>
+					<th style="text-align:center;">Designed For</th>
+					<th style="text-align:center;">Model</th>
+					<th style="text-align:center;">Order Status</th>
+					<th style="text-align:center;">Est. Ship Date</th>	
+					<th style="text-align:center;">Impressions Received</th>
+					<th style="text-align:center;">Order Date</th>	
+					<th style="text-align:center;">Casing & Before</th>
+				</tr>
+-->
 			</thead>	
 			<tbody>
+				
 				<tr ng-repeat='order in OrdersList'>
 					<td  style="text-align:center;" data-title="Monitor">{{order.monitors}}</td>
 					<td  ng-if="order.casing_count>0" style="text-align:center;" data-title="Casing & before"><a href="<?=$rootScope['RootUrl']?>/alclair/orders_from_bas_required/monitor-{{order.monitors}}start_{{SearchStartDate}}end_{{SearchEndDate}}">{{order.casing_count}}</a></td>
-					
 					<td  ng-if="!order.casing_count >= 1" style="text-align:center;" data-title="Casing & before">{{order.casing_count}}</td>
-					
-					<!--<td  style="text-align:center;" data-title="Casing">{{order.casing_count}}</td>-->
 				</tr>
+<!--			
+				<tr ng-repeat='order in OrdersList'>
+					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>										
+					<td  ng-if="(order.designed_for==null || order.designed_for=='') && order.billing_name==order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.billing_name}}</a></td>
+					<td  ng-if="(order.designed_for==null || order.designed_for=='') && order.billing_name!=order.shipping_name" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">Billing -{{order.billing_name}} / Shipping-{{order.shipping_name}}</a></td>
+					<td  ng-if="order.designed_for!=null && order.designed_for!=''" style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id}}">{{order.designed_for}} </a></td>
+					<td  style="text-align:center;" data-title="Model">{{order.model}}</td>
+					<td  style="text-align:center;" data-title="Order Status">{{order.status_of_order}}</td>
+					<td  style="text-align:center;" data-title="Est. Ship Date">{{order.estimated_ship_date}}</td>
+					<td  ng-if="!order.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
+					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date}}</td>					
+					<td  style="text-align:center;" data-title="Order Date">{{order.date}}</td>
+					
+					<td  ng-if="order.casing_count>0" style="text-align:center;" data-title="Casing & before"><a href="<?=$rootScope['RootUrl']?>/alclair/orders_from_bas_required/monitor-{{order.monitors}}start_{{SearchStartDate}}end_{{SearchEndDate}}">{{order.casing_count}}</a></td>
+					<td  ng-if="!order.casing_count >= 1" style="text-align:center;" data-title="Casing & before">{{order.casing_count}}</td>
+				</tr>
+-->
 			</tbody>
 		</table>
 		

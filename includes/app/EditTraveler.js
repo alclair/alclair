@@ -408,6 +408,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 
     $scope.LoadData = function () {
         myblockui();
+        console.log("HERE WE WANT " + window.cfg.Id)
         var api_url = window.cfg.apiUrl + "alclair/get_orders.php?id=" + window.cfg.Id;
         //alert(api_url);
         $http.get(api_url)

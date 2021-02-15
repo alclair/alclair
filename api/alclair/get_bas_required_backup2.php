@@ -36,14 +36,21 @@ try
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }
     
+    $StartDate = date("m/d/Y H:i:s",strtotime($_REQUEST["StartDate"] . '00:00:00'));
+    $EndDate = date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));
      // GETS ALL ORDERS BETWEEN START CART AND CASING
-    $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'yyyy/MM/dd') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'yyyy/MM/dd') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order
+	
+	$query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'yyyy/MM/dd') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE t1.active = TRUE AND (t1.order_status_id <= 5 OR t1.order_status_id = 16)  AND (t1.product IS NOT NULL AND t1.model IS NOT NULL) ORDER BY t1.estimated_ship_date ASC";
-                
-    $stmt = pdo_query( $pdo, $query, null); 
+                  WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimated_ship_date <= :EndDate) AND (t1.order_status_id <= 5 OR t1.order_status_id = 16)  AND (t1.product IS NOT NULL AND t1.model IS NOT NULL) ORDER BY t1.estimated_ship_date ASC";
+          
+    $response["test"] = "The start date is " . $StartDate . " and end date is " . $EndDate;
+	//echo json_encode($response);
+	//exit;      
+              
+    $stmt = pdo_query( $pdo, $query, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
     $first_sql = pdo_fetch_all( $stmt );
     $rows_first_sql = pdo_rows_affected($stmt);
    
@@ -87,19 +94,24 @@ try
 		$date_to_use = $sixWeeks_4_sql;
 	}
 		
-	$response["test"] = "First is " . $first_sql[0]["estimated_ship_date"] . " and Second is " . $date_to_use;
-	//echo json_encode($response);
-	//exit;
 	$store_order = array();
 	$testing = '';
+	/*
 	for ($i = 0; $i < $rows_first_sql; $i++) {
-		if($first_sql[$i]["estimated_ship_date"] <= $date_to_use ) {
+		//if($first_sql[$i]["estimated_ship_date"] <= $date_to_use ) {
+		if($first_sql[$i]["estimated_ship_date"] >= $StartDate && $first_sql[$i]["estimated_ship_date"] <= $EndDate ) {
 			$store_order[$i] = $first_sql[$i];
 			$testing .= " " . $first_sql[$i]["order_id"];
 		} else {
-			break;
+			//break;
 		}
 	}
+	*/
+	$store_order = $first_sql;
+	
+	$response["test"] = "First is " . $first_sql[0]["estimated_ship_date"] . " and Second is " . $StartDate;
+	//echo json_encode($response);
+	//exit;
 	
 	 //Get Total Records
     $response['TotalRecords'] = count($store_order);

@@ -760,8 +760,17 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 
     $scope.formats = ['MM/dd/yyyy'];
     $scope.format = $scope.formats[0];
-	$scope.SearchStartDate=window.cfg.CurrentMonthFirstDate;//OctoberOne;
-	$scope.SearchEndDate=window.cfg.CurrentDay;
+	console.log("SCOPE FORMATS IS " + $scope.format)
+	$scope.SearchStartDate=window.cfg.CurrentDay;//OctoberOne;
+	$scope.SearchEndDate=window.cfg.CurrentDay_plus_2weeks;
+	$scope.openStartDay = function ($event) {        
+        $scope.openedStartDay = true;
+    };
+	$scope.openEndDay = function ($event) {        
+        $scope.openedEndDay = true;
+    };
+
+	
 	console.log("Date is " + window.cfg.OctoberOne)
 	console.log("Date2 is " + window.cfg.CurrentMonthFirstDate)
 	//$scope.SearchEndDate=window.cfg.CurrentMonthLastDate;
@@ -787,7 +796,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 		console.log("rush is " + $scope.order_status_id)
 		console.log("Monitor ID is " + $scope.monitor_id)
 		console.log("Hearing protection is " + $scope.remove_hearing_protection)
-        var api_url = window.cfg.apiUrl + "alclair/get_bas_required_backup2.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&TODAY_OR_NEXT_WEEK=" + $scope.today_or_next_week + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&REMOVE_HEARING_PROTECTION=" + $scope.remove_hearing_protection + "&monitor_id=" + $scope.monitor_id;
+        var api_url = window.cfg.apiUrl + "alclair/get_bas_required_backup2.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&TODAY_OR_NEXT_WEEK=" + $scope.today_or_next_week + "&RUSH_OR_NOT=" + $scope.rush_or_not + "&REMOVE_HEARING_PROTECTION=" + $scope.remove_hearing_protection + "&monitor_id=" + $scope.monitor_id + "&StartDate=" + moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&EndDate=" + moment($scope.SearchEndDate).format("MM/DD/YYYY");
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {

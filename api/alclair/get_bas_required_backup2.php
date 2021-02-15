@@ -225,7 +225,7 @@ for ($i = 0; $i < count($store_order); $i++) {
    // THIS IS ALL OF THE MONITOR NAMES
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X", "Electro");
 	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 ORDER BY id", null); 
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND (id != 13 OR id != 14) ORDER BY id", null); 
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
@@ -255,7 +255,7 @@ for ($i = 0; $i < count($store_order); $i++) {
    			$Earphones_list[$i]["casing_count"]  = $count_revx_casing;
    		} elseif ( $i == 11) {
    			$Earphones_list[$i]["casing_count"]  = $count_electro_casing;
-   		}	elseif ( $i == 14) {
+   		}	elseif ( $i == 12) {
 	   		$Earphones_list[$i]["casing_count"]  = $count_esm_casing;
    		}
 	}

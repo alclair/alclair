@@ -30,11 +30,12 @@ try
 	
 	$start_date = new DateTime($_REQUEST["StartDate"]);
 	$days_back = clone $start_date;
+
 	$days_back->modify('-' . $_REQUEST['MONTH_RANGE'] . ' day');
 	
 	$start_date = $start_date->format('Y-m-d');
 	$days_back = $days_back->format('Y-m-d');
-	$conditionSql .= " AND (t1.received_date < :start_date AND t3.date > :days_back)";
+	$conditionSql .= " AND (t1.received_date <= :start_date AND t3.date >= :days_back)";
 	$params[":start_date"] = $start_date;
 	$params[":days_back"] = $days_back;
 	

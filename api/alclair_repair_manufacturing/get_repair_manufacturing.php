@@ -34,20 +34,24 @@ try
 	
 	$start_date = $start_date->format('Y-m-d');
 	$days_back = $days_back->format('Y-m-d');
-	$conditionSql .= " AND (t1.received_date < :start_date AND t3.date > :days_back)";
+	
+	$conditionSql .= " AND (t1.received_date <= :start_date AND t3.date >= :days_back)";
 	$params[":start_date"] = $start_date;
 	$params[":days_back"] = $days_back;
 	
 	$response['test'] = "Start is " . $start_date . " and back is " . $days_back;
+	//echo json_encode($response);
+	//exit;
 	
 	$conditionSql_2 = '';
 	$params_2 = array();
-	$conditionSql_2 .= " AND (t1.date < :start_date AND t1.date > :days_back)";
+	$conditionSql_2 .= " AND (t1.date <= :start_date AND t1.date >= :days_back)";
 	$params_2[":start_date"] = $start_date;
 	$params_2[":days_back"] = $days_back;
 	//echo json_encode($response);
 	//exit;
-    
+    /*  NOT USING THIS METHOD ANYMORE - COMMENTED ON 02/17/2021
+	    THIS METHOD COUNTS ORDER BY ORDER CREATION DATE - NOT THE DATE THE ORDER WAS MOVED TO DONE
     if( !empty($_REQUEST["PageIndex"]) && !empty($_REQUEST["PageSize"]) && intval($_REQUEST["PageIndex"]) > 0 && intval($_REQUEST["PageSize"]) > 0 )
     {
         $start = ( intval($_REQUEST["PageIndex"]) - 1 ) * intval( $_REQUEST["PageSize"] );        
@@ -62,7 +66,7 @@ try
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
     $response['TotalRecords2'] = $row[0];
-    
+    */
      if( !empty($_REQUEST["PageSize"]) && intval($_REQUEST["PageSize"]) > 0 )
     {
         $response["TotalPages"] = ceil( $row[0]/intval($_REQUEST["PageSize"]) );
@@ -77,11 +81,11 @@ try
      $query_2 = "SELECT * FROM order_status_log AS t1
      						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
      						WHERE t1.order_status_id = 12 AND t2.active = TRUE  $conditionSql_2";
-	 $stmt_2 = pdo_query( $pdo, $query_2, $params_2); 
+	$stmt_2 = pdo_query( $pdo, $query_2, $params_2); 
     $result_2 = pdo_fetch_all( $stmt_2 );
     $response['TotalRecords2'] = count($result_2);
     
-        $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done FROM repair_form AS t1 
+    $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done FROM repair_form AS t1 
 							LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 							LEFT JOIN order_status_log AS t3 ON t2.id = t3.import_orders_id
 							WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12 $conditionSql $orderBySql $pagingSql";

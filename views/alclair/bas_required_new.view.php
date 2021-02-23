@@ -70,11 +70,12 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</span>
 			</div>
 		</div>
+		
 		<div class="col-sm-2">
 		<br />
 			<button style="border-radius: 4px; border-color: blue; margin-top:10px" class="btn btn-warning" ng-click="Search($event)">RUN</button>
-			<label  class="control-label" style="font-size: large;color: #000000">&nbsp;&nbsp; Total orders:  {{DailyListCount}}</label><br />
-		</div>
+			<!--<label  class="control-label" style="font-size: large;color: #000000">&nbsp;&nbsp; Total orders:  {{DailyListCount}}</label><br />-->
+		</div>	
 <!--
             <div class="form-group col-sm-1">       
 				<button style="font-weight: 600" type="button" class="btn btn-primary" ng-click="Search()">

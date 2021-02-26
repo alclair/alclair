@@ -79,6 +79,7 @@
         window.cfg.PageSize = "<?=$rootScope['PageSize']?>";
         window.cfg.PageSize = parseInt(window.cfg.PageSize);
 		<?php
+		$FirstOfYear="01/01/".date("Y");
 		$CurrentMonthFirstDate=date("m")."/01/".date("Y");
 		$CurrentDay=date("m")."/".date("d")."/".date("Y");
 		$CurrentDay_football = date("m/d/Y", strtotime("-6 hours"));
@@ -87,9 +88,10 @@
 		date_add($date,date_interval_create_from_date_string("1 month"));
 		date_add($date,date_interval_create_from_date_string("-1 day"));
 		$CurrentMonthLastDate=date_format($date,"m/d/Y");
-		$OctoberOne="10/1/2017";
+		$OctoberOne="10/1/2019";
 		$TwoMonthsPrior = date("m/1/Y", strtotime("-1 months"));
 		?>
+		window.cfg.FirstOfYear="<?=$FirstOfYear?>";
 		window.cfg.CurrentMonthFirstDate="<?=$CurrentMonthFirstDate?>";
 		window.cfg.CurrentMonthLastDate="<?=$CurrentMonthLastDate?>";
 		window.cfg.CurrentDay="<?=$CurrentDay?>";

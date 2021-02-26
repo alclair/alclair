@@ -45,12 +45,14 @@ try
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
               WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimated_ship_date <= :EndDate) AND (t1.order_status_id <= 5 OR t1.order_status_id = 16 OR t1.order_status_id = 15)  AND (t1.product IS NOT NULL OR t1.model IS NOT NULL) ORDER BY t1.estimated_ship_date ASC";
+              
           
     $response["test"] = "The start date is " . $StartDate . " and end date is " . $EndDate;
 	//echo json_encode($response);
 	//exit;      
               
-    $stmt = pdo_query( $pdo, $query, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
+    //$stmt = pdo_query( $pdo, $query, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
+    $stmt = pdo_query( $pdo, $query, array(":StartDate"=>'01/01/2021', ":EndDate"=>$EndDate)); 
     $first_sql = pdo_fetch_all( $stmt );
     $rows_first_sql = pdo_rows_affected($stmt);
    

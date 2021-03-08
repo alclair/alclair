@@ -178,6 +178,20 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
             error(result);
         });
     };   
+this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
+		var api_url = window.cfg.apiUrl + name + "/get_status_type_repairs_and_fit_issues.php";
+		//var api_url = window.cfg.apiUrl + name + "/get_status_type_repairs.php";
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };   
     
     
     this.load_alclair_orderStatusTableList = function (name, params, success, error) {
@@ -350,6 +364,13 @@ this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
 
         this.load_alclair_repairs_vs_shipped('alclair', params, success, error);
     };
+    this.loadStatusTypeList_repairs_and_fit_issues = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_repairs_vs_fit('alclair', params, success, error);
+    };
+
     this.loadOrderStatusTableList = function (params, before, success, error) {
         if (before != null && before != undefined)
             before();

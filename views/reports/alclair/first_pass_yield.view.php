@@ -181,6 +181,35 @@
         <div id="repairs_received_date"></div>
     </div>
     
+    <!--                   																				 REPAIRS RECEIEVED BY DATE																										-->
+     <div style="width: 100%; margin-left: auto; margin-right: auto;">        
+        <div style="text-align: center;">
+            <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
+             <h2>Repairs Received by Date Vs Fit Issues</h2>
+			 	<h3><b>{{num_repairs}} Repairs / {{num_fit_issues}} Fit Issues</b></h3>
+            <br />
+
+            <div class="col-md-12">
+                <span ng-repeat="label7 in labelRange7">
+                    <span style="display: inline-block; width: 10px; height: 10px; background: {{label7.color}};"></span><span>{{label7.text}}</span>
+                </span>
+            </div>
+			
+            <br />
+            
+        </div>
+		<div style="float:right;">
+            <label>
+                <input type="radio" name="mode_month_repairss" value="grouped" id="grouped_repairs_date2">
+                Grouped</label>
+            <label>
+                <input type="radio" name="mode_month_repairs2" value="stacked" id="stacked_repairs_date2" checked>
+                Stacked</label>
+			</div>
+        <div id="repairs_and_fit_numbers"></div>
+    </div>
+
+    
     
 </div>
 

@@ -33,6 +33,10 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
     
     $scope.labels6 = [];
     $scope.labelRange6 = [];
+
+	$scope.labels7 = [];
+	$scope.labelRange7 = [];
+
     
     $scope.makeExcel = function () {
 
@@ -404,7 +408,59 @@ $scope.loadRepairsReceived = function () {
             toastr.error("Get error.");
         });
     };
+    
+   $scope.loadRepairsAndFitNumbers = function () {
+        myblockui();
 
+        var api_url = window.cfg.apiUrl + "reports/alclairRepairsandFitIssues.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
+
+        $http.get(api_url).success(function (result7) {
+			$scope.num_repairs = result7.num_repairs;
+			$scope.num_fit_issues = result7.num_fit_issues;
+            $.unblockUI();
+
+            if (result7.data.length == 0)
+                return;
+            $scope.labelRange7 = [];
+
+            var monthday = ["01", "03", "05", "07", "08", "10", "12"];
+            var totalmonthday = 31;
+            if (monthday.indexOf($scope.month_month) == -1)
+                totalmonthday = 30;
+          
+            var layers7 = [];
+            for (var i = 0; i < $scope.labels7.length; i++) {
+                var layer7 = [];
+                for (var j = 0; j < totalmonthday; j++) {
+                    layer7.push({ y: 0 });
+                }
+                layers7.push(layer7);
+            }
+			
+			for (var i = 0; i < result7.data.length; i++) {
+                var created7 = result7.data[i].the_day[0] == "0" ? parseInt(result7.data[i].the_day[1]) : parseInt(result7.data[i].the_day);
+                var pass_or_fail7 = result7.data[i].type;
+
+                var num_status7 = result7.data[i].num_in_day;
+                created7 = created7 - 1;
+                //console.log(num_status7)
+                //console.log(pass_or_fail7)
+                console.log($scope.labels7.indexOf('# of Repairs Received'))
+                layers7[$scope.labels7.indexOf(pass_or_fail7)][created7].y = num_status7;
+            }
+
+            var color = d3.scale.category20();
+            for (var i = 0; i < $scope.labels7.length; i++) {
+                $scope.labelRange7.push({ text: $scope.labels7[i], color: color(i) });
+            }
+
+                d3DarwStackGroup(layers7, "repairs_and_fit_numbers", "grouped_repairs_date2", "stacked_repairs_date2", $scope.labels7, { category20: true });
+
+        }).error(function () {
+            $.unblockUI();
+            toastr.error("Get error.");
+        });
+    };
     
     AppDataService.loadMonitorList(null, null, function (result) {
     	$scope.monitorList = result.data;
@@ -438,9 +494,18 @@ $scope.loadRepairsReceived = function () {
 	AppDataService.loadStatusTypeList_repairs(null, null, function (result) {
         for (var i = 0; i < result.data.length; i++) {
             $scope.labels6.push(result.data[i].type);
-            console.log("labels SIX are " + $scope.labels5)
+            //console.log("labels SIX are " + $scope.labels6)
         }    
     }, function () { });
+    
+	AppDataService.loadStatusTypeList_repairs_and_fit_issues(null, null, function (result) {
+	//AppDataService.loadStatusTypeList_repairs(null, null, function (result) {
+        for (var i = 0; i < result.data.length; i++) {
+            $scope.labels7.push(result.data[i].type);
+            console.log("Labels7 is " + result.data[i].type)
+        }    
+    }, function () { });
+
 	
 	//$scope.labels6.push(" # of Repairs", "");
 	//$scope.labels6.push("");
@@ -451,6 +516,8 @@ $scope.loadRepairsReceived = function () {
 	$scope.loadFirstPassYield_Failure();	
 	$scope.loadImpressionsReceived();
 	$scope.loadRepairsReceived();
+	$scope.loadRepairsAndFitNumbers();
+
 
     $scope.selectMonth_Month = function () {
         $("#firstpassyield").html("");
@@ -465,6 +532,9 @@ $scope.loadRepairsReceived = function () {
         $scope.loadImpressionsReceived();
         $("#repairs_received_date").html("");
         $scope.loadRepairsReceived();
+        $("#repairs_and_fit_numbers").html("");
+        $scope.loadRepairsAndFitNumbers();
+
     };
     
 }]);

@@ -51,8 +51,8 @@ try
 	//echo json_encode($response);
 	//exit;      
               
-    //$stmt = pdo_query( $pdo, $query, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
-    $stmt = pdo_query( $pdo, $query, array(":StartDate"=>'01/01/2021', ":EndDate"=>$EndDate)); 
+    $stmt = pdo_query( $pdo, $query, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
+    //$stmt = pdo_query( $pdo, $query, array(":StartDate"=>'01/01/2021', ":EndDate"=>$EndDate)); 
     $first_sql = pdo_fetch_all( $stmt );
     $rows_first_sql = pdo_rows_affected($stmt);
    

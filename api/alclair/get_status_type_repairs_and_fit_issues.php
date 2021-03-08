@@ -11,7 +11,8 @@ $response['data'] = null;
 
 try
 {	    
-	$stmt = pdo_query( $pdo, 'select * from status_type_repairs order by type DESC', null);	
+	//$stmt = pdo_query( $pdo, 'select * from status_type_repairs order by type DESC',null);	
+	$stmt = pdo_query( $pdo, 'select * from status_type_repairs_with_fit_issues order by type DESC', null);	
 	$result = pdo_fetch_all($stmt);
 	
 	$response['code']='success';

@@ -10,7 +10,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
             <div class="col-md-4">
 	            
-                <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Repairs </a> (Total: {{TotalRecords}})</b>&nbsp;&nbsp;
+                <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Repairs </a> (Total: {{TotalRecords}}) <span style="color:red"> (# with Fit Issues: {{OrdersWithFit}})</span></b>&nbsp;&nbsp;
                 
             </div>
             <div class="form-group col-sm-3">

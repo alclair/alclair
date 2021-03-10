@@ -94,7 +94,9 @@ try
  ///////////////////////////////////////////////////////  FUNCTIONS END    /////////////////////////////////////////////////
 	
 	////////////////////////////////////   GET ORDERS IN START CART    ////////////////////////////////////////////////////////////   
-	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
+	//TF WAS HERE ON FEBRUARY 11, 2021
+	//$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
+	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL AND use_for_estimated_ship_date != FALSEORDER BY fake_imp_date DESC LIMIT :daily_rate";
 	$stmt3 = pdo_query( $pdo, $query3, array(":daily_rate"=>$daily_rate)); 
 	$find_last_fake_imp_date= pdo_fetch_all( $stmt3 ); 
 	$count = pdo_rows_affected($stmt3);
@@ -105,7 +107,9 @@ try
 	// PULLS ALL OF START CART WHICH IS NULL FOR FAKE IMPRESSION DATE
 	if($count == 0) {
 		$num = 1;
-		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
+		//TF WAS HERE ON FEBRUARY 11, 2021
+		//$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
+		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL AND use_for_estimated_ship_date != FALSE ORDER BY received_date ASC";
 		$stmt3 = pdo_query( $pdo, $query3, null); 
 		$populate_new= pdo_fetch_all( $stmt3 ); 
 		$count = pdo_rows_affected($stmt3);

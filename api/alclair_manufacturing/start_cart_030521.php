@@ -131,60 +131,54 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 	}
 	
 	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
-		if($array["use_for_estimated_ship_date"] == NULL) {
-			$ship_day->modify('+15 day'); // NEEDS TO START WITH TOMORROW
-			$imp_date = $date->format('Y-m-d');
+		$today = new DateTime(); // TODAY'S DATE
+		$today->modify('+1 day'); // NEEDS TO START WITH TOMORROW
+		if($today->format('m/d/Y') > $date->format('m/d/Y') ) {
+			$nextDay = clone $today;
+			$finalDay = clone $today;
 		} else {
-			$today = new DateTime(); // TODAY'S DATE
-			$today->modify('+1 day'); // NEEDS TO START WITH TOMORROW
-			if($today->format('m/d/Y') > $date->format('m/d/Y') ) {
-				$nextDay = clone $today;
-				$finalDay = clone $today;
-			} else {
-				$nextDay = clone $date;
-				$finalDay = clone $date;
-			}
-			
-			$weekend = array('Sun', 'Sat');
-			//$nextDay = clone $date;
-			//$finalDay = clone $date;
-			$work_days = 0;
-			$days_to_final_date = 0;
-			for ($i = 0; $i < count($holidays); $i++) {
-				$store_holidays[$i] = $holidays[$i]["holiday_date"];	
-			}
-			while ($work_days < $shop_days)
-			{
-	   	 		$nextDay->modify('+1 day'); // Add 1 day
-	   	 		if($nextDay->format('D'))
-		   	 	if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m/d/Y'), $store_holidays)) {
-		   	 	//if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
-		   	 		$response["test"] = "HERE"; 
-		   	 		$days_to_final_date++;
-		   	 	} else {		   	 
-			   		$days_to_final_date++;
-			   		$work_days++;
-		   	 	}
-			}
-			$finalDay->modify('+' . $days_to_final_date .  ' day');
-			$ship_day = $finalDay->format('Y-m-d');
-			$imp_date = $date->format('Y-m-d');
+			$nextDay = clone $date;
+			$finalDay = clone $date;
 		}
-			$query = "UPDATE import_orders SET fake_imp_date = :imp_date, estimated_ship_date = :estimated_ship_date WHERE id = :id";
-			//$query = "UPDATE import_orders SET estimated_ship_date=:estimated_ship_date WHERE id = :id";
-			$stmt = pdo_query( $pdo, $query, array(":imp_date"=>$imp_date, "estimated_ship_date"=>$ship_day, ":id"=>$array["id"])); 	
-			//$stmt = pdo_query( $pdo, $query, array("estimated_ship_date"=>$ship_day, ":id"=>$array["id"])); 	
-			return $array["id"];
 		
+		$weekend = array('Sun', 'Sat');
+		//$nextDay = clone $date;
+		//$finalDay = clone $date;
+		$work_days = 0;
+		$days_to_final_date = 0;
+		for ($i = 0; $i < count($holidays); $i++) {
+			$store_holidays[$i] = $holidays[$i]["holiday_date"];	
+		}
+		while ($work_days < $shop_days)
+		{
+   	 		$nextDay->modify('+1 day'); // Add 1 day
+   	 		if($nextDay->format('D'))
+	   	 	if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m/d/Y'), $store_holidays)) {
+	   	 	//if (in_array($nextDay->format('D'), $weekend) || in_array($nextDay->format('m-d'), $holidays)) {
+	   	 		$response["test"] = "HERE"; 
+	   	 		$days_to_final_date++;
+	   	 	} else {		   	 
+		   		$days_to_final_date++;
+		   		$work_days++;
+	   	 	}
+		}
+		$finalDay->modify('+' . $days_to_final_date .  ' day');
+		$ship_day = $finalDay->format('Y-m-d');
+		$imp_date = $date->format('Y-m-d');
+		
+		$query = "UPDATE import_orders SET fake_imp_date = :imp_date, estimated_ship_date = :estimated_ship_date WHERE id = :id";
+		//$query = "UPDATE import_orders SET estimated_ship_date=:estimated_ship_date WHERE id = :id";
+		$stmt = pdo_query( $pdo, $query, array(":imp_date"=>$imp_date, "estimated_ship_date"=>$ship_day, ":id"=>$array["id"])); 	
+		//$stmt = pdo_query( $pdo, $query, array("estimated_ship_date"=>$ship_day, ":id"=>$array["id"])); 	
+		return $array["id"];
 		//return $finalDay;
 	}
  ///////////////////////////////////////////////////////  FUNCTIONS END    /////////////////////////////////////////////////
 	
 	////////////////////////////////////   GET ORDERS IN START CART    ////////////////////////////////////////////////////////////   
 	$weekend = array('Sun', 'Sat');
-	//TF WAS HERE ON FEBRUARY 11, 2021
-	//$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
-	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL AND use_for_estimated_ship_date != FALSE ORDER BY fake_imp_date DESC LIMIT :daily_rate";
+	
+	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
 	$stmt3 = pdo_query( $pdo, $query3, array(":daily_rate"=>$daily_rate)); 
 	$find_last_fake_imp_date= pdo_fetch_all( $stmt3 ); 
 	$count = pdo_rows_affected($stmt3);
@@ -196,9 +190,7 @@ $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_stat
 	// PULLS ALL OF START CART WHICH IS NULL FOR FAKE IMPRESSION DATE
 	if($count == 0) {
 		$num = 1;
-		//TF WAS HERE ON FEBRUARY 11, 2021
-		//$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
-		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL AND use_for_estimated_ship_date != FALSE ORDER BY received_date ASC";
+		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
 		$stmt3 = pdo_query( $pdo, $query3, null); 
 		$populate_new= pdo_fetch_all( $stmt3 ); 
 		$count = pdo_rows_affected($stmt3);

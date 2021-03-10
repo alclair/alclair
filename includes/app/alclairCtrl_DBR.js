@@ -578,6 +578,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
                 $scope.TotalSound = result.TotalSound;
                 $scope.TotalFit = result.TotalFit;
                 $scope.TotalDesign = result.TotalDesign;
+                $scope.OrdersWithFit = result.OrdersWithFit;
 
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;

@@ -107,6 +107,9 @@ $after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00
 //$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
 $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
 
+$after  = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T00:00:00";
+$before = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T23:59:59";
+
 //echo "After is " . $after . " and Before is " . $before . " And stuff " . $month;
 //exit;
 
@@ -118,11 +121,11 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2020-08-28T23:59:59',
-			'after' => '2020-08-28T00:00:00',
+			'before' => '2021-02-28T23:59:59',
+			'after' => '2021-02-28T00:00:00',
 			'per_page' => 100			
         ];
-*/        
+*/
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
@@ -159,11 +162,13 @@ $params = [
 		
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Custom Hearing Protection") ) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP ") ) { 
 			
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
 				//$order[$ind]["num_earphones_per_order"] = 0;
 				//$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
+				$order[$ind]['use_for_estimated_ship_date'] = TRUE;
+				
 				$order[$ind]["num_earphones_per_order"] = 1;
 				$order[$ind]["status"] = $data["status"];
 				$order[$ind]["date"] = date_format(date_create($data["date_created"]), "m/d/y"); // DATE -> 0
@@ -176,18 +181,28 @@ $params = [
 				$order[$ind]["coupon"] = $coupon;
 				$order[$ind]["hearing_protection"] = NULL;
 				$order[$ind]["hearing_protection_color"] = NULL;
+				$make_2nd_traveler_for_hearing_protection = "NO";
 				
 				$order[$ind]["nashville_order"] = NULL;
 				if(!strcmp( substr($data["number"], 0, 4), "AATN") ) {
 					$order[$ind]["nashville_order"] = TRUE; // THIS WILL MARK THE ORDER AS FROM JONNY IN NASHVILLE
 				}
 				
-				// CHECK TO SEE IF ORDER IS ONLY FOR CUSTO HEARING PROTECTION
-				if(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
+				// CHECK TO SEE IF ORDER IS ONLY FOR CUSTOM HEARING PROTECTION
+				//if(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
+				if(stristr($full_product_name, "Hearing Protection") ) {
 					$order[$ind]["hearing_protection"] = TRUE;
 					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
 					$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
 				}
+				if(stristr($full_product_name, "EXP") ) {
+					$order[$ind]["hearing_protection"] = TRUE;
+					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
+					//$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
+				}
+				
 										
 				/*if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 					$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
@@ -217,6 +232,8 @@ $params = [
 	 						$order[$ind]["model"] = "UV2";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Alclair UV3 Triple Driver Universal POS") ) {
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
+	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
+	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
 	 					} else {
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						}
@@ -306,20 +323,14 @@ $params = [
 						$order[$ind]["notes"] = $notes;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Soft Case") ) {
 						$order[$ind]["soft_case"] = $line_item[meta_data][$j]->value;	
-					//} //elseif(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
-						//elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 18), "Hearing Protection") ) {
-						
-						//$order[$ind]["hearing_protection"] = TRUE;	
-						//$order[$ind]["notes"] = "J is " . $j;	
-						
-						//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
-						//$order[$ind]['hearing_protection_color'] =  substr($line_item[meta_data][$j]->key, 28, 88);
 					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 24), "Hearing Protection Color") ) {
 					//elseif(!strcmp($line_item[meta_data][$j]->key, "Hearing Protection Color") ) {
 						$order[$ind]["hearing_protection"] = TRUE;	
 
 						$order[$ind]["hearing_protection_color"] = $line_item[meta_data][$j]->value;	
 						$order[$ind]["notes"] = "Made it";	
+						$make_2nd_traveler_for_hearing_protection = "YES";
+						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade") ) {
 						$order[$ind]["cable_upgrade"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade Type") ) {
@@ -336,6 +347,8 @@ $params = [
 						$order[$ind]["musicians_plugs_25db"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musician's Plugs") ) {
 						$order[$ind]["musicians_plugs"] = $line_item[meta_data][$j]->value;	
+						//$make_2nd_traveler_for_hearing_protection = "YES";
+						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Wood Box") ) {
 						$order[$ind]["wood_box"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Standard Cable") ) {
@@ -505,9 +518,9 @@ for ($x=0; $x <  count($order); $x++) {
 			$entered_by = 1;
 			$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
-date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, left_tip, right_tip, pelican_case_name, notes, nashville_order, customer_type)
+date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
 VALUES (
-:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :customer_type) RETURNING id",
+:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
 array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>$order[$k]['product'], ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model'], ':artwork'=>$order[$k]['artwork'], ':color'=>$order[$k]['color'], ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>$order[$k]['cable_color'], ':clear_canal'=>$order[$k]['clear_canal'], ':left_alclair_logo'=>$order[$k]['left_alclair_logo'], ':right_alclair_logo'=>$order[$k]['right_alclair_logo'], ':left_custom_art'=>$order[$k]['left_custom_art'], ':right_custom_art'=>$order[$k]['right_custom_art'], ':link_to_design_image'=>$order[$k]['link_to_design_image'], ':open_order_in_designer'=>$order[$k]['open_order_in_designer'], 
 ':designed_for' =>$order[$k]['designed_for'], 
 ':my_impressions'=>$order[$k]['my_impressions'], 
@@ -528,12 +541,43 @@ array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product
 ':pelican_case_name'=>$order[$k]['pelican_case_name'],
 ':notes'=>$order[$k]['notes'],
 ':nashville_order'=>$order[$k]['nashville_order'],
+':use_for_estimated_ship_date'=>$order[$k]['use_for_estimated_ship_date'],
 ':customer_type'=>'Customer') //=>$order[28])
 );
+$id_after_import = pdo_fetch_all( $stmt );
+$id_of_order = $id_after_import[0]["id"];
 
-	$id_after_import = pdo_fetch_all( $stmt );
-	$id_of_order = $id_after_import[0]["id"];
-
+if (stristr($make_2nd_traveler_for_hearing_protection, "YES") ) {
+				$stmt2 = pdo_query( $pdo, 
+					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
+VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
+	array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>NULL, ':quantity'=>$order[$k]['quantity'], ':model'=>NULL, ':artwork'=>NULL, ':color'=>NULL, ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>NULL, ':right_shell'=>NULL, ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':clear_canal'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL, ':left_custom_art'=>NULL, ':right_custom_art'=>NULL, ':link_to_design_image'=>NULL, ':open_order_in_designer'=>NULL, 
+	':designed_for' =>$order[$k]['designed_for'], 
+	':my_impressions'=>$order[$k]['my_impressions'], 
+	':billing_name'=>$order[$k]['billing_name'], 
+	':shipping_name'=>$order[$k]['shipping_name'], 
+	':price'=>$order[$k]['price'], 
+	':coupon'=>$order[$k]['coupon'], 
+	':discount'=>$order[$k]['discount'], 
+	':total'=>$order[$k]['total'], 
+	':entered_by'=>1, //$_SESSION['UserId',
+	':active'=>TRUE,
+	':order_status_id'=>99, 
+	':num_earphones_per_order'=>$order[$k]['num_earphones_per_order'],
+	':hearing_protection'=>$order[$k]['hearing_protection'],
+	':hearing_protection_color'=>$order[$k]['hearing_protection_color'],
+	':left_tip'=>NULL,
+	':right_tip'=>NULL,
+	':pelican_case_name'=>$order[$k]['pelican_case_name'],
+	':notes'=>"THERE IS AN EARPHONE THAT GOES WITH THIS HEARING PROTECTION - the ID is $id_of_order",
+	':nashville_order'=>$order[$k]['nashville_order'],
+	':use_for_estimated_ship_date'=>NULL,
+	':customer_type'=>'Customer') 
+	);
+	$import_2nd_traveler = pdo_fetch_all( $stmt2 );
+	$id_of_2nd_traveler = $import_2nd_traveler[0]["id"];
+}
+	
 	$stmt = pdo_query($pdo, "SELECT * FROM monitors WHERE name = :monitor_name", array('monitor_name'=>$order[$k]['model']));
 	$result = pdo_fetch_all( $stmt );
 
@@ -577,8 +621,9 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 
 						//////////////////////////////////////////////   GET ORDERS IN START CART    ////////////////////////////////////////////////////////////   
 	$weekend = array('Sun', 'Sat');
-	
-	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
+	//TF WAS HERE ON FEBRUARY 11, 2021
+	//$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NOT NULL ORDER BY fake_imp_date DESC LIMIT :daily_rate";
+	$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL AND use_for_estimated_ship_date != FALSE ORDER BY received_date ASC";
 	$stmt3 = pdo_query( $pdo, $query3, array(":daily_rate"=>$daily_rate)); 
 	$find_last_fake_imp_date= pdo_fetch_all( $stmt3 ); 
 	$count = pdo_rows_affected($stmt3);
@@ -590,7 +635,9 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 	// PULLS ALL OF START CART WHICH IS NULL FOR FAKE IMPRESSION DATE
 	if($count == 0) {
 		$num = 1;
-		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
+		//TF WAS HERE ON FEBRUARY 11, 2021
+		//$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL ORDER BY received_date ASC";
+		$query3 = "SELECT * FROM import_orders WHERE active = TRUE AND order_status_id = 1 AND fake_imp_date IS NULL AND use_for_estimated_ship_date != FALSE ORDER BY received_date ASC";
 		$stmt3 = pdo_query( $pdo, $query3, null); 
 		$populate_new= pdo_fetch_all( $stmt3 ); 
 		$count = pdo_rows_affected($stmt3);

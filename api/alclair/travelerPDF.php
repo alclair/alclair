@@ -150,7 +150,11 @@ $bc->draw( $entire_pathname);
 if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 3 ) {
 	$border_color = "#FF69B4";
 } else {
-	$border_color = "#3F704D";
+	if(stristr($result[0]['model'], "Exp") ) {
+		$border_color = "#0022FF";
+	} else {
+		$border_color = "#3F704D";
+	}
 }
 
 

@@ -129,6 +129,18 @@ try
 			}
 		}
 	}
+	
+	$fit2 = 0;
+	for ($i = 0; $i < $rows_in_result; $i++) {
+		$query2 = "SELECT * FROM rma_faults_log WHERE id_of_rma = :id_of_rma AND classification = 'Fit' Limit 1";
+		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_rma"=>$result[$i]['id_of_repair']));
+		$faults = pdo_fetch_all( $stmt2 );
+		$rows = pdo_rows_affected($stmt2);
+		if($rows) {
+			$fit2++;
+		}
+	}
+
 	/*
 	SELECT t1.id, t1.customer_name, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t3.order_status_id, 
 to_char(t3.date, 'MM/dd/yyyy') AS date_done, t4.classification
@@ -149,6 +161,8 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
     $response["TotalSound"] = $sound;
     $response["TotalFit"] = $fit;
     $response["TotalDesign"] = $design;
+     $response["OrdersWithFit"] = $fit2;
+
         
 	echo json_encode($response);
 }

@@ -14,7 +14,7 @@ $rootScope=array();
 $rootScope["RootPath"]="/var/www/html/otis/";
 
 $rootScope["RootUrl"]="https://otis.alclr.co";
-//$rootScope["RootUrl"]="http://otis.alclr.co";
+$rootScope["RootUrl"]="http://otis.alclr.co";
 //$rootScope["RootUrl"]="http://54.173.238.250";
 
 $rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets/';	
@@ -23,7 +23,7 @@ $rootScope["PageSize"]="100";
 $rootScope["SWDCustomer"]="alclair";
 
 $rootScope["SWDRootUrl"]="https://otis.alclr.co/";
-//$rootScope["SWDRootUrl"]="http://otis.alclr.co/";
+$rootScope["SWDRootUrl"]="http://otis.alclr.co/";
 //$rootScope["SWDRootUrl"]="http://54.173.238.250/";
 
 $rootScope["SWDApiToken"]="83167892";

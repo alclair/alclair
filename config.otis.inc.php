@@ -13,7 +13,7 @@ $rootScope=array();
 //$rootScope["RootPath"]="/home/ajswanso/public_html/otis/";
 $rootScope["RootPath"]="/var/www/html/otis/";
 
-//$rootScope["RootUrl"]="https://otis.alclr.co";
+$rootScope["RootUrl"]="https://otis.alclr.co";
 $rootScope["RootUrl"]="http://otis.alclr.co";
 //$rootScope["RootUrl"]="http://54.173.238.250";
 
@@ -23,6 +23,7 @@ $rootScope["PageSize"]="100";
 $rootScope["SWDCustomer"]="alclair";
 
 $rootScope["SWDRootUrl"]="https://otis.alclr.co/";
+$rootScope["SWDRootUrl"]="http://otis.alclr.co/";
 //$rootScope["SWDRootUrl"]="http://54.173.238.250/";
 
 $rootScope["SWDApiToken"]="83167892";

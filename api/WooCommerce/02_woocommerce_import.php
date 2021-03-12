@@ -19,14 +19,16 @@ try
 {
    
 	$url=$rootScope["RootUrl"]."/api/WooCommerce/01_get_woocommerce_orders.php";
-			
+	//$url="http://otisdev.alclr.co/api/WooCommerce/01_get_woocommerce_orders.php";
+
 	$json=file_get_contents($url);
 	$list=json_decode($json,true);
 	var_dump($list);
+
 	//$file_lng="/var/www/html/otisdev/data/export/woocommerce/".$list["data"];
 	$file_lng=$rootScope["RootPath"]."data/export/woocommerce/".$list["data"];
 	//echo "File is " . "/var/www/html/otisdev/data/export/woocommerce/$filename";
-    
+
 //for($i = 0; $i < count($order); $i++) {
 			if(file_exists($file_lng)) {
 				$mail3= new PHPMailer();
@@ -57,7 +59,7 @@ try
 			} // CLOSE IF STATEMENT  -> if(file_exists($file_lng)&&!empty($emails))
 			
 //}
-    
+
 	//$arr = get_object_vars($result[25]); //28
 	//echo $order[25]["billing_name"];
 	//echo '<pre><code>' . print_r($arr, true) . '</code><pre>';
@@ -69,5 +71,4 @@ try
     echo '<pre><code>' . print_r( $e->getRequest(), true ) . '</code><pre>'; // Last request data.
     echo '<pre><code>' . print_r( $e->getResponse(), true ) . '</code><pre>'; // Last response data.
 }
-?>
 ?>

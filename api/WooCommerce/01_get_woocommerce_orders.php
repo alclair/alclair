@@ -107,8 +107,8 @@ $after  = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T00
 //$before = $current_year . "-" . $current_month . "-" . $current_day . "T00:00:00";
 $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23:59:59";
 
-$after  = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T00:00:00";
-$before = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T23:59:59";
+//$after  = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T00:00:00";
+//$before = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T23:59:59";
 
 //echo "After is " . $after . " and Before is " . $before . " And stuff " . $month;
 //exit;
@@ -121,8 +121,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T23:59:59";
 
 /*
 $params = [
-			'before' => '2021-03-10T23:59:59',
-			'after' => '2021-03-10T00:00:00',
+			'before' => '2021-03-11T23:59:59',
+			'after' => '2021-03-11T00:00:00',
 			'per_page' => 100			
         ];
 */

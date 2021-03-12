@@ -237,9 +237,18 @@ $left_column_note =
     			<td style=\"text-align:left;\">DIAGNOSIS</td>
 		</tr>
 ";
+$string = $result[0]["diagnosis"];
+$string = str_replace("\n", "<br>", $result[0]["diagnosis"]); // REPLACES /n WITH <br> TO CREATE LINE BREAKS FOR THE TRAVELER
+/*
 $left_column_note_response =  
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;\">{$result[0]["diagnosis"]}</td>
+		</tr>
+";
+*/
+$left_column_note_response =  
+"		<tr style=\"color:blue;\">
+        		<td style=\"text-align:left;\">$string</td>
 		</tr>
 ";
 

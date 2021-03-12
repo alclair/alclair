@@ -9,7 +9,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
     <div class="press-enter" style="width:99%;margin-left:10px;">
         <div class="row">
             <div class="col-md-3">
-                <b style="font-size:20px"> <a href="<?=$rootScope['RootURL']?>/alclair/repair_form">Repair Forms</a> (Total: {{TotalRecords}})</b>&nbsp;&nbsp;<b style="display:inline; font-size:20px; color: #007FFF"></b>
+                <b style="font-size:20px"> <a href="<?=$rootScope['RootURL']?>/alclair/repair_form">Repair List</a> (Total: {{TotalRecords}})</b>&nbsp;&nbsp;<b style="display:inline; font-size:20px; color: #007FFF"></b>
             </div>
              <div class="form-group col-sm-3">
 				<input type="text" id="barcode_rma" ng-model="qrcode.barcode" placeholder="Barcode"  class="form-control" autofocus="autofocus">
@@ -92,11 +92,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Customer's Name</th>
 					<th style="text-align:center;">RMA #</th>
 					<th style="text-align:center;">Received Date</th>
-					<th style="text-align:center;">Date Entered</th>
+					<th style="text-align:center;">Date Received</th>
 					<th style="text-align:center;">Repair Performed</th>
 					<th style="text-align:center;">Monitor</th>
 					<th style="text-align:center;">Diagnosis</th>
-					<th style="text-align:center;">Quote</th>
+					<!--<th style="text-align:center;">Quote</th>-->
 					<th style="text-align:center;">Status</th>
                     <th style="text-align:center;">Options</th>
 				</tr>
@@ -106,13 +106,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{repair_form.id}}">{{repair_form.customer_name}}</a></td>
 					<td  style="text-align:center;" data-title="Order #">{{repair_form.rma_number}}</td>
 					<td  style="text-align:center;" data-title="Received Date">{{repair_form.received_date}}</td>	
-					<td  style="text-align:center;" data-title="Date Entered">{{repair_form.date_entered}}</td>	
+					<td  style="text-align:center;" data-title="Date Received">{{repair_form.date_entered}}</td>	
 					<td  ng-if="repair_form.rma_performed_date" style="text-align:center;" data-title="Repair Performed">{{repair_form.rma_performed_date}}</td>
 					<td  ng-if="!repair_form.rma_performed_date" style="text-align:center;" data-title="Repair Performed">Not Performed Yet</td>	
 					<td  style="text-align:center;" data-title="Monitor">{{repair_form.monitor_name}}</td>
 			
 					<td  style="text-align:center;width: 400px" data-title="Diagnosis">{{repair_form.diagnosis}}</td>
-					<td  style="text-align:center;" data-title="Quote">{{repair_form.quotation | currency:"$"}}</td>
+					<!--<td  style="text-align:center;" data-title="Quote">{{repair_form.quotation | currency:"$"}}</td>-->
 					<td  style="text-align:center;" data-title="Status">{{repair_form.status_of_repair}}</td>	
 					
                     <td data-title="Options">

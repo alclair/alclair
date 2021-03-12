@@ -2203,6 +2203,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
          .success(function (result) {
              console.log(result);
              console.log("message " + result.message);
+             console.log(result.test)
              if(result.message == "Something is incomplete") {
 	             toastr.error("Cannot ship product.  Please check that everything has passed QC.");
 	             $.unblockUI();

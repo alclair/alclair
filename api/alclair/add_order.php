@@ -94,20 +94,32 @@ try
 	
 		$date_today = date("Y-m-d H:i:s");
 			
+$get_monitor_id = pdo_query( $pdo, "SELECT * FROM monitors WHERE name = :model_name", array(":model_name"=>$traveler['model']));
+$monitor_id = pdo_fetch_all( $get_monitor_id );
+$the_count = pdo_rows_affected( $get_monitor_id );			
+$response["test"] = "Count is " . $the_count . " and ID is " . $monitor_id[0]["id"];
+//echo json_encode($response);
+//exit;
+
+if($the_count > 0 && $monitor_id[0]["id"] < 16) { // 16 is EXP Pro
+	$use_for_estimated_ship_date = TRUE;
+} else {
+	$use_for_estimated_ship_date = NULL;
+}
+
+			
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
-order_id, designed_for, phone, band_church, address, notes, model, left_tip, right_tip, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, artwork, left_alclair_logo, right_alclair_logo, additional_items, consult_highrise, international, universals, hearing_protection, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, pickup, estimated_ship_date, received_date, date, entered_by,  rush_process, active, impression_color_id, order_status_id, link_to_design_image, hearing_protection_color, nashville_order, customer_type)
+order_id, designed_for, phone, band_church, address, notes, model, left_tip, right_tip, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, artwork, left_alclair_logo, right_alclair_logo, additional_items, consult_highrise, international, universals, hearing_protection, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, pickup, estimated_ship_date, received_date, date, entered_by,  rush_process, active, impression_color_id, order_status_id, link_to_design_image, hearing_protection_color, nashville_order, customer_type, use_for_estimated_ship_date)
 VALUES (
 :order_id, :designed_for, :phone, :band_church, :address, :notes, :model, :left_tip, :right_tip, :left_shell, :right_shell, 
 :left_faceplate, :right_faceplate, :cable_color, :artwork, :left_alclair_logo, :right_alclair_logo, :additional_items, :consult_highrise, :international, :universals, :hearing_protection, :musicians_plugs, 
-:musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, :pickup, :estimated_ship_date, :received_date, :date, :entered_by,  :rush_process, :active, :impression_color_id, 99, ' ', :hearing_protection_color, :nashville_order, :customer_type) RETURNING id",
-array(':order_id'=>$traveler['order_id'], ':designed_for'=>$traveler['designed_for'], ':phone'=>$traveler['phone'], ':band_church'=>$traveler['band_church'], ':address'=>$traveler['address'], ':notes'=>$traveler['notes'], ':model'=>$traveler['model'], ':left_tip'=>$traveler['left_tip'], ':right_tip'=>$traveler['right_tip'], ':left_shell'=>$traveler['left_shell'], ':right_shell'=>$traveler['right_shell'], ':left_faceplate'=>$traveler['left_faceplate'], ':right_faceplate'=>$traveler['right_faceplate'], ':cable_color'=>$traveler['cable_color'], ':artwork'=>$traveler['artwork'], ':left_alclair_logo'=>$traveler['left_alclair_logo'], ':right_alclair_logo'=>$traveler['right_alclair_logo'],  ':additional_items'=>$traveler['additional_items'], ':consult_highrise'=>$traveler['consult_highrise'], ':international'=>$traveler['international'], ':universals'=>$traveler['universals'], ':hearing_protection'=>$traveler['hearing_protection'], ':musicians_plugs'=>$traveler['musicians_plugs'], ':musicians_plugs_9db'=>$traveler['musicians_plugs_9db'], ':musicians_plugs_15db'=>$traveler['musicians_plugs_15db'], ':musicians_plugs_25db'=>$traveler['musicians_plugs_25db'], ':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>$traveler['hearing_protection_color'], ':nashville_order'=>$traveler['nashville_order'], ':customer_type'=>$traveler['customer_type'])
+:musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, :pickup, :estimated_ship_date, :received_date, :date, :entered_by,  :rush_process, :active, :impression_color_id, 99, ' ', :hearing_protection_color, :nashville_order, :customer_type, :use_for_estimated_ship_date) RETURNING id",
+array(':order_id'=>$traveler['order_id'], ':designed_for'=>$traveler['designed_for'], ':phone'=>$traveler['phone'], ':band_church'=>$traveler['band_church'], ':address'=>$traveler['address'], ':notes'=>$traveler['notes'], ':model'=>$traveler['model'], ':left_tip'=>$traveler['left_tip'], ':right_tip'=>$traveler['right_tip'], ':left_shell'=>$traveler['left_shell'], ':right_shell'=>$traveler['right_shell'], ':left_faceplate'=>$traveler['left_faceplate'], ':right_faceplate'=>$traveler['right_faceplate'], ':cable_color'=>$traveler['cable_color'], ':artwork'=>$traveler['artwork'], ':left_alclair_logo'=>$traveler['left_alclair_logo'], ':right_alclair_logo'=>$traveler['right_alclair_logo'],  ':additional_items'=>$traveler['additional_items'], ':consult_highrise'=>$traveler['consult_highrise'], ':international'=>$traveler['international'], ':universals'=>$traveler['universals'], ':hearing_protection'=>$traveler['hearing_protection'], ':musicians_plugs'=>$traveler['musicians_plugs'], ':musicians_plugs_9db'=>$traveler['musicians_plugs_9db'], ':musicians_plugs_15db'=>$traveler['musicians_plugs_15db'], ':musicians_plugs_25db'=>$traveler['musicians_plugs_25db'], ':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>$traveler['hearing_protection_color'], ':nashville_order'=>$traveler['nashville_order'], ':customer_type'=>$traveler['customer_type'], 'use_for_estimated_ship_date'=>$use_for_estimated_ship_date)
 );		
 
 $id_of_order = pdo_fetch_all( $stmt );
 
-$get_monitor_id = pdo_query( $pdo, "SELECT * FROM monitors WHERE name = :model_name", array(":model_name"=>$traveler['model']));
-$monitor_id = pdo_fetch_all( $get_monitor_id );
 
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
@@ -126,6 +138,33 @@ $stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_for
 		echo json_encode($response);
 		exit;
 	}
+	
+	$ship_day = new DateTime(); // TODAY'S DATE
+	$ship_day->modify('+14 day'); // NEEDS TO START WITH TOMORROW
+	$ship_day = $ship_day->format('Y-m-d');
+	$imp_date = $ship_day;
+
+// HERE IS WHERE A SEPARATE TRAVELER IS MADE FOR CUSTOM HEARING PROTECTION AND/OR MUSICIAN'S PLUGS
+if($traveler['hearing_protection']) {
+	$stmt = pdo_query( $pdo, 
+					   "INSERT INTO import_orders (
+		order_id, designed_for, phone, band_church, address, notes, model, left_tip, right_tip, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, artwork, left_alclair_logo, right_alclair_logo, additional_items, consult_highrise, international, universals, hearing_protection, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, pickup, estimated_ship_date, received_date, date, entered_by,  rush_process, active, impression_color_id, order_status_id, link_to_design_image, hearing_protection_color, nashville_order, customer_type, use_for_estimated_ship_date)
+		VALUES (
+		:order_id, :designed_for, :phone, :band_church, :address, :notes, :model, :left_tip, :right_tip, :left_shell, :right_shell, 
+		:left_faceplate, :right_faceplate, :cable_color, :artwork, :left_alclair_logo, :right_alclair_logo, :additional_items, :consult_highrise, :international, :universals, :hearing_protection, :musicians_plugs, 
+		:musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, :pickup, :estimated_ship_date, :received_date, :date, :entered_by,  :rush_process, :active, :impression_color_id, 99, ' ', :hearing_protection_color, :nashville_order, :customer_type, :use_for_estimated_ship_date) RETURNING id",
+		array(':order_id'=>$traveler['order_id'], ':designed_for'=>$traveler['designed_for'], ':phone'=>$traveler['phone'], ':band_church'=>$traveler['band_church'], ':address'=>$traveler['address'], ':notes'=>$traveler['notes'], ':model'=>NULL, ':left_tip'=>NULL, ':right_tip'=>NULL, ':left_shell'=>NULL, ':right_shell'=>NULL, ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':artwork'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL,  ':additional_items'=>$traveler['additional_items'], ':consult_highrise'=>$traveler['consult_highrise'], ':international'=>$traveler['international'], ':universals'=>$traveler['universals'], ':hearing_protection'=>$traveler['hearing_protection'], ':musicians_plugs'=>NULL, ':musicians_plugs_9db'=>NULL, ':musicians_plugs_15db'=>NULL, ':musicians_plugs_25db'=>NULL, ':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>$traveler['hearing_protection_color'], ':nashville_order'=>$traveler['nashville_order'], ':customer_type'=>$traveler['customer_type'], 'use_for_estimated_ship_date'=>NULL));		
+}
+if($traveler['musicians_plugs']) {
+	$stmt = pdo_query( $pdo, 
+					   "INSERT INTO import_orders (
+		order_id, designed_for, phone, band_church, address, notes, model, left_tip, right_tip, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, artwork, left_alclair_logo, right_alclair_logo, additional_items, consult_highrise, international, universals, hearing_protection, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, pickup, estimated_ship_date, received_date, date, entered_by,  rush_process, active, impression_color_id, order_status_id, link_to_design_image, hearing_protection_color, nashville_order, customer_type, use_for_estimated_ship_date)
+		VALUES (
+		:order_id, :designed_for, :phone, :band_church, :address, :notes, :model, :left_tip, :right_tip, :left_shell, :right_shell, 
+		:left_faceplate, :right_faceplate, :cable_color, :artwork, :left_alclair_logo, :right_alclair_logo, :additional_items, :consult_highrise, :international, :universals, :hearing_protection, :musicians_plugs, 
+		:musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, :pickup, :estimated_ship_date, :received_date, :date, :entered_by,  :rush_process, :active, :impression_color_id, 99, ' ', :hearing_protection_color, :nashville_order, :customer_type, :use_for_estimated_ship_date) RETURNING id",
+		array(':order_id'=>$traveler['order_id'], ':designed_for'=>$traveler['designed_for'], ':phone'=>$traveler['phone'], ':band_church'=>$traveler['band_church'], ':address'=>$traveler['address'], ':notes'=>$traveler['notes'], ':model'=>NULL, ':left_tip'=>NULL, ':right_tip'=>NULL, ':left_shell'=>NULL, ':right_shell'=>NULL, ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':artwork'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL,  ':additional_items'=>$traveler['additional_items'], ':consult_highrise'=>$traveler['consult_highrise'], ':international'=>$traveler['international'], ':universals'=>$traveler['universals'], ':hearing_protection'=>NULL, ':musicians_plugs'=>$traveler['musicians_plugs'], ':musicians_plugs_9db'=>$traveler['musicians_plugs_9db'], ':musicians_plugs_15db'=>$traveler['musicians_plugs_15db'], ':musicians_plugs_25db'=>$traveler['musicians_plugs_25db'], ':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>NULL, ':nashville_order'=>$traveler['nashville_order'], ':customer_type'=>$traveler['customer_type'], 'use_for_estimated_ship_date'=>NULL));		
+}
 
 	
 	$response["id_of_order"] = $id_of_order[0]["id"];

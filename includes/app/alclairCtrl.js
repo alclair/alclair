@@ -873,6 +873,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         
         //myblockui();
         console.log("Order num is " +  id)
+	    
         var api_url = window.cfg.apiUrl + "alclair/travelerPDF_repair.php?ID=" + id;
 
         $http.get(api_url).success(function (result) {
@@ -889,7 +890,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 
 	 $scope.Print_Traveler = function (id_to_print) {
 		 //$scope.updateRMA_Form(id_to_print);
-		 
+		
 		 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////// DETERMINING IF UPDATING, ADDING OR DELETING A FAULT ////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1017,7 +1018,6 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
     };    
         
     $scope.updateRMA_Form = function (uploaddocument) {
-	    
 	    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		///////////// DETERMINING IF UPDATING, ADDING OR DELETING A FAULT ////////////
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////

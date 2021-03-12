@@ -57,10 +57,12 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<option value="">Select a build type</option>
 				</select>-->
             </div>
+            <!--
 			<div class="form-group col-sm-2">
                 <select class='form-control' ng-model='printed_or_not' ng-options="printed.value as printed.label for printed in PRINTED_OR_NOT">
                 </select>
             </div>	
+            -->
 			<div class="form-group col-sm-2">
                 <select class='form-control' ng-model='repair_status_id' ng-options="repairStatus.order_in_repair as orderStatus.status_of_repair for repairStatus in repairStatusTableList">
 	                <option value="">-- All States --</option>

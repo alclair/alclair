@@ -84,11 +84,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Days Past Due</th>
 					<th style="text-align:center;">Due Date</th>
-					<th style="text-align:center;">Repair ID</th>
+					<th style="text-align:center;">RMA</th>
 					<th style="text-align:center;">Repair Date</th>	
 					
-					<th style="text-align:center;">Rush</th>
-					<th style="text-align:center;"># of QC Forms</th>
+					<!--<th style="text-align:center;">Rush</th>-->
+					<!--<th style="text-align:center;"># of QC Forms</th>-->
 					<th style="text-align:center;">Pass/Fail</th>
                     <th style="text-align:center;">Options</th>
 				</tr>
@@ -106,13 +106,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  style="text-align:center;" data-title="Days Past Due">{{repair.days_past_due}}</td>
 					<td  style="text-align:center;" data-title="Due Date">{{repair.estimated_ship_date}}</td>
 					
-					<td  style="text-align:center;" data-title="Repair ID">{{repair.rma_number}}</td>
+					<td  style="text-align:center;" data-title="RMA">{{repair.rma_number}}</td>
 					<td  style="text-align:center;" data-title="Repair Date">{{repair.date}}</td>
 					
-					<td  class="bg-success" ng-if="repair.rush_process == 'Yes'" style="text-align:center;font-weight: bold; color:white" data-title="Rush">RUSH</td>
-					<td ng-if="repair.rush_process != 'Yes'" style="text-align:center;" data-title="Rush">No</td>
+					<!--<td  class="bg-success" ng-if="repair.rush_process == 'Yes'" style="text-align:center;font-weight: bold; color:white" data-title="Rush">RUSH</td>
+					<td ng-if="repair.rush_process != 'Yes'" style="text-align:center;" data-title="Rush">No</td>-->
 					
-					<td  style="text-align:center;" data-title="# of QC Forms">{{repair.num_of_qc_forms}}</td>
+					<!--<td  style="text-align:center;" data-title="# of QC Forms">{{repair.num_of_qc_forms}}</td>-->
 					<td  style="text-align:center;" data-title="Pass/Fail">{{repair.pass_or_fail}}</td>
 										
                     <td data-title="Options">

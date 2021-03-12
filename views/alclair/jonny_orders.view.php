@@ -114,8 +114,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Order Date</th>	
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Impressions Received</th>
-					<th style="text-align:center;">Printed</th>
-					<th style="text-align:center;">Check Highrise</th>
+					<!--<th style="text-align:center;">Printed</th>
+					<th style="text-align:center;">Check Highrise</th>-->
                     <th style="text-align:center;">Options</th>
 				</tr>
 			</thead>	
@@ -145,7 +145,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
 					<td  ng-if="!order.received_date" style="text-align:center;" data-title="Impressions Received">NOT RECEIVED</td>
 					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date}}</td>
-					
+					<!--
 					<td  ng-if="order.printed" style="text-align:center;" data-title="Model">Printed</td>
 					<td  ng-if="!order.printed" style="text-align:center;" data-title="Model">Not Printed</td>
 					
@@ -155,7 +155,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="!order.printed" style="text-align:center;" data-title="Check Highrise">
 						<input type="checkbox" ng-model="order.highrise"  ng-true-value="1" ng-false-value="0">
 					</td>
-					
+					-->
                     <td data-title="Options">
 	                    <div style="text-align:center;" >  
 		                    

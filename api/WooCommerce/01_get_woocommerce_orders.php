@@ -121,8 +121,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . "02" . "T23:59:59";
 
 /*
 $params = [
-			'before' => '2021-02-28T23:59:59',
-			'after' => '2021-02-28T00:00:00',
+			'before' => '2021-03-10T23:59:59',
+			'after' => '2021-03-10T00:00:00',
 			'per_page' => 100			
         ];
 */
@@ -234,6 +234,8 @@ $params = [
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
+	 					} elseif(stristr($full_product_name, "Dual XB Dual Driver") ) {
+	 						$order[$ind]["model"] = "Dual XB";  // MODEL -> 4 	
 	 					} else {
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						}

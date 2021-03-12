@@ -147,13 +147,13 @@ $bc->draw( $entire_pathname);
 // CHECKING TO SEE IF ONLY HEARING PROTECTION IS ON THE ORDER
 // ONLY HEARING PROTECTION CHANGES THE TRAVELER CONSIDERABLY
 // IF ONLY HEARING PROTECTION THEN MAKE A PINK BORDER OTHERWISE MAKE A GREEN BORDER
-if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 3 ) {
-	$border_color = "#FF69B4";
+if ( ($result[0]["hearing_protection"] == TRUE || $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
+	$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
 } else {
 	if(stristr($result[0]['model'], "Exp") ) {
-		$border_color = "#0022FF";
+		$border_color = "#0022FF"; // BLUE FOR EXP PRO
 	} else {
-		$border_color = "#3F704D";
+		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
 	}
 }
 
@@ -427,6 +427,20 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
 			 //$rush_process . "
 		"</tr>
 ";
+
+} elseif ($result[0]["musicians_plugs"] == TRUE && strlen($result[0]['model'] ) < 2 ) {
+	$right_column_monitor_response =  
+"		<tr style=\"font-size:14px;\">
+			 <td colspan='2' style=\"text-align:left;font-size:30px;margin-top:-50px;display:inline-block;\"><b style=\"color:green;\">" . "MUSICIAN'S " . "</b></td>" . 
+			 //$rush_process . "
+		"</tr>
+		<tr style=\"font-size:14px;\">
+			 <td colspan='2' style=\"text-align:left;font-size:30px;margin-top:-50px;display:inline-block;\"><b style=\"color:green;\">" . "PLUGS " . "</b></td>" . 
+			 //$rush_process . "
+		"</tr>
+";
+
+
 	$right_column_cable = 
 "		<tr style=\"font-weight:bold;\">
     		<td style=\"text-align:left;\"></td>

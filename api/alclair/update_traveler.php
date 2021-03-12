@@ -263,7 +263,9 @@ if($traveler["order_status_id"] == 1) {
 	
 	function calc_estimate_ship_date($array, $date, $holidays, $shop_days, $pdo) {	
 		if($array["use_for_estimated_ship_date"] == NULL) {
+			$ship_day = new DateTime(); // TODAY'S DATE
 			$ship_day->modify('+15 day'); // NEEDS TO START WITH TOMORROW
+			$ship_day = $ship_day->format('Y-m-d');
 			$imp_date = $date->format('Y-m-d');
 		} else {
 			$today = new DateTime(); // TODAY'S DATE

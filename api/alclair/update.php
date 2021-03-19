@@ -83,7 +83,8 @@ try
 		echo json_encode($response);
 		exit;
 	}
-	if($qc_form['artwork_none']  != 1 &&  $qc_form['artwork_required'] != 1)
+	//if($qc_form['artwork_none']  != 1 &&  $qc_form['artwork_required'] != 1)
+	if($qc_form['artwork_none']  != 1 &&  $qc_form['artwork_added'] != 1)
 	{
 		$response['message'] = 'Please select whether there will be artwork on the earphone.';
 		echo json_encode($response);

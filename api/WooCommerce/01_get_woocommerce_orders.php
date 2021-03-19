@@ -121,8 +121,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-03-16T23:59:59',
-			'after' => '2021-03-16T00:00:00',
+			'before' => '2021-03-17T23:59:59',
+			'after' => '2021-03-17T00:00:00',
 			'per_page' => 100			
         ];
 
@@ -136,7 +136,9 @@ $params = [
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
-		
+
+/*  // THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
+	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
 if(!stristr($data["id"], '10585207') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
@@ -144,6 +146,7 @@ if(!stristr($data["id"], '10585207') ) {
 	//exit;
 } else {
 	echo "IN HERE " . $data["id"] . " </br>";
+*/
     for($k = 0; $k < count($data[line_items]); $k++) {
 	    //echo "Count is " . count($order) . "<br>";
 	    	
@@ -394,7 +397,7 @@ if(!stristr($data["id"], '10585207') ) {
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
 	  } // CLOSES IF STATEMENT - IS IT A UNIVERSAL EARPHONE - LINE 189
 	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED  - K
-} // CLOSES IF/ELSE FOR TESTING
+//} // CLOSES IF/ELSE FOR TESTING
     } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER - I
 
 // REQUIRED 2 INCREMENTS BUT OF THE SAME ARRAY

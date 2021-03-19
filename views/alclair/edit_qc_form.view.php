@@ -164,7 +164,12 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	         		<label class="control-label" style="font-size: large;color: #007FFF">ARTWORK</label><br />
 		 		</div>
 		 		<label><input type="checkbox" ng-model="qc_form.artwork_none" ng-true-value="1" ng-false-value="0"> &nbsp; NO ARTWORK</label><br />
-		 		<label><input type="checkbox" ng-model="qc_form.artwork_required" ng-true-value="1" ng-false-value="0"> &nbsp; ARTWORK ADDED</label><br />
+		 		<!--<label><input type="checkbox" ng-model="qc_form.artwork_required" ng-true-value="1" ng-false-value="0"> &nbsp; NOT YET ADDED</label><br />-->
+		 				 		
+		 		<label><input type="checkbox" ng-model="qc_form.artwork_added" ng-true-value="1" ng-false-value="0"> &nbsp; ARTWORK ADDED</label><br />
+       			<label><input type="checkbox" ng-model="qc_form.artwork_placement" ng-true-value="1" ng-false-value="0"> &nbsp; CORRECT PLACEMENT</label><br />
+		 		<label><input type="checkbox" ng-model="qc_form.artwork_hq" ng-true-value="1" ng-false-value="0"> &nbsp; HQ PRINT</label><br />
+
        			<!--<label ng-if="!qc_form.artwork_none"><input type="checkbox" ng-model="qc_form.artwork_placement" ng-true-value="1" ng-false-value="0"> &nbsp; CORRECT PLACEMENT</label><br />
 				<label ng-if="!qc_form.artwork_none"><input type="checkbox" ng-model="qc_form.artwork_hq" ng-true-value="1" ng-false-value="0"> &nbsp; HQ PRINT</label><br />-->
          	</div>
@@ -241,6 +246,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         
         <!--SHIPPING-->
         <div ng-if="Ready2Ship=='YES'"  class="row">
+	        <!-- COMMENTED OUT - 03/16/2021
 	        <div ng-if="qc_form.artwork_required==1 && qc_form.artwork_none==0" class="form-group col-md-4">
 	            <div class="text-left">
 	         		<label class="control-label" style="font-size: large;color: #007FFF">ARTWORK</label><br />
@@ -249,6 +255,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
        			<label ng-if="!qc_form.artwork_none"><input type="checkbox" ng-model="qc_form.artwork_placement" ng-true-value="1" ng-false-value="0"> &nbsp; CORRECT PLACEMENT</label><br />
 				<label ng-if="!qc_form.artwork_none"><input type="checkbox" ng-model="qc_form.artwork_hq" ng-true-value="1" ng-false-value="0"> &nbsp; HQ PRINT</label><br />
          	</div>
+         	-->
          	
             <div class="form-group col-md-3">
 		 		<div class="text-left">

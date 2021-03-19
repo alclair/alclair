@@ -121,8 +121,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-03-17T23:59:59',
-			'after' => '2021-03-17T00:00:00',
+			'before' => '2021-03-18T23:59:59',
+			'after' => '2021-03-18T00:00:00',
 			'per_page' => 100			
         ];
 
@@ -581,7 +581,7 @@ $id_after_import = pdo_fetch_all( $stmt );
 $id_of_order = $id_after_import[0]["id"];
 
 //echo "HERE IT IS " . $line_item[meta_data][$j]->key;
-echo "WE ARE HERE " . $id_of_order . " and " . $make_2nd_traveler_for_hearing_protection;
+//echo "WE ARE HERE " . $id_of_order . " and " . $make_2nd_traveler_for_hearing_protection;
 //exit;
 
 

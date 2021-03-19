@@ -90,12 +90,14 @@ try
 		echo json_encode($response);
 		exit;
 	}
+	/*
 	if($qc_form['artwork_none']  == 1 &&  $qc_form['artwork_required'] == 1)
 	{
 		$response['message'] = 'Both checkboxes under artwork cannot be checked.';
 		echo json_encode($response);
 		exit;
 	}
+	*/
 	if($qc_form['artwork_placement']  == 1 &&  $qc_form['artwork_hq'] == 1 && $qc_form['artwork_added'] == 0 )
 	{
 		$response['message'] = 'Should "ARTWORK ADDED" be checked?';

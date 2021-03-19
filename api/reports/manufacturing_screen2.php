@@ -25,7 +25,7 @@ try
          	
    	$query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char(received_date, 'dd') ) ) AS num_in_day, t2.type
               FROM import_orders
-              LEFT JOIN status_type_order AS t2 ON 1 = t2.id
+              LEFT JOIN status_type_orders AS t2 ON 1 = t2.id
               WHERE to_char(received_date,'yyyy') = '$year' AND to_char(received_date,'MM') = '$month' 
               GROUP BY the_day, type
               ORDER BY the_day ASC";
@@ -34,7 +34,7 @@ try
    
    	$query = "SELECT to_char(shipping_date, 'dd') AS the_day, ( SELECT COUNT(to_char(shipping_date, 'dd') ) ) AS num_in_day, t2.type
               FROM qc_form
-              LEFT JOIN status_type_order AS t2 ON 2 = t2.id
+              LEFT JOIN status_type_orders AS t2 ON 2 = t2.id
               WHERE to_char(shipping_date,'yyyy') = '$year' AND to_char(shipping_date,'MM') = '$month' 
               GROUP BY the_day, type
               ORDER BY the_day ASC";
@@ -105,12 +105,12 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE to_char(t1.date,'yyyy') = '$current_year' AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL)
+WHERE to_char(t1.date,'yyyy') = '$current_year' AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date = TRUE
 GROUP BY the_month, the_year, the_month_name";
 
     $stmt = pdo_query( $pdo, $query, $params ); 
 	 $num_in_day = pdo_fetch_all( $stmt );
-	 
+	 	 
    $result = array();
    //$result = array_merge($num_of_impressions_in_day, $num_of_shipped_in_day);
 

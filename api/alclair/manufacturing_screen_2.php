@@ -113,6 +113,7 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						WHERE t1.order_status_id = 12 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 	
+	
 	//$just_start_date = pdo_fetch_all( $query1 );
 	$store_done_data = pdo_fetch_all( $query2 );
 	

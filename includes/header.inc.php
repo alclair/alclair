@@ -82,6 +82,8 @@
 		$FirstOfYear="01/01/".date("Y");
 		$CurrentMonthFirstDate=date("m")."/01/".date("Y");
 		$CurrentDay=date("m")."/".date("d")."/".date("Y");
+		
+		$CurrentDay_minus30 = date("m/d/Y", strtotime("-1 months"));
 		$CurrentDay_football = date("m/d/Y", strtotime("-6 hours"));
 		$CurrentDay_plus_2weeks = date("m/d/Y", strtotime("+2 weeks"));
 		$date=date_create($CurrentMonthFirstDate);
@@ -99,6 +101,7 @@
 		window.cfg.CurrentDay_plus_2weeks="<?=$CurrentDay_plus_2weeks?>";
 		window.cfg.OctoberOne="<?=$OctoberOne?>";
 		window.cfg.TwoMonthsPrior="<?=$TwoMonthsPrior?>";
+		window.cfg.CurrentDay_minus30="<?=$CurrentDay_minus30?>";
 
 	</script>
   </head>

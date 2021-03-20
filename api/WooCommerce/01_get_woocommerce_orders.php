@@ -119,13 +119,13 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 			'per_page' => 100,			
         ];
 
-
+/*
 $params = [
 			'before' => '2021-03-18T23:59:59',
 			'after' => '2021-03-18T00:00:00',
 			'per_page' => 100			
         ];
-
+*/
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];

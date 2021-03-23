@@ -235,10 +235,16 @@ if(!stristr($data["id"], '10585207') ) {
 					$filters = $line_item[meta_data][$k]->value;
 					//echo "Filters is " . $filters;
 					//exit;
+					if( stristr($filters, "9") ) {
+						$order[$ind]["musicians_plugs_9db"] = TRUE;
+					}
+					if( stristr($filters, "15") ) {
+						$order[$ind]["musicians_plugs_15db"] = TRUE;
+					}
 					if( stristr($filters, "25") ) {
 						$order[$ind]["musicians_plugs_25db"] = TRUE;
-					}
-										
+					}					
+									
 				}
 				
 				if(stristr($full_product_name, "EXP") ) {

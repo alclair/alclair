@@ -283,7 +283,8 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 
     $scope.formats = ['MM/dd/yyyy'];
     $scope.format = $scope.formats[0];
-	$scope.SearchStartDate=window.cfg.CurrentMonthFirstDate;//OctoberOne;
+	//$scope.SearchStartDate=window.cfg.CurrentMonthFirstDate;//OctoberOne;
+	$scope.SearchStartDate=window.cfg.CurrentDay_minus30;
 	$scope.SearchEndDate=window.cfg.CurrentDay;
 	console.log("Date is " + window.cfg.OctoberOne)
 	console.log("Date2 is " + window.cfg.CurrentMonthFirstDate)

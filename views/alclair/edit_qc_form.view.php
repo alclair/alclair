@@ -122,7 +122,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         			<label><input type="checkbox" ng-model="qc_form.faceplate_seams" ng-true-value="1" ng-false-value="0"> &nbsp; SEAMS/ATTACHED WELL</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_shine" ng-true-value="1" ng-false-value="0"> &nbsp; HIGH SHINE</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_colors" ng-true-value="1" ng-false-value="0"> &nbsp; COLORS CORRECT</label><br />
-					<label><input type="checkbox" ng-model="qc_form.faceplate_rounded" ng-true-value="1" ng-false-value="0"> &nbsp; ROUNDED</label><br />
+					<label><input type="checkbox" ng-model="qc_form.faceplate_rounded" ng-true-value="1" ng-false-value="0"> &nbsp; WAVY</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_foggy" ng-true-value="1" ng-false-value="0"> &nbsp; FOGGY/FINGERPRINTS</label><br />
 					<label><input type="checkbox" ng-model="qc_form.faceplate_residue" ng-true-value="1" ng-false-value="0"> &nbsp; CLEAN OF RESIDUE</label>
 		 		</div>

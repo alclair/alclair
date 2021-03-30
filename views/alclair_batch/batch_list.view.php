@@ -108,7 +108,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="!batch.received_date" style="text-align:center;" data-title="Received">NOT RECEIVED</td>
 					<td  ng-if="batch.received_date" style="text-align:center;" data-title="Received">{{batch.received_date}}</td>
 
-					<td  style="text-align:center;" data-title="Notes">{{batch.batch_notes}}</td>
+					<td  style="text-align:center;" data-title="Notes" ng-click="loadBatchNote(batch.id);">{{batch.batch_notes}}</td>
 					
                     <td data-title="Options">
 	                    <div style="text-align:center;" >  
@@ -202,6 +202,33 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			</form>
         </div>
 	</div><!-- END MODAL WINDOW -->     
+	
+		 <!--Edit Popup Window-->
+    <div class="modal fade modal-wide" id="modalEditBatch" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <form name="frmEditRecord">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Edit {{entityName}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Edit Notes:</label><br />
+                                <textarea type="text" name="notes" ng-model="recordEdit.batch_notes" value="" class='form-control' rows='4' ></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="updateBatchNote(recordEdit.id)" ng-disabled="!frmEditRecord.$valid"><i class="fa fa-plane"></i> Submit</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times-circle"></i> Close</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
 	
 </div>
 

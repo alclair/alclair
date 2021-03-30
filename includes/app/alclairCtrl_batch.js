@@ -13,6 +13,48 @@ swdApp.controller('Batch_List', ['$http', '$scope', 'AppDataService', '$upload',
     //SearchStartDate = "10/1/2017";
     //SearchEndDate = new Date();
  
+	//Load "Edit of Record"
+    $scope.loadBatchNote = function (batch_id) {
+        console.log("Batch ID is " + batch_id)
+        //return;
+        myblockui();
+        var api_url = window.cfg.apiUrl + "alclair_batch/get_edit_note.php?batch_id=" + batch_id;
+        $http.get(api_url).success(function (result) {
+	        console.log("TEST LOG ID IS " + result.test)
+            $.unblockUI();
+            $scope.recordEdit = result.data[0];
+            $("#modalEditBatch").modal("show");
+        }).error(function (result) {
+            $.unblockUI();
+            toastr.error("Get error.");
+        });
+    };
+    
+    $scope.updateBatchNote = function (batch_id) {
+	    console.log("Batch ID is " + batch_id)
+        var api_url = window.cfg.apiUrl + "alclair_batch/update_note.php?batch_id=" + batch_id;
+        myblockui();
+		//console.log(api_url+"&"+$.param($scope.recordEdit));
+        $http({
+            method: 'POST',
+            url: api_url,
+            data: $.param($scope.recordEdit),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+         .success(function (result) {
+             if (result.code == "success") {
+                 $.unblockUI();
+                 toastr.success("Updated notes");
+                 $scope.LoadData();
+
+                 $("#modalEditBatch").modal("hide");
+             }
+         }).error(function (data) {
+             toastr.error("Update error.");
+         });
+    };
+
+	
 		
 	function myFunction() {
 		setTimeout(function(){

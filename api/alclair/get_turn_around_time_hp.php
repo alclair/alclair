@@ -136,7 +136,8 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t2.*, t1.import_orders_id, to_
 $query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t1.date,'MM/dd/yyyy') as date
 						FROM order_status_log AS t1 
 						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-						WHERE t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
+						WHERE t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date IS NULL", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
+
 						//WHERE t1.order_status_id = 12 AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"]));
 	
 	$store_done_data = pdo_fetch_all( $query2 );  // ALL ORDERS COMPLETED WITHIN A CERTAIN TIME FRAME
@@ -150,7 +151,7 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t
 	// LOOPS THROUGH THE OUTPUT FROM THE ABOVE SQL STATEMENT
 	for ($i = 0; $i < count($store_done_data); $i++) {
 		// QUERY FINDS THE START DATE FOR EACH ORDER THAT IS DONE
-		$query = pdo_query($pdo, "SELECT *, to_char(received_date, 'MM/dd/yyyy') as start_date FROM import_orders WHERE id = :import_orders_id AND use_for_estimated_ship_date = TRUE" , array(":import_orders_id"=>$store_done_data[$i]["import_orders_id"]));
+		$query = pdo_query($pdo, "SELECT *, to_char(received_date, 'MM/dd/yyyy') as start_date FROM import_orders WHERE id = :import_orders_id AND use_for_estimated_ship_date IS NULL" , array(":import_orders_id"=>$store_done_data[$i]["import_orders_id"]));
 		$store_start_data = pdo_fetch_all( $query );
 		$rowcount = pdo_rows_affected( $query );
 		

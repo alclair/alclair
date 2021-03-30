@@ -17,8 +17,6 @@
 	<meta http-equiv='expires' content='0'>
 	<meta http-equiv='pragma' content='no-cache'>
     
-    
-
     <title><?=$rootScope["site_name"]?></title>
 
     <script type="text/javascript" src="<?=$rootScope["RootUrl"]?>/js/jquery-1.11.1.min.js"></script>
@@ -121,8 +119,8 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="<?=$rootScope["RootUrl"]?>">
-                        <?=$rootScope["site_name"]?>
-                    </a>
+				<?=$rootScope["site_name"]?>
+			</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse" ng-controller="HorMenuCtrl">
             <ul class="nav navbar-nav">
@@ -139,6 +137,7 @@
 						<ul class="dropdown-menu">
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/turn_around_time" class="nav-link  ">Orders </a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/turn_around_time_repairs" class="nav-link  ">Repairs </a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/turn_around_time_hearing_protection" class="nav-link  ">Hearing Protection </a></li>
 						</ul>
 					</li>
 					

@@ -60,7 +60,6 @@ try
 		$traveler['rush_process'] = 'Yes';
 	} 
 	
-	
 	if(empty($traveler['order_id']) == true)
 	{
 		$response['message'] = 'Please enter a order ID.';
@@ -107,6 +106,11 @@ if($the_count > 0 && $monitor_id[0]["id"] < 16) { // 16 is EXP Pro
 	$use_for_estimated_ship_date = NULL;
 }
 
+//$response["test"] = "Monitor ID is " . $monitor_id[0]["id"]  . " & IS NULL is " . is_null($monitor_id[0]["id"]);
+//echo json_encode($response);
+//exit;
+
+if($monitor_id[0]["id"] < 16 && !is_null($monitor_id[0]["id"])) {
 			
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
@@ -143,6 +147,7 @@ $stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_for
 	$ship_day->modify('+14 day'); // NEEDS TO START WITH TOMORROW
 	$ship_day = $ship_day->format('Y-m-d');
 	$imp_date = $ship_day;
+} // CLOSE IF STATEMENT FOR CREATING A TRAVELER FOR A CUSTOM EARPHONE
 
 // HERE IS WHERE A SEPARATE TRAVELER IS MADE FOR CUSTOM HEARING PROTECTION AND/OR MUSICIAN'S PLUGS
 if($traveler['hearing_protection']) {

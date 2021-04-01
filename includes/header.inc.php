@@ -393,6 +393,11 @@ Pickup
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["finishing"] ?>) </span>
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["finishing"] ?>)</span></a></li>
 								
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/artwork" class="nav-link "> 
+									<span style="margin-right:86px;font-weight:bold;">Artwork</span>
+									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["artwork"] ?>)</span>
+									<span style="color:#EE7600;font-weight:bold;"> (<?php echo $row_alclair_repair["artwork"] ?>)</span></a></li>
+								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/quality_control" class="nav-link "> 
 									<span style="margin-right:39px;font-weight:bold;">Quality Control </span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["quality_control"] ?>) </span>
@@ -402,12 +407,7 @@ Pickup
 									<span style="margin-right:45px;font-weight:bold;">Electronics QC</span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["electronics_qc"] ?>)</span>
 									<span style="color:#EE7600;font-weight:bold;"> (<?php echo $row_alclair_repair["electronics_qc"] ?>)</span></a></li>
-								
-								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/artwork" class="nav-link "> 
-									<span style="margin-right:86px;font-weight:bold;">Artwork</span>
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["artwork"] ?>)</span>
-									<span style="color:#EE7600;font-weight:bold;"> (<?php echo $row_alclair_repair["artwork"] ?>)</span></a></li>
-								
+																
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/ready_to_ship" class="nav-link "> 
 									<span style="margin-right:50px;font-weight:bold;">Ready to Ship </span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["ready_to_ship"] ?>) </span>

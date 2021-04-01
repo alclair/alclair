@@ -268,7 +268,7 @@
 					  				FROM repair_form WHERE active = TRUE";	*/
 					  	$query_alclair_repair = "SELECT 
 					  				count(CASE WHEN repair_status_id = 1 THEN 1 END) as repair_cart,
-					  				count(CASE WHEN repair_status_id = 2 THEN 1 END) as cathy_cart,
+					  				count(CASE WHEN repair_status_id = 2 THEN 1 END) as diagnosing,					  				
 					  				count(CASE WHEN repair_status_id = 3 THEN 1 END) as impression_detailing,
 					  				count(CASE WHEN repair_status_id = 4 THEN 1 END) as shell_pouring,
 					  				count(CASE WHEN repair_status_id = 5 THEN 1 END) as shell_detailing,
@@ -349,6 +349,11 @@ Pickup
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/start_cart" class="nav-link "> 
 									<span style="margin-right:74px;font-weight:bold;">Start Cart</span>
 									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["start_cart"] ?>)</span></a></li> 
+								
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/diagnosing" class="nav-link "> 
+									<span style="margin-right:108px;font-weight:bold;">Diagnosing</span>
+									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["diagnosing"] ?>)</span></a></li> 
+
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_cart" class="nav-link "> 
 									<span style="margin-right:108px;font-weight:bold;">Repair Cart</span>

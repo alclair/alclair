@@ -108,13 +108,13 @@ $scope.qrcode= {
 			}
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/repair_cart.php';
 	    } 
-	    else if (step == 'cathy_cart') {
+	    else if (step == 'diagnosing') {
 		    var x = document.getElementById("start").value;
 			if(x[0] != 'R') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
-	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/cathy_cart.php';
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/diagnosing.php';
         } 
         else if (step == 'impression_detailing') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/impression_detailing.php';
@@ -306,7 +306,7 @@ $scope.qrcode= {
 	   
 	   if(page == "repair_cart") {
 		   $scope.repair_status_id = 1;
-	   } else if (page == "cathy_cart") {
+	   } else if (page == "diagnosing") {
 		   $scope.repair_status_id = 2;
 	   } else if (page == "impression_detailing") {
 		   $scope.repair_status_id = 3;

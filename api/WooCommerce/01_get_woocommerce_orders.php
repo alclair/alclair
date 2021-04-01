@@ -13,7 +13,6 @@ use Automattic\WooCommerce\HttpClient\HttpClientException;
 require $rootScope["RootPath"] . '/vendor/autoload.php';
 //require '/var/www/html/otis/vendor/autoload.php';
 
-
 $response = array();
 $response["code"] = "";
 $response["message"] = "";
@@ -121,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2021-03-22T23:59:59',
-			'after' => '2021-03-22T00:00:00',
+			'before' => '2021-03-31T23:59:59',
+			'after' => '2021-03-31T00:00:00',
 			'per_page' => 100			
         ];
 */
@@ -136,16 +135,17 @@ $params = [
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
-
-/*  // THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
+/*
+// THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '10585207') ) {
+if(!stristr($data["id"], '10586687') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
 	//exit;
 } else {
 	echo "IN HERE " . $data["id"] . " </br>";
+	//exit;
 */
     for($k = 0; $k < count($data[line_items]); $k++) {
 	    //echo "Count is " . count($order) . "<br>";

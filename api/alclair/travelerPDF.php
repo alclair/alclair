@@ -498,19 +498,26 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
     	<td  style=\"text-align:left;\">ARTWORK:</td>
     </tr>
 ";*/
-if(strcmp($result[0]["artwork"], 'None')) {
-$right_column_artwork = 
-"	<tr>
-    		<td colspan='4' style=\"font-weight:bold;\"><span style=\"background-color: #40D8E0;\">ARTWORK:</span></td>
-	</tr>";
-//<span style=\"color:red;\"><b>{$result[0]["artwork"]}</b></span></td>
+
+if ( ($result[0]["hearing_protection"] == TRUE || $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
+	//$right_column_artwork = "";
+	//$right_column_artwork = "";
 } else {
-$right_column_artwork = 
-"	<tr>
+	if(strcmp($result[0]["artwork"], 'None')) {
+	$right_column_artwork = 
+	"	<tr>
+    			<td colspan='4' style=\"font-weight:bold;\"><span style=\"background-color: #40D8E0;\">ARTWORK:</span></td>
+			</tr>";
+	//<span style=\"color:red;\"><b>{$result[0]["artwork"]}</b></span></td>
+	} else {
+	$right_column_artwork = 
+	"	<tr>
     		<td colspan='4' style=\"font-weight:bold;\">ARTWORK:</td>
     	</tr>";
-//<span style=\"color:red;\"><b>{$result[0]["artwork"]}</b></span></td>
+		//<span style=\"color:red;\"><b>{$result[0]["artwork"]}</b></span></td>
+	}	
 }
+
 
 /*$right_column_artwork_response =  
 "		<tr style=\"font-size:14px;\">
@@ -533,36 +540,40 @@ if ( strlen($result[0]["right_alclair_logo"]) >= 19) {
 	$text_size_right = 30;//"36px;";
 } 
 
-if(strlen($result[0]["left_alclair_logo"]) < 2) {
-	$left_background_color = '#FFFFFF';
-	$left_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $left_background_color . "\">LEFT</span></td>";
-} else {
-	$left_background_color = '#40D8E0';
-	$left_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $left_background_color . "\">LEFT LOGO</span></td>";
+if ( ($result[0]["hearing_protection"] == TRUE || $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
+	$left_logo_html = "";
+	$right_logo_html = "";
+} else {	
+	if(strlen($result[0]["left_alclair_logo"]) < 2) {
+		$left_background_color = '#FFFFFF';
+		$left_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $left_background_color . "\">LEFT</span></td>";
+	} else {
+		$left_background_color = '#40D8E0';
+		$left_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $left_background_color . "\">LEFT LOGO</span></td>";
+	}
+	if(strlen($result[0]["right_alclair_logo"]) < 2) {
+		$right_background_color = '#FFFFFF';
+		$right_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $right_background_color . "\">RIGHT</span></td>";
+	} else {
+		$right_background_color = '#40D8E0';
+		$right_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $right_background_color . "\">RIGHT LOGO</span></td>";
+	}
+
+	 $right_column_artwork_response = 
+	"	<tr>" . $left_logo_html . $right_logo_html . "
+	    		
+		</tr>
+	";
+	//<td style=\"text-align:left;\"><span style=\"background-color:" .  $left_background_color . "\">LEFT LOGO</span></td>
+	//<td style=\"text-align:left;\"><span style=\"background-color:" .  $right_background_color . "\">RIGHT LOGO</span></td>
+	
+	 $right_column_artwork_response2 = 
+	"	<tr  style=\"color:blue;\">
+	    		<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>" . $result[0]["left_alclair_logo"] . "</b></td>
+	    		<td style=\"text-align:left;font-size:{$text_size_right}px;\"><b>" . $result[0]["right_alclair_logo"] . "</b></td>
+		</tr>
+	";
 }
-if(strlen($result[0]["right_alclair_logo"]) < 2) {
-	$right_background_color = '#FFFFFF';
-	$right_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $right_background_color . "\">RIGHT</span></td>";
-} else {
-	$right_background_color = '#40D8E0';
-	$right_logo_html = "<td style=\"text-align:left;\"><span style=\"background-color:" .  $right_background_color . "\">RIGHT LOGO</span></td>";
-}
-
- $right_column_artwork_response = 
-"	<tr>" . $left_logo_html . $right_logo_html . "
-    		
-	</tr>
-";
-//<td style=\"text-align:left;\"><span style=\"background-color:" .  $left_background_color . "\">LEFT LOGO</span></td>
-//<td style=\"text-align:left;\"><span style=\"background-color:" .  $right_background_color . "\">RIGHT LOGO</span></td>
-
- $right_column_artwork_response2 = 
-"	<tr  style=\"color:blue;\">
-    		<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>" . $result[0]["left_alclair_logo"] . "</b></td>
-    		<td style=\"text-align:left;font-size:{$text_size_right}px;\"><b>" . $result[0]["right_alclair_logo"] . "</b></td>
-	</tr>
-";
-
 if ( strlen($result[0]["left_shell"]) >= 19) {
 	$text_size_left = 20;//"30px;";
 } elseif (strlen($result[0]["left_shell"]) >= 10 &&  strlen($result[0]["left_shell"]) < 19) {

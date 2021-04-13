@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2021-04-02T23:59:59',
-			'after' => '2021-04-02T00:00:00',
+			'before' => '2021-04-10T23:59:59',
+			'after' => '2021-04-10T00:00:00',
 			'per_page' => 100			
         ];
 */
@@ -161,6 +161,7 @@ if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
 	
 			$model_name = $is_earphone["value"];
 			$full_product_name = $line_item["name"];
+			
 			$price = $line_item["subtotal"];
 			$total = $data["total"];
 			$discount = $data["discount_total"];
@@ -172,7 +173,7 @@ if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
 		
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP") || stristr($full_product_name, "Custom Earplugs") ) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs") ) { 
 			
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
 				
@@ -246,6 +247,30 @@ if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
 					}					
 									
 				}
+
+				if(stristr($full_product_name, "Musicians Earplugs") ) {
+					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
+					// USE THIS ORDER FOR HELP IN DETERMINING HOW TO GET THE FILTERS OTIS NEEDS
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
+					$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
+					$order[$ind]["musicians_plugs"] = TRUE;
+					$order[$ind]["model_hp"] = "MP";
+					
+					$filters = $line_item[meta_data][$k]->value;
+					//echo "Filters is " . $filters;
+					//exit;
+					if( stristr($filters, "9") ) {
+						$order[$ind]["musicians_plugs_9db"] = TRUE;
+					}
+					if( stristr($filters, "15") ) {
+						$order[$ind]["musicians_plugs_15db"] = TRUE;
+					}
+					if( stristr($filters, "25") ) {
+						$order[$ind]["musicians_plugs_25db"] = TRUE;
+					}					
+									
+				}
+
 				
 				if(stristr($full_product_name, "EXP") ) {
 					$order[$ind]["hearing_protection"] = TRUE;
@@ -287,16 +312,16 @@ if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "Dual XB Dual Driver") ) {
 	 						$order[$ind]["model"] = "Dual XB";  // MODEL -> 4 	
-	 					} else {
-		 					if( stristr($full_product_name, "Hearing Protection") ) {
-			 					if( stristr($full_product_name, "Silicone") ) {
-				 					$order[$ind]["model"] = "SHP";
-					 			} elseif ( stristr($full_product_name, "Acrylic") ) {
-						 			$order[$ind]["model"] = "AHP";
-					 			} else {
-						 			$order[$ind]["model"] = "SHP";
-					 			}
-		 					}
+	 					} elseif(stristr($full_product_name, "Hearing Protection") )  {
+			 				if( stristr($full_product_name, "Silicone") ) {
+				 				$order[$ind]["model"] = "SHP";
+					 		} elseif ( stristr($full_product_name, "Acrylic") ) {
+					 			$order[$ind]["model"] = "AHP";
+				 			} else {
+						 		$order[$ind]["model"] = "SHP";
+					 		}
+					 	} elseif(stristr($full_product_name, "Musicians Earplugs") )  {
+						 		$order[$ind]["model"] = "MP";
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						}
 					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
@@ -580,7 +605,10 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
+if( stristr($order[$k]["model"], "Driver") || stristr($order[$k]["model"], "POS") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
+			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
+			//exit;
 			$entered_by = 1;
 			$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
@@ -623,8 +651,29 @@ $id_of_order = $id_after_import[0]["id"];
 //echo "HERE IT IS " . $line_item[meta_data][$j]->key;
 //echo "WE ARE HERE " . $id_of_order . " and " . $make_2nd_traveler_for_hearing_protection;
 //exit;
+	
+	$stmt = pdo_query($pdo, "SELECT * FROM monitors WHERE name = :monitor_name", array('monitor_name'=>$order[$k]['model']));
+	$result = pdo_fetch_all( $stmt );
 
+	$qc_form = array();
+	$qc_form['customer_name'] = $order[$k]['designed_for'];  // DESIGNED FOR
+	$qc_form['order_id'] = $order[$k]['order_id'];  // ORDER ID
+	$qc_form['monitor_id'] = $result[0]["id"];
+	$qc_form['build_type_id'] = 1; // New Build
+					
+	$qc_form['notes'] = "Entry from import " . $k;
+	$qc_form['notes'] = "";
 
+	$stmt = pdo_query( $pdo, 
+					   "INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
+					   	 VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
+array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], ':build_type_id'=>$qc_form['build_type_id'], ':notes'=>$qc_form['notes'], ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order)
+);		
+
+	$id_of_qc_form = pdo_fetch_all( $stmt );
+
+	$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
+} // CLOSE IF STATEMENT
 
 if (stristr($order[$k]["make_2nd_traveler_for_hearing_protection"], "YES") ) {
 				$stmt2 = pdo_query( $pdo, 
@@ -655,7 +704,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':left_tip'=>NULL,
 	':right_tip'=>NULL,
 	':pelican_case_name'=>$order[$k]['pelican_case_name'],
-	':notes'=>"THERE IS AN EARPHONE THAT GOES WITH THIS HEARING PROTECTION - the ID is $id_of_order",
+	':notes'=>"DO WE WANT ADDED NOTES? ORDER ID IS $id_of_order",
 	':nashville_order'=>$order[$k]['nashville_order'],
 	':use_for_estimated_ship_date'=>NULL,
 	':customer_type'=>'Customer') 
@@ -663,29 +712,6 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	$import_2nd_traveler = pdo_fetch_all( $stmt2 );
 	$id_of_2nd_traveler = $import_2nd_traveler[0]["id"];
 }
-	
-	$stmt = pdo_query($pdo, "SELECT * FROM monitors WHERE name = :monitor_name", array('monitor_name'=>$order[$k]['model']));
-	$result = pdo_fetch_all( $stmt );
-
-	$qc_form = array();
-	$qc_form['customer_name'] = $order[$k]['designed_for'];  // DESIGNED FOR
-	$qc_form['order_id'] = $order[$k]['order_id'];  // ORDER ID
-	$qc_form['monitor_id'] = $result[0]["id"];
-	$qc_form['build_type_id'] = 1; // New Build
-					
-	$qc_form['notes'] = "Entry from import " . $k;
-	$qc_form['notes'] = "";
-
-	$stmt = pdo_query( $pdo, 
-					   "INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
-					   	 VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
-array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], ':build_type_id'=>$qc_form['build_type_id'], ':notes'=>$qc_form['notes'], ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order)
-);		
-
-	$id_of_qc_form = pdo_fetch_all( $stmt );
-
-	$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
-
 	// LOOK INSIDE BATCHES FOR PAID ORDERS WITH IMPRESSIONS
 	// GREATER THAN BATCH TYPE ID 1 IS ALL BATCHES THAT ARE NOT FROM TRADE SHOWS
 	$query_batches = "SELECT * FROM batches AS t1 

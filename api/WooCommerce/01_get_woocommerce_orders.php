@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2021-04-10T23:59:59',
-			'after' => '2021-04-10T00:00:00',
+			'before' => '2021-04-12T23:59:59',
+			'after' => '2021-04-12T00:00:00',
 			'per_page' => 100			
         ];
 */
@@ -138,7 +138,7 @@ $params = [
 /*
 // THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
+if(!stristr($data["id"], '10587685') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
@@ -233,7 +233,7 @@ if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
 					$order[$ind]["musicians_plugs"] = TRUE;
 					$order[$ind]["model_hp"] = "MP";
 					
-					$filters = $line_item[meta_data][$k]->value;
+					$filters = $line_item[meta_data][0]->value;
 					//echo "Filters is " . $filters;
 					//exit;
 					if( stristr($filters, "9") ) {
@@ -256,7 +256,9 @@ if(!stristr($data["id"], '10586903') && !stristr($data["id"], '10586918') ) {
 					$order[$ind]["musicians_plugs"] = TRUE;
 					$order[$ind]["model_hp"] = "MP";
 					
-					$filters = $line_item[meta_data][$k]->value;
+					$filters = $line_item[meta_data][0]->value;
+					$order[$ind]["left_shell"]  = $line_item[meta_data][1]->value;
+					$order[$ind]["right_shell"]  = $line_item[meta_data][1]->value;
 					//echo "Filters is " . $filters;
 					//exit;
 					if( stristr($filters, "9") ) {
@@ -605,7 +607,7 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
-if( stristr($order[$k]["model"], "Driver") || stristr($order[$k]["model"], "POS") ) { 
+if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
 			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
 			//exit;
@@ -682,7 +684,7 @@ left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimate
 VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
 :musicians_plugs, :musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, 
 :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
-	array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>NULL, ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model_hp'],  ':artwork'=>NULL, ':color'=>NULL, ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>NULL, ':right_shell'=>NULL, ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':clear_canal'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL, ':left_custom_art'=>NULL, ':right_custom_art'=>NULL, ':link_to_design_image'=>NULL, ':open_order_in_designer'=>NULL, 
+	array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>NULL, ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model_hp'],  ':artwork'=>NULL, ':color'=>NULL, ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':clear_canal'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL, ':left_custom_art'=>NULL, ':right_custom_art'=>NULL, ':link_to_design_image'=>NULL, ':open_order_in_designer'=>NULL, 
 	':designed_for' =>$order[$k]['designed_for'], 
 	':my_impressions'=>$order[$k]['my_impressions'], 
 	':billing_name'=>$order[$k]['billing_name'], 

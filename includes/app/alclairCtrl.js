@@ -435,7 +435,8 @@ swdApp.controller('Repair_Form', ['$http', '$scope', 'AppDataService', '$upload'
     artwork_none: 0,
 	repair_date: new Date,
 	received_date: window.cfg.CurrentDay,
-	estimated_ship_date: window.cfg.CurrentDay_plus_2weeks,
+	//estimated_ship_date: window.cfg.CurrentDay_plus_2weeks,
+	estimated_ship_date: window.cfg.CurrentDay_plus_3weeks,
 };
 
 	$scope.faults = [];

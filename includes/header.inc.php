@@ -84,6 +84,7 @@
 		$CurrentDay_minus30 = date("m/d/Y", strtotime("-1 months"));
 		$CurrentDay_football = date("m/d/Y", strtotime("-6 hours"));
 		$CurrentDay_plus_2weeks = date("m/d/Y", strtotime("+2 weeks"));
+		$CurrentDay_plus_3weeks = date("m/d/Y", strtotime("+3 weeks"));
 		$date=date_create($CurrentMonthFirstDate);
 		date_add($date,date_interval_create_from_date_string("1 month"));
 		date_add($date,date_interval_create_from_date_string("-1 day"));
@@ -97,6 +98,7 @@
 		window.cfg.CurrentDay="<?=$CurrentDay?>";
 		window.cfg.CurrentDay_football="<?=$CurrentDay_football?>";
 		window.cfg.CurrentDay_plus_2weeks="<?=$CurrentDay_plus_2weeks?>";
+		window.cfg.CurrentDay_plus_3weeks="<?=$CurrentDay_plus_3weeks?>";
 		window.cfg.OctoberOne="<?=$OctoberOne?>";
 		window.cfg.TwoMonthsPrior="<?=$TwoMonthsPrior?>";
 		window.cfg.CurrentDay_minus30="<?=$CurrentDay_minus30?>";

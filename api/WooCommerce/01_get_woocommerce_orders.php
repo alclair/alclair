@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2021-04-12T23:59:59',
-			'after' => '2021-04-12T00:00:00',
+			'before' => '2021-04-19T23:59:59',
+			'after' => '2021-04-19T00:00:00',
 			'per_page' => 100			
         ];
 */
@@ -138,7 +138,7 @@ $params = [
 /*
 // THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '10587685') ) {
+if(!stristr($data["id"], '10588234') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
@@ -322,7 +322,7 @@ if(!stristr($data["id"], '10587685') ) {
 				 			} else {
 						 		$order[$ind]["model"] = "SHP";
 					 		}
-					 	} elseif(stristr($full_product_name, "Musicians Earplugs") )  {
+					 	} elseif(stristr($full_product_name, "Musicians Earplugs") || stristr($full_product_name, "Musicians Plugs") )  {
 						 		$order[$ind]["model"] = "MP";
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						}
@@ -432,15 +432,20 @@ if(!stristr($data["id"], '10587685') ) {
 						$order[$ind]["cable_addon"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Addon Type") ) {
 						$order[$ind]["cable_addon_type"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musician's Plugs 9dB") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musicians Plugs 9dB") ) {
 						$order[$ind]["musicians_plugs_9db"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musician's Plugs 15dB") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musicians Plugs 15dB") ) {
 						$order[$ind]["musicians_plugs_15db"] = $line_item[meta_data][$j]->value;						
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musician's Plugs 25dB") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musicians Plugs 25dB") ) {
 						$order[$ind]["musicians_plugs_25db"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Musician's Plugs") ) {
-						$order[$ind]["musicians_plugs"] = $line_item[meta_data][$j]->value;	
-						//$make_2nd_traveler_for_hearing_protection = "YES";
+					} elseif(stristr($line_item[meta_data][$j]->key, "Musicians Plugs (") ) {
+						$order[$ind]["musicians_plugs"] = TRUE;//$line_item[meta_data][$j]->value;	
+						$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
+						$order[$ind]["model_hp"] = "MP";
+						$order[$ind]['use_for_estimated_ship_date'] = NULL;
+						//echo "WE MADE IT INTO HERE";
+						//exit;
+						//$order[$ind]["hearing_protection"] = TRUE;	
 						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Wood Box") ) {
 						$order[$ind]["wood_box"] = $line_item[meta_data][$j]->value;	

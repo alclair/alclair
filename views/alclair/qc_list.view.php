@@ -103,7 +103,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			</thead>	
 			<tbody>
 				<tr ng-repeat='qc_form in QC_FormList'>
-					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_qc_form/{{qc_form.id}}">{{qc_form.customer_name}}</a></td>
+					<td ng-if="qc_form.customer_name" style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_qc_form/{{qc_form.id}}">{{qc_form.customer_name}}</a></td>
+					<td ng-if="!qc_form.customer_name" style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_qc_form/{{qc_form.id}}">NOT SUPPLIED</a></td>
 <!--
 					<td  ng-if="qc_form.customer_name==' '"style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_qc_form/{{qc_form.id}}">{{qc_form.customer_name}}</a></td>
 					
@@ -120,7 +121,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="qc_form.build_type=='New - Originally Failed QC'"  style="text-align:center;" data-title="Build Type">Order - Not First Pass</td>
 					<td  ng-if="qc_form.build_type=='Repair - Originally Failed QC'"  style="text-align:center;" data-title="Build Type">Repair - Not First Pass</td>
 
-					<td  style="text-align:center;" data-title="Order #">{{qc_form.order_id}}</td>
+					<!--<td  style="text-align:center;" data-title="Order #">{{qc_form.order_id}}</td>-->
+					<td ng-if="qc_form.customer_name" style="text-align:center;" data-title="Order #"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{qc_form.id_of_order}}">{{qc_form.order_id}}</a></td>
+
 					<td  style="text-align:center;" data-title="Monitor">{{qc_form.monitor_name}}</td>
 					<td  ng-if="qc_form.pass_or_fail=='PASS'" style="text-align:center;" data-title="Pass/Fail">PASSED</td>
 					<td  ng-if="qc_form.pass_or_fail=='FAIL'" style="text-align:center;" data-title="Pass/Fail">FAILED</td>

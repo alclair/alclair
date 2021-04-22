@@ -122,7 +122,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="qc_form.build_type=='Repair - Originally Failed QC'"  style="text-align:center;" data-title="Build Type">Repair - Not First Pass</td>
 
 					<!--<td  style="text-align:center;" data-title="Order #">{{qc_form.order_id}}</td>-->
-					<td ng-if="qc_form.customer_name" style="text-align:center;" data-title="Order #"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{qc_form.id_of_order}}">{{qc_form.order_id}}</a></td>
+					<td ng-if="qc_form.order_id > 100000" style="text-align:center;" data-title="Order #"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{qc_form.id_of_order}}">{{qc_form.order_id}}</a></td>
+					<td ng-if="qc_form.order_id < 100000" style="text-align:center;" data-title="Order #"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{qc_form.order_id}}">{{qc_form.order_id}}</a></td>
 
 					<td  style="text-align:center;" data-title="Monitor">{{qc_form.monitor_name}}</td>
 					<td  ng-if="qc_form.pass_or_fail=='PASS'" style="text-align:center;" data-title="Pass/Fail">PASSED</td>

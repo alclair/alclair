@@ -341,8 +341,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
 			console.log("INSIDE THE IF " +	 $scope.traveler.international)
 		} else {
-			//var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
-			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + 11345;
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
+			//var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + 11345;
 			console.log("INSIDE THE ELSE")
 		}
 		//return;

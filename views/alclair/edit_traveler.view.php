@@ -37,7 +37,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             <div class="col-md-12"  style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 0px; margin-bottom: 25px;">
                 <!--<div style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px;">-->
                 <div class="col-md-5">  
-                    <b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/orders">ORDER # <span style="color: #FF0000">  {{traveler.order_id}}</span></a> - Edit traveler</b> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <!--<b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/orders">ORDER # <span style="color: #FF0000">  {{traveler.order_id}}</span></a> - Edit traveler</b> &nbsp;&nbsp;&nbsp;&nbsp;-->
+                    <b style="font-size: 20px;"><a href="https://alclair.com/wp-admin/post.php?post={{traveler.order_id}}&action=edit">ORDER # <span style="color: #FF0000">  {{traveler.order_id}}</span></a> - Edit traveler</b> &nbsp;&nbsp;&nbsp;&nbsp;
                     <!-- LINE BELOW WAS FOR TEXT THAT LINKED TO A NEW PAGE - REQUEST WAS MADE FOR IT TO BE A BUTTON - JAVASCRIPT CODE HAD TO CHANGE TOO-->
                     <!--<b id="qcform" style="font-size: 20px;color:green;cursor: pointer;" >QC FORM</b> -->
                     <button style="font-weight: 600;border-radius: 4px" type="button" class="btn btn-success" ng-click="gotoQC_Form()">

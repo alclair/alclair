@@ -118,30 +118,30 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 			'per_page' => 100,			
         ];
 
-	/*
+
 $params = [
-			'before' => '2021-04-21T23:59:59',
-			'after' => '2021-04-21T00:00:00',
+			'before' => '2021-05-01T23:59:59',
+			'after' => '2021-05-01T00:00:00',
 			'per_page' => 100			
         ];
-*/
+
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
     $ind = 0;
   
  
-  
+  $counting = 0;
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
 /*
 // THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '10588447') ) {
-	echo "DO NOTHING " . $data["id"] . " </br>";
-	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
-	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
+if(!stristr($data["id"], '10589212') ) {
+	//echo "DO NOTHING " . $data["id"] . " </br>";
+	//$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+	//echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
 	//exit;
 } else {
 	echo "IN HERE " . $data["id"] . " </br>";
@@ -170,10 +170,10 @@ if(!stristr($data["id"], '10588447') ) {
 		//echo '<p>TEST 2 IS  ' .  $model_name . " and " . $ind . "<br/>";
                 
 		// IF THE WORD "DRIVER" OR "POS" IS INSIDE THE FULL PRODUCT NAME STORE INFO FOR IMPORT
-		
+
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs") ) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") ) { 
 			
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
 				
@@ -206,9 +206,28 @@ if(!stristr($data["id"], '10588447') ) {
 					$order[$ind]["nashville_order"] = TRUE; // THIS WILL MARK THE ORDER AS FROM JONNY IN NASHVILLE
 				}
 				
+				
+				if(stristr($full_product_name, "Custom Hearing Protection") ) {
+					
+					$order[$ind]["hearing_protection"] = TRUE;
+					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
+					$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
+					$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
+					
+					if( stristr($full_product_name, "Custom Hearing Protection") ) {
+			 			if( stristr($full_product_name, "Silicone") ) {
+				 			$order[$ind]["model_hp"] = "SHP";
+			 			} elseif ( stristr($full_product_name, "Acrylic") ) {
+				 			$order[$ind]["model_hp"] = "AHP";
+			 			} else {
+				 			$order[$ind]["model_hp"] = "SHP";
+			 			}
+		 			}
+								
 				// CHECK TO SEE IF ORDER IS ONLY FOR CUSTOM HEARING PROTECTION
 				//if(!strcmp( substr($full_product_name, 0, 25), "Custom Hearing Protection") ) {
-				if(stristr($full_product_name, "Hearing Protection") ) {
+				} elseif(stristr($full_product_name, "Hearing Protection") ) {
 					$order[$ind]["hearing_protection"] = TRUE;
 					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
 					$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
@@ -225,6 +244,7 @@ if(!stristr($data["id"], '10588447') ) {
 			 			}
 		 			}
 				}
+				
 				
 				if(stristr($full_product_name, "Custom Earplugs") ) {
 					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
@@ -329,6 +349,7 @@ if(!stristr($data["id"], '10588447') ) {
 						 		$order[$ind]["model"] = "MP";
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						}
+
 					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
 						$order[$ind]["artwork"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp(  substr($line_item[meta_data][$j]->key, 0, 5), "Color") ) {
@@ -685,7 +706,9 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 	$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
 } // CLOSE IF STATEMENT
 
+
 if (stristr($order[$k]["make_2nd_traveler_for_hearing_protection"], "YES") ) {
+
 				$stmt2 = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
 left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
@@ -705,23 +728,26 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':active'=>TRUE,
 	':order_status_id'=>99, 
 	':num_earphones_per_order'=>$order[$k]['num_earphones_per_order'],
-	':hearing_protection'=>$order[$k]['hearing_protection'],
+	':hearing_protection'=>TRUE, //$order[$k]['hearing_protection'],
 	':hearing_protection_color'=>$order[$k]['hearing_protection_color'],
-	':musicians_plugs'=>$order[$k]["musicians_plugs"],
+	':musicians_plugs'=>NULL, //$order[$k]["musicians_plugs"],
 	':musicians_plugs_9db'=>NULL,
 	':musicians_plugs_15db'=>NULL,
 	':musicians_plugs_25db'=>NULL,
 	':left_tip'=>NULL,
 	':right_tip'=>NULL,
 	':pelican_case_name'=>$order[$k]['pelican_case_name'],
-	':notes'=>"DO WE WANT ADDED NOTES? ORDER ID IS $id_of_order",
+	':notes'=>"DO WE WANT ADDED NOTES?", // ORDER ID IS $id_of_order",
 	':nashville_order'=>$order[$k]['nashville_order'],
 	':use_for_estimated_ship_date'=>NULL,
 	':customer_type'=>'Customer') 
 	);
+	
+	
 	$import_2nd_traveler = pdo_fetch_all( $stmt2 );
 	$id_of_2nd_traveler = $import_2nd_traveler[0]["id"];
 }
+
 
 if (stristr($order[$k]["make_2nd_traveler_for_musicians_plugs"], "YES") ) {
 				$stmt2 = pdo_query( $pdo, 
@@ -752,7 +778,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':left_tip'=>NULL,
 	':right_tip'=>NULL,
 	':pelican_case_name'=>$order[$k]['pelican_case_name'],
-	':notes'=>"DO WE WANT ADDED NOTES? ORDER ID IS $id_of_order",
+	':notes'=>"DO WE WANT ADDED NOTES?", // ORDER ID IS $id_of_order",
 	':nashville_order'=>$order[$k]['nashville_order'],
 	':use_for_estimated_ship_date'=>NULL,
 	':customer_type'=>'Customer') 
@@ -760,6 +786,8 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	$import_2nd_traveler = pdo_fetch_all( $stmt2 );
 	$id_of_2nd_traveler = $import_2nd_traveler[0]["id"];
 }
+
+
 
 	// LOOK INSIDE BATCHES FOR PAID ORDERS WITH IMPRESSIONS
 	// GREATER THAN BATCH TYPE ID 1 IS ALL BATCHES THAT ARE NOT FROM TRADE SHOWS

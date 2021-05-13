@@ -147,14 +147,16 @@ $bc->draw( $entire_pathname);
 // CHECKING TO SEE IF ONLY HEARING PROTECTION IS ON THE ORDER
 // ONLY HEARING PROTECTION CHANGES THE TRAVELER CONSIDERABLY
 // IF ONLY HEARING PROTECTION THEN MAKE A PINK BORDER OTHERWISE MAKE A GREEN BORDER
-if ( ($result[0]["hearing_protection"] == TRUE || $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
+if ( ( $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
 	$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
-} else {
+} elseif ($result[0]["hearing_protection"] == TRUE ) {
 	if(stristr($result[0]['model'], "Exp") ) {
 		$border_color = "#0022FF"; // BLUE FOR EXP PRO
 	} else {
-		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
+		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION
 	}
+} else {
+		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
 }
 
 
@@ -610,7 +612,7 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model']) < 2)
 	</tr>
 ";
 
-} else {
+//} else {  // COMMENTED OUT MAY 13TH, 2021 FOR A QUICK FIX
  $right_column_colors_shells_response2 = 
 "	<tr  style=\"color:blue;\">
     		<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>" . $result[0]["left_shell"] . "</b></td>

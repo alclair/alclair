@@ -104,9 +104,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
 					<td  style="text-align:center;" data-title="Date of Last Scane">{{order.date_of_last_scan}}</td>
 					
+					<td  ng-if="order.model" style="text-align:center;" data-title="Model">{{order.model}}</td>
+					<td  ng-if="!order.model && order.hearing_protection" style="text-align:center;" data-title="Model">AHP OR SHP</td>
+					<td  ng-if="!order.model && order.musicians_plugs" style="text-align:center;" data-title="Model">MP</td>
+					
+					<!--
 					<td  ng-if="order.model && !order.hearing_protection" style="text-align:center;" data-title="Model">{{order.model}}</td>
-					<td  ng-if="order.hearing_protection && !order.model" style="text-align:center;" data-title="Model">Hearing Protection</td>
+					<td  ng-if="order.hearing_protection && !order.model" style="text-align:center;" data-title="Model">{{order.model}}</td>
 					<td  ng-if="order.hearing_protection && order.model" style="text-align:center;" data-title="Model">{{order.model}} & Hearing Protection</td>
+					<td  ng-if="order.musicians_plugs && !order.model" style="text-align:center;" data-title="Model">MP</td>
+					-->
 					
 					<td  style="text-align:center;" data-title="Days Past Due">{{order.days_past_due}}</td>
 					<td  style="text-align:center;" data-title="Due Date">{{order.estimated_ship_date}}</td>

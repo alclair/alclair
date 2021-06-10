@@ -36,6 +36,7 @@ try
               FROM qc_form
               LEFT JOIN status_type_orders AS t2 ON 2 = t2.id
               WHERE to_char(shipping_date,'yyyy') = '$year' AND to_char(shipping_date,'MM') = '$month' 
+              
               GROUP BY the_day, type
               ORDER BY the_day ASC";
    $stmt = pdo_query( $pdo, $query, $params ); 
@@ -84,22 +85,22 @@ ORDER BY the_day ASC";
               FROM import_orders
               LEFT JOIN status_type_orders AS t2 ON 1 = t2.id
               WHERE to_char(received_date,'yyyy') = '$year' AND to_char(received_date,'MM') = '$month' 
-GROUP BY the_day, type
-
-
+              AND (model IS NOT NULL AND model != 'MP' AND model != 'AHP' AND model != 'SHP' AND model != 'EXP PRO') 
+			  GROUP BY the_day, type
     UNION ALL
     SELECT to_char(t1.date, 'dd') AS the_day, ( SELECT COUNT(to_char(t1.date, 'dd') ) ) AS num_in_day, t5.type
               FROM order_status_log as t1
-LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-LEFT JOIN monitors AS t4 ON t2.model = t4.name
+			  LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+			  LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+			  LEFT JOIN monitors AS t4 ON t2.model = t4.name
           LEFT JOIN status_type_orders AS t5 ON 2 = t5.id
               WHERE to_char(t1.date,'yyyy') = '$year' AND to_char(t1.date,'MM') = '$month'  AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
-GROUP BY the_day, type
-ORDER BY the_day ASC";
+              AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO') 
+			  GROUP BY the_day, type
+			  ORDER BY the_day ASC";
 
     $stmt = pdo_query( $pdo, $query, $params ); 
-	 $num_in_day = pdo_fetch_all( $stmt );
+	$num_in_day = pdo_fetch_all( $stmt );
 	 
 	$num_impressions = 0;
 	$num_shipped = 0; 

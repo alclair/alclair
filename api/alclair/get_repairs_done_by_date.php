@@ -169,7 +169,7 @@ WHERE t1.repair_status_id = 14 AND t2.active = TRUE $conditionSql";
         $query = "SELECT DISTINCT t1.repair_form_id, t2.customer_name, t3.status_of_repair, t2.rma_number AS rma_number, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.repair_status_id, t1.notes,  t2.id
 FROM repair_status_log AS t1
 LEFT JOIN repair_form AS t2 ON t1.repair_form_id = t2.id
-LEFT JOIN repair_status_table AS t3 ON 12 = t3.order_in_repair
+LEFT JOIN repair_status_table AS t3 ON 14 = t3.order_in_repair
 LEFT JOIN monitors AS t4 ON t2.monitor_id = t4.id
 WHERE t1.repair_status_id = 14 AND t2.active = TRUE $conditionSql 
 ORDER BY date_done ASC,  t1.repair_form_id $pagingSql";

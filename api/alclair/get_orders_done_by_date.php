@@ -125,7 +125,7 @@ try
     //WHERE active = TRUE $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
-    $response['TotalRecords'] = $row[0];
+    //$response['TotalRecords'] = $row[0];
     
      if( !empty($_REQUEST["PageSize"]) && intval($_REQUEST["PageSize"]) > 0 )
     {
@@ -137,11 +137,21 @@ try
     }
     
     //Get Total Passed
+    /*
     $query = "SELECT count(t1.id) FROM order_status_log AS t1
-    LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL)  $conditionSql";
+    	LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+		LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+		LEFT JOIN monitors AS t4 ON t2.model = t4.name
+		WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL)  $conditionSql";
+	*/	
+	$query = "SELECT count(t1.id) FROM order_status_log AS t1
+    	LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+		LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+		LEFT JOIN monitors AS t4 ON t2.model = t4.name
+		WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
+		AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
+		AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO')  
+		$conditionSql";
     //WHERE active = TRUE AND pass_or_fail = 'PASS' $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
@@ -171,7 +181,10 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   $conditionSql 
+WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO') 
+$conditionSql 
 ORDER BY date_done ASC,  t1.import_orders_id $pagingSql";
 //AND t1.date >= '08/01/2018' AND t1.date <= '08/28/2018'
                   //active = TRUE $conditionSql $orderBySql $pagingSql";

@@ -84,6 +84,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Days Past Due</th>
+					<th style="text-align:center;">Imp Rx'd Date</th>
 					<th style="text-align:center;">Due Date</th>
 					<th style="text-align:center;">Order ID</th>
 					<th style="text-align:center;">Order Date</th>	
@@ -116,6 +117,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					-->
 					
 					<td  style="text-align:center;" data-title="Days Past Due">{{order.days_past_due}}</td>
+					<td  style="text-align:center;" data-title="Imp Rx'd Date">{{order.received_date}}</td>
 					<td  style="text-align:center;" data-title="Due Date">{{order.estimated_ship_date}}</td>
 					
 					<td  style="text-align:center;" data-title="Order ID">{{order.order_id}}</td>

@@ -481,7 +481,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 	$scope.printed_or_not = '0';
 	$scope.today_or_next_week = '0';
 	$scope.order_status_id = 0;
-	//$scope.remove_hearing_protection = 1;
+	$scope.remove_hearing_protection = 1;
     
     //SearchStartDate = "10/1/2017";
     //SearchEndDate = new Date();

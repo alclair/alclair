@@ -35,7 +35,7 @@ try
     if ($_REQUEST['REMOVE_HEARING_PROTECTION'] == 1) {
 			//$conditionSql .=" AND (t1.hearing_protection != TRUE)";
 			//$conditionSql .=" AND ( (t1.hearing_protection != TRUE AND t1.model IS NOT NULL) OR (t1.hearing_protection != TRUE AND t1.model IS NULL) )";
-			$conditionSql .=" AND ( t1.model != 'AHP' AND t1.model != 'SHP' AND t1.model != 'EXP PRO' )";
+			$conditionSql .=" AND ( t1.model != 'AHP' AND t1.model != 'SHP' AND t1.model != 'EXP PRO' AND t1.model != 'MP' AND t1.model != 'Musicians Plugs')";
 			$conditionSql .= " AND (t1.order_status_id != 12)";
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }

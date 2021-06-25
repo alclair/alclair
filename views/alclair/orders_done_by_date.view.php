@@ -151,7 +151,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	    // FORM FOR TRD COMPANY
 	    } 
 	?>
-		 
+	
+<!--		 
         <div class="row" ng-show="TotalPages > 1">
             <div class="col-lg-12">
                  <nav>
@@ -165,7 +166,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 </nav>
             </div>
         </div>
-
+-->
 
 	</div>
 	

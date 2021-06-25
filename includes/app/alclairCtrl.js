@@ -2455,7 +2455,7 @@ swdApp.controller('Orders_Done_By_Date', ['$http', '$scope', 'AppDataService', '
                 $scope.Printed = result.Printed;
                 
                 //console.log("Pass or Fail is " + result.testing1)
-
+/*
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
                 $scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
@@ -2465,7 +2465,7 @@ swdApp.controller('Orders_Done_By_Date', ['$http', '$scope', 'AppDataService', '
                 for (var i = $scope.PageWindowStart; i <= $scope.PageWindowEnd; i++) {
                     $scope.PageRange.push(i);
                 }
-
+*/
                 $.unblockUI();
             }).error(function (result) {
                 toastr.error("Get QC Form error.");

@@ -46,6 +46,17 @@ $query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char
 
     $stmt = pdo_query( $pdo, $query, $params ); 
 	$num_in_day = pdo_fetch_all( $stmt );
+	
+	$num_repairs = 0;
+	$num_shipped = 0; 
+	for($j=0; $j<count($num_in_day); $j++) {    
+		if(stristr($num_in_day[$j]["type"], "# of Repairs Received") ) {
+			$num_repairs = $num_repairs + $num_in_day[$j]["num_in_day"];		
+		} elseif(stristr($num_in_day[$j]["type"], "# Shipped") ) {
+			$num_shipped = $num_shipped + $num_in_day[$j]["num_in_day"];	
+		}
+	}
+
 
     $result = array();
 
@@ -54,6 +65,8 @@ $query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char
 	}
 	$response["test1"] = $num_of_impresions_in_day;
 	
+	$response["num_repairs"] = $num_repairs;
+	$response["num_shipped"] = $num_shipped;;
     $response['code'] = 'success';
     $response['data'] = $result;
     $response['data'] = $num_in_day;

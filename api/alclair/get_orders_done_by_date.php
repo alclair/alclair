@@ -185,7 +185,7 @@ WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL
 AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
 AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO') 
 $conditionSql 
-ORDER BY date_done ASC,  t1.import_orders_id $pagingSql";
+ORDER BY date_done ASC,  t1.import_orders_id ";//$pagingSql
 //AND t1.date >= '08/01/2018' AND t1.date <= '08/28/2018'
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    

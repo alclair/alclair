@@ -349,6 +349,8 @@ $scope.loadRepairsReceived = function () {
         var api_url = window.cfg.apiUrl + "reports/alclairRepairsReceived.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
 
         $http.get(api_url).success(function (result6) {
+	        $scope.num_repairs2 = result6.num_repairs;
+			$scope.num_shipped = result6.num_shipped;
 
             $.unblockUI();
             //console.log(JSON.stringify(result5.data));

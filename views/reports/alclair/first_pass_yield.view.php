@@ -158,7 +158,7 @@
         <div style="text-align: center;">
             <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
              <h2>Repairs Received by Date</h2>
-			 	<h3><b>{{num_repairs2}} Received / {{num_shipped}} Shipped</b></h3>
+			 	<h3><b>{{num_repairs2}} Received / {{num_shipped2}} Shipped</b></h3>
             <br />
 
             <div class="col-md-12">

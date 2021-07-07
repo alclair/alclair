@@ -738,7 +738,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':left_tip'=>NULL,
 	':right_tip'=>NULL,
 	':pelican_case_name'=>$order[$k]['pelican_case_name'],
-	':notes'=>"DO WE WANT ADDED NOTES?", // ORDER ID IS $id_of_order",
+	':notes'=>NULL, // ORDER ID IS $id_of_order",
 	':nashville_order'=>$order[$k]['nashville_order'],
 	':use_for_estimated_ship_date'=>NULL,
 	':customer_type'=>'Customer') 

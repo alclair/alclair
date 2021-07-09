@@ -417,13 +417,14 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	           $scope.ChangelogList = result.data3;
 	           
 	           console.log("THE USER IS " + result.the_user_is)
-	           
+	           /*
 	           if(result.data[0].manufacturing_screen == true) {
 			   		$scope.manufacturing_screen = 1; 
 	           } else {
 		           $scope.manufacturing_screen = 0;
 	           }
 	           console.log("THE SCREEN IS  " + $scope.traveler.manufacturing_screen)
+	           */
 	           $scope.the_user_is = result.the_user_is;
 	            //console.log("Log is " + JSON.stringify(result.data2))
 	            //console.log("The data is " + JSON.stringify(result.data[0]))
@@ -436,6 +437,13 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                     if(($scope.traveler.designed_for == null) && $scope.traveler.musicians_plugs == true) {
 	                    $scope.traveler.designed_for = $scope.traveler.shipping_name;
                     }
+                    if($scope.traveler.left_custom_art != null && $scope.traveler.left_alclair_logo == null) {
+	                    $scope.traveler.left_alclair_logo = "Custom"
+                    }
+                    if($scope.traveler.right_custom_art != null && $scope.traveler.right_alclair_logo == null) {
+	                    $scope.traveler.right_alclair_logo = "Custom"
+                    }
+                    //console.log("custom art left is " + $scope.traveler.left_custom_art)
                     order_status_id = $scope.traveler.order_status_id;
                     console.log("Order Status ID is " + order_status_id)
 					/*

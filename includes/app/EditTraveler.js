@@ -432,8 +432,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                 if (result.data.length > 0) {
                     $scope.traveler = result.data[0];   
                     $scope.traveler.override = 1;      
-                    console.log("Length is "+($scope.traveler.designed_for.length))
-                    if(($scope.traveler.designed_for.length < 1 || $scope.traveler.designed_for == null) && $scope.traveler.musicians_plugs == true) {
+                    console.log("Length is "+($scope.traveler.designed_for))
+                    if(($scope.traveler.designed_for == null) && $scope.traveler.musicians_plugs == true) {
 	                    $scope.traveler.designed_for = $scope.traveler.shipping_name;
                     }
                     order_status_id = $scope.traveler.order_status_id;

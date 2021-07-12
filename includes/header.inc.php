@@ -813,6 +813,10 @@ Pickup
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/alclair/jonny_orders" class="nav-link "><i class="fa fa-coffee"></i> &nbsp Jonny's Shwag </a>
                                 </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/customer_comments" class="nav-link "><i class="fa fa-edit"></i> &nbsp Customer Comments </a>
+                                </li>
+
                                  <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' ) { ?>
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/reconcile" class="nav-link "><i class="fa fa-adjust"></i> &nbsp Reconciliation </a>

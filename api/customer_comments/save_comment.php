@@ -20,7 +20,7 @@ try
     
     $ID_is = $_REQUEST["id"];
     
-    $query = "UPDATE date = now(), customer_comments SET comment = :comment, after_comment = :after_comment WHERE id = $ID_is";
+    $query = "UPDATE customer_comments SET date = now(), comment = :comment, after_comment = :after_comment WHERE id = $ID_is";
     $stmt = pdo_query( $pdo, $query, array(":comment"=>$comment, ":after_comment"=>$after_comment) );
     $row = pdo_fetch_array( $stmt );
 	

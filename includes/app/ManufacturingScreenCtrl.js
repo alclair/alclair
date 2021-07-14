@@ -526,7 +526,7 @@ swdApp.controller('Manufacturing_Screen_3', ['$http', '$scope', 'AppDataService'
 		        
                 setTimeout(function(){
 				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
-				  }, 5000); 
+				  }, 15000); 
 
                 $.unblockUI();
             }).error(function (result) {

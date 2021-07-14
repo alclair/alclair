@@ -8,7 +8,7 @@ $scope.init = function () {
 		$http({
 			method: 'GET',
 			//url: 'https://alclair.api-us1.com/api/3/contacts/16025', 
-			url: 'http://otis.alclair.co:8080/https://alclair.api-us1.com/api/3/contacts/16025',
+			url: 'http://otis.alclair.co:8080/http://alclair.api-us1.com/api/3/contacts/16025',
 			headers: {
 				 'Access-Control-Allow-Method': 'GET',
 				 //'Access-Control-Request-Method': 'GET',

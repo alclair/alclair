@@ -4,7 +4,7 @@ $scope.init = function () {
 //async function STEP3(customer_info) {
 	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
 	//setTimeout(function(){
-		console.log("WE ARE HERE")
+		console.log("WE ARE HERE 2")
 		$http({
 			method: 'GET',
 			//url: 'https://alclair.api-us1.com/api/3/contacts/16025', 
@@ -19,7 +19,8 @@ $scope.init = function () {
 				 'Api-Token': key_is
 			}
 		}).then(function successCallback(response) {
-			console.log("OUTPUT IS " + response)
+			console.log("First name is " + JSON.stringify(response.data.contact.firstName))
+			console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
 			json = response.data.data;
 			if(json == "empty") {
 				//console.log("JSON is empty & i is " + i)

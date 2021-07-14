@@ -271,7 +271,7 @@ if(!stristr($data["id"], '10589923') ) {
 									
 				}
 
-				if(stristr($full_product_name, "Musicians Earplugs") ) {
+				if(stristr($full_product_name, "Musicians Earplugs") || stristr($full_product_name, "Filtered Custom Earplugs")) {
 					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
 					// USE THIS ORDER FOR HELP IN DETERMINING HOW TO GET THE FILTERS OTIS NEEDS
 					$order[$ind]['use_for_estimated_ship_date'] = NULL;
@@ -780,7 +780,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':left_tip'=>NULL,
 	':right_tip'=>NULL,
 	':pelican_case_name'=>$order[$k]['pelican_case_name'],
-	':notes'=>"DO WE WANT ADDED NOTES?", // ORDER ID IS $id_of_order",
+	':notes'=>"", // ORDER ID IS $id_of_order",
 	':nashville_order'=>$order[$k]['nashville_order'],
 	':use_for_estimated_ship_date'=>NULL,
 	':customer_type'=>'Customer') 

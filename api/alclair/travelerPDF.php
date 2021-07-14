@@ -148,19 +148,18 @@ $bc->draw( $entire_pathname);
 // ONLY HEARING PROTECTION CHANGES THE TRAVELER CONSIDERABLY
 // IF ONLY HEARING PROTECTION THEN MAKE A PINK BORDER OTHERWISE MAKE A GREEN BORDER
 //if ( ( $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
-if ( ( $result[0]["musicians_plugs"] == TRUE)  ) {	
+if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship_date"] != TRUE ) {	
 	$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
 //} elseif ($result[0]["hearing_protection"] == TRUE ) {
-} elseif(stristr($result[0]['model'], "Exp") ) {
+} elseif(stristr($result[0]['model'], "Exp") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 	$border_color = "#0022FF"; // BLUE FOR EXP PRO
-} elseif (stristr($result[0]['model'], "AHP")) {
+} elseif (stristr($result[0]['model'], "AHP") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION
-} elseif (stristr($result[0]['model'], "SHP")) {
+} elseif (stristr($result[0]['model'], "SHP") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
 } else {
 		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
 }
-
 
 if ($result[0]['artwork'] == 'Nope') {
 	

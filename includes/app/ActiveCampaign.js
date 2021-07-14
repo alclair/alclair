@@ -14,7 +14,7 @@ $scope.init = function () {
 				 //'Access-Control-Request-Method': 'GET',
 				 'Access-Control-Allow-Headers': 'Content-Type, x-requested-with',
 				 //'Access-Control-Request-Headers': 'Content-Type, x-requested-with',
-				 'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				 'Access-Control-Allow-Origin': 'https://otis.alclr.co/activecampaign/test',
 				 //'Origin': 'https://otisdev.alclr.co/',
 				 'Api-Token': key_is
 			}

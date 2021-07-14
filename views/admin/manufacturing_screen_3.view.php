@@ -15,19 +15,19 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair" ) {
 	?>       
  <div class="row">
- 	<h1 style="font-weight:bold;font-size: 80px; color:red" align=center> 
+ 	<h1 style="font-weight:bold;font-size: 80px; color:blue" align=center> 
 	 	What Customers Are Saying
 	</h1>
 	<br/>
 	<br/>
 	
-	<h1 style="font-weight:bold;font-size: 70px;font-style: italic; margin-left:40px">
-		<span style="font-weight:bold;font-size: 100px;font-style: italic;"> " </span>
+	<h1 style="font-weight:bold;font-size: 70px;margin-left:40px">
+		<span style="font-weight:bold;font-size: 100px;"> " </span>
 			{{comment}}
-		<span style="font-weight:bold;font-size: 100px;font-style: italic;"> " </span>
+		<span style="font-weight:bold;font-size: 100px;"> " </span>
 		<br/>
 		<br/>
-		<span style="margin-left:200px"> 
+		<span style="margin-left:200px;font-style: italic;"> 
 			{{after_comment}} 
 		</span>
 	</h1>

@@ -476,6 +476,12 @@ Pickup
 						<li class=" "><a href="<?=$rootScope['RootUrl']?>/sos/sos" class="nav-link "> SOS</a></li>
 					</ul>
 				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AC <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li class=" "><a href="<?=$rootScope['RootUrl']?>/activecampaign/test" class="nav-link "> ActiveCampaign</a></li>
+					</ul>
+				</li>
 				<?php } ?> 
 				<?php } ?> 
 				<?php

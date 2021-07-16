@@ -72,3 +72,4 @@ $scope.init2 = function () {
 	//$scope.init();
 	$scope.init2();
 }]);
+

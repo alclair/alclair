@@ -51,9 +51,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					</button>
 		    	</div>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-sm-3">
 				<div class="text-center">
-					<b style="font-size:28px;color: #FF0000">(Active: {{TotalRecordsActive}})</b>
+					<b style="font-size:28px;color: #FF0000">(Active: {{TotalRecordsActive}}, Ship/Day: {{TotalRecordsDuePerDay}})</b>
 				</div>
 			</div>
 			

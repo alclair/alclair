@@ -443,6 +443,9 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                     if($scope.traveler.right_custom_art != null && $scope.traveler.right_alclair_logo == null) {
 	                    $scope.traveler.right_alclair_logo = "Custom"
                     }
+                    if(!$scope.traveler.artwork) {
+	                    $scope.traveler.artwork = 'None';
+                    }
                     //console.log("custom art left is " + $scope.traveler.left_custom_art)
                     order_status_id = $scope.traveler.order_status_id;
                     console.log("Order Status ID is " + order_status_id)

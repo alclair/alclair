@@ -108,6 +108,7 @@ swdApp.controller('TAT', ['$http', '$scope', 'AppDataService', '$upload',  '$coo
                 console.log("Delete this " + result.test)
                 $scope.TotalRecords = result.TotalRecords;
                 $scope.TotalRecordsActive = result.TotalRecordsActive;
+                $scope.TotalRecordsDuePerDay = Math.round(result.TotalRecordsActive/10);
                 $scope.Printed = result.Printed;
                 //console.log("Pass or Fail is " + result.testing1)
 

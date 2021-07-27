@@ -66,19 +66,17 @@ try
 			//exit;	
 			$conditionSql .= " AND (t1.order_status_id = :OrderStatusID)";
 			$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
-    	}  else {
-	    
-	    		  if($_REQUEST["USE_IMPRESSION_DATE"] == 1) {
-				  if(!empty($_REQUEST["StartDate"])) {
-				  	$conditionSql.=" and (t1.received_date>=:StartDate)";
-				  	$params[":StartDate"]=$_REQUEST["StartDate"];
-					}
+    	} else {	    
+			if($_REQUEST["USE_IMPRESSION_DATE"] == 1) {
+			  	if(!empty($_REQUEST["StartDate"])) {
+			  		$conditionSql.=" and (t1.received_date>=:StartDate)";
+			  		$params[":StartDate"]=$_REQUEST["StartDate"];
+				}
 				if(!empty($_REQUEST["EndDate"])) {
 					$conditionSql.=" and (t1.received_date<=:EndDate)";
 					$params[":EndDate"]=date("m/d/Y H:i:s",strtotime($_REQUEST["EndDate"] . '23:59:59'));
 				}
-
-    			} else {
+   			} else {
 				if(!empty($_REQUEST["StartDate"])) {
 					$conditionSql.=" and (t1.date>=:StartDate)";
 					$params[":StartDate"]=$_REQUEST["StartDate"];

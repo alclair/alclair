@@ -26,7 +26,7 @@ try
                             FROM import_orders AS t1
                             LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                             LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                            WHERE t1.order_status_id = :order_status_id AND t1.active = TRUE ORDER BY id",
+                            WHERE t1.order_status_id = :order_status_id AND t1.active = TRUE ORDER BY t1.received_date",
                             array(":order_status_id"=>$_REQUEST["ORDER_STATUS_ID"])
                          );	
         $result = pdo_fetch_all($stmt);

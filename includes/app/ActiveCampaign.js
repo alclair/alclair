@@ -19,8 +19,8 @@ $scope.init = function () {
 				 'Api-Token': key_is
 			}
 		}).then(function successCallback(response) {
-			console.log("First name 2 is " + JSON.stringify(response.data.contact.firstName))
-			console.log("Last name 2 is " + JSON.stringify(response.data.contact.lastName))
+			console.log("First name 3 is " + JSON.stringify(response.data.contact.firstName))
+			console.log("Last name 3 is " + JSON.stringify(response.data.contact.lastName))
 			json = response.data.data;
 			if(json == "empty") {
 				//console.log("JSON is empty & i is " + i)
@@ -37,33 +37,25 @@ $scope.init = function () {
 
 $scope.init2 = function () {
 	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
-	practice = "{ 'contact': { 'email': 'andy@alclair.com', 'firstName': 'Andy', 'lastName': 'Swanson 2'}, 'id': '1' , 'organization': null}";
-	practice5 = "{ 'contact': { 'email': 'andy@alclair.com', 'firstName': 'Andy', 'lastName': 'Swanson 2'}}";
-	practice4 = "{ 'contact': { 'email': 'andy@alclair.com', 'firstName': 'Andy', 'lastName': 'Swanson'}}";
-	//practice6 = "{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}";
-	practice6 = "{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}";
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andrew2", "lastName": "Swanson"}}';
 	
-	{"contact":{"email":"andy@alclair.com","firstName":"Andy","lastName":"Swanson","fieldValues":[{}]}}
-	{'contact':{'email':'andy@alclair.com','firstName':'Andy','lastName':'Swanson','fieldValues':[{}]}}
-	
-	practice2 = "{'contact': {'email': 'andy@alclair.com', 'firstName': 'Andy', 'lastName': 'Swanson', 'fieldValues':[ {'field':'1', 'value':'The Value for First Field'}, {'field':'6', 'value':'2008-01-20'}]}}";
-	practice3 = "{'contact': {'email': 'andy@alclair.com', 'firstName': 'Andy', 'lastName': 'Swanson', 'fieldValues':[ {}, {}] }}";
-
 		console.log("WE ARE HERE 2")
+		console.log(JSON.stringify(practice6))
 		$http({
-			method: 'PUT',
-			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contacts/1',
+			method: 'POST',
+			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+			data: practice6,
 			headers: {
-				 //'Access-Control-Allow-Method': 'PUT',
-				 //'Access-Control-Allow-Headers': 'Content-Type: application/json, x-requested-with',
-				 'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
-				 'Api-Token': key_is
+				//'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				'Content-Type': 'application/json',
+				//'Content-Type': 'application/x-www-form-urlencoded',
+				 'Api-Token': key_is,
 			},
-			data: practice4,
-			body: practice5
+			//body: practice5
 		}).then(function successCallback(response) {
 			console.log("First name is " + JSON.stringify(response.data.contact.firstName))
 			console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+			console.log("ID is " + JSON.stringify(response.data.contact.id))
 			json = response.data.data;
 			if(json == "empty") {
 				//console.log("JSON is empty & i is " + i)
@@ -76,7 +68,87 @@ $scope.init2 = function () {
 		});
     //}, 1000)
 }
+
+$scope.init3 = function () {
+	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+	   var api_url = window.cfg.apiUrl + "activecampaign/get_contact.php";
+	   $http.get(api_url)
+	   		.success(function (result) {
+	   			console.log("RESULT IS " + result)
+	   			console.log("TEST IS " + result.test)
+				$.unblockUI();
+        	}).error(function (result) {
+				toastr.error("Could not get code");
+        	});
+}
+
+$scope.init4 = function () {
+	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andrew2", "lastName": "Swanson", "Notes": "FAKE NOTES"}}';
+
+		$http({
+			method: 'GET',
+			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/notes/1',
+			headers: {
+				 'Access-Control-Allow-Method': 'GET',
+				 'Access-Control-Allow-Headers': 'Content-Type, x-requested-with',
+				 'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				 'Api-Token': key_is
+			}
+			//body: practice5
+		}).then(function successCallback(response) {
+			console.log("First name is " + JSON.stringify(response.data.note))
+			//console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+			json = response.data.data;
+			if(json == "empty") {
+				//console.log("JSON is empty & i is " + i)
+			} else {
+			
+			}
+		}, function errorCallback(response) {
+			console.log("ERROR HERE")
+			//console.log("Fail and I is " + i)
+		});
+    //}, 1000)
+}
+
+$scope.init5 = function () {
+	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+	practice6 = '{"note": {"note": "NOTE TIME","relid": 2,"reltype": "Subscriber"}}';
+		$http({
+			method: 'PUT',
+			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/notes/1',
+			data: practice6,
+			headers: {
+				 //'Access-Control-Allow-Method': 'GET',
+				 //'Access-Control-Allow-Headers': 'Content-Type, x-requested-with',
+				 //'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				 'Api-Token': key_is
+			}
+		}).then(function successCallback(response) {
+			console.log("First name is " + JSON.stringify(response.data.note))
+			//console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+			json = response.data.data;
+			if(json == "empty") {
+				//console.log("JSON is empty & i is " + i)
+			} else {
+			
+			}
+		}, function errorCallback(response) {
+			console.log("ERROR HERE")
+			//console.log("Fail and I is " + i)
+		});
+    //}, 1000)
+}
+
+
+
 	//$scope.init();
-	$scope.init2();
+	//$scope.init2();
+	//$scope.init3();
+	//$scope.init4();
+	$scope.init4();
 }]);
+
+
 

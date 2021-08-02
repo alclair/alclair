@@ -264,7 +264,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	    console.log("Designed for " + $scope.traveler.designed_for)
 	    console.log("monitor id  " + $scope.traveler.monitor_id)
 	    $scope.traveler.received_date = window.cfg.CurrentDay;
-		$scope.traveler.estimated_ship_date = window.cfg.CurrentDay_plus_2weeks;
+		//$scope.traveler.estimated_ship_date = window.cfg.CurrentDay_plus_2weeks;
+		$scope.traveler.estimated_ship_date = window.cfg.CurrentDay_plus_3weeks;
 		$scope.traveler.import_orders_id = window.cfg.Id;
 
 	    var api_url = window.cfg.apiUrl + "alclair/get_next_id_from _from_repair_form.php";

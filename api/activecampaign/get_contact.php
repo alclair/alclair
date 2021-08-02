@@ -20,11 +20,11 @@ curl_setopt_array($curl, [
   ],
 ]);
 
-$response = curl_exec($curl);
 $response["test"] = "HERE";
 echo json_encode($response);
 exit;
 
+$response = curl_exec($curl);
 $err = curl_error($curl);
 
 curl_close($curl);

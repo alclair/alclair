@@ -416,7 +416,7 @@ $scope.LoadData = function () {
 
 
                 setTimeout(function(){
-				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_3";
+				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
 				  }, 15000); 
 
                 $scope.PageRange = [];

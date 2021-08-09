@@ -85,7 +85,7 @@ $scope.qrcode= {
        	});         
 	}
             
-    $scope.Accept = function (step, the_email_is) {
+    $scope.Accept = function (step) {
 	    //console.log("dsafasdfasd" + $scope.qrcode.barcode)
         if (!$scope.qrcode.barcode) {
 	         toastr.error("Enter in a barcode.");
@@ -197,9 +197,60 @@ $scope.qrcode= {
                  	$.unblockUI();
 				 	//alert(result.data.id);
 				 	 toastr.success("Order has been updated!")
-				 	 setTimeout(function(){
-				 	 	location.reload();				 	
-					}, 500);    
+				 	 // IF EMAIL EXISTS UPDATE ACTIVE CAMPAIGN
+				 	 if($scope.qrcode.email) {
+					 	 console.log("Email Exists " +$scope.qrcode.email)
+					 } else {
+						 console.log("Email Does Not Exist " +$scope.qrcode.email)
+					 }
+				 	 //return;
+				 	 if($scope.qrcode.email) {
+					 	 setTimeout(function(){
+						 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+						 	 //return;
+						 	 Email = $scope.qrcode.email;
+						 	 Current_status = step;//'RIGHT';
+						 	 Estimated_ship_date = moment($scope.qrcode.estimated_ship_date).format("MM/DD/YYYY");
+							 json_text= '{ "contact": { "email": '+'"'+$scope.qrcode.email+'"'+', "fieldValues":[{"field": 49, "value": '+step+'}, {"field": 50, "value": "Estimated Ship Date"}] }}';
+							 json_text= '{ "contact": { "email": "galenwallaceclarkmusic@gmail.com", "fieldValues":[{"field": 49, "value": "RIGHT HERE"}, {"field": 50, "value": "Estimated Ship Date"}] }}';
+							 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
+							 $http({
+							 	method: 'POST',
+							 	url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							 	data: json_text,
+							 	headers: {
+								 	'Content-Type': 'application/json',					 	
+								 	'Api-Token': key_is,
+							 	},
+							 }).then(function successCallback(response) {
+							 	console.log("First name is " + JSON.stringify(response.data.contact.firstName))
+							 	console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+							 	console.log("ID is " + JSON.stringify(response.data.contact.id))
+							 	json = response.data.data;
+							 	if(json == "empty") {
+							 		//console.log("JSON is empty & i is " + i)
+							 	} else {
+				
+								}
+							}, function errorCallback(response) {
+								console.log("ERROR HERE")
+	
+							});	 
+						 	 
+						 	 setTimeout(function(){ 
+							 	 location.reload();				 	
+							 }, 500);    
+						}, 500);   
+						 console.log("Email exists " + $scope.qrcode.email)	 
+					 } else {
+						 	// EMAIL DOES NOT EXIST AND RELOAD PAGE ONLY
+						 	setTimeout(function(){ 
+						 		location.reload();				 	
+						 	}, 500);   
+						 	console.log("Email does not exist " + $scope.qrcode.email)	  
+					 }
+
+				 	  
 				 	if (result.data.id !=undefined)
 				 	{
                     	 $scope.qrcode.id = result.data.id;
@@ -248,6 +299,7 @@ $scope.qrcode= {
                     	 $scope.qrcode.order_id = result.data[0].order_id;
                     	 $scope.qrcode.designed_for = result.data[0].designed_for;
                     	 $scope.qrcode.email = result.data[0].email;
+                    	 $scope.qrcode.estimated_ship_date = result.data[0].estimated_ship_date;
                     	 $scope.qrcode.type = "Manufacturing";
                     	 $scope.days = result.days;
                     	 console.log("TEST IS  " + result.test)

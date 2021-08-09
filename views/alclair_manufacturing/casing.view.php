@@ -169,7 +169,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	<?php
 		if ( $rootScope["SWDCustomer"] == "dev" || $rootScope["SWDCustomer"] == "alclair"  || $rootScope["SWDCustomer"] == "ifi") {
 	?>
-			<script src="<?=$rootScope["RootUrl"]?>/includes/app/alclairManufacturingCtrl.js"></script>
+			<script src="<?=$rootScope["RootUrl"]?>/includes/app/alclairManufacturingCtrl_AC.js"></script>
     <?php  } 	?>	
 
 <?php

@@ -590,7 +590,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 			$scope.traveler.rush_process = 0;
 			 		}
 			 		
-			 		if($scope.traveler.cable_color = 'PREMIUM STUDIO CABLE') {
+			 		if($scope.traveler.cable_color == 'PREMIUM STUDIO CABLE') {
 				 		$scope.traveler.cable_color = 'Other';
 			 		}
 				//console.log("d " + $scope.traveler.additional_items )

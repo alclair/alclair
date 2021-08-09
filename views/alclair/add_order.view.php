@@ -205,6 +205,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		   		<label class="control-label">Right <span style="color:red">FACEPLATE</span> Color:</label><br />
 		   		<input type="text" ng-model="traveler.right_faceplate" class="form-control"> 
 			</div>
+			<div class="form-group col-md-3">
+		   		<label class="control-label">Email:</label><br />
+		   		<input type="text" ng-model="traveler.email" placeholder=""  class="form-control"> 
+			</div>      
+			
         </div>
         <div class="row">
 	        <div class="form-group col-md-3">

@@ -21,6 +21,7 @@ $scope.init = function () {
 		}).then(function successCallback(response) {
 			console.log("First name 3 is " + JSON.stringify(response.data.contact.firstName))
 			console.log("Last name 3 is " + JSON.stringify(response.data.contact.lastName))
+			console.log("All is " + JSON.stringify(response.data.contact))
 			json = response.data.data;
 			if(json == "empty") {
 				//console.log("JSON is empty & i is " + i)
@@ -37,7 +38,14 @@ $scope.init = function () {
 
 $scope.init2 = function () {
 	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andrew2", "lastName": "Swanson"}}';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson",
+	//						"fieldValues":[{"field":"1", "value":"TESTING"}] }}';
+	the_value = 50;
+	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
+	
 	
 		console.log("WE ARE HERE 2")
 		console.log(JSON.stringify(practice6))
@@ -144,10 +152,10 @@ $scope.init5 = function () {
 
 
 	//$scope.init();
-	//$scope.init2();
+	$scope.init2();
 	//$scope.init3();
 	//$scope.init4();
-	$scope.init4();
+	//$scope.init4();
 }]);
 
 

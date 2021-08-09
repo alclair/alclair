@@ -68,9 +68,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			
         </div>
         <div class="row">
-           <div class="form-group col-md-3">
+           <div class="form-group col-md-2">
 		   		<label class="control-label">Designed For:</label><br />
 		   		<input type="text" ng-model="traveler.designed_for" placeholder="Designed for?"  class="form-control"> 
+			</div>   
+			<div class="form-group col-md-2">
+		   		<label class="control-label">Email:</label><br />
+		   		<input type="text" ng-model="traveler.email"  class="form-control"> 
 			</div>      
 			<!--<div class="form-group col-md-3">
 		   		<label class="control-label">E-mail:</label><br />

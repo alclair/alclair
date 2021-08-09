@@ -118,13 +118,13 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 			'per_page' => 100,			
         ];
 
-/*
+
 $params = [
-			'before' => '2021-05-11T23:59:59',
-			'after' => '2021-05-11T00:00:00',
+			'before' => '2021-08-05T23:59:59',
+			'after' => '2021-08-05T00:00:00',
 			'per_page' => 100			
         ];
-*/
+
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
@@ -314,6 +314,8 @@ if(!stristr($data["id"], '10589923') ) {
  				
 				$order[$ind]["billing_name"] = $data[billing]->first_name . " " . $data[billing]->last_name;
 				$order[$ind]["shipping_name"] = $data[shipping]->first_name . " " . $data[shipping]->last_name;
+				// 08/08/2021
+				$order[$ind]["email"] = $data[billing]->email;
 				
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
 					$order[$ind]["iem_owner_first_name"] = " ";
@@ -626,11 +628,13 @@ for ($x=0; $x <  count($order); $x++) {
 			->setCellValue("AR".$row, $order[$k]["long_cable"])
 			->setCellValue("AS".$row, $order[$k]["billing_name"])
 			->setCellValue("AT".$row, $order[$k]["shipping_name"])
-			->setCellValue("AU".$row, $order[$k]["price"])
-			->setCellValue("AV".$row, $order[$k]["coupon"])
-			->setCellValue("AW".$row, $order[$k]["discount"])
-			->setCellValue("AX".$row, $order[$k]["total"])
-			->setCellValue("AY".$row, $order[$k]["nashville_order"]);
+			// 08/08/2021
+			->setCellValue("AU".$row, $order[$k]["email"])
+			->setCellValue("AV".$row, $order[$k]["price"])
+			->setCellValue("AW".$row, $order[$k]["coupon"])
+			->setCellValue("AX".$row, $order[$k]["discount"])
+			->setCellValue("AY".$row, $order[$k]["total"])
+			->setCellValue("AZ".$row, $order[$k]["nashville_order"]);
 			
 			$row++;
 
@@ -644,10 +648,10 @@ if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "
 			$entered_by = 1;
 			$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
-date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, 
+date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, email, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, 
 musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
 VALUES (
-:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
+:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :email, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
 :musicians_plugs, :musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, 
 :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
 array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>$order[$k]['product'], ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model'], ':artwork'=>$order[$k]['artwork'], ':color'=>$order[$k]['color'], ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>$order[$k]['cable_color'], ':clear_canal'=>$order[$k]['clear_canal'], ':left_alclair_logo'=>$order[$k]['left_alclair_logo'], ':right_alclair_logo'=>$order[$k]['right_alclair_logo'], ':left_custom_art'=>$order[$k]['left_custom_art'], ':right_custom_art'=>$order[$k]['right_custom_art'], ':link_to_design_image'=>$order[$k]['link_to_design_image'], ':open_order_in_designer'=>$order[$k]['open_order_in_designer'], 
@@ -655,6 +659,7 @@ array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product
 ':my_impressions'=>$order[$k]['my_impressions'], 
 ':billing_name'=>$order[$k]['billing_name'], 
 ':shipping_name'=>$order[$k]['shipping_name'], 
+':email'=>$order[$k]['email'], 
 ':price'=>$order[$k]['price'], 
 ':coupon'=>$order[$k]['coupon'], 
 ':discount'=>$order[$k]['discount'], 
@@ -711,9 +716,9 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 if (stristr($order[$k]["make_2nd_traveler_for_hearing_protection"], "YES") ) {
 
 				$stmt2 = pdo_query( $pdo, 
-					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
+					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, email, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
 left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
-VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
+VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :email, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
 :musicians_plugs, :musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, 
 :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
 	array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>NULL, ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model_hp'],  ':artwork'=>NULL, ':color'=>NULL, ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>NULL, ':clear_canal'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL, ':left_custom_art'=>NULL, ':right_custom_art'=>NULL, ':link_to_design_image'=>NULL, ':open_order_in_designer'=>NULL, 
@@ -721,6 +726,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':my_impressions'=>$order[$k]['my_impressions'], 
 	':billing_name'=>$order[$k]['billing_name'], 
 	':shipping_name'=>$order[$k]['shipping_name'], 
+	':email'=>$order[$k]['email'], 
 	':price'=>$order[$k]['price'], 
 	':coupon'=>$order[$k]['coupon'], 
 	':discount'=>$order[$k]['discount'], 
@@ -753,9 +759,9 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 
 if (stristr($order[$k]["make_2nd_traveler_for_musicians_plugs"], "YES") ) {
 				$stmt2 = pdo_query( $pdo, 
-					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
+					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, email, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
 left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
-VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
+VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :email, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
 :musicians_plugs, :musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, 
 :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
 	array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>NULL, ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model_mp'],  ':artwork'=>NULL, ':color'=>NULL, ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':clear_canal'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL, ':left_custom_art'=>NULL, ':right_custom_art'=>NULL, ':link_to_design_image'=>NULL, ':open_order_in_designer'=>NULL, 
@@ -763,6 +769,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 	':my_impressions'=>$order[$k]['my_impressions'], 
 	':billing_name'=>$order[$k]['billing_name'], 
 	':shipping_name'=>$order[$k]['shipping_name'], 
+	':email'=>$order[$k]['email'], 
 	':price'=>$order[$k]['price'], 
 	':coupon'=>$order[$k]['coupon'], 
 	':discount'=>$order[$k]['discount'], 

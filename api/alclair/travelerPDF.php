@@ -480,7 +480,7 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
 	if($result[0]['model'] == "Studio3" || $result[0]['model'] == "Studio4" || $result[0]['model'] == "Electro" ) {
 		$right_column_cable_response =  
 		"<tr style=\"font-size:14px;\">
-			 <td colspan='2' style=\"text-align:left;font-size:30px;\"><b style=\"color:green;\">" . "Forza" . "</b></td>
+			 <td colspan='2' style=\"text-align:left;font-size:30px;\"><b style=\"color:green;\">" . "Studio" . "</b></td>
 		</tr>";
 	} elseif ($result[0]['model'] == "ESM") {
 		$right_column_cable_response =  

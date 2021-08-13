@@ -1,5 +1,6 @@
 <?php
 ini_set('memory_limit','600M');
+exit;
 include_once "../../config.inc.php";
 include_once "../../includes/tcpdf/tcpdf_include.php";
 include_once('../../lib/phpqrcode/qrlib.php');

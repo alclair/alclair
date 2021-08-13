@@ -391,7 +391,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 
 </div>
 
-<script src="<?=$rootScope["RootUrl"]?>/includes/app/EditTraveler.js"></script>
+<script src="<?=$rootScope["RootUrl"]?>/includes/app/EditTraveler_AC.js"></script>
 
 <?php
 include_once $rootScope["RootPath"]."includes/footer.inc.php";

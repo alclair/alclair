@@ -4,7 +4,7 @@ include_once "../../config.inc.php";
 include_once "../../includes/tcpdf/tcpdf_include.php";
 include_once('../../lib/phpqrcode/qrlib.php');
 //include_once('../../lib/BarCode/Barcode39.php');
-include_once('../../vendor/fobiaweb/barcode39/Barcode39.php');
+//include_once('../../vendor/fobiaweb/barcode39/Barcode39.php');
 
 //http://phpqrcode.sourceforge.net/examples/index.php?example=005
 //http://www.shayanderson.com/php/php-barcode-generator-class-code-39.htm

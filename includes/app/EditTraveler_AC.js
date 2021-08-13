@@ -139,9 +139,42 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 	 $scope.PDF(id_to_print);
                  $.unblockUI();
                  toastr.success(result.message)
-                 setTimeout(function(){
-					// location.reload();				 	
-				}, 2000);                
+                 if($scope.traveler.email) {
+					 setTimeout(function(){
+					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+					 	 //return;
+					 	 Email = $scope.traveler.email;
+					 	 status_id_is = $scope.traveler.order_status_id+1;
+					 	 Current_status = $scope.OrderStatusList[status_id_is].status_of_order;
+						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
+						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
+						$http({
+							 method: 'POST',
+							 url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							data: json_text,
+						 	headers: {
+								'Content-Type': 'application/json',					 	
+								'Api-Token': key_is,
+							 },
+						}).then(function successCallback(response) {
+							 console.log("First name is " + JSON.stringify(response.data.contact.firstName))
+							 console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+							 console.log("ID is " + JSON.stringify(response.data.contact.id))
+							 json = response.data.data;
+						}, function errorCallback(response) {
+							console.log("ERROR HERE")
+						});	 
+						 setTimeout(function(){ 
+							 location.reload();				 	
+						}, 1000);    
+					}, 500);     
+				} else {
+					// EMAIL DOES NOT EXIST AND RELOAD PAGE ONLY
+					setTimeout(function(){ 
+						location.reload();				 	
+					}, 1000);   
+					console.log("Email does not exist " + $scope.qrcode.email)	  
+				}                
              }
              else {
                  $.unblockUI();
@@ -382,28 +415,48 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         })
          .success(function (result) {
 	         console.log(result.test2)
-	         status_id_is = $scope.traveler.order_status_id+1;
-	         console.log("The status ID is " + $scope.traveler.order_status_id)
-	         console.log("TRY THIS " + JSON.stringify($scope.OrderStatusList))
-	         console.log("HERE " + JSON.stringify($scope.OrderStatusList[status_id_is].status_of_order))
-	         //return;
              if (result.code == "success") {
                  $.unblockUI();
-                 console.log("TEST IS " + result.test2)
-                 console.log("CODE IS " + result.code + " and the MESSAGE is " + result.message)
                  toastr.success("Updates saved!")
-                 setTimeout(function(){
-						//location.reload();				 	
-					}, 2000);
-                
-                 //window.location.href = window.cfg.rootUrl + "/alclair/orders/";
-                 //redirect
+                 if($scope.traveler.email) {
+					 setTimeout(function(){
+					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+					 	 //return;
+					 	 Email = $scope.traveler.email;
+					 	 status_id_is = $scope.traveler.order_status_id+1;
+					 	 Current_status = $scope.OrderStatusList[status_id_is].status_of_order;
+						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
+						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
+						$http({
+							 method: 'POST',
+							 url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							data: json_text,
+						 	headers: {
+								'Content-Type': 'application/json',					 	
+								'Api-Token': key_is,
+							 },
+						}).then(function successCallback(response) {
+							 console.log("First name is " + JSON.stringify(response.data.contact.firstName))
+							 console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+							 console.log("ID is " + JSON.stringify(response.data.contact.id))
+							 json = response.data.data;
+						}, function errorCallback(response) {
+							console.log("ERROR HERE")
+						});	 
+						 setTimeout(function(){ 
+							 location.reload();				 	
+						}, 1000);    
+					}, 500);     
+				} else {
+					// EMAIL DOES NOT EXIST AND RELOAD PAGE ONLY
+					setTimeout(function(){ 
+						location.reload();				 	
+					}, 1000);   
+					console.log("Email does not exist " + $scope.qrcode.email)	  
+				}            
              }
              else {
                  $.unblockUI();
-                 //console.log( result.test)
-                 //location.reload();
-                 //window.location.href = window.cfg.rootUrl + "/alclair/orders/";
                  toastr.error(result.message == undefined ? result.data : result.message);
              }
          }).error(function (data) {

@@ -211,8 +211,8 @@ $scope.qrcode= {
 						 	 Email = $scope.qrcode.email;
 						 	 Current_status = step;//'RIGHT';
 						 	 Estimated_ship_date = moment($scope.qrcode.estimated_ship_date).format("MM/DD/YYYY");
-							 json_text= '{ "contact": { "email": '+'"'+$scope.qrcode.email+'"'+', "fieldValues":[{"field": 49, "value": '+step+'}, {"field": 50, "value": "Estimated Ship Date"}] }}';
-							 json_text= '{ "contact": { "email": "galenwallaceclarkmusic@gmail.com", "fieldValues":[{"field": 49, "value": "RIGHT HERE"}, {"field": 50, "value": "Estimated Ship Date"}] }}';
+							 //json_text= '{ "contact": { "email": '+'"'+$scope.qrcode.email+'"'+', "fieldValues":[{"field": 49, "value": '+step+'}, {"field": 50, "value": "Estimated Ship Date"}] }}';
+							 //json_text= '{ "contact": { "email": "galenwallaceclarkmusic@gmail.com", "fieldValues":[{"field": 49, "value": "RIGHT HERE"}, {"field": 50, "value": "Estimated Ship Date"}] }}';
 							 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 							 $http({
 							 	method: 'POST',

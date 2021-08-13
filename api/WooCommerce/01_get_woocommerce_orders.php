@@ -406,6 +406,8 @@ if(!stristr($data["id"], '10589923') ) {
 						} else {  // DESIGNED FOR DOES NOT EXIST SO USE ONLY LAST NAME
 							$order[$ind]["designed_for"] = $order[$ind]["iem_owner_last_name"];	
 						}
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "IEM Owner Email") ) {
+						$order[$ind]["email"] =  = $line_item[meta_data][$j]->value;		
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "My Impressions") ) {
 						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "64in. Cable") ) {

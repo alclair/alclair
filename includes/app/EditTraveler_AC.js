@@ -285,8 +285,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         
         //myblockui();
         console.log("Order num is " +  id);
-	console.log("TESTING RIGHT HERE")
-	return;
+	//console.log("TESTING RIGHT HERE")
+	//return;
         var api_url = window.cfg.apiUrl + "alclair/travelerPDF.php?ID=" + id;
 
         $http.get(api_url).success(function (result) {

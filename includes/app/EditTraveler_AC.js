@@ -136,9 +136,6 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         })
          .success(function (result) {
              if (result.code == "success") {
-			 	 $scope.PDF(id_to_print);
-                 $.unblockUI();
-                 toastr.success(result.message)
                  if($scope.traveler.email) {
 					 setTimeout(function(){
 					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
@@ -164,16 +161,25 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						}, function errorCallback(response) {
 							console.log("ERROR HERE")
 						});	 
+						
+						$scope.PDF(id_to_print);
+						$.unblockUI();
+						toastr.success(result.message)
+						//console.log("Email is " + $scope.traveler.email)
+						//return;
 						 setTimeout(function(){ 
 							 location.reload();				 	
-						}, 1000);    
+						}, 2000);    
+						
 					}, 500);     
 				} else {
 					// EMAIL DOES NOT EXIST AND RELOAD PAGE ONLY
+					$scope.PDF(id_to_print);
+					$.unblockUI();
+					toastr.success(result.message)
 					setTimeout(function(){ 
 						location.reload();				 	
-					}, 1000);   
-					console.log("Email does not exist " + $scope.qrcode.email)	  
+					}, 2000);   
 				}                
              }
              else {

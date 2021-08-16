@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 /*
 $params = [
-			'before' => '2021-08-08T23:59:59',
-			'after' => '2021-08-08T00:00:00',
+			'before' => '2021-08-14T23:59:59',
+			'after' => '2021-08-14T00:00:00',
 			'per_page' => 100			
         ];
 */
@@ -407,7 +407,7 @@ if(!stristr($data["id"], '10589923') ) {
 							$order[$ind]["designed_for"] = $order[$ind]["iem_owner_last_name"];	
 						}
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "IEM Owner Email") ) {
-						$order[$ind]["email"] =  = $line_item[meta_data][$j]->value;		
+						$order[$ind]["email"] = $line_item[meta_data][$j]->value;		
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "My Impressions") ) {
 						$order[$ind]["my_impressions"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "64in. Cable") ) {

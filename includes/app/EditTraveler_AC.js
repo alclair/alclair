@@ -141,8 +141,44 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
 					 	 //return;
 					 	 Email = $scope.traveler.email;
-					 	 status_id_is = $scope.traveler.order_status_id+1;
-					 	 Current_status = $scope.OrderStatusList[status_id_is].status_of_order;
+					 	 status_id_is = Number($scope.traveler.order_status_id);
+					 	 if(status_id_is == 1) {
+						 	 status_id_is = 2;
+					 	 } else if(status_id_is == 99) {
+						 	 status_id_is = 1;
+					 	 } else if (status_id_is == 2) {
+						 	 status_id_is = 3;
+					 	 } else if (status_id_is == 3) {
+						 	 status_id_is = 5;
+					 	 } else if (status_id_is == 4) {
+						 	 status_id_is = 6;
+					 	 } else if (status_id_is == 5) {
+						 	 status_id_is = 7;
+					 	 } else if (status_id_is == 6) {
+						 	 status_id_is = 8;
+					 	 } else if (status_id_is == 7) {
+						 	 status_id_is = 9;
+					 	 } else if (status_id_is == 8) {
+						 	 status_id_is = 10;
+					 	 } else if (status_id_is == 9) {
+						 	 status_id_is = 11;
+					 	 } else if (status_id_is == 10) {
+						 	 status_id_is = 12;
+					 	 } else if (status_id_is == 11) {
+						 	 status_id_is = 14;
+					 	 }  else if (status_id_is == 12) {
+						 	 status_id_is = 17;
+					 	 } else if (status_id_is == 13) {
+						 	 status_id_is = 15;
+					 	 } else if (status_id_is == 14) {
+						 	 status_id_is = 16;
+					 	 } else if (status_id_is == 15) {
+						 	 status_id_is = 4;
+					 	 } 	else if (status_id_is == 16) {
+						 	 status_id_is = 13;
+					 	 } 				 
+					 	 console.log("Status ID is now  " +  status_id_is)
+					 	 Current_status = $scope.OrderStatusList[status_id_is-1].status_of_order;
 						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 						$http({
@@ -429,8 +465,48 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
 					 	 //return;
 					 	 Email = $scope.traveler.email;
-					 	 status_id_is = $scope.traveler.order_status_id+1;
-					 	 Current_status = $scope.OrderStatusList[status_id_is].status_of_order;
+					 	 status_id_is = Number($scope.traveler.order_status_id);
+						 console.log("Status ID2 IS " +  status_id_is)
+
+					 	 if(status_id_is == 1) {
+						 	 status_id_is = 2;
+					 	 } else if(status_id_is == 99) {
+						 	 status_id_is = 1;
+					 	 } else if (status_id_is == 2) {
+						 	 status_id_is = 3;
+					 	 } else if (status_id_is == 3) {
+						 	 status_id_is = 5;
+					 	 } else if (status_id_is == 4) {
+						 	 status_id_is = 6;
+					 	 } else if (status_id_is == 5) {
+						 	 status_id_is = 7;
+					 	 } else if (status_id_is == 6) {
+						 	 status_id_is = 8;
+					 	 } else if (status_id_is == 7) {
+						 	 status_id_is = 9;
+					 	 } else if (status_id_is == 8) {
+						 	 status_id_is = 10;
+					 	 } else if (status_id_is == 9) {
+						 	 status_id_is = 11;
+					 	 } else if (status_id_is == 10) {
+						 	 status_id_is = 12;
+					 	 } else if (status_id_is == 11) {
+						 	 status_id_is = 14;
+					 	 }  else if (status_id_is == 12) {
+						 	 status_id_is = 17;
+					 	 } else if (status_id_is == 13) {
+						 	 status_id_is = 15;
+					 	 } else if (status_id_is == 14) {
+						 	 status_id_is = 16;
+					 	 } else if (status_id_is == 15) {
+						 	 status_id_is = 4;
+					 	 } 	else if (status_id_is == 16) {
+						 	 status_id_is = 13;
+					 	 } 				 	 
+					 	 console.log("Status ID is now  " +  status_id_is)
+					 	 Current_status = $scope.OrderStatusList[status_id_is-1].status_of_order;
+					 	 console.log("STATUS IS " + Current_status);
+					 	 //return;
 						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 						$http({

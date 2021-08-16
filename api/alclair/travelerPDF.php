@@ -69,7 +69,7 @@ $bc->barcode_bar_thin = 2;
 // save barcode GIF file 
 //$bc->draw("barcode.gif");
 $bc->draw( $entire_pathname);
-     
+
      
      ///////////////////////////////////////////////////////////////////////////// 2ND WAY (QR CODE) IS NOT BEING USED - THE SCANNER COULD NOT READ IT ////////////////////////////////////////////
     // we need to be sure ours script does not output anything!!! 

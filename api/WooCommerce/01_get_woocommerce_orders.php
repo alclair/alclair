@@ -118,13 +118,13 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 			'per_page' => 100,			
         ];
 
-/*
+
 $params = [
-			'before' => '2021-08-14T23:59:59',
-			'after' => '2021-08-14T00:00:00',
+			'before' => '2021-08-17T23:59:59',
+			'after' => '2021-08-17T00:00:00',
 			'per_page' => 100			
         ];
-*/
+
     $result = $woocommerce->get('orders', $params);
     //$result = $woocommerce->get('orders/12524');
     $order = [];
@@ -716,6 +716,13 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 
 
 if (stristr($order[$k]["make_2nd_traveler_for_hearing_protection"], "YES") ) {
+	if($order[$k]["model_hp"] == "SHP") {
+		$order[$k]['left_shell'] = $order[$k]["hearing_protection_color"];
+		$order[$k]['right_shell'] = $order[$k]["hearing_protection_color"];
+		$order[$k]['left_faceplate'] = NULL;
+		$order[$k]['right_faceplate'] = NULL;
+		$order[$k]['designed_for'] = $order[$k]['shipping_name'];
+	}
 
 				$stmt2 = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, email, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
@@ -759,7 +766,7 @@ VALUES(:date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_pr
 //echo "Code is " . $order[$k]["pelican_case_name"];
 //exit;
 
-if (stristr($order[$k]["make_2nd_traveler_for_musicians_plugs"], "YES") ) {
+if (stristr($order[$k]["make_2nd_traveler_for_musicians_plugs"], "YES") ) {					
 				$stmt2 = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, email, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db,
 left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)

@@ -243,6 +243,7 @@
 					  				count(CASE WHEN order_status_id = 14 THEN 1 END) as holding_for_payment,
 					  				count(CASE WHEN order_status_id = 15 THEN 1 END) as digital_impression_detailing,
 					  				count(CASE WHEN order_status_id = 16 THEN 1 END) as pre_group_order_holding,
+					  				count(CASE WHEN order_status_id = 17 THEN 1 END) as driver_purgatory,
 					  				count(CASE WHEN order_status_id = 99 THEN 1 END) as order_received
 					  				FROM import_orders WHERE active = TRUE";
 					  	//$query_alclair = "SELECT username AS order_received FROM auth_user WHERE id=1";	
@@ -385,11 +386,15 @@ Pickup
 									<span style="margin-right:46px;font-weight:bold;"> Shell Detailing </span> 
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["shell_detailing"] ?>)</span>
 									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["shell_detailing"] ?>)</span></a></li>
-								
+									 
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/driver_purgatory" class="nav-link "> 
+									<span style="margin-right:46px;font-weight:bold;"> Driver Purgatory </span> 
+									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["driver_purgatory"] ?>)</span></a></li> 
+									 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/casing" class="nav-link "> 
 									<span style="margin-right:97px;font-weight:bold;">Casing </span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;"> (<?php echo $row_alclair["casing"] ?>)</span>
-									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["casing"] ?>)</span></a></li>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["casing"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/finishing" class="nav-link "> 
 									<span style="margin-right:81px;font-weight:bold;">Finishing </span>
@@ -822,6 +827,9 @@ Pickup
                                 </li>
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/customer_comments" class="nav-link "><i class="fa fa-edit"></i> &nbsp Customer Comments </a>
+                                </li>
+                                <li class=" ">
+                                    <a href="<?=$rootScope['RootUrl']?>/admin/glowforge" class="nav-link "><i class="fa fa-sun-o"></i> &nbsp Glowforge </a>
                                 </li>
 
                                  <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' ) { ?>

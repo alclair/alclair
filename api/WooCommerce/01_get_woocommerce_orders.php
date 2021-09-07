@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-08-17T23:59:59',
-			'after' => '2021-08-17T00:00:00',
+			'before' => '2021-09-06T23:59:59',
+			'after' => '2021-09-06T00:00:00',
 			'per_page' => 100			
         ];
 
@@ -131,7 +131,7 @@ $params = [
     $ind = 0;
   
  
-  $counting = 0;
+	$counting = 0;
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA

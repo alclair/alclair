@@ -140,7 +140,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                  $.unblockUI();
                  toastr.success(result.message)
                  setTimeout(function(){
-					// location.reload();				 	
+					location.reload();				 	
 				}, 2000);                
              }
              else {
@@ -287,7 +287,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 		   		headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		   	})
 		   	.success(function (result) {
-            	 console.log(result);
+            	console.log(result);
 			 	console.log("message " + result.message);
 			 	console.log("Test is " + result.test)
 			 	console.log("Original ship date of order is " + result.original_ship_date_of_order)

@@ -128,6 +128,9 @@ $scope.qrcode= {
         else if (step == 'shell_detailing') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/shell_detailing.php';
         }
+        else if (step == 'driver_purgatory') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/driver_purgatory.php';
+        }
         else if (step == 'casing') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/casing.php';
         }
@@ -333,6 +336,8 @@ $scope.qrcode= {
 		   $scope.order_status_id = 3;
 	   } else if (page == "shell_detailing") {
 		   $scope.order_status_id = 4;
+	   } else if (page == "driver_purgatory") {
+		   $scope.order_status_id = 17;
 	   } else if (page == "casing") {
 		   $scope.order_status_id = 5;
 	   } else if (page == "finishing") {

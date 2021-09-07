@@ -5,7 +5,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 <link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/tableresponsive.css"/>
 <br />
 
-<div id="main-container" class="container" ng-controller="Daily_Build_Rate">
+<div id="main-container" class="container" ng-controller="Glowforge">
 
         
 	<?php
@@ -27,8 +27,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		        name will be engraved. <br><br> 
 		        &nbsp;&nbsp;&nbsp;&nbsp; 
 		        <span style="color: black; font-weight: bold">
-		        	Enter the number 
-					<input type="text" style="text-align:center;" id="IEMhieght" name="IEMheight" size="4"> in inches.
+		        	Enter the number in inches
+					<input type="text" ng-model="input.IEM_Height" style="text-align:center" size="4">
 				</span>
 	        </h2>
         </div>   
@@ -36,8 +36,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	        <h2>3. Enter the height of the base the earphone will sit on. <br><br> 
 		        &nbsp;&nbsp;&nbsp;&nbsp; 
 		        <span style="color: black; font-weight: bold">
-		        	Enter the number 
-					<input type="text" style="text-align:center;" id="BASEheight" name="BASEheight" size="4"> in inches.
+		        	Enter the number in inches
+					<input type="text" ng-model="input.Base_Height" style="text-align:center" size="4">
 				</span>
 	        </h2>
         </div>    
@@ -57,12 +57,14 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	        <div class="col-sm-1">
 	        </div>
 	        <div class="col-sm-4">
-	        	<button style="border-radius: 4px; border-color: blue" class="btn btn-primary" ng-click="LoadData2($event)">
-					<span style="font-weight:bold;font-size:20px"> 
-	        			CALCULATE
+	        	<button style="border-radius: 4px; border-color: blue" class="btn btn-primary" ng-click="Calculate($event)">
+					<span style="font-weight:bold;font-size:20px;"> 
+	        			CALCULATE 
 					</span>
 				</button>
-	        </div>
+	        </div> 
+	        <br>
+	        <span ng-if="output" style="font-weight:bold; font-size:30px;color:green;"> USE THIS NUMBER -> {{output}} </span>
  
      </body>
 

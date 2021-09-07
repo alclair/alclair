@@ -43,7 +43,7 @@ try
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE t1.active = TRUE AND (t1.order_status_id <= 5 OR t1.order_status_id = 16)  AND (t1.product IS NOT NULL AND t1.model IS NOT NULL) AND IEMs.name = :iem_name AND t1.estimated_ship_date >= :StartDate AND t1.estimated_ship_date <= :EndDate ORDER BY t1.estimated_ship_date ASC";
+                  WHERE t1.active = TRUE AND (t1.order_status_id <= 5 OR t1.order_status_id = 15 OR t1.order_status_id = 16 OR t1.order_status_id = 17)  AND (t1.product IS NOT NULL AND t1.model IS NOT NULL) AND IEMs.name = :iem_name AND t1.estimated_ship_date >= :StartDate AND t1.estimated_ship_date <= :EndDate ORDER BY t1.estimated_ship_date ASC";
                 
     $stmt = pdo_query( $pdo, $query, array(":iem_name"=>$_REQUEST["iem_name"], ":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
     $first_sql = pdo_fetch_all( $stmt );

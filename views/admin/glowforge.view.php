@@ -50,7 +50,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		        <span style="font-weight:bold;color:red"><br>&nbsp;&nbsp;&nbsp;&nbsp;
 		        	UNCERTIFIED MATERIAL
 		        </span> 
-		        with the Glowforge. <br><br> 
+		        with the Glowforge. 
+		        <br>&nbsp;&nbsp;&nbsp;&nbsp;
+		        <span style="color:green;">** IF A NEGATIVE NUMBER IS SHOWN, ADJUST THE HEIGHT OF THE BASE **</span>
+		        <br><br> 
 	        </h2>
         </div>    
         <div class="row">
@@ -63,9 +66,15 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					</span>
 				</button>
 	        </div> 
-	        <br>
-	        <span ng-if="output" style="font-weight:bold; font-size:30px;color:green;"> USE THIS NUMBER -> {{output}} </span>
- 
+
+        <span ng-if="output" style="font-weight:bold; font-size:30px;color:green;margin-left:-150px"> USE THIS NUMBER &#8594; {{output}} </span>
+        </div>
+        <div style="text-align:left">
+	        <h2>5. Adjust the  <i>manual</i> engrave settings.  Use a speed of <b>600</b> and an intensity of <b>60</b> for 
+		        <br>&nbsp;&nbsp;&nbsp;&nbsp;black shells & use a speed of <b>900</b> and an intensity of <b>100</b> for white shells.
+	        </h2>
+        </div>    
+
      </body>
 
     <?php

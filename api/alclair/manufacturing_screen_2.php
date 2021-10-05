@@ -23,7 +23,7 @@ try
     $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE 1=1 AND t1.active = TRUE AND t1.manufacturing_screen = TRUE AND t1.order_status_id <> 12";
+                  WHERE 1=1 AND t1.active = TRUE AND t1.use_for_estimated_ship_date = TRUE AND t1.manufacturing_screen = TRUE AND t1.order_status_id <> 12";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
     
@@ -39,7 +39,7 @@ try
     $query = "SELECT t1.id, t1.designed_for AS customer, to_char(t1.date,'MM/dd/yyyy') as date, t2.status_of_order AS status, 1 AS type
                   FROM import_orders AS t1
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE 1=1 AND t1.active = TRUE AND t1.manufacturing_screen = TRUE AND t1.order_status_id <> 12
+                  WHERE 1=1 AND t1.active = TRUE AND t1.use_for_estimated_ship_date = TRUE AND t1.manufacturing_screen = TRUE AND t1.order_status_id <> 12
               UNION ALL    
                   SELECT t1.id, t1.customer_name AS customer, to_char(t1.received_date,'MM/dd/yyyy') as date, t2.status_of_repair AS status, 2 AS type
                   FROM repair_form AS t1
@@ -262,7 +262,7 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+WHERE t1.order_status_id = 12 AND t1.use_for_estimated_ship_date = TRUE AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );

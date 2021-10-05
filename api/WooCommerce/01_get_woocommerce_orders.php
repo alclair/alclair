@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-09-21T23:59:59',
-			'after' => '2021-09-21T00:00:00',
+			'before' => '2021-10-04T23:59:59',
+			'after' => '2021-10-04T00:00:00',
 			'per_page' => 100			
         ];
 

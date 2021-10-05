@@ -43,7 +43,7 @@ try
     }
     else if ($_REQUEST['RUSH_OR_NOT'] == 1) {
 			$conditionSql .=" AND (t1.rush_process = 'Yes')";
-			$conditionSql .= " AND (t1.repair_status_id != 12)";
+			$conditionSql .= " AND (t1.repair_status_id != 14)";
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }
     else {
@@ -139,7 +139,7 @@ try
     //Get Total Passed
     $query = "SELECT count(t1.id) FROM repair_status_log AS t1
     LEFT JOIN repair_form AS t2 ON t1.repair_form_id = t2.id
-LEFT JOIN repair_status_table AS t3 ON 12 = t3.order_in_repair
+LEFT JOIN repair_status_table AS t3 ON 14 = t3.order_in_repair
 LEFT JOIN monitors AS t4 ON t2.monitor_id= t4.id
 WHERE t1.repair_status_id = 14 AND t2.active = TRUE $conditionSql";
     //WHERE active = TRUE AND pass_or_fail = 'PASS' $conditionSql";
@@ -187,7 +187,7 @@ ORDER BY date_done ASC,  t1.repair_form_id $pagingSql";
      $inc = 0;	
 	 $num_done = array();
      for ($i = 0; $i < $rows_in_result; $i++) {
-	 	$query = "SELECT * FROM repair_status_log WHERE repair_form_id = :repair_form_id AND repair_status_id = 12";
+	 	$query = "SELECT * FROM repair_status_log WHERE repair_form_id = :repair_form_id AND repair_status_id = 14";
 	 	$stmt = pdo_query($pdo, $query, array(":repair_form_id"=>$result[$i]["repair_form_id"]));
 	 	$result_test = pdo_fetch_all($stmt);
 	 	$number_of_done = pdo_rows_affected($stmt);

@@ -43,7 +43,7 @@ try
     }
     else if ($_REQUEST['RUSH_OR_NOT'] == 1) {
 			$conditionSql .=" AND (t1.rush_process = 'Yes')";
-			$conditionSql .= " AND (t1.order_status_id != 12)";
+			$conditionSql .= " AND (t1.order_status_id != 12 AND t1.use_estimated_ship_date = TRUE)";
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }
     else {
@@ -99,7 +99,7 @@ try
 */
     //Get Total Records
     $query = "SELECT count(t1.id) FROM import_orders AS t1
-    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id != 99 AND t1.order_status_id != 12 $conditionSql";
+    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id != 99 AND t1.order_status_id != 12 t1.order_status_id != 18 $conditionSql";
     //WHERE active = TRUE $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
@@ -133,7 +133,7 @@ try
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
-                  WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id != 99 AND t1.order_status_id != 12 $conditionSql $orderBySql $pagingSql";
+                  WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id != 99 AND t1.order_status_id != 12 AND t1.order_status_id != 18 $conditionSql $orderBySql $pagingSql";
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    
     $stmt = pdo_query( $pdo, $query, $params); 

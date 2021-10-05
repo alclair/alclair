@@ -244,6 +244,7 @@
 					  				count(CASE WHEN order_status_id = 15 THEN 1 END) as digital_impression_detailing,
 					  				count(CASE WHEN order_status_id = 16 THEN 1 END) as pre_group_order_holding,
 					  				count(CASE WHEN order_status_id = 17 THEN 1 END) as driver_purgatory,
+					  				count(CASE WHEN order_status_id = 18 THEN 1 END) as hearing_protection,
 					  				count(CASE WHEN order_status_id = 99 THEN 1 END) as order_received
 					  				FROM import_orders WHERE active = TRUE";
 					  	//$query_alclair = "SELECT username AS order_received FROM auth_user WHERE id=1";	
@@ -388,7 +389,7 @@ Pickup
 									 <span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["shell_detailing"] ?>)</span></a></li>
 									 
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/driver_purgatory" class="nav-link "> 
-									<span style="margin-right:46px;font-weight:bold;"> Driver Purgatory </span> 
+									<span style="margin-right:28px;font-weight:bold;"> Driver Purgatory </span> 
 									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["driver_purgatory"] ?>)</span></a></li> 
 									 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/casing" class="nav-link "> 
@@ -422,8 +423,12 @@ Pickup
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["ready_to_ship"] ?>)</span></a></li>
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pickup" class="nav-link "> 
-									<span style="margin-right:129px;font-weight:bold;">Pickup</span> 
+									<span style="margin-right:120px;font-weight:bold;">Pickup</span> 
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
+
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/hearing_protection" class="nav-link "> 
+									<span style="margin-right:20px;font-weight:bold;"> Hearing Protection </span> 
+									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["hearing_protection"] ?>)</span></a></li> 
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pre_group_order_holding" class="nav-link "> 
 									<span style="margin-right:12px;font-weight:bold;">Group Holding (Pre-) </span>

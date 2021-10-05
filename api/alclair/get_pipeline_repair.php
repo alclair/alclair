@@ -29,7 +29,7 @@ try
    
     if ($_REQUEST['RUSH_OR_NOT'] == 1) {
 			$conditionSql .=" AND (t1.rush_process = 'Yes')";
-			$conditionSql .= " AND (t1.repair_status_id != 12)";
+			$conditionSql .= " AND (t1.repair_status_id != 14)";
 			//$params[":OrderStatusID"] = $_REQUEST['repair_status_id']; 
     }
     if ($_REQUEST['REMOVE_HEARING_PROTECTION'] == 1) {

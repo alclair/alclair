@@ -131,6 +131,10 @@ $scope.qrcode= {
         else if (step == 'driver_purgatory') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/driver_purgatory.php';
         }
+		 else if (step == 'hearing_protection') {
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/hearing_protection.php';
+        }
+
         else if (step == 'casing') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/casing.php';
         }
@@ -338,6 +342,8 @@ $scope.qrcode= {
 		   $scope.order_status_id = 4;
 	   } else if (page == "driver_purgatory") {
 		   $scope.order_status_id = 17;
+	   } else if (page == "hearing_protection") {
+		   $scope.order_status_id = 18;
 	   } else if (page == "casing") {
 		   $scope.order_status_id = 5;
 	   } else if (page == "finishing") {

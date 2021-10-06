@@ -284,7 +284,17 @@ $result = pdo_fetch_array($query);
 $status_id = $result["order_in_manufacturing"];
 
 $query = pdo_query($pdo, "SELECT * FROM qc_form WHERE id = :id", array(":id"=>$qc_form["id"]));
+
+$query = pdo_query($pdo, 
+"SELECT t1.*, t2.email, t2.estimated_ship_date FROM qc_form AS t1 LEFT JOIN import_orders AS t2 ON t1.id_of_order = t2.id WHERE t1.id = :id", 
+array(":id"=>$qc_form["id"]));
 $result = pdo_fetch_all($query);
+$response['email'] = $result[0]['email'];
+$response['estimated_ship_date'] = $result[0]['estimated_ship_date'];
+//$response['code'] = "success";
+//$response["test"] = "TEST ";
+//echo json_encode($response);
+//exit;
 
 if($result[0]["id_of_order"] === null || $result[0]["id_of_order"] < 1) { // SOME LINES FROM qc_form WON'T HAVE AN id_of_order BECAUSE THE ORIGINAL PROGRAMMING DIDN'T INCLUDE THAT COLUMN
 	$stmt = pdo_query($pdo, "SELECT * FROM import_orders WHERE designed_for = :customer_name AND order_id = :order_id AND active = TRUE", array(":customer_name"=>$qc_form['customer_name'], ":order_id"=>$order_id_is));

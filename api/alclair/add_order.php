@@ -164,7 +164,7 @@ $stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_for
 	$imp_date = $ship_day;
 } // CLOSE IF STATEMENT FOR CREATING A TRAVELER FOR A CUSTOM EARPHONE
 
-elseif($monitor_id[0]["id"] != 17 && !is_null($monitor_id[0]["id"])) {
+elseif($monitor_id[0]["id"] > 15 && !is_null($monitor_id[0]["id"])) {
 	
 	
 	$stmt = pdo_query( $pdo, 

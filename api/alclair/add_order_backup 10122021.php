@@ -106,13 +106,6 @@ $response["test"] = "Count is " . $the_count . " and ID is " . $monitor_id[0]["i
 //echo json_encode($response);
 //exit;
 
-if(!$monitor_id[0]["id"])
-{
-	$response['message'] = 'Please choose a product.';
-	echo json_encode($response);
-	exit;
-}
-
 
 if($the_count > 0 && $monitor_id[0]["id"] < 16) { // 16 is EXP Pro
 	$use_for_estimated_ship_date = TRUE;
@@ -123,7 +116,6 @@ if($the_count > 0 && $monitor_id[0]["id"] < 16) { // 16 is EXP Pro
 //$response["test"] = "Monitor ID is " . $monitor_id[0]["id"]  . " & IS NULL is " . is_null($monitor_id[0]["id"]);
 //echo json_encode($response);
 //exit;
-
 
 if($monitor_id[0]["id"] < 16 && !is_null($monitor_id[0]["id"])) {
 			
@@ -163,31 +155,6 @@ $stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_for
 	$ship_day = $ship_day->format('Y-m-d');
 	$imp_date = $ship_day;
 } // CLOSE IF STATEMENT FOR CREATING A TRAVELER FOR A CUSTOM EARPHONE
-
-elseif($monitor_id[0]["id"] != 17 && !is_null($monitor_id[0]["id"])) {
-	
-	
-	$stmt = pdo_query( $pdo, 
-					   "INSERT INTO import_orders (
-		order_id, designed_for, email, phone, band_church, address, notes, model, left_tip, right_tip, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, artwork, left_alclair_logo, right_alclair_logo, additional_items, consult_highrise, international, universals, hearing_protection, musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, pickup, estimated_ship_date, received_date, date, entered_by,  rush_process, active, impression_color_id, order_status_id, link_to_design_image, hearing_protection_color, nashville_order, customer_type, use_for_estimated_ship_date)
-		VALUES (
-		:order_id, :designed_for, :email, :phone, :band_church, :address, :notes, :model, :left_tip, :right_tip, :left_shell, :right_shell, 
-		:left_faceplate, :right_faceplate, :cable_color, :artwork, :left_alclair_logo, :right_alclair_logo, :additional_items, :consult_highrise, :international, :universals, :hearing_protection, :musicians_plugs, 
-		:musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, :pickup, :estimated_ship_date, :received_date, :date, :entered_by,  :rush_process, :active, :impression_color_id, 99, ' ', :hearing_protection_color, :nashville_order, :customer_type, :use_for_estimated_ship_date) RETURNING id",
-		array(':order_id'=>$traveler['order_id'], ':designed_for'=>$traveler['designed_for'], ':email'=>$traveler['email'], ':phone'=>$traveler['phone'], ':band_church'=>$traveler['band_church'], ':address'=>$traveler['address'], ':notes'=>$traveler['notes'], ':model'=>'SHP', ':left_tip'=>NULL, ':right_tip'=>NULL, ':left_shell'=>NULL, ':right_shell'=>NULL, ':left_faceplate'=>NULL, ':right_faceplate'=>NULL, ':cable_color'=>NULL, ':artwork'=>NULL, ':left_alclair_logo'=>NULL, ':right_alclair_logo'=>NULL,  ':additional_items'=>$traveler['additional_items'], ':consult_highrise'=>$traveler['consult_highrise'], ':international'=>$traveler['international'], ':universals'=>$traveler['universals'], ':hearing_protection'=>$traveler['hearing_protection'], ':musicians_plugs'=>NULL, ':musicians_plugs_9db'=>NULL, ':musicians_plugs_15db'=>NULL, ':musicians_plugs_25db'=>NULL, ':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>$traveler['hearing_protection_color'], ':nashville_order'=>$traveler['nashville_order'], ':customer_type'=>$traveler['customer_type'], 'use_for_estimated_ship_date'=>NULL));		
-
-		
-	$response["id_of_order"] = $id_of_order[0]["id"];
-    $result = pdo_fetch_array($stmt);
-	$response['code'] = 'success';
-	$response['data'] = $result; 
-	
-	
-	$response["test"] = "Code is " . $response['code'];
-	echo json_encode($response);
-	exit;
-	
-} //CLOSE ELSEIF FOR HEARING PROTECTION
 
 // HERE IS WHERE A SEPARATE TRAVELER IS MADE FOR CUSTOM HEARING PROTECTION AND/OR MUSICIAN'S PLUGS
 if($traveler['hearing_protection']) {

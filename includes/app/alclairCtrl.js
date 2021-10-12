@@ -2205,6 +2205,8 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
              //console.log(result);
             // console.log("message " + result.message);
              console.log(result.test)
+             console.log("The Code Output is " + result.code)
+
              if(result.message == "Something is incomplete") {
 	             toastr.error("Cannot ship product.  Please check that everything has passed QC.");
 	             $.unblockUI();
@@ -2212,6 +2214,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
              else {            
              	if (result.code == "success") {
                  	$.unblockUI();
+                 	console.log("IN SUCCESS")
 				 	//alert(result.data.id);
 				 	//if (result.data.id !=undefined)
 				 	{

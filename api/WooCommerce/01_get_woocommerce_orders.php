@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-10-11T23:59:59',
-			'after' => '2021-10-11T00:00:00',
+			'before' => '2021-10-13T23:59:59',
+			'after' => '2021-10-13T00:00:00',
 			'per_page' => 100			
         ];
 
@@ -175,7 +175,7 @@ if(!stristr($data["id"], '10589923') ) {
 
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") ) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Alclair EXP") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") ) { 
 			
 
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
@@ -246,7 +246,17 @@ if(!stristr($data["id"], '10589923') ) {
 				 			$order[$ind]["model_hp"] = "SHP";
 			 			}
 		 			}
+				} elseif(stristr($full_product_name, "Security") ) {
+					$order[$ind]["hearing_protection"] = TRUE;
+					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
+					$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
+					$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
+					
+					$order[$ind]["model_hp"] = "Sec Earpiece";
+					
 				}
+
 				
 				
 				if(stristr($full_product_name, "Custom Earplugs") ) {
@@ -353,6 +363,8 @@ if(!stristr($data["id"], '10589923') ) {
 					 	} elseif(stristr($full_product_name, "Musicians Earplugs") || stristr($full_product_name, "Musicians Plugs") )  {
 						 		$order[$ind]["model"] = "MP";
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
+ 						} elseif(stristr($full_product_name, "Security") )  {
+						 		$order[$ind]["model"] = "Sec Earpiece";
  						}
 
 					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {

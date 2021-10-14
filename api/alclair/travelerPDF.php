@@ -157,6 +157,8 @@ if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship
 		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION
 } elseif (stristr($result[0]['model'], "SHP") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
+} elseif (stristr($result[0]['model'], "Sec Earpiece") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+		$border_color = "#FFFF00"; // PINK FOR HEARING PROTECTION
 } else {
 		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
 }

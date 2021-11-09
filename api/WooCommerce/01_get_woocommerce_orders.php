@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-10-30T23:59:59',
-			'after' => '2021-10-30T00:00:00',
+			'before' => '2021-11-08T23:59:59',
+			'after' => '2021-11-08T00:00:00',
 			'per_page' => 100			
         ];
 
@@ -428,7 +428,7 @@ if(!stristr($data["id"], '10589923') ) {
 						$order[$ind]["64in_cable"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Mic Cable") ) {
 						$order[$ind]["mic_cable"] = $line_item[meta_data][$j]->value;	
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Forza Audio") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Premium Studio Cable") ) {
 						$order[$ind]["forza_audio"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cleaning Kit") ) {
 						$order[$ind]["cleaning_kit"] = $line_item[meta_data][$j]->value;	
@@ -567,7 +567,7 @@ for ($x=0; $x <  count($order); $x++) {
 			->setCellValue("V1", "My Impressions")
 			->setCellValue("W1", "64in. Cable")
 			->setCellValue("X1", "Mic Cable")
-			->setCellValue("Y1", "Forza Audio")
+			->setCellValue("Y1", "Premium Studio Cable")
 			->setCellValue("Z1", "Cleaning Kit")
 			->setCellValue("AA1", "Cleaning Tools")
 			->setCellValue("AB1", "Dotz Clip")

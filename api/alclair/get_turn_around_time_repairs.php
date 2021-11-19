@@ -132,7 +132,7 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 
 			if ($rowcount6) {
 				$to = $store_holding_for_payment3[0]["date"];
-				$//to = $store_done_data[$i]["date"];	
+				//$to = $store_done_data[$i]["date"];	
 				//$J = $J + 1;
 			} else {
 				$to = $store_done_data[$i]["date"];	

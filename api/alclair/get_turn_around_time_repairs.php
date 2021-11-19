@@ -169,7 +169,7 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 	$response["num_of_repairs2"] = count($difference);
 	$response["min"] = min($difference);
 	$response["max"] = max($difference);
-	$response["avg"] = (array_sum($difference)/count($difference));
+	$response["avg"] = round(array_sum($difference)/count($difference),1);
 	
 	$values = array_count_values($difference); 
 	$response["mode"] = array_search(max($values), $values);

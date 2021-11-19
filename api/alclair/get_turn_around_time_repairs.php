@@ -117,17 +117,29 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 		
 		if ($rowcount != 0 ) {
 			//$store_start_data[$i] = $row[0];
-			
-			
-			/*if ($i == 1) {
-				$testing = $store_start_data[0]['start_date'];
-				$response["test3"] = "Not zero " . $row[0]["start_date"]. " and i is " . $i;
-				echo json_encode($response);
-				exit;
-			}*/
 		
 			$from = $store_start_data[0]["start_date"];
-			$to = $store_done_data[$i]["date"];
+			
+////////////////////////////////////////////////////////////			
+			$query6 = pdo_query($pdo, "SELECT t1.id as t1_id, t2.id as t2_id, to_char(t1.date,'MM/dd/yyyy') as date
+						FROM repair_status_log AS t1 
+						LEFT JOIN repair_form AS t2 ON t1.repair_form_id = t2.id
+						WHERE t1.repair_form_id = :repair_form_id AND (t1.repair_status_id = 16) AND t1.repair_form_id IS NOT NULL AND t2.active = TRUE ORDER BY t1.date ASC LIMIT 1", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"], ":repair_form_id"=>$store_done_data[$i]["repair_form_id"]));
+
+			$store_holding_for_payment3 = pdo_fetch_all( $query6 );
+			$rowcount6 = pdo_rows_affected( $query6 );
+
+
+			if ($rowcount6) {
+				$to = $store_holding_for_payment3[0]["date"];
+				//$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			} else {
+				$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			}
+////////////////////////////////////////////////////////////
+			//$to = $store_done_data[$i]["date"];
 			$from = new DateTime($from);
 			$from->modify('+1 day');
 			$to = new DateTime($to);
@@ -157,7 +169,7 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 	$response["num_of_repairs2"] = count($difference);
 	$response["min"] = min($difference);
 	$response["max"] = max($difference);
-	$response["avg"] = round(array_sum($difference)/count($difference));
+	$response["avg"] = (array_sum($difference)/count($difference));
 	
 	$values = array_count_values($difference); 
 	$response["mode"] = array_search(max($values), $values);
@@ -203,7 +215,41 @@ $query2 = pdo_query($pdo, "SELECT *, to_char(t1.date,'MM/dd/yyyy') as date
 		if ($rowcount2 != 0 ) {
 		
 			$from = $store_start_data2[0]["start_date"];
-			$to = $store_done_data[$i]["date"];
+			
+			// QUERY FINDS IF THE REPAIR MOVED TO HOLDING FOR PAYMENT PRIOR TO BEING DONE
+			// IF THE PAYMENT WAS HOLDING FOR PAYMENT THEN ITS DATE WILL REPLACE THE DONE DATE
+/*
+			$query5 = pdo_query($pdo, "SELECT t1.id as t1_id, t2.id as t2_id, to_char(t1.date,'MM/dd/yyyy') as date
+						FROM repair_status_log AS t1 
+						LEFT JOIN repair_form AS t2 ON t1.repair_form_id = t2.id
+						WHERE t1.repair_form_id = :repair_form_id AND (t1.repair_status_id = 16) AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.repair_form_id IS NOT NULL AND t2.active = TRUE ORDER BY t1.date ASC LIMIT 1", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"], ":repair_form_id"=>$store_done_data[$i]["repair_form_id"]));
+*/
+			$query5 = pdo_query($pdo, "SELECT t1.id as t1_id, t2.id as t2_id, to_char(t1.date,'MM/dd/yyyy') as date
+						FROM repair_status_log AS t1 
+						LEFT JOIN repair_form AS t2 ON t1.repair_form_id = t2.id
+						WHERE t1.repair_form_id = :repair_form_id AND (t1.repair_status_id = 16) AND t1.repair_form_id IS NOT NULL AND t2.active = TRUE ORDER BY t1.date ASC LIMIT 1", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"], ":repair_form_id"=>$store_done_data[$i]["repair_form_id"]));
+
+			$store_holding_for_payment2 = pdo_fetch_all( $query5 );
+			$rowcount5 = pdo_rows_affected( $query5 );
+
+/*
+			if($store_done_data[$i]["repair_form_id"] == 6231) { //6091 6231
+				$response["test1"] = "The row count is " . $rowcount4 . " and ID is " . $store_done_data[$i]["repair_form_id"] . " and output is " . $store_holding_for_payment2[0]["t1_id"];
+				//echo json_encode($response);
+				//exit;
+			}
+*/
+
+			if ($rowcount5) {
+				$to = $store_holding_for_payment2[0]["date"];
+				//$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			} else {
+				$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			}
+
+			//$to = $store_done_data[$i]["date"];
 			$from = new DateTime($from);
 			$from->modify('+1 day');
 			$to = new DateTime($to);

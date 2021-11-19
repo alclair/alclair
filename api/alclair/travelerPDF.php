@@ -248,7 +248,7 @@ $column_musicians_plugs_filter = '';
 if ($result[0]["musicians_plugs"] == TRUE) {
 	$column_musicians_plugs = "MUSICIAN'S PLUGS";
 	if($result[0]["musicians_plugs_9db"] == TRUE) {
-		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 9dB";	
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 10dB";	
 	}
 	if($result[0]["musicians_plugs_15db"] == TRUE) {
 		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 15dB";	

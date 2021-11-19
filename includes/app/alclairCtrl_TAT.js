@@ -330,6 +330,7 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
 	            $scope.min = result.min;
 	            $scope.max = result.max;
 	            $scope.avg = result.avg;
+	            console.log("The average is " + result.avg)
 	            $scope.mode = result.mode;
 	            $scope.median = result.median;
 	            $scope.total_repairs = result.num_of_repairs1;

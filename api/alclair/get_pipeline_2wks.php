@@ -169,7 +169,7 @@ try
     // CALCULATE NUMBER OF DAYS PAST DUE
     // DETERMINE NUMBER OF QC FORMS AND STATUS OF INITIAL PASS
     $workingDays = array(1, 2, 3, 4, 5); # date format = N (1 = Monday, ...)
-	//$holidayDays = array('*-12-25', '*-01-01', '2013-12-23'); # variable and fixed holidays
+	//$holidayDays = array('*-12-25', '*-01-01', '2013-12-23', '2021-11-25', '2021-11-26'); # variable and fixed holidays
     for ($i = 0; $i < $rows_in_result; $i++) {
 	    		
 	    	$to = $today_4_sql;

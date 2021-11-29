@@ -547,6 +547,10 @@ swdApp.controller('QC_Form_Edit', ['$http', '$scope', 'AppDataService', '$upload
 				$scope.qc_form.shipping_additional = 1;
 				$scope.qc_form.shipping_tools = 1;
 				$scope.qc_form.shipping_case = 1;
+	    } else if(category == 'artwork') {
+				$scope.qc_form.artwork_added = 1;
+				$scope.qc_form.artwork_placement= 1;
+				$scope.qc_form.artwork_hq = 1;
 	    } 
     }
           

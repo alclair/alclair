@@ -156,7 +156,27 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t
 		
 		if ($rowcount != 0 ) {
 			$from = $store_start_data[0]["start_date"];  // START DATE
-			$to = $store_done_data[$i]["date"];  // DONE DATE
+
+////////////////////////////////////////////////////////////		
+$query6 = pdo_query($pdo, "SELECT t1.id as t1_id, t2.id as t2_id, to_char(t1.date,'MM/dd/yyyy') as date
+						FROM order_status_log AS t1 
+						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+						WHERE t1.import_orders_id = :import_orders_id AND (t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99) AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date = TRUE ORDER BY t1.date ASC LIMIT 1", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"], ":import_orders_id"=>$store_done_data[$i]["import_orders_id"]));	
+						
+			$store_holding_for_payment3 = pdo_fetch_all( $query6 );
+			$rowcount6 = pdo_rows_affected( $query6 );
+
+			if ($rowcount6) {
+				$to = $store_holding_for_payment3[0]["date"];
+				//$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			} else {
+				$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			}
+////////////////////////////////////////////////////////////
+			
+			//$to = $store_done_data[$i]["date"];  // DONE DATE
 			$from = new DateTime($from);
 			$from->modify('+1 day');
 			$to = new DateTime($to);
@@ -181,7 +201,7 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t
 	$response["num_of_orders2"] = count($difference);
 	$response["min"] = min($difference);
 	$response["max"] = max($difference);
-	$response["avg"] = round(array_sum($difference)/count($difference));
+	$response["avg"] = round(array_sum($difference)/count($difference), 1);
 	
 	$values = array_count_values($difference); 
 	$response["mode"] = array_search(max($values), $values);
@@ -222,7 +242,28 @@ $query2 = pdo_query($pdo, "SELECT distinct t2.id, t1.import_orders_id, to_char(t
 		if ($rowcount2 != 0 ) {
 		
 			$from = $store_start_data2[0]["start_date"];
-			$to = $store_done_data[$i]["date"];
+			
+////////////////////////////////////////////////////////////		
+$query5 = pdo_query($pdo, "SELECT t1.id as t1_id, t2.id as t2_id, to_char(t1.date,'MM/dd/yyyy') as date
+						FROM order_status_log AS t1 
+						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+						WHERE t1.import_orders_id = :import_orders_id AND (t1.order_status_id > 9 AND t1.order_status_id < 14 AND t1.order_status_id != 99) AND t1.date >= :StartDate AND t1.date <= :EndDate AND t1.import_orders_id IS NOT NULL AND t2.active = TRUE AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date = TRUE ORDER BY t1.date ASC LIMIT 1", array(":StartDate"=>$params[":StartDate"], ":EndDate"=>$params[":EndDate"], ":import_orders_id"=>$store_done_data[$i]["import_orders_id"]));	
+						
+			$store_holding_for_payment2 = pdo_fetch_all( $query5 );
+			$rowcount5 = pdo_rows_affected( $query5 );
+
+			if ($rowcount5) {
+				$to = $store_holding_for_payment2[0]["date"];
+				//$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			} else {
+				$to = $store_done_data[$i]["date"];	
+				//$J = $J + 1;
+			}
+////////////////////////////////////////////////////////////
+
+			
+			//$to = $store_done_data[$i]["date"];
 			$from = new DateTime($from);
 			$from->modify('+1 day');
 			$to = new DateTime($to);

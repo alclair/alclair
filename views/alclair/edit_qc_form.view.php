@@ -161,7 +161,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             
             <div class="form-group col-md-4">
 	            <div class="text-left">
-	         		<label class="control-label" style="font-size: large;color: #007FFF">ARTWORK</label><br />
+	         		<label class="control-label" style="font-size: large;color: #007FFF" ng-click="populateBoxes('artwork')">ARTWORK</label><br />
 		 		</div>
 		 		<label><input type="checkbox" ng-model="qc_form.artwork_none" ng-true-value="1" ng-false-value="0"> &nbsp; NO ARTWORK</label><br />
 		 		<!--<label><input type="checkbox" ng-model="qc_form.artwork_required" ng-true-value="1" ng-false-value="0"> &nbsp; NOT YET ADDED</label><br />-->

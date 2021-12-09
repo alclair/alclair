@@ -9,7 +9,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
     <div class="press-enter" style="width:99%;margin-left:10px;">
         <div class="row">
             <div class="col-md-4">
-                <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Orders</a> (Total: {{TotalRecords}})</b>&nbsp;&nbsp;<b style="display:inline; font-size:20px; color: #007FFF"> {{Printed}} Printed</b><span style="color: #FF0000">  {{traveler.order_id}}</span></a>
+                <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Orders</a> (Total: {{TotalRecords}})</b>&nbsp;&nbsp;<b style="display:inline; font-size:20px; color: #007FFF"> {{Printed}} Printed : )</b><span style="color: #FF0000">  {{traveler.order_id}}</span></a>
             </div>
             <div class="form-group col-sm-3">
 				<input type="text" id="barcode_orders" ng-model="qrcode.barcode" placeholder="Barcode"  class="form-control" autofocus="autofocus">

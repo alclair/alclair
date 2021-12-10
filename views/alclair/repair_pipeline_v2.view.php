@@ -84,6 +84,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Model</th>
 					<th style="text-align:center;">Days Past Due</th>
 					<th style="text-align:center;">Due Date</th>
+					<th style="text-align:center;">2 Wks After</th> 
+					
 					<th style="text-align:center;">RMA</th>
 					<th style="text-align:center;">Repair Date</th>	
 					
@@ -105,6 +107,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 										
 					<td  style="text-align:center;" data-title="Days Past Due">{{repair.days_past_due}}</td>
 					<td  style="text-align:center;" data-title="Due Date">{{repair.estimated_ship_date}}</td>
+					<td  style="text-align:center;" data-title="2 Wks After">{{repair.plus_2wks}}</td>
 					
 					<td  style="text-align:center;" data-title="RMA">{{repair.rma_number}}</td>
 					<td  style="text-align:center;" data-title="Repair Date">{{repair.date}}</td>

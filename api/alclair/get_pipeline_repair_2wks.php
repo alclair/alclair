@@ -186,7 +186,7 @@ try
     $response["test"] = $conditionSql;
     $response["test2"] = $_REQUEST['id'];
 
-        $query = "SELECT t1.*, to_char(t1.date_entered,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, IEMs.id AS monitor_id, IEMs.name AS model, t2.status_of_repair, to_char( (t1.date_entered + INTERVAL '14 days'), 'MM/dd/yyyy') as plus_2wks
+        $query = "SELECT t1.*, to_char(t1.date_entered,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, IEMs.id AS monitor_id, IEMs.name AS model, t2.status_of_repair, to_char( (t1.estimated_ship_date + INTERVAL '14 days'), 'MM/dd/yyyy') as plus_2wks
                   FROM repair_form AS t1
                   LEFT JOIN monitors AS IEMs ON t1.monitor_id = IEMs.id
                   LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
@@ -208,7 +208,7 @@ try
     for ($i = 0; $i < $rows_in_result; $i++) {
 	    		
 	    	$to = $today_4_sql;
-			$from = $result[$i]["plus_2wks"];
+			$from = $result[$i]["estimated_ship_date"];
 			$from = new DateTime($from);
 			//$from->modify('+1 day');
 			$to = new DateTime($to);

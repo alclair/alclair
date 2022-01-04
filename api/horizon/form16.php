@@ -112,6 +112,7 @@ $response['testing3'] = $arrResult[4][3];
 $response['testing4'] = $arrResult[4][4];
 $response['testing5'] = $arrResult[4][5];
 
+
 for ($i=1; $i < count($arrResult); $i++) {
 	if(!strcmp($arrResult[$i][0], "Grand Total")) {
 		break;
@@ -123,7 +124,13 @@ for ($i=1; $i < count($arrResult); $i++) {
 	$Facility2_open = "<Facility" . "2" . ">";
 	$FacID = "<FacID>" . $arrResult[$i][2] . "</FacID>";  // Well file number
 	$FacReportPeriod = "<FacReportPeriod>" . $month ."/". $year . "</FacReportPeriod>";
-	$FacType = "<FacType>well</FacType>";
+	if( !strcmp($arrResult[$i][4], "P") ) {
+		$FacType = "<FacType>pit</FacType>";
+	} else {
+		$FacType = "<FacType>well</FacType>";
+	}	
+	//$FacType = "<FacType>well</FacType>";
+	
 	$FacCompID = "<FacCompID>" . $arrResult[$i][0] . "</FacCompID>"; // Well company name
 	$FacName = "<FacName>" . $arrResult[$i][1] . "</FacName>";
 	//$Facility2_close = "</Facility2>";
@@ -165,7 +172,13 @@ for ($i=1; $i < count($arrResult); $i++) {
 	$ProdType = "<ProdType>Water</ProdType>";
 	$ProdUnits = "<ProdUnits>bbls</ProdUnits>";
 	$ProdQuantity = "<ProdQuantity>" . $quantity . "</ProdQuantity>";
-	$ProdSource = "<ProdSource>P</ProdSource>";
+	
+	if( !strcmp($arrResult[$i][6], "T") ) {
+		$ProdSource = "<ProdSource>T</ProdSource>";
+	} else {
+		$ProdSource = "<ProdSource>P</ProdSource>";
+	}	
+	//$ProdSource = "<ProdSource>P</ProdSource>";
 	$Production2_close = "</Production2>";
 
 	$Production2 = $Production2_open . $ProdType . $ProdUnits . $ProdQuantity . $ProdSource . $Production2_close;

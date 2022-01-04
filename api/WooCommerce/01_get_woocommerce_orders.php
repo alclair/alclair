@@ -120,8 +120,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2021-12-21T23:59:59',
-			'after' => '2021-12-21T00:00:00',
+			'before' => '2022-01-03T23:59:59',
+			'after' => '2022-01-03T00:00:00',
 			'per_page' => 100			
         ];
 
@@ -329,7 +329,8 @@ if(!stristr($data["id"], '12097457') ) {
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
 					$order[$ind]["iem_owner_first_name"] = " ";
 					$order[$ind]["iem_owner_last_name"] = " ";
-					if(!strcmp($line_item[meta_data][$j]->key, "Model") || stristr($line_item[meta_data][$j]->key, "Artwork") ) {
+					//if(!strcmp($line_item[meta_data][$j]->key, "Model") || stristr($line_item[meta_data][$j]->key, "Artwork") ) {
+					if(!strcmp($line_item[meta_data][$j]->key, "Model")  ) {
 						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
 						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	

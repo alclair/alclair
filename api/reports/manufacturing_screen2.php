@@ -81,7 +81,7 @@ ORDER BY the_day ASC";
     $query = "SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'month') AS the_month_name, to_char(t1.date, 'yyyy') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
 FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-WHERE to_char(t1.date,'yyyy') = '2021' AND t1.order_status_id = 12 AND t2.active=TRUE
+WHERE to_char(t1.date,'yyyy') = '2022' AND t1.order_status_id = 12 AND t2.active=TRUE
 GROUP BY the_month, the_year, the_month_name
 
 UNION ALL
@@ -89,7 +89,7 @@ UNION ALL
 SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'month') AS the_month_name, to_char(t1.date, 'YYYY') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
 FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-WHERE to_char(t1.date,'yyyy') = '2020' AND t1.order_status_id = 12 AND t2.active=TRUE
+WHERE to_char(t1.date,'yyyy') = '2021' AND t1.order_status_id = 12 AND t2.active=TRUE
 GROUP BY the_month, the_year, the_month_name
 ORDER BY the_month, the_year ASC";
     $stmt = pdo_query( $pdo, $query, $params ); 

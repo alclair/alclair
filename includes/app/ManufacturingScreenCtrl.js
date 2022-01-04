@@ -161,6 +161,7 @@ swdApp.controller('Manufacturing_Screen_2', ['$http', '$scope', 'AppDataService'
 		
 		$scope.year_month = '2020';
 		$scope.year_month = '2021';
+		$scope.year_month = '2022';
 		$scope.month_month = '05';
 		$scope.month_month = '01';
 		//$scope.year_month = moment().format("YYYY");
@@ -440,6 +441,7 @@ $scope.LoadData = function () {
 	    //$scope.labels5.push('2018');
 	    $scope.labels5.push('2020');
 	    $scope.labels5.push('2021');
+	    $scope.labels5.push('2022');
 	    /*
 	    AppDataService.loadStatusTypeList_orders(null, null, function (result) {
         		for (var i = 0; i < result.data.length; i++) {

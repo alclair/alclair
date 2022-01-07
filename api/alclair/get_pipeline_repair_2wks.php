@@ -186,8 +186,7 @@ try
     $response["test"] = $conditionSql;
     $response["test2"] = $_REQUEST['id'];
 
-        $query = "SELECT t1.*, to_char(t1.date_entered,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, IEMs.id AS monitor_id, IEMs.name AS model, t2.status_of_repair, to_char( (t1.estimated_ship_date + INTERVAL '14 days'), 'MM/dd/yyyy') as plus_2wks
-                  FROM repair_form AS t1
+        $query = "SELECT t1.*, to_char(t1.date_entered,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, IEMs.id AS monitor_id, IEMs.name AS model, t2.status_of_repair                  FROM repair_form AS t1
                   LEFT JOIN monitors AS IEMs ON t1.monitor_id = IEMs.id
                   LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
                   WHERE 1=1 AND t1.active = TRUE $conditionSql ORDER BY t1.estimated_ship_date"; // $orderBySql $pagingSql";
@@ -206,6 +205,30 @@ try
     $workingDays = array(1, 2, 3, 4, 5); # date format = N (1 = Monday, ...)
 	$holidayDays = array('*-12-25', '*-01-01', '2013-12-23', '2021-11-25', '2021-11-26'); # variable and fixed holidays
     for ($i = 0; $i < $rows_in_result; $i++) {
+	    		
+		    	// ADDED JANUARY 7TH, 2022
+		    	// WILL ASKED FOR 2 WEEKS TO BE AFTER DIAGNOSING
+		    	// IF DIAGNOSING DOES NOT OCCUR IN THE LOG THEN THE ALGORITHM CREEPS UP THE REPAIR STATUS
+		    	// TO ADD 2 WEEKS THE FIRST RELEVANT REPAIR STATUS	
+		    	//, to_char( (t1.estimated_ship_date + INTERVAL '14 days'), 'MM/dd/yyyy') as plus_2wks
+	    	$stmt = pdo_query( $pdo, "SELECT t1.*, to_char(t1.date_entered,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, t3.date AS diagnosing_date, to_char( (t3.date + INTERVAL '14 days'), 'MM/dd/yyyy') as add_2wks, t4.order_in_repair
+	              FROM repair_form AS t1
+                  LEFT JOIN repair_status_log AS t3 ON t1.id = t3.repair_form_id
+                  LEFT JOIN repair_status_table AS t4 ON t3.repair_status_id = t4.order_in_repair
+                  WHERE 1=1 AND t1.active = TRUE AND t3.repair_status_id > 1 AND (t3.repair_status_id < 11 OR t3.repair_status_id = 17) AND t1.id = :repair_form_id ORDER BY diagnosing_date ASC LIMIT 1", array(":repair_form_id"=>$result[$i]["id"]));
+	    	$result4 = pdo_fetch_all($stmt); 
+	    	if(pdo_rows_affected($stmt) == 1) {
+		    	$result[$i]["plus_2wks"] = $result4[0]["add_2wks"];
+	    	} else {
+		    	// SHOWS STATUS OF REPAIR IF 2 WEEKS CAN NOT BE CALCULATED
+		    	$stmt = pdo_query( $pdo, "SELECT t1.*, to_char(t1.date_entered,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, t3.date AS diagnosing_date, to_char( (t3.date + INTERVAL '14 days'), 'MM/dd/yyyy') as add_2wks, t4.status_of_repair
+	              FROM repair_form AS t1
+                  LEFT JOIN repair_status_log AS t3 ON t1.id = t3.repair_form_id
+                  LEFT JOIN repair_status_table AS t4 ON t3.repair_status_id = t4.order_in_repair
+                  WHERE 1=1 AND t1.active = TRUE AND t1.id = :repair_form_id ORDER BY diagnosing_date DESC LIMIT 1", array(":repair_form_id"=>$result[$i]["id"]));
+	    	$result4 = pdo_fetch_all($stmt); 
+		    	$result[$i]["plus_2wks"] = $result4[0]["status_of_repair"];
+	    	}
 	    		
 	    	$to = $today_4_sql;
 			$from = $result[$i]["estimated_ship_date"];

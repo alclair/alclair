@@ -87,30 +87,30 @@ try
 		//SELECT * FROM import_orders WHERE (received_date + INTERVAL '1 day') = '07/17/2021'
 		//if( strlen($_REQUEST['TODAY_OR_NEXT_WEEK']) == 17) {   // , 'Today and Tomorrow') ) {
 		if( $_REQUEST['TODAY_OR_NEXT_WEEK'] == '1') {   // MEANS TODAY
-			$conditionSql.=" and ( (t1.received_date + INTERVAL '14 days') = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ( (t1.received_date + INTERVAL '14 days') = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Date"]=  $today_4_sql;
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '0') { // MEANS PAST DUE
-			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') < :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') < :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Date"]= $today_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '2') { // MEANS TOMORROW
-			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') = :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Date"]= $tomorrow_4_sql;	
 			
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '8') { // MEANS NEXT 3 BUSINESS DAYS
-			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $next_3days_sql;		
 			
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEXT 5 BUSINESS DAYS - 7 TOTAL DAYS
-			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextweek_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '4') { // MEANS NEXT 15 BUSINESS DAYS
-			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $threeWeeks_4_sql;	
 		} else {  // NEXT 30 BUSINESS DAYS
-			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18)";
+			$conditionSql.=" and ((t1.received_date + INTERVAL '14 days') > :Today) AND ((t1.received_date + INTERVAL '14 days') <= :Date) AND (t1.order_status_id != 12 AND  t1.order_status_id != 11 AND t1.order_status_id != 13 AND t1.order_status_id != 14 AND t1.order_status_id != 16 AND t1.order_status_id != 18 AND t1.order_status_id != 10)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $sixWeeks_4_sql;	
 		}

@@ -1,5 +1,6 @@
 <?php
 	
+
 include_once "../../config.inc.php";
 include_once "../../includes/PHPExcel/Classes/PHPExcel.php";
 
@@ -28,7 +29,8 @@ try
         	'version' => 'wc/v3', 
 			]
 	);
-	
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////// CALC ESTIMATED SHIP DATE CODE  ////////////////////////////////////////////////////////////////
 
@@ -120,16 +122,17 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-01-06T23:59:59',
-			'after' => '2022-01-06T00:00:00',
-			'per_page' => 100			
+			'before' => '2022-01-23T23:59:59',
+			'after' => '2022-01-23T00:00:00',
+			'per_page' => 100
         ];
 
     $result = $woocommerce->get('orders', $params);
+
     //$result = $woocommerce->get('orders/12524');
     $order = [];
     $ind = 0;
-  
+
 	$counting = 0;
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
@@ -145,7 +148,7 @@ if(!stristr($data["id"], '12097457') ) {
 } else {
 	echo "IN HERE " . $data["id"] . " </br>";
 	//exit;
-*/
+*/	
     for($k = 0; $k < count($data[line_items]); $k++) {
 	    //echo "Count is " . count($order) . "<br>";
 	    	
@@ -350,6 +353,10 @@ if(!stristr($data["id"], '12097457') ) {
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
+	 					} elseif(!strcmp($full_product_name, "EXP CORE") ) {
+	 						$order[$ind]["model"] = "EXP CORE";  // MODEL -> 4 	
+						} elseif(!strcmp($full_product_name, "EXP CORE+") ) {
+	 						$order[$ind]["model"] = "EXP CORE+";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "Dual XB Dual Driver") ) {
 	 						$order[$ind]["model"] = "Dual XB";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "Hearing Protection") )  {
@@ -657,7 +664,7 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
-if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP PRO") ) { 
+if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP" || stristr($order[$k]["product"], "Exp") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
 			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
 			//exit;

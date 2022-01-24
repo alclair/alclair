@@ -151,6 +151,7 @@ $bc->draw( $entire_pathname);
 if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship_date"] != TRUE ) {	
 	if($result[0]["ordered_date"] < '11/05/2021') {
 		$border_color = "#FFFF33"; // YELLOW
+		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	
 	} else {
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	
 	}

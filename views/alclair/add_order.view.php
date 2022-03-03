@@ -222,14 +222,34 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<div class="form-group col-md-3">
 				<input type="checkbox" ng-model="traveler.pickup" ng-true-value="1" ng-false-value="0"> &nbsp; CUSTOMER PICKUP<br />
 				<input type="checkbox" ng-model="traveler.hearing_protection" ng-true-value="1" ng-false-value="0"> &nbsp; HEARING PROTECTION INCLUDED<br />
-				<input type="checkbox" ng-model="traveler.musicians_plugs" ng-true-value="1" ng-false-value="0"> &nbsp; MUSICIAN'S PLUGS INCLUDED<br />
+				<span ng-if="traveler.model == 'Musicians Plugs'">
+					<input type="checkbox" ng-model="traveler.musicians_plugs" ng-true-value="1" ng-false-value="0"> &nbsp; MUSICIAN'S PLUGS INCLUDED<br />
+					
+					<input ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_9db" ng-true-value="1" ng-false-value="0"> &nbsp; 
+					<span  ng-if="traveler.musicians_plugs">9 dB</span>
+					
+					<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_15db" ng-true-value="1" ng-false-value="0"> &nbsp; 
+					<span  ng-if="traveler.musicians_plugs">15 dB</span>
+					
+					<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_25db" ng-true-value="1" ng-false-value="0"> &nbsp; 
+					<span  ng-if="traveler.musicians_plugs">25 dB</span>
+				</span>
+			</div>
+			<div class="form-group col-md-3">	
+				<span ng-if="traveler.model == 'Full Ear HP'">
+					<label class="control-label">Full Ear HP Filter</label><br />
+					<select class='form-control' ng-model='traveler.full_ear_filter' ng-options="filter.value as filter.label for filter in FullEarFilterList" style="height:40px"><option value="" disabled selected>Pick a Filter</option>
+					</select>
+				</span>
+				<span ng-if="traveler.model == 'Canal Fit HP'">
+					<label class="control-label">Canal Fit HP Filter</label><br />
+					<select class='form-control' ng-model='traveler.canal_fit_filter' ng-options="filter.value as filter.label for filter in CanalFitFilterList" style="height:40px"><option value="" disabled selected>Pick a Filter</option>
+					</select>
+				</span>
+				<br />
+
 				
-				<input ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_9db" ng-true-value="1" ng-false-value="0"> &nbsp; 
-				<span  ng-if="traveler.musicians_plugs">9 dB</span>
-				<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_15db" ng-true-value="1" ng-false-value="0"> &nbsp; 
-				<span  ng-if="traveler.musicians_plugs">15 dB</span>
-				<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_25db" ng-true-value="1" ng-false-value="0"> &nbsp; 
-				<span  ng-if="traveler.musicians_plugs">25 dB</span>
+				
 			</div>
         </div>
         <div class="row">

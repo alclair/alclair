@@ -837,11 +837,14 @@ Pickup
                                     <a href="<?=$rootScope['RootUrl']?>/admin/glowforge" class="nav-link "><i class="fa fa-sun-o"></i> &nbsp Glowforge </a>
                                 </li>
 
-                                 <?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' ) { ?>
-                                <li class=" ">
-                                    <a href="<?=$rootScope['RootUrl']?>/admin/reconcile" class="nav-link "><i class="fa fa-adjust"></i> &nbsp Reconciliation </a>
-                                </li>
-                                 <?php } ?>
+                                 	<?php if($_SESSION["UserName"] == 'Scott' || $_SESSION["UserName"] == 'admin' ) { ?>
+								 		<li class=" ">
+                                    		<a href="<?=$rootScope['RootUrl']?>/admin/reconcile" class="nav-link "><i class="fa fa-adjust"></i> &nbsp Reconciliation </a>
+											</li>
+										<li class=" ">
+                                    		<a href="<?=$rootScope['RootUrl']?>/admin/expenses_import" class="nav-link "><i class="fa fa-smile-o"></i> &nbsp Sales/Marketing Expense Import </a>	
+                                    	</li>
+									<?php } ?>
                                 <?php } ?>
                                 
 							</ul>

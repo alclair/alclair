@@ -2111,6 +2111,14 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 	musicians_plugs_9db: 0,
 	musicians_plugs_15db: 0,
 	musicians_plugs_25db: 0,
+		full_ear_silicone_earplugs_no_filter: 0,
+	 	full_ear_silicone_earplugs_switched_9db: 0,
+	 	full_ear_silicone_earplugs_switched_12db: 0,
+	 	full_ear_silicone_earplugs_9db: 0,
+	 	full_ear_silicone_earplugs_12db: 0,
+	 	canal_fit_earplugs_no_filter: 0,
+	 	canal_fit_earplugs_9db: 0,
+	 	canal_fit_earplugs_12db: 0,
 	pickup: 0,
 	nashville_order: 0,
 	date: window.cfg.CurrentDay,
@@ -2121,6 +2129,8 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
  $scope.CustomerTypeList = AppDataService.CustomerTypeList;
  $scope.ArtworkTypeList = AppDataService.ArtworkTypeList;
  $scope.HEARING_PROTECTION_COLORS = AppDataService.HEARING_PROTECTION_COLORS;
+ $scope.FullEarFilterList = AppDataService.FullEarFilterList;
+ $scope.CanalFitFilterList = AppDataService.CanalFitFilterList;
 	
  $scope.open = function ($event) {
         $scope.opened = true;
@@ -2167,7 +2177,8 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
     $scope.format = $scope.formats[0];
             
     $scope.Save = function () {
-        //console.log("HERE IT IS" + $scope.traveler.received_date)
+        console.log("HERE IT IS " + $scope.traveler.model)
+        
         if($scope.traveler.date)
         	$scope.traveler.date = $scope.traveler.date.toLocaleString();
         if($scope.traveler.estimated_ship_date)
@@ -2190,7 +2201,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 			$scope.traveler.hearing_protection_color = '0';
 			console.log("Color is " + $scope.traveler.hearing_protection_color)
 		}
-
+	
         var api_url = window.cfg.apiUrl + 'alclair/add_order.php';
 
 		console.log(api_url+"?"+$scope.traveler);

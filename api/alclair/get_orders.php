@@ -22,6 +22,30 @@ try
     {
         $conditionSql .= " AND t1.id = :id";
         $params[":id"] = $_REQUEST['id'];
+        
+			// 01/26/2022
+			// ADDED CODE BELOW TO CONVERT OLD HEARING PROTECTION NAMES TO NEW HEARING PROTECTION NAMES        
+        	$query = "SELECT t1.* FROM import_orders AS t1 WHERE 1=1 AND t1.active = TRUE $conditionSql";
+			$stmt = pdo_query( $pdo, $query, $params); 
+		    $result = pdo_fetch_all( $stmt );
+		    
+		    $response["TEST"] = $result[0]["model"];
+		    //echo json_encode($response);
+		    //exit;
+		    
+		    if( stristr($result[0]["model"], "MP") ) {
+			    $new_model_name = "Musicians Plugs";
+			    $stmt = pdo_query( $pdo, 'UPDATE import_orders SET model=:model WHERE id = :id', array( ":model"=>$new_model_name, "id"=>$_REQUEST['id'])); 
+		    } elseif( stristr($result[0]["model"], "AHP") ) {
+			    $new_model_name = "Acrylic HP";
+			    $stmt = pdo_query( $pdo, 'UPDATE import_orders SET model=:model WHERE id = :id', array( ":model"=>$new_model_name, "id"=>$_REQUEST['id'])); 
+		    } elseif( stristr($result[0]["model"], "SHP") ) {
+			    $new_model_name = "Silicone Protection";
+			    $stmt = pdo_query( $pdo, 'UPDATE import_orders SET model=:model WHERE id = :id', array( ":model"=>$new_model_name, "id"=>$_REQUEST['id'])); 
+			} elseif( stristr($result[0]["model"], "Sec Earpiece") ) {
+			    $new_model_name = "Security Ears";
+			    $stmt = pdo_query( $pdo, 'UPDATE import_orders SET model=:model WHERE id = :id', array( ":model"=>$new_model_name, "id"=>$_REQUEST['id'])); 
+			}       
     }
     
     $response['the_user_is'] = $_SESSION['UserName'];
@@ -137,7 +161,7 @@ try
     }
     else
     {*/
-        $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date,IEMs.id AS monitor_id, t2.status_of_order
+        $query = "SELECT t1.*, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, IEMs.id AS monitor_id, t2.status_of_order
                   FROM import_orders AS t1
                   LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing

@@ -156,14 +156,16 @@ if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	
 	}
 //} elseif ($result[0]["hearing_protection"] == TRUE ) {
-} elseif(stristr($result[0]['model'], "Exp") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif( (stristr($result[0]['model'], "Exp") || stristr($result[0]['model'], "EXP")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 	$border_color = "#0022FF"; // BLUE FOR EXP PRO
-} elseif (stristr($result[0]['model'], "AHP") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif ( (stristr($result[0]['model'], "AHP") || stristr($result[0]['model'], "Acrylic")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION
-} elseif (stristr($result[0]['model'], "SHP") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif ( (stristr($result[0]['model'], "SHP") || stristr($result[0]['model'], "Silicone") || stristr($result[0]['model'], "Full")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
-} elseif (stristr($result[0]['model'], "Sec Earpiece") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif (stristr($result[0]['model'], "Sec") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FFFF00"; // PINK FOR HEARING PROTECTION
+} elseif ( (stristr($result[0]['model'], "MP") || stristr($result[0]['model'], "Musician")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+		$border_color = "#FF69B4"; // POR Musicians Plugs
 } else {
 		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
 }

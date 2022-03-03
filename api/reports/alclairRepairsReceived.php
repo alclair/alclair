@@ -59,7 +59,46 @@ $query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char
 
 
     $result = array();
+    
+    
+// ADDED THIS CODE BECAUSE COULD NOT FIGURE OUT HOW TO ACCOUNT FOR DAYS THAT RETURNED ZERO
+// THIS CODE POPULATES A TABLE THAT GETS USED FOR DATA STUDIO
 
+/*
+    $count_for_table = array();
+	if(
+		strcmp(date("m"), '01') || strcmp(date("m"), '03') || trcmp(date("m"), '05') || 
+		strcmp(date("m"), '07') || strcmp(date("m"), '08') || strcmp(date("m"), '10') ||strcmp(date("m"), '12')
+	) {
+		$days_in_month = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];	
+	} elseif (strcmp(date("m"), '02')) {
+		$days_in_month = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28'];	
+	} else {
+		$days_in_month = ['01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'];	
+	}
+	$for_loop = array_search(date("d"), $days_in_month);
+	
+	for($j=1; $j=$for_loop+1; $j++) {   
+		$query = "SELECT count(t1.received_date) AS received_today
+							FROM repair_form t1
+							WHERE to_char(t1.received_date,'yyyy') = to_char(date_trunc('year', CURRENT_DATE), 'YYYY')  
+							AND to_char(t1.received_date,'MM') = to_char(date_trunc('month', CURRENT_DATE), 'MM') 
+							AND to_char(t1.received_date,'dd') = '01'
+							GROUP BY t1.received_date";
+		$stmt = pdo_query( $pdo, $query, $params );
+		$count = pdo_fetch_all( $stmt );
+		
+		if(!pdo_fetch_all( $stmt )) {
+			$count_for_table[$j-1] = $count[0]["received_today"];
+		} else {
+			$count_for_table[$j-1] = 0;
+		}
+	}
+	*/
+	$response["test"] = $count_for_table;
+	echo json_encode($response);
+    exit;
+	
 	for($j=0; $j<count($num_of_impressions_in_day); $j++) {   
 
 	}

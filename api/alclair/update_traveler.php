@@ -73,15 +73,66 @@ try
 	$traveler['musicians_plugs_9db'] = $_POST['musicians_plugs_9db'];
 	$traveler['musicians_plugs_15db'] = $_POST['musicians_plugs_15db'];
 	$traveler['musicians_plugs_25db'] = $_POST['musicians_plugs_25db'];
+	
 	$traveler['pickup'] = $_POST['pickup'];
 
 	$traveler['nashville_order'] = $_POST['nashville_order'];
+	
 	
 	$rush_process = $_POST['rush_process'];
 	if($rush_process) {
 		$traveler['rush_process'] = 'Yes';
 	} else {
 		$traveler['rush_process'] = '';
+	}
+	
+	
+	if ( stristr($_POST['full_ear_filter'], "No Filter") ) {
+		$traveler['full_ear_silicone_earplugs_no_filter'] = TRUE;
+		$traveler['full_ear_silicone_earplugs_switched_9db'] = NULL;
+		$traveler['full_ear_silicone_earplugs_switched_12db'] = NULL;
+		$traveler['full_ear_silicone_earplugs_9db'] = NULL;
+		$traveler['full_ear_silicone_earplugs_12db'] = NULL;
+	} elseif( stristr($_POST['full_ear_filter'], "Switched") ) {
+		$traveler['full_ear_silicone_earplugs_no_filter'] = NULL;
+		$traveler['full_ear_silicone_earplugs_9db'] = NULL;
+		$traveler['full_ear_silicone_earplugs_12db'] = NULL;
+		if( stristr($_POST['full_ear_filter'], "9db") ) {
+			$traveler['full_ear_silicone_earplugs_switched_9db'] = TRUE;
+			$traveler['full_ear_silicone_earplugs_switched_12db'] = NULL;
+		} else {
+			$traveler['full_ear_silicone_earplugs_switched_9db'] = NULL;
+			$traveler['full_ear_silicone_earplugs_switched_12db'] = TRUE;
+		}
+	} else {
+		$traveler['full_ear_silicone_earplugs_no_filter'] = NULL;
+		$traveler['full_ear_silicone_earplugs_switched_9db'] = NULL;
+		$traveler['full_ear_silicone_earplugs_switched_12db'] = NULL;
+		if( stristr($_POST['full_ear_filter'], "9db") ) {
+			$traveler['full_ear_silicone_earplugs_9db'] = TRUE;
+			$traveler['full_ear_silicone_earplugs_12db'] = NULL;
+		} else {
+			$traveler['full_ear_silicone_earplugs_9db'] = NULL;
+			$traveler['full_ear_silicone_earplugs_12db'] = TRUE;
+		}	
+	}
+	
+	if ( stristr($_POST['canal_fit_filter'], "No Filter") ) {
+		$traveler['canal_fit_earplugs_no_filter'] = TRUE;
+		$traveler['canal_fit_earplugs_9db'] = NULL;
+		$traveler['canal_fit_earplugs_12db'] = NULL;
+	} elseif (stristr($_POST['canal_fit_filter'], "9") ) {
+		$response["test"] = "The dropdown output is " . $_POST['canal_fit_filter'];
+		//echo json_encode($response);
+		//exit;
+		
+		$traveler['canal_fit_earplugs_no_filter'] = NULL;
+		$traveler['canal_fit_earplugs_9db'] = TRUE;
+		$traveler['canal_fit_earplugs_12db'] = NULL;
+	} else {
+		$traveler['canal_fit_earplugs_no_filter'] = NULL;
+		$traveler['canal_fit_earplugs_9db'] = NULL;
+		$traveler['canal_fit_earplugs_12db'] = TRUE;
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
@@ -200,6 +251,36 @@ $stmt = pdo_query( $pdo,
 					   array("designed_for"=>$traveler["designed_for"], ':email'=>$traveler['email'], "phone"=>$traveler["phone"], "band_church"=>$traveler["band_church"], "address"=>$traveler["address"], "notes"=>$traveler["notes"], "model"=>$result[0]["name"], "left_tip"=>$traveler["left_tip"], "right_tip"=>$traveler["right_tip"], "left_shell"=>$traveler["left_shell"], "right_shell"=>$traveler["right_shell"], "left_faceplate"=>$traveler["left_faceplate"], "right_faceplate"=>$traveler["right_faceplate"], "cable_color"=>$traveler["cable_color"], "artwork"=>$traveler["artwork"], "left_alclair_logo"=>$traveler["left_alclair_logo"], "right_alclair_logo"=>$traveler["right_alclair_logo"], "additional_items"=>$traveler["additional_items"], "consult_highrise"=>$traveler["consult_highrise"], "international"=>$traveler["international"], "universals"=>$traveler["universals"], "hearing_protection"=>$traveler["hearing_protection"], "musicians_plugs"=>$traveler["musicians_plugs"], 
 "musicians_plugs_9db"=>$traveler["musicians_plugs_9db"], "musicians_plugs_15db"=>$traveler["musicians_plugs_15db"], "musicians_plugs_25db"=>$traveler["musicians_plugs_25db"], "pickup"=>$traveler["pickup"], "rush_process"=>$traveler["rush_process"], "date"=>$traveler["date"], "received_date"=>$traveler["received_date"], "impression_color_id"=>$traveler["impression_color_id"], "order_status_id"=>$traveler["order_status_id"], "id"=>$traveler["id"], "estimated_ship_date"=>$traveler["estimated_ship_date"], "hearing_protection_color"=>$traveler["hearing_protection_color"], "nashville_order"=>$traveler["nashville_order"], "customer_type"=>$traveler["customer_type"]));
 	
+$stmt = pdo_query( $pdo, 
+					   'UPDATE import_orders SET designed_for=:designed_for, email=:email, phone=:phone, band_church=:band_church, address=:address, notes=:notes, model=:model, left_tip=:left_tip, right_tip=:right_tip, left_shell=:left_shell, right_shell=:right_shell, left_faceplate=:left_faceplate, right_faceplate=:right_faceplate, cable_color=:cable_color, artwork=:artwork, left_alclair_logo=:left_alclair_logo, right_alclair_logo=:right_alclair_logo, additional_items=:additional_items, consult_highrise=:consult_highrise, international=:international, universals=:universals, hearing_protection=:hearing_protection, musicians_plugs=:musicians_plugs, musicians_plugs_9db=:musicians_plugs_9db, musicians_plugs_15db=:musicians_plugs_15db, musicians_plugs_25db=:musicians_plugs_25db, 
+
+full_ear_silicone_earplugs_no_filter=:full_ear_silicone_earplugs_no_filter,
+full_ear_silicone_earplugs_switched_9db=:full_ear_silicone_earplugs_switched_9db,
+full_ear_silicone_earplugs_switched_12db=:full_ear_silicone_earplugs_switched_12db,
+full_ear_silicone_earplugs_9db=:full_ear_silicone_earplugs_9db,
+full_ear_silicone_earplugs_12db=:full_ear_silicone_earplugs_12db,
+
+"canal_fit_earplugs_no_filter"=:canal_fit_earplugs_no_filter,
+"canal_fit_earplugs_9db"=:canal_fit_earplugs_9db,
+"canal_fit_earplugs_12db"=:canal_fit_earplugs_12db,
+
+pickup=:pickup, rush_process=:rush_process, date=:date, received_date=:received_date, impression_color_id=:impression_color_id, order_status_id=:order_status_id, estimated_ship_date=:estimated_ship_date, hearing_protection_color=:hearing_protection_color, nashville_order=:nashville_order, customer_type=:customer_type
+                       WHERE id = :id',
+					   array("designed_for"=>$traveler["designed_for"], ':email'=>$traveler['email'], "phone"=>$traveler["phone"], "band_church"=>$traveler["band_church"], "address"=>$traveler["address"], "notes"=>$traveler["notes"], "model"=>$result[0]["name"], "left_tip"=>$traveler["left_tip"], "right_tip"=>$traveler["right_tip"], "left_shell"=>$traveler["left_shell"], "right_shell"=>$traveler["right_shell"], "left_faceplate"=>$traveler["left_faceplate"], "right_faceplate"=>$traveler["right_faceplate"], "cable_color"=>$traveler["cable_color"], "artwork"=>$traveler["artwork"], "left_alclair_logo"=>$traveler["left_alclair_logo"], "right_alclair_logo"=>$traveler["right_alclair_logo"], "additional_items"=>$traveler["additional_items"], "consult_highrise"=>$traveler["consult_highrise"], "international"=>$traveler["international"], "universals"=>$traveler["universals"], "hearing_protection"=>$traveler["hearing_protection"], "musicians_plugs"=>$traveler["musicians_plugs"], 
+"musicians_plugs_9db"=>$traveler["musicians_plugs_9db"], "musicians_plugs_15db"=>$traveler["musicians_plugs_15db"], "musicians_plugs_25db"=>$traveler["musicians_plugs_25db"], 
+
+"full_ear_silicone_earplugs_no_filter"=>$traveler["full_ear_silicone_earplugs_no_filter"],
+"full_ear_silicone_earplugs_switched_9db"=>$traveler["full_ear_silicone_earplugs_switched_9db"],
+"full_ear_silicone_earplugs_switched_12db"=>$traveler["full_ear_silicone_earplugs_switched_12db"],
+"full_ear_silicone_earplugs_9db"=>$traveler["full_ear_silicone_earplugs_9db"],
+"full_ear_silicone_earplugs_12db"=>$traveler["full_ear_silicone_earplugs_12db"],
+
+"canal_fit_earplugs_no_filter"=>$traveler["canal_fit_earplugs_no_filter"],
+"canal_fit_earplugs_9db"=>$traveler["canal_fit_earplugs_9db"],
+"canal_fit_earplugs_12db"=>$traveler["canal_fit_earplugs_12db"],
+
+"pickup"=>$traveler["pickup"], "rush_process"=>$traveler["rush_process"], "date"=>$traveler["date"], "received_date"=>$traveler["received_date"], "impression_color_id"=>$traveler["impression_color_id"], "order_status_id"=>$traveler["order_status_id"], "id"=>$traveler["id"], "estimated_ship_date"=>$traveler["estimated_ship_date"], "hearing_protection_color"=>$traveler["hearing_protection_color"], "nashville_order"=>$traveler["nashville_order"], "customer_type"=>$traveler["customer_type"]));
+
 	$query = pdo_query($pdo, "SELECT * FROM import_orders WHERE id = :id", array(":id"=>$traveler["id"]));
 	$result2 = pdo_fetch_all( $stmt );
 	

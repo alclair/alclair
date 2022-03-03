@@ -351,6 +351,8 @@ $scope.loadRepairsReceived = function () {
         $http.get(api_url).success(function (result6) {
 	        $scope.num_repairs2 = result6.num_repairs;
 			$scope.num_shipped2 = result6.num_shipped;
+			//console.log("TEST RETURNS " + result6.test)
+	        //return;
 
             $.unblockUI();
             //console.log(JSON.stringify(result5.data));

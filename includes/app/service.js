@@ -450,6 +450,19 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
         { value: 'Mic Cable', label: 'Mic Cable' },
         { value: 'Other', label: 'Other' },
     ];
+	this.FullEarFilterList = [
+        { value: 'No Filter', label: 'No Filter' },
+        { value: '9dB Impact', label: '9dB Impact' },
+        { value: '12dB Impact', label: '12dB Impact' },
+        { value: '9dB Switched', label: '9dB Switched' },
+        { value: '12dB Switched', label: '12dB Switched' },
+    ];
+    this.CanalFitFilterList = [
+        { value: 'No Filter', label: 'No Filter' },
+        { value: '9dB Impact', label: '9dB Impact' },
+        { value: '12dB Impact', label: '12dB Impact' },
+    ];
+
     this.ArtworkTypeList = [
         { value: 'None', label: 'None' },
         { value: 'Yes', label: 'Yes' },

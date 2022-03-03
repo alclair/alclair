@@ -137,6 +137,7 @@ $params = [
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
+// BELOW HERE
 /*
 	// THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
@@ -149,6 +150,8 @@ if(!stristr($data["id"], '12099441') ) {
 	echo "IN HERE " . $data["id"] . " </br>";
 	//exit;
 */
+// ABOVE HERE
+
     for($k = 0; $k < count($data[line_items]); $k++) {
 	    //echo "Count is " . count($order) . "<br>";
 	    	
@@ -175,10 +178,10 @@ if(!stristr($data["id"], '12099441') ) {
 
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") ) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear Silicone Earplugs")  || stristr($full_product_name, "Canal")) { 
 			
 
-			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed") ) {
+			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed")  || stristr($data["status"], "hold") ) {
 				
 				//$order[$ind]["num_earphones_per_order"] = 0;
 				//$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
@@ -221,10 +224,13 @@ if(!stristr($data["id"], '12099441') ) {
 					if( stristr($full_product_name, "Custom Hearing Protection") ) {
 			 			if( stristr($full_product_name, "Silicone") ) {
 				 			$order[$ind]["model_hp"] = "SHP";
+				 			$order[$ind]["model_hp"] = "Silicone Protection";
 			 			} elseif ( stristr($full_product_name, "Acrylic") ) {
 				 			$order[$ind]["model_hp"] = "AHP";
+				 			$order[$ind]["model_hp"] = "Acrylic HP";
 			 			} else {
 				 			$order[$ind]["model_hp"] = "SHP";
+				 			$order[$ind]["model_hp"] = "Silicone Protection";
 			 			}
 		 			}
 								
@@ -240,10 +246,11 @@ if(!stristr($data["id"], '12099441') ) {
 					if( stristr($full_product_name, "Hearing Protection") ) {
 			 			if( stristr($full_product_name, "Silicone") ) {
 				 			$order[$ind]["model_hp"] = "SHP";
+				 			$order[$ind]["model_hp"] = "Silicone Protection";
 			 			} elseif ( stristr($full_product_name, "Acrylic") ) {
-				 			$order[$ind]["model_hp"] = "AHP";
+				 			$order[$ind]["model_hp"] = "Acrylic HP";
 			 			} else {
-				 			$order[$ind]["model_hp"] = "SHP";
+				 			$order[$ind]["model_hp"] = "Silicone Protection";
 			 			}
 		 			}
 				} elseif(stristr($full_product_name, "Security") ) {
@@ -254,6 +261,7 @@ if(!stristr($data["id"], '12099441') ) {
 					$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
 					
 					$order[$ind]["model_hp"] = "Sec Earpiece";
+					$order[$ind]["model_hp"] = "Security Ears";
 					
 				}
 
@@ -267,6 +275,7 @@ if(!stristr($data["id"], '12099441') ) {
 
 					$order[$ind]["musicians_plugs"] = TRUE;
 					$order[$ind]["model_mp"] = "MP";
+					$order[$ind]["model_mp"] = "Musicians Plugs";
 					
 					$filters = $line_item[meta_data][0]->value;
 					//echo "Filters is " . $filters;
@@ -308,10 +317,64 @@ if(!stristr($data["id"], '12099441') ) {
 					}					
 									
 				}
+				
+				if(stristr($full_product_name, "Full Ear Silicone Earplugs") ) {
+					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
+					// USE THIS ORDER FOR HELP IN DETERMINING HOW TO GET THE FILTERS OTIS NEEDS
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
+					//$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
+					//$order[$ind]["make_2nd_traveler_for_musicians_plugs"] = "YES";
+					//$order[$ind]["musicians_plugs"] = TRUE;
+					$order[$ind]["model"] = "Full Ear HP";
+					
+
+					$filters = $line_item[meta_data][1]->value;
+					$order[$ind]["left_shell"]  = $line_item[meta_data][0]->value;
+					$order[$ind]["right_shell"]  = $line_item[meta_data][0]->value;
+					//echo "Filters is " . $filters;
+					//exit;
+					if( stristr($filters, "No") ) {
+						$order[$ind]["full_ear_silicone_earplugs_no_filter"] = TRUE;
+					} elseif( stristr($filters, "Switched")   ) {
+						if( stristr($filters, "9")   ) {
+							$order[$ind]["full_ear_silicone_earplugs_switched_9db"] = TRUE;	
+						} else {
+							$order[$ind]["full_ear_silicone_earplugs_switched_12db"] = TRUE;
+						}	
+					}	elseif( stristr($filters, "9db") ) {
+						$order[$ind]["full_ear_silicone_earplugs_9db"] = TRUE;
+					}	else {
+						$order[$ind]["full_ear_silicone_earplugs_12db"] = TRUE;
+					}				
+									
+				}
+				
+				if(stristr($full_product_name, "Canal Fit Earplugs") ) {
+					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
+					// USE THIS ORDER FOR HELP IN DETERMINING HOW TO GET THE FILTERS OTIS NEEDS
+					$order[$ind]['use_for_estimated_ship_date'] = NULL;
+					//$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
+					//$order[$ind]["make_2nd_traveler_for_musicians_plugs"] = "YES";
+					//$order[$ind]["musicians_plugs"] = TRUE;
+					$order[$ind]["model"] = "Canal Fit HP";
+					
+					$filters = $line_item[meta_data][1]->value;
+					$order[$ind]["left_shell"]  = $line_item[meta_data][1]->value;
+					$order[$ind]["right_shell"]  = $line_item[meta_data][1]->value;
+					//echo "Filters is " . $filters;
+					//exit;
+					if(stristr($full_product_name, "No") ) {
+						$order[$ind]["canal_fit_earplugs_no_filter"] = "No filter";
+					} elseif(stristr($full_product_name, "9") ) {
+						$order[$ind]["canal_fit_earplugs_9db"] = TRUE;
+					} else {
+						$order[$ind]["canal_fit_earplugs_12db"] = TRUE;
+					}				
+				}
 
 				
 				if(stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") ) {
-					$order[$ind]["hearing_protection"] = TRUE;
+					//$order[$ind]["hearing_protection"] = TRUE;
 					//$order[$ind]['hearing_protection_color'] =  substr($full_product_name, 28, 88);
 					//$order[$ind]['hearing_protection_color'] = $line_item[meta_data][0]->value;
 					$order[$ind]['use_for_estimated_ship_date'] = NULL;
@@ -353,25 +416,32 @@ if(!stristr($data["id"], '12099441') ) {
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
-	 					} elseif(!strcmp($full_product_name, "EXP CORE") ) {
-	 						$order[$ind]["model"] = "EXP CORE";  // MODEL -> 4 	
-						} elseif(!strcmp($full_product_name, "EXP CORE+") ) {
+	 					} elseif(stristr($full_product_name, "EXP CORE+") ) {
 	 						$order[$ind]["model"] = "EXP CORE+";  // MODEL -> 4 	
+						} elseif(stristr($full_product_name, "EXP CORE") ) {
+	 						$order[$ind]["model"] = "EXP CORE";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "Dual XB Dual Driver") ) {
 	 						$order[$ind]["model"] = "Dual XB";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "Hearing Protection") )  {
 			 				if( stristr($full_product_name, "Silicone") ) {
 				 				$order[$ind]["model"] = "SHP";
+				 				$order[$ind]["model"] = "Silicone Protection";
 					 		} elseif ( stristr($full_product_name, "Acrylic") ) {
-					 			$order[$ind]["model"] = "AHP";
+					 			$order[$ind]["model"] = "Acrylic HP";
 				 			} else {
-						 		$order[$ind]["model"] = "SHP";
+						 		$order[$ind]["model"] = "Silicone Protection";
 					 		}
 					 	} elseif(stristr($full_product_name, "Musicians Earplugs") || stristr($full_product_name, "Musicians Plugs") )  {
 						 		$order[$ind]["model"] = "MP";
+						 		$order[$ind]["model"] = "Musicians Plugs";
  							//$order[$ind]["model"] = $model_name; // MODEL -> 4 	
  						} elseif(stristr($full_product_name, "Security") )  {
 						 		$order[$ind]["model"] = "Sec Earpiece";
+						 		$order[$ind]["model"] = "Security Ears";
+ 						} elseif(stristr($full_product_name, "Canal") )  {
+						 		$order[$ind]["model"] = "Canal Fit HP";
+ 						} elseif(stristr($full_product_name, "Full Ear") )  {
+						 		$order[$ind]["model"] = "Full Ear HP";
  						}
 
 					} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 7), "Artwork") ) {
@@ -466,6 +536,7 @@ if(!stristr($data["id"], '12099441') ) {
 					//} elseif(!strcmp( substr($line_item[meta_data][$j]->key, 0, 24), "Hearing Protection Color") ) {
 					//elseif(!strcmp($line_item[meta_data][$j]->key, "Hearing Protection Color") ) {
 						$order[$ind]["model_hp"] = "SHP";
+						$order[$ind]["model_hp"] = "Silicone Protection";
 						$order[$ind]["hearing_protection"] = TRUE;	
 
 						$order[$ind]["hearing_protection_color"] = $line_item[meta_data][$j]->value;	
@@ -512,7 +583,9 @@ if(!stristr($data["id"], '12099441') ) {
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
 	  } // CLOSES IF STATEMENT - IS IT A UNIVERSAL EARPHONE - LINE 189
 	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED  - K
+// BELOW HERE
 //} // CLOSES IF/ELSE FOR TESTING
+// ABOVE HERE
     } // END FOR LOOP THAT STEPS THROUGH EVERY ORDER - I
 
 // REQUIRED 2 INCREMENTS BUT OF THE SAME ARRAY
@@ -664,7 +737,7 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
-if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") ) { 
+if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($full_product_name, "Full Ear") || stristr($full_product_name, "Canal") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
 			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
 			//exit;
@@ -672,10 +745,28 @@ if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "
 			$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
 date, order_id, product, quantity, model, artwork, color, rush_process, left_shell, right_shell, left_faceplate, right_faceplate, cable_color, clear_canal, left_alclair_logo, right_alclair_logo, left_custom_art, right_custom_art, link_to_design_image, open_order_in_designer, designed_for, my_impressions, billing_name, shipping_name, email, price, coupon, discount, total, entered_by, active, order_status_id, num_earphones_per_order, hearing_protection, hearing_protection_color, 
-musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
+musicians_plugs, musicians_plugs_9db, musicians_plugs_15db, musicians_plugs_25db, 
+full_ear_silicone_earplugs_no_filter,
+full_ear_silicone_earplugs_switched_9db,
+full_ear_silicone_earplugs_switched_12db,
+full_ear_silicone_earplugs_9db,
+full_ear_silicone_earplugs_12db,
+canal_fit_earplugs_no_filter,
+canal_fit_earplugs_9db,
+canal_fit_earplugs_12db,
+left_tip, right_tip, pelican_case_name, notes, nashville_order, use_for_estimated_ship_date, customer_type)
 VALUES (
 :date, :order_id, :product, :quantity, :model, :artwork, :color, :rush_process, :left_shell, :right_shell, :left_faceplate, :right_faceplate, :cable_color, :clear_canal, :left_alclair_logo, :right_alclair_logo, :left_custom_art, :right_custom_art, :link_to_design_image, :open_order_in_designer, :designed_for, :my_impressions, :billing_name, :shipping_name, :email, :price, :coupon, :discount, :total, :entered_by, :active, :order_status_id, :num_earphones_per_order, :hearing_protection, :hearing_protection_color, 
 :musicians_plugs, :musicians_plugs_9db, :musicians_plugs_15db, :musicians_plugs_25db, 
+:full_ear_silicone_earplugs_no_filter,
+:full_ear_silicone_earplugs_switched_9db,
+:full_ear_silicone_earplugs_switched_12db,
+:full_ear_silicone_earplugs_9db,
+:full_ear_silicone_earplugs_12db,
+:canal_fit_earplugs_no_filter,
+:canal_fit_earplugs_9db,
+:canal_fit_earplugs_12db,
+
 :left_tip, :right_tip, :pelican_case_name, :notes, :nashville_order, :use_for_estimated_ship_date, :customer_type) RETURNING id",
 array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product'=>$order[$k]['product'], ':quantity'=>$order[$k]['quantity'], ':model'=>$order[$k]['model'], ':artwork'=>$order[$k]['artwork'], ':color'=>$order[$k]['color'], ':rush_process'=>$order[$k]['rush_process'], ':left_shell'=>$order[$k]['left_shell'], ':right_shell'=>$order[$k]['right_shell'], ':left_faceplate'=>$order[$k]['left_faceplate'], ':right_faceplate'=>$order[$k]['right_faceplate'], ':cable_color'=>$order[$k]['cable_color'], ':clear_canal'=>$order[$k]['clear_canal'], ':left_alclair_logo'=>$order[$k]['left_alclair_logo'], ':right_alclair_logo'=>$order[$k]['right_alclair_logo'], ':left_custom_art'=>$order[$k]['left_custom_art'], ':right_custom_art'=>$order[$k]['right_custom_art'], ':link_to_design_image'=>$order[$k]['link_to_design_image'], ':open_order_in_designer'=>$order[$k]['open_order_in_designer'], 
 ':designed_for' =>$order[$k]['designed_for'], 
@@ -697,6 +788,14 @@ array(':date'=>$order[$k]['date'], ':order_id'=>$order[$k]['order_id'],':product
 ':musicians_plugs_9db'=>$order[$k]["musicians_plugs_9db"], 
 ':musicians_plugs_15db'=>$order[$k]["musicians_plugs_15db"], 
 ':musicians_plugs_25db'=>$order[$k]["musicians_plugs_25db"], 
+':full_ear_silicone_earplugs_no_filter'=>$order[$k]["full_ear_silicone_earplugs_no_filter"], 
+':full_ear_silicone_earplugs_switched_9db'=>$order[$k]["full_ear_silicone_earplugs_switched_9db"],
+':full_ear_silicone_earplugs_switched_12db'=>$order[$k]["full_ear_silicone_earplugs_switched_12db"],
+':full_ear_silicone_earplugs_9db'=>$order[$k]["full_ear_silicone_earplugs_9db"],
+':full_ear_silicone_earplugs_12db'=>$order[$k]["full_ear_silicone_earplugs_12db"],
+':canal_fit_earplugs_no_filter'=>$order[$k]["canal_fit_earplugs_no_filter"],
+':canal_fit_earplugs_9db'=>$order[$k]["canal_fit_earplugs_9db"],
+':canal_fit_earplugs_12db'=>$order[$k]["canal_fit_earplugs_12db"],
 ':left_tip'=>$order[$k]['left_tip'],
 ':right_tip'=>$order[$k]['right_tip'],
 ':pelican_case_name'=>$order[$k]['pelican_case_name'],
@@ -737,7 +836,8 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 
 
 if (stristr($order[$k]["make_2nd_traveler_for_hearing_protection"], "YES") ) {
-	if($order[$k]["model_hp"] == "SHP") {
+	//if($order[$k]["model_hp"] == "SHP") {
+	if($order[$k]["model_hp"] == "Silicone Protection") {
 		$order[$k]['left_shell'] = $order[$k]["hearing_protection_color"];
 		$order[$k]['right_shell'] = $order[$k]["hearing_protection_color"];
 		$order[$k]['left_faceplate'] = NULL;

@@ -21,6 +21,15 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	 	musicians_plugs_9db: 0,
 	 	musicians_plugs_15db: 0,
 	 	musicians_plugs_25db: 0,
+	 	full_ear_silicone_earplugs_no_filter: 0,
+	 	full_ear_silicone_earplugs_switched_9db: 0,
+	 	full_ear_silicone_earplugs_switched_12db: 0,
+	 	full_ear_silicone_earplugs_9db: 0,
+	 	full_ear_silicone_earplugs_12db: 0,
+	 	canal_fit_earplugs_no_filter: 0,
+	 	canal_fit_earplugs_9db: 0,
+	 	canal_fit_earplugs_12db: 0,
+	 	
 	 	pickup: 0,
 	 	override: 1,
 	 	//nashville_order: 0,
@@ -93,6 +102,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
     $scope.CustomerTypeList = AppDataService.CustomerTypeList;
     $scope.ArtworkTypeList = AppDataService.ArtworkTypeList;
     $scope.HEARING_PROTECTION_COLORS = AppDataService.HEARING_PROTECTION_COLORS;
+    $scope.FullEarFilterList = AppDataService.FullEarFilterList;
+     $scope.CanalFitFilterList = AppDataService.CanalFitFilterList;
         
     $scope.Print_Traveler = function (id_to_print) {		
 		if (!$scope.traveler.impression_color_id ) {
@@ -412,14 +423,17 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			$scope.traveler.hearing_protection_color = '0';
 		}
 		
+		console.log("The dropdown is " + $scope.traveler.full_ear_filter)
+		//return;
+		
 		// WHEN THE PAGE LOADS THE ORDER STATUS ID IS SAVED AS order_status_id 
 		if (order_status_id == 1 && $scope.traveler.order_status_id == 1) {
-			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
 			console.log("INSIDE THE IF " +	 $scope.traveler.international)
+			var api_url = window.cfg.apiUrl + 'alclair/update_traveler_backup.php?id=' + window.cfg.id;
 		} else {
+			console.log("INSIDE THE ELSE")
 			var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + window.cfg.id;
 			//var api_url = window.cfg.apiUrl + 'alclair/update_traveler.php?id=' + 11345;
-			console.log("INSIDE THE ELSE")
 		}
 		//return;
 	/*		
@@ -457,6 +471,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         })
          .success(function (result) {
 	         console.log(result.test2)
+	         console.log(result.test)
+	         //return;
              if (result.code == "success") {
                  $.unblockUI();
                  toastr.success("Updates saved!")
@@ -558,6 +574,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	           $scope.ChangelogList = result.data3;
 	           
 	           console.log("THE USER IS " + result.the_user_is)
+	           console.log("THE TEST IS " + result.TEST)
 	           /*
 	           if(result.data[0].manufacturing_screen == true) {
 			   		$scope.manufacturing_screen = 1; 
@@ -712,6 +729,42 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 		} else {
 			 			$scope.traveler.musicians_plugs_25db = 0;
 			 		}
+			 		
+			 		if ($scope.traveler.full_ear_silicone_earplugs_no_filter == true) {
+			 			$scope.traveler.full_ear_filter= "No Filter";    
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		if ($scope.traveler.full_ear_silicone_earplugs_switched_9db == true) {
+			 			$scope.traveler.full_ear_filter= "9dB Switched";        
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		if ($scope.traveler.full_ear_silicone_earplugs_switched_12db == true) {
+			 			$scope.traveler.full_ear_filter= "12dB Switched";       
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		if ($scope.traveler.full_ear_silicone_earplugs_9db == true) {
+			 			$scope.traveler.full_ear_filter= "9dB Impact";        
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		if ($scope.traveler.full_ear_silicone_earplugs_12db == true) {
+			 			$scope.traveler.full_ear_filter= "12dB Impact";       
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		
+			 		if ($scope.traveler.canal_fit_earplugs_no_filter == true) {
+			 			$scope.traveler.canal_fit_filter= "No Filter";    
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		if ($scope.traveler.canal_fit_earplugs_9db == true) {
+			 			$scope.traveler.canal_fit_filter= "9dB Impact";    
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		if ($scope.traveler.canal_fit_earplugs_12db == true) {
+			 			$scope.traveler.canal_fit_filter= "12dB Impact";    
+			 			$scope.is_HP_outdoor = true;
+			 		} 
+			 		
+			 		
 			 		if ($scope.traveler.pickup == true) {
 			 			$scope.traveler.pickup= 1;    
 			 		} else {
@@ -750,11 +803,49 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
         }, function (result) { });*/
     }
     
+    $scope.checkMonitorChange = function () {
+		console.log("The monitor changed to " + $scope.traveler.monitor_id)
+		
+		var api_url = window.cfg.apiUrl + 'alclair/get_monitors_not_universals.php?id=' + $scope.traveler.monitor_id;
+		console.log("START IS " + window.cfg.Id)
+        $http.get(api_url)
+            .success(function (result) {
+	            console.log("The monitor name is " + result.data.name)
+	            text_has_HP = result.data.name;
+				if( text_has_HP.includes("HP") ) {
+					console.log("YES, HP")
+					$scope.is_HP_outdoor = true;
+				} else {
+					console.log("NO, HP")
+					$scope.is_HP_outdoor = false;
+				}
+            }).error(function (result) {
+                $.unblockUI();
+				toastr.error(result.message == undefined ? result.data : result.message);
+            });   
+		
+	}
+    
     $scope.init = function () {
         $scope.LoadData();
 
         AppDataService.loadMonitorList_not_Universals(null, null, function (result) {
            $scope.monitorList = result.data;
+           monitor_id_is = $scope.traveler.monitor_id;
+           index_is = monitor_id_is - 1;
+           console.log("Index is " + monitor_id_is)
+           
+           setTimeout(function(){ 
+			   monitor_name  = result.data[index_is].name;	
+			   if( monitor_name.includes("HP") ) {
+		   			console.log("YES, HP")
+		   			$scope.is_HP_outdoor = true;
+		   		} else {
+					console.log("NO, HP")
+					$scope.is_HP_outdoor = false;
+				}
+			}, 1000);   
+           
         }, function (result) { });
         AppDataService.loadImpressionColorList(null, null, function (result) {
            $scope.impressionColorList = result.data;

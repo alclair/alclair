@@ -17,7 +17,7 @@ try
 {
 //otisdev.alclr.co/api/WooCommerce/03_print_order_to_screen.php 
 $woocommerce = new Client(
-    	'https://alclair.com',
+    	'http://staging.alclair.com',
 		'ck_acc872e19a1908cd5abadfd29a84e5edf8d34469',
 		'cs_87fe15086357b7e90a8d2457552ddb957ba939fb',
 		[
@@ -42,8 +42,8 @@ $params = [
 	//$result = $woocommerce->get('orders', $params);		
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //if(count($result) == 100) {
-	$date = '2022-01-21';
-	$order_index = 14;
+	$date = '2022-02-21';
+	$order_index = 0;
 	$result = [];
 	$params = [
 		'before' =>  $date . $HOURS[1],

@@ -85,7 +85,17 @@ ORDER BY the_day ASC";
               FROM import_orders
               LEFT JOIN status_type_orders AS t2 ON 1 = t2.id
               WHERE to_char(received_date,'yyyy') = '$year' AND to_char(received_date,'MM') = '$month' 
-              AND (model IS NOT NULL AND model != 'MP' AND model != 'AHP' AND model != 'SHP' AND model != 'EXP PRO') 
+              AND (model IS NOT NULL AND model != 'MP' AND model != 'Musicians Plugs' 
+		AND model != 'AHP' 
+		AND model != 'SHP' 
+		AND model != 'EXP PRO' 
+		AND model != 'Security Ears' 
+		AND model != 'Silicone Protection' 
+		AND model != 'Canal Fit HP' 
+		AND model != 'Acrylic HP' 
+		AND model != 'Full Ear HP' 
+		AND model != 'EXP CORE'
+		AND model != 'EXP CORE+') 
 			  GROUP BY the_day, type
     UNION ALL
     SELECT to_char(t1.date, 'dd') AS the_day, ( SELECT COUNT(to_char(t1.date, 'dd') ) ) AS num_in_day, t5.type
@@ -95,7 +105,17 @@ ORDER BY the_day ASC";
 			  LEFT JOIN monitors AS t4 ON t2.model = t4.name
           LEFT JOIN status_type_orders AS t5 ON 2 = t5.id
               WHERE to_char(t1.date,'yyyy') = '$year' AND to_char(t1.date,'MM') = '$month'  AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
-              AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO') 
+              AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'Musicians Plugs' 
+		AND t2.model != 'AHP' 
+		AND t2.model != 'SHP' 
+		AND t2.model != 'EXP PRO' 
+		AND t2.model != 'Security Ears' 
+		AND t2.model != 'Silicone Protection' 
+		AND t2.model != 'Canal Fit HP' 
+		AND t2.model != 'Acrylic HP' 
+		AND t2.model != 'Full Ear HP' 
+		AND t2.model != 'EXP CORE'
+		AND t2.model != 'EXP CORE+') 
 			  GROUP BY the_day, type
 			  ORDER BY the_day ASC";
 

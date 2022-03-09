@@ -150,14 +150,23 @@ try
 		LEFT JOIN monitors AS t4 ON t2.model = t4.name
 		WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
 		AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
-		AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO')  
+		AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'Musicians Plugs' 
+		AND t2.model != 'AHP' 
+		AND t2.model != 'SHP' 
+		AND t2.model != 'EXP PRO' 
+		AND t2.model != 'Security Ears' 
+		AND t2.model != 'Silicone Protection' 
+		AND t2.model != 'Canal Fit HP' 
+		AND t2.model != 'Acrylic HP' 
+		AND t2.model != 'Full Ear HP' 
+		AND t2.model != 'EXP CORE'
+		AND t2.model != 'EXP CORE+'  )  
 		$conditionSql";
     //WHERE active = TRUE AND pass_or_fail = 'PASS' $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );
     $response['TotalRecords'] = $row[0];
 
-   
 	
 	//$params[":session_userid"]=$_SESSION['UserId'];
     //Get One Page Records
@@ -183,7 +192,18 @@ LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
 WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
 AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
-AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO') 
+AND (t2.model IS NOT NULL AND t2.model != 'MP' 
+AND t2.model != 'AHP' 
+AND t2.model != 'SHP' 
+AND t2.model != 'EXP PRO'
+AND t2.model != 'Security Ears' 
+AND t2.model != 'Musicians Plugs' 
+		AND t2.model != 'Silicone Protection' 
+		AND t2.model != 'Canal Fit HP' 
+		AND t2.model != 'Acrylic HP' 
+		AND t2.model != 'Full Ear HP' 
+		AND t2.model != 'EXP CORE'
+		AND t2.model != 'EXP CORE+') 
 $conditionSql 
 ORDER BY date_done ASC,  t1.import_orders_id ";//$pagingSql
 //AND t1.date >= '08/01/2018' AND t1.date <= '08/28/2018'

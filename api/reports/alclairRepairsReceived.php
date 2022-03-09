@@ -94,11 +94,11 @@ $query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char
 			$count_for_table[$j-1] = 0;
 		}
 	}
-	*/
+
 	$response["test"] = $count_for_table;
 	echo json_encode($response);
     exit;
-	
+	*/
 	for($j=0; $j<count($num_of_impressions_in_day); $j++) {   
 
 	}

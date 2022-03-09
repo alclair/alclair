@@ -164,7 +164,7 @@ if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
 } elseif (stristr($result[0]['model'], "Sec") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FFFF00"; // PINK FOR HEARING PROTECTION
-} elseif ( (stristr($result[0]['model'], "MP") || stristr($result[0]['model'], "Musician")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif ( (stristr($result[0]['model'], "MP") || stristr($result[0]['model'], "Musician") || stristr($result[0]['model'], "Canal") ) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FF69B4"; // POR Musicians Plugs
 } else {
 		$border_color = "#3F704D"; // GREEN FOR CUSTOMS

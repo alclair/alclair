@@ -269,6 +269,25 @@ if ($result[0]["pickup"] == TRUE) {
 	$column_pickup = '';
 }
 
+if(stristr($result[0]['model'], "Full")) {
+	$column_musicians_plugs = "Full Ear HP";
+	if($result[0]["full_ear_silicone_earplugs_no_filter"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " No Filter";	
+	}
+	if($result[0]["full_ear_silicone_earplugs_switched_9db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " Switched 9dB";	
+	}
+	if($result[0]["full_ear_silicone_earplugs_switched_12db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " Switched 12dB";	
+	}
+	if($result[0]["full_ear_silicone_earplugs_9db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 9dB";	
+	}
+	if($result[0]["full_ear_silicone_earplugs_12db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 12dB";	
+	}
+}
+
     if(count($result) > 0)
     {
         $html = "";

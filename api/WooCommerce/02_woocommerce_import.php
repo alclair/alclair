@@ -41,7 +41,7 @@ try
 				$mail3->AddReplyTo("tyler@alclair.com", "The Admin");
    
 				$mail3->AddAddress("tyler@alclair.com");
-				$mail3->AddAddress("scott@alclair.com");
+				//$mail3->AddAddress("scott@alclair.com");
 
 				$mail3->Subject    = "Orders Imported";
 				$body3="<p>Here are the orders that were imported today from yesterday.</p>";

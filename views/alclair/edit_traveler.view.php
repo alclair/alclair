@@ -248,10 +248,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_25db" ng-true-value="1" ng-false-value="0"> &nbsp; 
 				<span  ng-if="traveler.musicians_plugs">25 dB</span>
 			</span>
-
-				<select ng-if="is_HP_outdoor == true && traveler.monitor_id == 19" class='form-control' ng-model='traveler.full_ear_filter' ng-options="filter.value as filter.label for filter in FullEarFilterList" style="height:40px"><option value="" disabled selected>Pick a Filter</option>
+				<!-- is_HP_outdoor == true &&  -->
+				<select ng-if="traveler.monitor_id == 19" class='form-control' ng-model='traveler.full_ear_filter' ng-options="filter.value as filter.label for filter in FullEarFilterList" style="height:40px"><option value="" disabled selected>Pick a Filter</option>
 				</select>
-				<select ng-if="is_HP_outdoor == true && traveler.monitor_id == 17" class='form-control' ng-model='traveler.canal_fit_filter' ng-options="filter.value as filter.label for filter in CanalFitFilterList" style="height:40px"><option value="" disabled selected>Pick a Filter</option>
+				
+				<select ng-if="traveler.monitor_id == 17" class='form-control' ng-model='traveler.canal_fit_filter' ng-options="filter.value as filter.label for filter in CanalFitFilterList" style="height:40px"><option value="" disabled selected>Pick a Filter</option>
 				</select>
 				<br />
 

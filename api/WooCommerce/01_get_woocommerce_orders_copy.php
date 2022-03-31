@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-03-15T23:59:59',
-			'after' => '2022-03-15T00:00:00',
+			'before' => '2022-03-30T23:59:59',
+			'after' => '2022-03-30T00:00:00',
 			'per_page' => 100
         ];
 
@@ -137,14 +137,16 @@ $params = [
     for($i = 0; $i < count($result); $i++) {
     		//$holder = json_decode(json_encode($result[$ind]), true);    
 		$data = get_object_vars($result[$i]);  // STORE THE DATA
+		
 // BELOW HERE
 /*
+	echo "Count is " . $data["id"] . " </br>";
 	// THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '12099441') ) {
-	//echo "DO NOTHING " . $data["id"] . " </br>";
-	//$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
-	//echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
+if(!stristr($data["id"], '12100705') ) {
+	echo "DO NOTHING " . $data["id"] . " </br>";
+	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
+	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
 	//exit;
 } else {
 	echo "IN HERE " . $data["id"] . " </br>";
@@ -178,10 +180,10 @@ if(!stristr($data["id"], '12099441') ) {
 
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear Silicone Earplugs")  || stristr($full_product_name, "Canal")) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear ")  || stristr($full_product_name, "Canal")) { 
 			
 
-			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed")  || stristr($data["status"], "hold") ) {
+			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed")   ) {  //|| stristr($data["status"], "hold")
 				
 				//$order[$ind]["num_earphones_per_order"] = 0;
 				//$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
@@ -265,8 +267,6 @@ if(!stristr($data["id"], '12099441') ) {
 					
 				}
 
-				
-				
 				if(stristr($full_product_name, "Custom Earplugs") ) {
 					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
 					// USE THIS ORDER FOR HELP IN DETERMINING HOW TO GET THE FILTERS OTIS NEEDS
@@ -318,7 +318,8 @@ if(!stristr($data["id"], '12099441') ) {
 									
 				}
 				
-				if(stristr($full_product_name, "Full Ear Silicone Earplugs") ) {
+				if(stristr($full_product_name, "Full Ear") ) {
+					//echo "Order ID is FULL  " . $data["id"] . " </br>";
 					// ORDER # 10585695 IS AN EXAMPLE OF A MUSICIAN'S PLUGS ORDER (25 dB FILTER)
 					// USE THIS ORDER FOR HELP IN DETERMINING HOW TO GET THE FILTERS OTIS NEEDS
 					$order[$ind]['use_for_estimated_ship_date'] = NULL;
@@ -327,7 +328,6 @@ if(!stristr($data["id"], '12099441') ) {
 					//$order[$ind]["musicians_plugs"] = TRUE;
 					$order[$ind]["model"] = "Full Ear HP";
 					
-
 					$filters = $line_item[meta_data][1]->value;
 					$order[$ind]["left_shell"]  = $line_item[meta_data][0]->value;
 					$order[$ind]["right_shell"]  = $line_item[meta_data][0]->value;
@@ -347,6 +347,8 @@ if(!stristr($data["id"], '12099441') ) {
 						$order[$ind]["full_ear_silicone_earplugs_12db"] = TRUE;
 					}				
 									
+				} else {
+					//echo "Order ID is " . $data["id"] . " </br>";
 				}
 				
 				if(stristr($full_product_name, "Canal Fit Earplugs") ) {
@@ -737,7 +739,7 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
-if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($full_product_name, "Full Ear") || stristr($full_product_name, "Canal") ) { 
+if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($order[$k]["product"], "Full Ear") || stristr($order[$k]["product"], "Canal") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
 			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
 			//exit;

@@ -103,7 +103,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
     $scope.ArtworkTypeList = AppDataService.ArtworkTypeList;
     $scope.HEARING_PROTECTION_COLORS = AppDataService.HEARING_PROTECTION_COLORS;
     $scope.FullEarFilterList = AppDataService.FullEarFilterList;
-     $scope.CanalFitFilterList = AppDataService.CanalFitFilterList;
+    $scope.CanalFitFilterList = AppDataService.CanalFitFilterList;
         
     $scope.Print_Traveler = function (id_to_print) {		
 		if (!$scope.traveler.impression_color_id ) {

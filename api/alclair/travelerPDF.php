@@ -288,6 +288,20 @@ if(stristr($result[0]['model'], "Full")) {
 	}
 }
 
+if(stristr($result[0]['model'], "Canal")) {
+	$column_musicians_plugs = "Canal Fit HP";
+	if($result[0]["canal_fit_earplugs_no_filter"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " No Filter";	
+	}
+		if($result[0]["canal_fit_earplugs_9db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 9dB Impact";	
+	}
+	if($result[0]["canal_fit_earplugs_12db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 12dB Impact";	
+	}
+}
+
+
     if(count($result) > 0)
     {
         $html = "";

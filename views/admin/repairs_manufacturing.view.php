@@ -123,10 +123,18 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;">Designed For</th>
-					<th style="text-align:center;">RMA #</th>
-					<th style="text-align:center;">Done Date</th>
-					<th style="text-align:center;">Repair Received</th>
+					<th style="text-align:center;"><span ng-click="test_this('Designed For')" style="cursor: pointer"> Designed For </span></th>
+					<th style="text-align:center;"><span ng-click="test_this('RMA #')" style="cursor: pointer"> RMA # </span></th>
+					<th style="text-align:center;"><span ng-click="test_this('Model')" style="cursor: pointer"> Model </span></th>
+					
+					<th style="text-align:center;"><span ng-click="test_this('# of RMAs')" style="cursor: pointer"> # of RMAs </span></th>
+					<th style="text-align:center;"><span ng-click="test_this('Impressions Detailed')" style="cursor: pointer"> Impressions Detailed </span></th>
+					<th style="text-align:center;"><span ng-click="test_this('Manufactured Date')" style="cursor: pointer"> Manufactured Date </span></th>
+					
+					<th style="text-align:center;"><span ng-click="test_this('Repair Received')" style="cursor: pointer"> Repair Received </span></th>
+					<th style="text-align:center;"><span ng-click="test_this('Repair Shipped')" style="cursor: pointer"> Repair Shipped </span></th>
+					
+					
 					
 					<th style="text-align:center; width: 5%">Sound</th>
 					<th style="text-align:center; width: 5%"> Fit </th>
@@ -137,8 +145,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<tr ng-repeat='order in OrdersList'>
 					<td style="text-align:center;" data-title="Designed For"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_traveler/{{order.id_of_order}}">{{order.customer_name}}</a></td>
 					<td style="text-align:center;" data-title="RMA #"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form/{{order.id_of_repair}}">{{order.rma_number}}</a></td>
+					
+					<td  style="text-align:center;" data-title="Model">{{order.model_name}}</td>					
+					
+					<td  style="text-align:center;" data-title="# of RMAs">{{order.num_of_repairs_from_order_id}}</td>
+					<td  style="text-align:center;" data-title="Impressions Detailed">{{order.order_detailed}}</td>
 					<td  style="text-align:center;" data-title="Done Date">{{order.date_done}}</td>					
+					
 					<td  style="text-align:center;" data-title="Repair Received">{{order.rma_received}}</td>
+					<td  style="text-align:center;" data-title="Repair Shipped">{{order.rma_shipped}}</td>
+					
 					
 					<td  class="bg-danger" ng-if="order.sound!='X'" style="text-align:center;" data-title="Sound">{{order.sound}}</td>
 					<td  class="bg-success" ng-if="order.sound=='X'" style="text-align:center;" data-title="Sound">{{order.sound}}</td>

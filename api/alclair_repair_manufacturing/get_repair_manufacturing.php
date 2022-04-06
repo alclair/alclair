@@ -16,6 +16,7 @@ try
     $pagingSql = "";
     $orderBySqlDirection = "ASC";
     $orderBySql = " ORDER BY t1.received_date $orderBySqlDirection";
+        
     $params = array();
 
     if( !empty($_REQUEST['id']) )
@@ -85,10 +86,27 @@ try
     $result_2 = pdo_fetch_all( $stmt_2 );
     $response['TotalRecords2'] = count($result_2);
     
-    $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done FROM repair_form AS t1 
+    $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done, t2.model AS model_name
+    						FROM repair_form AS t1
 							LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 							LEFT JOIN order_status_log AS t3 ON t2.id = t3.import_orders_id
-							WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12 $conditionSql $orderBySql $pagingSql";
+							
+							WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12 
+								AND t2.active = TRUE 
+								AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+								AND (t2.model IS NOT NULL AND t2.model != 'MP' 
+								AND t2.model != 'AHP' 
+								AND t2.model != 'SHP' 
+								AND t2.model != 'EXP PRO'
+								AND t2.model != 'Security Ears' 
+								AND t2.model != 'Musicians Plugs' 
+								AND t2.model != 'Silicone Protection' 
+								AND t2.model != 'Canal Fit HP' 
+								AND t2.model != 'Acrylic HP' 
+								AND t2.model != 'Full Ear HP' 
+								AND t2.model != 'EXP CORE'
+								AND t2.model != 'EXP CORE+')
+								$conditionSql $orderBySql";
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    
     $stmt = pdo_query( $pdo, $query, $params); 
@@ -97,6 +115,52 @@ try
     $response['TotalRecords'] = $rows_in_result;
     
     $final_result = $result;
+    
+    // FOR LOOP TO DETERMINE IF/WHEN THE REPAIR SHIPPED - 04/06/2022
+    for ($i = 0; $i < $rows_in_result; $i++) {
+		$query2 = "SELECT *, to_char(date, 'MM/dd/yyyy') AS rma_shipped
+							FROM repair_status_log 
+							WHERE repair_form_id = :id_of_rma AND repair_status_id = 14";
+		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_rma"=>$result[$i]['id_of_repair']));
+		$returned = pdo_fetch_all( $stmt2 );
+		$rows = pdo_rows_affected($stmt2);
+		if($rows) {
+			$final_result[$i]["rma_shipped"] = $returned[0]["rma_shipped"];
+		} else{
+			$final_result[$i]["rma_shipped"] = "Not Shipped";
+		}
+	}
+   
+    // FOR LOOP TO DETERMINE WHEN THE IMPRESSIONS WERE DETAILED - 04/06/2022
+    for ($i = 0; $i < $rows_in_result; $i++) {
+		$query2 = "SELECT *, to_char(date, 'MM/dd/yyyy') AS order_detailed
+							FROM order_status_log 
+							WHERE import_orders_id = :id_of_order 
+							AND (order_status_id = 2 OR order_status_id = 15) 
+							ORDER BY date DESC LIMIT 1";
+		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_order"=>$result[$i]['id_of_order']));
+		$returned = pdo_fetch_all( $stmt2 );
+		$rows = pdo_rows_affected($stmt2);
+		if($rows) {
+			$final_result[$i]["order_detailed"] = $returned[0]["order_detailed"];
+		} else{
+			$final_result[$i]["order_detailed"] = "No Date Found";
+		}
+	} 
+	// FOR LOOP TO DETERMINE NUMBER OF TIMES THE ORDER HAS BEEN TRHOUGH THE RMA PROCESS - 04/06/2022
+    for ($i = 0; $i < $rows_in_result; $i++) {
+		$query2 = "SELECT COUNT(id) AS num_of_repairs_from_order_id 
+							FROM repair_form
+							WHERE import_orders_id = :id_of_order AND active = TRUE";
+		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_order"=>$result[$i]['id_of_order']));
+		$returned = pdo_fetch_all( $stmt2 );
+		$rows = pdo_rows_affected($stmt2);
+		if($rows) {
+			$final_result[$i]["num_of_repairs_from_order_id"] = $returned[0]["num_of_repairs_from_order_id"];
+		} else{
+			$final_result[$i]["num_of_repairs_from_order_id"] = "Weird Answer";
+		}
+	} 
     
     $sound = 0;
 	$fit = 0;
@@ -155,6 +219,32 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
     $response['code'] = 'success';
     $response["message"] = $query;
     $response['data'] = $final_result;
+    
+    
+    $response['test'] = "Start is " . $_REQUEST['To_Sort_By'];
+	//echo json_encode($response);
+	//exit;
+
+    if(!strcmp($_REQUEST['To_Sort_By'], "Designed For")) {
+	    array_multisort(array_column($final_result, 'customer_name'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "RMA #")) {
+		array_multisort(array_column($final_result, 'id_of_repair'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Model")) {
+		array_multisort(array_column($final_result, 'model_name'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "# of RMAs")) {
+		array_multisort(array_column($final_result, 'num_of_repairs_from_order_id'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Impressions Detailed")) {
+		array_multisort(array_column($final_result, 'order_detailed'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Manufactured Date")) {
+		array_multisort(array_column($final_result, 'date_done'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Repair Received")) {
+		array_multisort(array_column($final_result, 'rma_received'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Repair Shipped")) {
+		array_multisort(array_column($final_result, 'rma_shipped'), SORT_ASC, $final_result);
+    } else {
+	    array_multisort(array_column($final_result, 'id_of_repair'), SORT_ASC, $final_result);
+    }
+ $response['data'] = $final_result;
     //$response['test'] = $rows_in_result; 
     //$response['test'] = $query; 
     $response['data2'] = $result2;

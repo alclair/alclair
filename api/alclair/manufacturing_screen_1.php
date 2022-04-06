@@ -68,15 +68,28 @@ try
     $current_month = date("m");
     $last_year = $current_year - 1;
     $january_current_year = '01/01/' . $current_year;
-    $december_current_year = '12/31/' . $current_year;
+    $december_current_year = '12/31/' . $current_year . ' 23:59:59';
     
 	// SHIPPED LAST YEAR
 	$january_last_year = '01/01/' . $last_year;
-    $december_last_year = '12/31/' . $last_year;
+    $december_last_year = '12/31/' . $last_year . ' 23:59:59';
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t1.date > '$january_last_year' AND t1.date < '$december_last_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t1.date > '$january_last_year' AND t1.date < '$december_last_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
+						AND (t2.model IS NOT NULL 
+						AND t2.model != 'MP' 
+						AND t2.model != 'AHP' 
+						AND t2.model != 'SHP' 
+						AND t2.model != 'EXP PRO'
+						AND t2.model != 'Security Ears' 
+						AND t2.model != 'Musicians Plugs' 
+						AND t2.model != 'Silicone Protection' 
+						AND t2.model != 'Canal Fit HP' 
+						AND t2.model != 'Acrylic HP' 
+						AND t2.model != 'Full Ear HP' 
+						AND t2.model != 'EXP CORE'
+						AND t2.model != 'EXP CORE+')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -84,11 +97,25 @@ try
     
     // SHIPPED LAST YEAR THIS MONTH
     $beginning_of_month_last_year = $current_month . '/01/' . $last_year;
-    $end_of_month_last_year = $current_month . '/31/' . $last_year;
+	$end_of_month_last_year = $current_month . '/31/' . $last_year . '23:59:59';
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM')  =  '$current_month' AND to_char(t1.date, 'YYYY') = '$last_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')  AND t2.use_for_estimated_ship_date = TRUE";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND to_char(t1.date, 'MM')  =  '$current_month' AND to_char(t1.date, 'YYYY') = '$last_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')  
+						AND t2.use_for_estimated_ship_date = TRUE
+						AND (t2.model IS NOT NULL 
+						AND t2.model != 'MP' 
+						AND t2.model != 'AHP' 
+						AND t2.model != 'SHP' 
+						AND t2.model != 'EXP PRO'
+						AND t2.model != 'Security Ears' 
+						AND t2.model != 'Musicians Plugs' 
+						AND t2.model != 'Silicone Protection' 
+						AND t2.model != 'Canal Fit HP' 
+						AND t2.model != 'Acrylic HP' 
+						AND t2.model != 'Full Ear HP' 
+						AND t2.model != 'EXP CORE'
+						AND t2.model != 'EXP CORE+')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -97,12 +124,34 @@ try
     
     // SHIPPED THIS YEAR
 	$january_current_year = '01/01/' . $current_year;
-    $december_current_year = '12/31/' . $current_year;
+    $december_current_year = '12/31/' . $current_year . ' 23:59:59';
+    /*
     $query2 = "SELECT count(t1.id) FROM order_status_log AS t1
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 						LEFT JOIN monitors AS t4 ON t2.model = t4.name
 						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND t1.date > '$january_current_year' AND t1.date < '$december_current_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date = TRUE";
+	*/
+	$query2 = "SELECT count(t1.id) FROM order_status_log AS t1
+    					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+						LEFT JOIN monitors AS t4 ON t2.model = t4.name
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
+						AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
+						AND t1.date > '$january_current_year' AND t1.date < '$december_current_year' 
+						AND (t2.model IS NOT NULL 
+						AND t2.model != 'MP' 
+						AND t2.model != 'AHP' 
+						AND t2.model != 'SHP' 
+						AND t2.model != 'EXP PRO'
+						AND t2.model != 'Security Ears' 
+						AND t2.model != 'Musicians Plugs' 
+						AND t2.model != 'Silicone Protection' 
+						AND t2.model != 'Canal Fit HP' 
+						AND t2.model != 'Acrylic HP' 
+						AND t2.model != 'Full Ear HP' 
+						AND t2.model != 'EXP CORE'
+						AND t2.model != 'EXP CORE+')";					
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -116,7 +165,22 @@ try
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 						LEFT JOIN monitors AS t4 ON t2.model = t4.name
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND to_char(t1.date, 'MM') = '$current_month' AND to_char(t1.date, 'YYYY') =  '$current_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')";
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
+						AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
+						AND to_char(t1.date, 'MM') = '$current_month' AND to_char(t1.date, 'YYYY') =  '$current_year' 
+						AND (t2.model IS NOT NULL 
+						AND t2.model != 'MP' 
+						AND t2.model != 'AHP' 
+						AND t2.model != 'SHP' 
+						AND t2.model != 'EXP PRO'
+						AND t2.model != 'Security Ears' 
+						AND t2.model != 'Musicians Plugs' 
+						AND t2.model != 'Silicone Protection' 
+						AND t2.model != 'Canal Fit HP' 
+						AND t2.model != 'Acrylic HP' 
+						AND t2.model != 'Full Ear HP' 
+						AND t2.model != 'EXP CORE'
+						AND t2.model != 'EXP CORE+')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -131,9 +195,23 @@ try
     					LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 						LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 						LEFT JOIN monitors AS t4 ON t2.model = t4.name
-						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year' AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')";
-
-
+						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
+						AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
+						AND to_char(t1.date, 'MM') = '$last_month' AND to_char(t1.date, 'YYYY') =  '$current_year' 
+						AND (t2.model IS NOT NULL 
+						AND t2.model != 'MP' 
+						AND t2.model != 'AHP' 
+						AND t2.model != 'SHP' 
+						AND t2.model != 'EXP PRO'
+						AND t2.model != 'Security Ears' 
+						AND t2.model != 'Musicians Plugs' 
+						AND t2.model != 'Silicone Protection' 
+						AND t2.model != 'Canal Fit HP' 
+						AND t2.model != 'Acrylic HP' 
+						AND t2.model != 'Full Ear HP' 
+						AND t2.model != 'EXP CORE'
+						AND t2.model != 'EXP CORE+')";
+						
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
     $response['Shipped_This_Year_Last_Month'] = $result2[0];
@@ -365,8 +443,21 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
-AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO')  
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND (t2.model IS NOT NULL 
+AND t2.model != 'MP' 
+AND t2.model != 'AHP' 
+AND t2.model != 'SHP' 
+AND t2.model != 'EXP PRO'
+AND t2.model != 'Security Ears' 
+AND t2.model != 'Musicians Plugs' 
+AND t2.model != 'Silicone Protection' 
+AND t2.model != 'Canal Fit HP' 
+AND t2.model != 'Acrylic HP' 
+AND t2.model != 'Full Ear HP' 
+AND t2.model != 'EXP CORE'
+AND t2.model != 'EXP CORE+')  
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
@@ -388,8 +479,21 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
-AND (t2.model IS NOT NULL AND t2.model != 'MP' AND t2.model != 'AHP' AND t2.model != 'SHP' AND t2.model != 'EXP PRO')  
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND (t2.model IS NOT NULL 
+AND t2.model != 'MP' 
+AND t2.model != 'AHP' 
+AND t2.model != 'SHP' 
+AND t2.model != 'EXP PRO'
+AND t2.model != 'Security Ears' 
+AND t2.model != 'Musicians Plugs' 
+AND t2.model != 'Silicone Protection' 
+AND t2.model != 'Canal Fit HP' 
+AND t2.model != 'Acrylic HP' 
+AND t2.model != 'Full Ear HP' 
+AND t2.model != 'EXP CORE'
+AND t2.model != 'EXP CORE+')
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );

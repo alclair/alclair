@@ -518,9 +518,10 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
     ];
     this.FAULT_TYPES = [
         { value: '0', label: 'Pick a classification' },
-        { value: 'Sound', label: 'Sound' },
+        { value: 'Sound', label: 'Function' },
         { value: 'Fit', label: 'Fit' },
-        { value: 'Design' , label: 'Design' },
+        { value: 'Design' , label: 'Aesthetics' },
+        { value: 'Customer' , label: 'Customer Created' },
     ];
     this.month_range = [
         { value: 30, label: '30 Days' },

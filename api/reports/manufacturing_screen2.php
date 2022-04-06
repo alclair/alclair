@@ -61,40 +61,7 @@ ORDER BY the_day ASC";
 	 $num_in_day = pdo_fetch_all( $stmt );
 	 */
 
-	$query = "SELECT to_char(received_date, 'dd') AS the_day, ( SELECT COUNT(to_char(received_date, 'dd') ) ) AS num_in_day, t2.type
-              FROM import_orders
-              LEFT JOIN status_type_orders AS t2 ON 1 = t2.id
-              WHERE to_char(received_date,'yyyy') = '$year' AND to_char(received_date,'MM') = '$month' 
-GROUP BY the_day, type
 
-
-    UNION ALL
-    SELECT to_char(date, 'dd') AS the_day, ( SELECT COUNT(to_char(date, 'dd') ) ) AS num_in_day, t2.type
-              FROM order_status_log
-              LEFT JOIN status_type_orders AS t2 ON 2 = t2.id
-              WHERE to_char(date,'yyyy') = '$year' AND to_char(date,'MM') = '$month'  AND order_status_id = 12
-GROUP BY the_day, type
-ORDER BY the_day ASC";
-
-// THIS PORTION IS NOT LIVE
-// GRABS 2018 AND 2019
-    $query = "SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'month') AS the_month_name, to_char(t1.date, 'yyyy') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
-FROM order_status_log AS t1
-LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-WHERE to_char(t1.date,'yyyy') = '2022' AND t1.order_status_id = 12 AND t2.active=TRUE
-GROUP BY the_month, the_year, the_month_name
-
-UNION ALL
-    
-SELECT to_char(t1.date, 'MM') AS the_month,  to_char(t1.date, 'month') AS the_month_name, to_char(t1.date, 'YYYY') AS the_year, ( SELECT COUNT(to_char(t1.date, 'MM') ) ) AS num_in_month
-FROM order_status_log AS t1
-LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-WHERE to_char(t1.date,'yyyy') = '2021' AND t1.order_status_id = 12 AND t2.active=TRUE
-GROUP BY the_month, the_year, the_month_name
-ORDER BY the_month, the_year ASC";
-    $stmt = pdo_query( $pdo, $query, $params ); 
-	 $num_in_day = pdo_fetch_all( $stmt );
-	
 
 // THIS PORTION IS LIVE - GRABS ONLY 2020
  $current_year = date("Y");
@@ -105,7 +72,23 @@ FROM order_status_log AS t1
 LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
-WHERE to_char(t1.date,'yyyy') = '$current_year' AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '') AND t2.use_for_estimated_ship_date = TRUE
+WHERE to_char(t1.date,'yyyy') = '$current_year' 
+AND t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND t2.use_for_estimated_ship_date = TRUE
+AND (t2.model IS NOT NULL 
+AND t2.model != 'MP' 
+AND t2.model != 'AHP' 
+AND t2.model != 'SHP' 
+AND t2.model != 'EXP PRO'
+AND t2.model != 'Security Ears' 
+AND t2.model != 'Musicians Plugs' 
+AND t2.model != 'Silicone Protection' 
+AND t2.model != 'Canal Fit HP' 
+AND t2.model != 'Acrylic HP' 
+AND t2.model != 'Full Ear HP' 
+AND t2.model != 'EXP CORE'
+AND t2.model != 'EXP CORE+')
 GROUP BY the_month, the_year, the_month_name";
 
     $stmt = pdo_query( $pdo, $query, $params ); 

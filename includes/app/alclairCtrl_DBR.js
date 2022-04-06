@@ -553,7 +553,11 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
         $scope.LoadData();
         $cookies.put("SearchText", "");
     }
-    $scope.LoadData = function () {
+    $scope.test_this = function (to_sort_by) {
+	    console.log("THIS IS WORKING")
+	    $scope.LoadData(to_sort_by)
+	}
+    $scope.LoadData = function (to_sort_by) {
         myblockui();
         //$cookies.put("SearchText", $scope.SearchText);
         //$cookies.put("SearchText", $scope.cust_name);
@@ -562,11 +566,12 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 		//$cookies.put("SearchEndDate",$scope.SearchEndDate);
 		
 		console.log("rush is " + $scope.order_status_id)
-        var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_repair_manufacturing.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range;
+		console.log("Sort By " + to_sort_by)
+        var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_repair_manufacturing.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range + "&To_Sort_By=" + to_sort_by;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            console.log("Testing is " + result.test)
+	            console.log("Test Is " + result.test)
 	            
 	            $scope.OrdersList = result.data;
                 

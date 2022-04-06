@@ -158,6 +158,7 @@
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_list" class="nav-link  ">Repair List</a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_pipeline_v2" class="nav-link "> Pipeline (2 Weeks)</a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repairs_done_by_date" class="nav-link "> Repairs Done By Date</a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/admin/repairs_manufacturing" class="nav-link "> Repairs From Manufacturing </a></li>
 						</ul>
 					</li>
 					<?php } ?> 
@@ -809,9 +810,9 @@ Pickup
                                     <a href="<?=$rootScope['RootUrl']?>/admin/daily_build_rate" class="nav-link "><i class="fa fa-calendar"></i> &nbsp Daily Build Rate </a>
                                 </li>
                           
-                           		<li class=" ">
+                           		<!--<li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/repairs_manufacturing" class="nav-link "><i class="fa fa-align-left"></i> &nbsp Repairs From Manufacturing </a>
-                                </li>
+                                </li>-->
                                 <li class=" ">
                                     <a href="<?=$rootScope['RootUrl']?>/admin/manufacturing_screen_2" class="nav-link "><i class="fa fa-line-chart"></i> &nbsp Manufacturing Screen </a>
                                 </li>

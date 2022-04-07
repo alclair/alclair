@@ -86,10 +86,11 @@ try
     $result_2 = pdo_fetch_all( $stmt_2 );
     $response['TotalRecords2'] = count($result_2);
     
-    $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done, t2.model AS model_name
+    $query = "SELECT t1.id AS id_of_repair, t1.customer_name, t1.rma_number, to_char(t1.received_date, 'MM/dd/yyyy') AS rma_received, t2.designed_for, t2.id AS id_of_order, t3.order_status_id, to_char(t3.date, 'MM/dd/yyyy') AS date_done, t2.model AS model_name, t4.color AS impression_color
     						FROM repair_form AS t1
 							LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 							LEFT JOIN order_status_log AS t3 ON t2.id = t3.import_orders_id
+							LEFT JOIN impression_colors AS t4 ON t2.impression_color_id = t4.id
 							
 							WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12 
 								AND t2.active = TRUE 
@@ -166,7 +167,7 @@ try
 	$fit = 0;
 	$design = 0;
    for ($i = 0; $i < $rows_in_result; $i++) {
-		$query2 = "SELECT * FROM rma_faults_log WHERE id_of_rma = :id_of_rma";
+		$query2 = "SELECT * FROM rma_faults_log WHERE id_of_rma = :id_of_rma AND active = TRUE";
 		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_rma"=>$result[$i]['id_of_repair']));
 		$faults = pdo_fetch_all( $stmt2 );
 		$rows = pdo_rows_affected($stmt2);
@@ -233,6 +234,8 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
 		array_multisort(array_column($final_result, 'model_name'), SORT_ASC, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "# of RMAs")) {
 		array_multisort(array_column($final_result, 'num_of_repairs_from_order_id'), SORT_ASC, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Impression Color")) {
+		array_multisort(array_column($final_result, 'impression_color'), SORT_ASC, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Impressions Detailed")) {
 		array_multisort(array_column($final_result, 'order_detailed'), SORT_ASC, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Manufactured Date")) {
@@ -251,7 +254,7 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
     $response["TotalSound"] = $sound;
     $response["TotalFit"] = $fit;
     $response["TotalDesign"] = $design;
-     $response["OrdersWithFit"] = $fit2;
+    $response["OrdersWithFit"] = $fit2;
 
         
 	echo json_encode($response);

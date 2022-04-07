@@ -24,7 +24,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				<b ng-click="fit_modal()" style="font-size:20px;cursor: pointer"> </a> Fit Issues: {{TotalFit}}</b>&nbsp;&nbsp;
 			</div>
             <div class="col-md-3">
-	            <b ng-click="design_modal()" style="font-size:20px;cursor: pointer"> </a> Design Issues: {{TotalDesign}}</b>&nbsp;&nbsp;
+	            <b ng-click="design_modal()" style="font-size:20px;cursor: pointer"> </a> Aesthetics Issues: {{TotalDesign}}</b>&nbsp;&nbsp; <!-- Design -->
                 <!--
                 <input type="checkbox" ng-model="rush_or_not" ng-true-value="1" ng-false-value="0" style="margin-top:16px"> &nbsp; <b style="font-size:14px;color:gray">RUSH ORDERS ONLY</b><br />
                 -->
@@ -128,6 +128,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;"><span ng-click="test_this('Model')" style="cursor: pointer"> Model </span></th>
 					
 					<th style="text-align:center;"><span ng-click="test_this('# of RMAs')" style="cursor: pointer"> # of RMAs </span></th>
+					<th style="text-align:center;"><span ng-click="test_this('Impression Color')" style="cursor: pointer"> Impression Color </span></th>
 					<th style="text-align:center;"><span ng-click="test_this('Impressions Detailed')" style="cursor: pointer"> Impressions Detailed </span></th>
 					<th style="text-align:center;"><span ng-click="test_this('Manufactured Date')" style="cursor: pointer"> Manufactured Date </span></th>
 					
@@ -136,9 +137,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					
 					
 					
-					<th style="text-align:center; width: 5%">Sound</th>
+					<th style="text-align:center; width: 5%"> Function</th> <!-- Sound -->
 					<th style="text-align:center; width: 5%"> Fit </th>
-					<th style="text-align:center; width: 5%">Design</th>
+					<th style="text-align:center; width: 5%"> Aesthetics</th> <!-- Design -->
 				</tr>
 			</thead>	
 			<tbody>
@@ -149,6 +150,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  style="text-align:center;" data-title="Model">{{order.model_name}}</td>					
 					
 					<td  style="text-align:center;" data-title="# of RMAs">{{order.num_of_repairs_from_order_id}}</td>
+					<td  style="text-align:center;" data-title="Impression Color">{{order.impression_color}}</td>
 					<td  style="text-align:center;" data-title="Impressions Detailed">{{order.order_detailed}}</td>
 					<td  style="text-align:center;" data-title="Done Date">{{order.date_done}}</td>					
 					
@@ -212,7 +214,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Sound Faults</h4>
+                        <h4 class="modal-title">Function Faults</h4> <!-- Sound -->
                     </div>
                     <div class="modal-body" style="margin-left:80px">
 	                    <b style="font-size:20px"> </a> No Signal: <span style = "color:red"> {{one}} </span> </b>&nbsp;&nbsp;<br/>
@@ -245,17 +247,20 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                    <b style="font-size:20px"> </a> Helix pain: <span style = "color:red"> {{five}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{six}}   </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Wrong Impressions: <span style = "color:red"> {{seven}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal tip pain: <span style = "color:red"> {{eight}}  </span></b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Reshell W/ New Impression(s): <span style = "color:red"> {{fifteen}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Shells Too Short: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Monitor Does Not Fit: <span style = "color:red"> {{seventeen}}   </span> </b>&nbsp;&nbsp;<br/>
 	                    
-	                    <b style="font-size:20px"> </a> Canal tip pain: <span style = "color:red"> {{eight}}  </span></b>&nbsp;&nbsp;<br/>
+	                    <!-- <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>-->
+	                     <!--
 	                    <b style="font-size:20px"> </a> No seal on left: <span style = "color:red"> {{nine}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on right: <span style = "color:red"> {{ten}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on both: <span style = "color:red"> {{eleven}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Re-shell left: <span style = "color:red"> {{twelve}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Re-shell right: <span style = "color:red"> {{thirteen}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Re-shell both: <span style = "color:red"> {{fourteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    -->
                 	</div>
                 </div>
 			</form>

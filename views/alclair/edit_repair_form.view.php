@@ -34,7 +34,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 									<label><input type="checkbox" ng-model="repair_form.repaired_shell" ng-true-value="1" ng-false-value="0">&emsp; REPAIRED SHELL</label><br/>&nbsp;
 									
 									<label><input type="checkbox" ng-model="repair_form.repaired_faceplate_left" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&emsp;</label>
-									<label><input type="checkbox" ng-model="repair_form.repaired_faceplate" ng-true-value="1" ng-false-value="0">&emsp;REPAIRED FACEPLATE</label><br/>&nbsp;
+									<label><input type="checkbox" ng-model="repair_form.repaired_faceplate" ng-true-value="1" ng-false-value="0">&emsp; REPAIRED FACEPLATE</label><br/>&nbsp;
 									
 									<label><input type="checkbox" ng-model="repair_form.repaired_jacks_left" ng-true-value="1" ng-false-value="0">&nbsp;&nbsp;&emsp;</label>
 									<label><input type="checkbox" ng-model="repair_form.repaired_jacks" ng-true-value="1" ng-false-value="0"> &emsp;REPAIRED JACKS</label><br/>&nbsp;

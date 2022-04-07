@@ -243,31 +243,35 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
     $response["message"] = $query;
     $response['data'] = $final_result;
     
-    
-    $response['test'] = "Start is " . $_REQUEST['To_Sort_By'];
+    	
+	if($_REQUEST['asc_or_desc'] == 0) {
+		$asc_or_desc = constant('SORT_ASC');
+	} else {
+		$asc_or_desc = constant('SORT_DESC');
+	}
+	$response['test'] = "1st is " . $_REQUEST['asc_or_desc'] . " and 2nd is " . $asc_or_desc;
 	//echo json_encode($response);
 	//exit;
-
     if(!strcmp($_REQUEST['To_Sort_By'], "Designed For")) {
-	    array_multisort(array_column($final_result, 'customer_name'), SORT_ASC, $final_result);
+	    array_multisort(array_column($final_result, 'customer_name'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "RMA #")) {
-		array_multisort(array_column($final_result, 'id_of_repair'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'id_of_repair'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Model")) {
-		array_multisort(array_column($final_result, 'model_name'), SORT_ASC, $final_result);
-	} elseif(!strcmp($_REQUEST['To_Sort_By'], "# of RMAs")) {
-		array_multisort(array_column($final_result, 'num_of_repairs_from_order_id'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'model_name'), $asc_or_desc, $final_result);
+	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Number of RMAs")) {
+		array_multisort(array_column($final_result, 'num_of_repairs_from_order_id'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Impression Color")) {
-		array_multisort(array_column($final_result, 'impression_color'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'impression_color'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Impressions Detailed")) {
-		array_multisort(array_column($final_result, 'order_detailed'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'order_detailed'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Manufactured Date")) {
-		array_multisort(array_column($final_result, 'date_done'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'date_done'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Repair Received")) {
-		array_multisort(array_column($final_result, 'rma_received'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'rma_received'), $asc_or_desc, $final_result);
 	} elseif(!strcmp($_REQUEST['To_Sort_By'], "Repair Shipped")) {
-		array_multisort(array_column($final_result, 'rma_shipped'), SORT_ASC, $final_result);
+		array_multisort(array_column($final_result, 'rma_shipped'), $asc_or_desc, $final_result);
     } else {
-	    array_multisort(array_column($final_result, 'id_of_repair'), SORT_ASC, $final_result);
+	    array_multisort(array_column($final_result, 'id_of_repair'), $asc_or_desc, $final_result);
     }
  $response['data'] = $final_result;
     //$response['test'] = $rows_in_result; 

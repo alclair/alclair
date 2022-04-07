@@ -421,6 +421,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
     $scope.SearchText = "";
 	$scope.printed_or_not = '0';
 	$scope.month_range = 30;
+	$scope.ascending_or_descending = 1;
 
 		
     $scope.reload_page = function () {
@@ -553,11 +554,17 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
         $scope.LoadData();
         $cookies.put("SearchText", "");
     }
-    $scope.test_this = function (to_sort_by) {
+    $scope.sort_me = function (to_sort_by) {
 	    console.log("THIS IS WORKING")
-	    $scope.LoadData(to_sort_by)
+	    if($scope.ascending_or_descending == 0) {
+		    $scope.ascending_or_descending = 1;
+	    } else {
+		    $scope.ascending_or_descending = 0;
+	    }
+	    console.log("Asc or Desc is " + $scope.ascending_or_descending)
+	    $scope.LoadData(to_sort_by, $scope.ascending_or_descending)
 	}
-    $scope.LoadData = function (to_sort_by) {
+    $scope.LoadData = function (to_sort_by, asc_or_desc) {
         myblockui();
         //$cookies.put("SearchText", $scope.SearchText);
         //$cookies.put("SearchText", $scope.cust_name);
@@ -567,7 +574,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 		
 		console.log("rush is " + $scope.order_status_id)
 		console.log("Sort By " + to_sort_by)
-        var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_repair_manufacturing.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range + "&To_Sort_By=" + to_sort_by;
+        var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_repair_manufacturing.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range + "&To_Sort_By=" + to_sort_by + "&asc_or_desc=" + asc_or_desc;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {

@@ -81,7 +81,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</select>-->
             </div>
              <div class="form-group col-sm-7">       
-				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}} -> {{percentFitIssues}}% have fit issues!</b>&nbsp;&nbsp;
+				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}} &#8594; {{percentFitIssues}}% have fit issues!</b>&nbsp;&nbsp;
             </div>
 			<!--
 			<div class="form-group col-sm-2">
@@ -123,17 +123,17 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;"><span ng-click="test_this('Designed For')" style="cursor: pointer"> Designed For </span></th>
-					<th style="text-align:center;"><span ng-click="test_this('RMA #')" style="cursor: pointer"> RMA # </span></th>
-					<th style="text-align:center;"><span ng-click="test_this('Model')" style="cursor: pointer"> Model </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Designed For')" style="cursor: pointer"> Designed For </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('RMA #')" style="cursor: pointer"> RMA # </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Model')" style="cursor: pointer"> Model </span></th>
 					
-					<th style="text-align:center;"><span ng-click="test_this('# of RMAs')" style="cursor: pointer"> # of RMAs </span></th>
-					<th style="text-align:center;"><span ng-click="test_this('Impression Color')" style="cursor: pointer"> Impression Color </span></th>
-					<th style="text-align:center;"><span ng-click="test_this('Impressions Detailed')" style="cursor: pointer"> Impressions Detailed </span></th>
-					<th style="text-align:center;"><span ng-click="test_this('Manufactured Date')" style="cursor: pointer"> Manufactured Date </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Number of RMAs')" style="cursor: pointer"> # of RMAs </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Impression Color')" style="cursor: pointer"> Impression Color </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Impressions Detailed')" style="cursor: pointer"> Impressions Detailed </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Manufactured Date')" style="cursor: pointer"> Manufactured Date </span></th>
 					
-					<th style="text-align:center;"><span ng-click="test_this('Repair Received')" style="cursor: pointer"> Repair Received </span></th>
-					<th style="text-align:center;"><span ng-click="test_this('Repair Shipped')" style="cursor: pointer"> Repair Shipped </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Repair Received')" style="cursor: pointer"> Repair Received </span></th>
+					<th style="text-align:center;"><span ng-click="sort_me('Repair Shipped')" style="cursor: pointer"> Repair Shipped </span></th>
 					
 					
 					

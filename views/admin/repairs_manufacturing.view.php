@@ -15,7 +15,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
             </div>
             <div class="form-group col-sm-3">
 	            
-	            <b ng-click="sound_modal()" style="font-size:20px;cursor: pointer"> </a> Sound Issues: {{TotalSound}}  </b>&nbsp;&nbsp;
+	            <b ng-click="sound_modal()" style="font-size:20px;cursor: pointer"> </a> Function Issues: {{TotalSound}}  </b>&nbsp;&nbsp;
 				<!--
 				<input type="text" id="barcode_orders" ng-model="qrcode.barcode" placeholder="Barcode"  class="form-control" autofocus="autofocus">
 				-->
@@ -81,7 +81,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</select>-->
             </div>
              <div class="form-group col-sm-3">       
-				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}}</b>&nbsp;&nbsp;
+				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}} -> {{percentFitIssues}}% have fit issues!</b>&nbsp;&nbsp;
             </div>
 			<!--
 			<div class="form-group col-sm-2">

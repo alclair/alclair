@@ -49,6 +49,12 @@ try
 	$conditionSql_2 .= " AND (t1.date <= :start_date AND t1.date >= :days_back)";
 	$params_2[":start_date"] = $start_date;
 	$params_2[":days_back"] = $days_back;
+	
+	$conditionSql_3 = '';
+	$params_3 = array();
+	$conditionSql_3 .= " AND (t3.date <= :start_date AND t3.date >= :days_back)";
+	$params_3[":start_date"] = $start_date;
+	$params_3[":days_back"] = $days_back;
 	//echo json_encode($response);
 	//exit;
     /*  NOT USING THIS METHOD ANYMORE - COMMENTED ON 02/17/2021
@@ -81,7 +87,23 @@ try
      
      $query_2 = "SELECT * FROM order_status_log AS t1
      						LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
-     						WHERE t1.order_status_id = 12 AND t2.active = TRUE  $conditionSql_2";
+     						WHERE t1.order_status_id = 12 AND t2.active = TRUE  
+     						
+     						AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+								AND (t2.model IS NOT NULL AND t2.model != 'MP' 
+								AND t2.model != 'AHP' 
+								AND t2.model != 'SHP' 
+								AND t2.model != 'EXP PRO'
+								AND t2.model != 'Security Ears' 
+								AND t2.model != 'Musicians Plugs' 
+								AND t2.model != 'Silicone Protection' 
+								AND t2.model != 'Canal Fit HP' 
+								AND t2.model != 'Acrylic HP' 
+								AND t2.model != 'Full Ear HP' 
+								AND t2.model != 'EXP CORE'
+								AND t2.model != 'EXP CORE+')
+     						
+     						$conditionSql_2";
 	$stmt_2 = pdo_query( $pdo, $query_2, $params_2); 
     $result_2 = pdo_fetch_all( $stmt_2 );
     $response['TotalRecords2'] = count($result_2);
@@ -107,10 +129,10 @@ try
 								AND t2.model != 'Full Ear HP' 
 								AND t2.model != 'EXP CORE'
 								AND t2.model != 'EXP CORE+')
-								$conditionSql $orderBySql";
+								$conditionSql_3 $orderBySql";
                   //active = TRUE $conditionSql $orderBySql $pagingSql";
     //}    
-    $stmt = pdo_query( $pdo, $query, $params); 
+    $stmt = pdo_query( $pdo, $query, $params_3); 
     $result = pdo_fetch_all( $stmt );
     $rows_in_result = pdo_rows_affected($stmt);
     $response['TotalRecords'] = $rows_in_result;

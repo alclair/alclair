@@ -566,19 +566,22 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	}
     $scope.LoadData = function (to_sort_by, asc_or_desc) {
         myblockui();
+        
+        const container = document.getElementById('spline-chart-example');
+		container.textContent = '';
         //$cookies.put("SearchText", $scope.SearchText);
         //$cookies.put("SearchText", $scope.cust_name);
         
 		//$cookies.put("SearchStartDate",$scope.SearchStartDate);
 		//$cookies.put("SearchEndDate",$scope.SearchEndDate);
 		
-		console.log("rush is " + $scope.order_status_id)
-		console.log("Sort By " + to_sort_by)
+		console.log("Data Set 1 is  " + $scope.month_range)
+
         var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_repair_manufacturing.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range + "&To_Sort_By=" + to_sort_by + "&asc_or_desc=" + asc_or_desc;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            console.log("Test Is " + result.test)
+	            console.log("Test Is " + JSON.stringify(result.test, null, " "))
 	            
 	            $scope.OrdersList = result.data;
                 
@@ -593,6 +596,66 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
                 $scope.OrdersWithFit = result.OrdersWithFit;
                 $scope.percentFitIssues = result.OrdersWithFit/result.TotalRecords2*100;
 				$scope.percentFitIssues = $scope.percentFitIssues.toFixed(1);
+				
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+				 // THIS IS FOR THE SPLINE PLOT AT THE BOTTOM OF THE PAGE
+	   $scope.data = [{label: 10, value: 20},{label: 20, value: 50},{label: 30, value: 30},{label: 40, value: 10},{label: 50,value: 100},{label: 60, value: 60},{label: 70, value: 80},{label: 80, value: 50},{label: 100, value: 70}];
+	   $scope.data = [{label: '10', value: 20},{label: '20', value: 50},{label: '30', value: 30},{label: '40', value: 10},{label: '50',value: 100},{label: '60', value: 60},{label: '70', value: 80},{label: '80', value: 50},{label: '100', value: 70}];
+	   console.log("Data 1 is " + $scope.data[1]["value"])
+	   console.log("Data 2 is " + result.testing[1]["value"])
+	   //$scope.data = result.testing;
+	   $scope.data = result.send_to_plot;
+
+	   pluscharts.draw({
+	   		drawOn : "#spline-chart-example",
+	   		type: "spline",
+	   	 /*dataset : {
+	        data: [{label: 10, value: 20},{label: 20, value: 50},{label: 30, value: 30},{label: 40, value: 10},{label: 50,value: 100},{label: 60, value: 60},{label: 70, value: 80},{label: 80, value: 50},{label: 100, value: 70}
+	    ],*/
+		    dataset: {
+			    data: $scope.data,
+				lineColor: "#ef5958",
+				lineWidth: 2,
+				fontSize: 24,
+				legendLabel: "Days"
+	    	},
+			options: {
+	        	text: {
+		            display: true,
+		            color: "#6c478c"
+		        },
+		        points: {
+		            display: true,
+		            radius: 3
+		        },
+		        axes: {
+		            x: {
+		                display: true,
+		                scale: 44,
+		                min: 1,
+		                max: $scope.month_range // x-axis max
+		            },
+		            y: {
+		                display: true,
+		                scale: 3,
+		                min: result.minimum - 1,
+		                max: result.maximum + 1 // y-axis max
+		            }
+		        },
+		        legends: {
+		            display: true,
+		            width: 20,
+		            height: 20
+		        },
+		        size: {
+		            width: '1600', //give 'container' if you want width and height of initiated container
+		            height: '600'
+		        }
+		    }
+		})   // ENDS THE CODE FOR THE SPLINE PLOT AT THE BOTTOM OF THE PAGE
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
+				
+				
 
                 $scope.PageRange = [];
                 $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
@@ -626,8 +689,9 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 		window.open(window.cfg.rootUrl+'/data/'+filepath,'Invoice #'+$scope.customer_name,'width=760,height=600,menu=0,scrollbars=1');
 	}
        
+  
     $scope.init = function () {
-
+		
 	    $scope.MONTH_RANGE = AppDataService.month_range;
         
         if (isEmpty($scope.SearchText)) $scope.SearchText = "";
@@ -642,7 +706,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
            $scope.orderStatusTableList = result.data;
         }, function (result) { });
 
-        $scope.LoadData();
+        $scope.LoadData();        
     }
     			        
     $scope.openDone = function ($event) {        
@@ -656,4 +720,5 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
     }
             
     $scope.init();
+        
 }]);

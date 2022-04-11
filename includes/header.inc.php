@@ -65,6 +65,13 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>
 	<script src="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.js"></script>
 	<link href="//cdn.rawgit.com/indrimuska/angular-moment-picker/master/dist/angular-moment-picker.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/pluscharts-master/src/css/pluscharts.css">
+	<!--<link rel="stylesheet" href="path-to/src/css/pluscharts.css">-->
+	<script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="<?=$rootScope["RootUrl"]?>/pluscharts-master/dist/pluscharts.js"></script>
+	<!--<script src="path-to/dist/pluscharts.js"></script>-->
+
 
 	<script type="text/javascript">
         window.cfg = {};

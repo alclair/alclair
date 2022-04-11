@@ -15,7 +15,6 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 <script src="<?=$rootScope["RootUrl"]?>/js/demo3.js"></script>
 
 
-
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
     <!-- BEGIN CONTENT -->

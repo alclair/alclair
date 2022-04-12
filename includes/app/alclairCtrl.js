@@ -696,6 +696,9 @@ console.log("Test 1 is " + result.test1)
         AppDataService.loadDesignFaultsList(null, null, function (result) {
            $scope.designFaultsList = result.data;
         }, function (result) { });
+        AppDataService.loadCustomerFaultsList(null, null, function (result) {
+           $scope.customerFaultsList = result.data;
+        }, function (result) { });
 
 
         $http.get(window.cfg.rootUrl + "/api/settings/get.php").success(function (data) {
@@ -770,6 +773,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
 			fault_sound: 1,
 			fault_fit: 1,
 			fault_design: 1,
+			fault_customer: 1,
 		}
         $count_faults = $count_faults + 1;
     }
@@ -1488,6 +1492,9 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         }, function (result) { });
         AppDataService.loadDesignFaultsList(null, null, function (result) {
            $scope.designFaultsList = result.data;
+        }, function (result) { });
+		AppDataService.loadCustomerFaultsList(null, null, function (result) {
+           $scope.customerFaultsList = result.data;
         }, function (result) { });
 
 

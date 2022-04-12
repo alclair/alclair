@@ -24,6 +24,9 @@ try
 	if($_POST["classification"] == 'Design') {
 		$export["the_fault_id"] = $_POST["description_id"];	
 	}
+	if($_POST["classification"] == 'Customer') {
+		$export["the_fault_id"] = $_POST["description_id"];	
+	}
 	
 	//$reviewers_id = $_POST["reviewers_id"];
 	$id_of_rma = $_REQUEST["id_of_repair"];

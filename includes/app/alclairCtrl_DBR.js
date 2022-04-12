@@ -517,6 +517,23 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
             });
 	}
     
+    $scope.customer_modal = function () {
+		$('#displayFit').modal("show");   
+        var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_customer_issues.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range;
+        //alert(api_url);
+        $http.get(api_url)
+            .success(function (result) {
+	            console.log("Testing is " + JSON.stringify(result.customer_counter))
+	            $scope.one = result.customer_counter[0];
+	            $scope.two = result.customer_counter[1];
+	            $scope.three = result.customer_counter[2];
+	            $scope.four = result.customer_counter[3];
+	            $scope.five = result.customer_counter[4];
+                $.unblockUI();
+            }).error(function (result) {
+                toastr.error("Get QC Form error.");
+            });
+	}
     
     if (window.cfg.Id > 0)
         $scope.PageIndex = window.cfg.Id;
@@ -593,6 +610,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
                 $scope.TotalSound = result.TotalSound;
                 $scope.TotalFit = result.TotalFit;
                 $scope.TotalDesign = result.TotalDesign;
+                $scope.TotalCustomer = result.TotalCustomer;
                 $scope.OrdersWithFit = result.OrdersWithFit;
                 $scope.percentFitIssues = result.OrdersWithFit/result.TotalRecords2*100;
 				$scope.percentFitIssues = $scope.percentFitIssues.toFixed(1);

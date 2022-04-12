@@ -14,7 +14,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 <a href="<?=$rootScope['RootURL']?>/alclair/orders"><b style="font-size:20px">Repairs </a> (Total: {{TotalRecords}}) <span style="color:red"> (# with Fit Issues: {{OrdersWithFit}})</span></b>&nbsp;&nbsp;
                 
             </div>
-            <div class="form-group col-sm-3">
+            <div class="form-group col-sm-2">
 	            
 	            <b ng-click="sound_modal()" style="font-size:20px;cursor: pointer"> </a> Function Issues: {{TotalSound}}  </b>&nbsp;&nbsp;
 				<!--
@@ -24,12 +24,15 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<div class="col-md-2">
 				<b ng-click="fit_modal()" style="font-size:20px;cursor: pointer"> </a> Fit Issues: {{TotalFit}}</b>&nbsp;&nbsp;
 			</div>
-            <div class="col-md-3">
+            <div class="col-md-2">
 	            <b ng-click="design_modal()" style="font-size:20px;cursor: pointer"> </a> Aesthetics Issues: {{TotalDesign}}</b>&nbsp;&nbsp; <!-- Design -->
                 <!--
                 <input type="checkbox" ng-model="rush_or_not" ng-true-value="1" ng-false-value="0" style="margin-top:16px"> &nbsp; <b style="font-size:14px;color:gray">RUSH ORDERS ONLY</b><br />
                 -->
             </div>
+            <div class="col-md-2">
+				<b ng-click="customer_modal()" style="font-size:20px;cursor: pointer"> </a> Customer Issues: {{TotalCustomer}}</b>&nbsp;&nbsp;
+			</div>
             
             <!--<div class="col-md-2" style="margin-top:-10px;padding-bottom:10px;text-align:left;	" >
                 <a type="button" class="btn btn-danger" href="<?=$rootScope['RootUrl']?>/alclair/qc_form">
@@ -141,6 +144,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center; width: 5%"> Function</th> <!-- Sound -->
 					<th style="text-align:center; width: 5%"> Fit </th>
 					<th style="text-align:center; width: 5%"> Aesthetics</th> <!-- Design -->
+					<th style="text-align:center; width: 5%"> Customer</th>
 				</tr>
 			</thead>	
 			<tbody>
@@ -166,7 +170,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  class="bg-success" ng-if="order.fit=='X'" style="text-align:center;" data-title="Fit">{{order.fit}}</td>
 				
 					<td   class="bg-danger" ng-if="order.design!='X'" style="text-align:center;" data-title="Design">{{order.design}}</td> 
-					<td  class="bg-success" ng-if="order.design=='X'" style="text-align:center;" data-title="Design">{{order.design}}</td> 
+					<td  class="bg-success" ng-if="order.design=='X'" style="text-align:center;" data-title="Design">{{order.design}}</td>
+					
+					<td   class="bg-danger" ng-if="order.customer!='X'" style="text-align:center;" data-title="Customer">{{order.customer}}</td> 
+					<td  class="bg-success" ng-if="order.customer=='X'" style="text-align:center;" data-title="Customer">{{order.customer}}</td> 
 					
 					<!--					
                     <td data-title="Options">
@@ -304,7 +311,30 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 </div>
 			</form>
         </div>
+        
+        <!--Add Popup Window-->
+    <div class="modal fade modal-wide" id="displayCustomer" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <form name="frmDisplayCustomer">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Customer Faults</h4>
+                    </div>
+                    <div class="modal-body" style="margin-left:80px">
+	                    <b style="font-size:20px"> </a> Cracked shell: <span style = "color:red"> {{one}} </span>  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Faceplate popped off: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Ear wax buildup: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Punctured damper: <span style = "color:red"> {{four}} </span>  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Cable issue: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
+	                    
+                	</div>
+                </div>
+			</form>
+        </div>
+
 	</div><!-- END MODAL WINDOW -->     
+
 <div id="spline-chart-example"></div>
 	 
 </div>

@@ -120,7 +120,21 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
             error(result);
         });
     };
- 
+	this.load_alclair_customer_faults = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name +  "/get_customer_faults.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+
     
     this.load_alclair_initial = function (name, params, success, error) {
 		var api_url = window.cfg.apiUrl + name + "/get_status_type_initial.php";
@@ -325,6 +339,12 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
 
         this.load_alclair_design_faults('alclair', params, success, error);
     };
+	this.loadCustomerFaultsList = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_customer_faults('alclair', params, success, error);
+    };
 
 
     this.loadBuildTypeList = function (params, before, success, error) {
@@ -521,7 +541,7 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
         { value: 'Sound', label: 'Function' },
         { value: 'Fit', label: 'Fit' },
         { value: 'Design' , label: 'Aesthetics' },
-        { value: 'Customer' , label: 'Customer Created' },
+        { value: 'Customer' , label: 'Customer' },
     ];
     this.month_range = [
         { value: 30, label: '30 Days' },

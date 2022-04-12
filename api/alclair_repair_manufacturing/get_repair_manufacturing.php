@@ -184,6 +184,7 @@ try
     $sound = 0;
 	$fit = 0;
 	$design = 0;
+	$customer = 0;
    for ($i = 0; $i < $rows_in_result; $i++) {
 		$query2 = "SELECT * FROM rma_faults_log WHERE id_of_rma = :id_of_rma AND active = TRUE";
 		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_rma"=>$result[$i]['id_of_repair']));
@@ -209,6 +210,9 @@ try
 			} else if(!strcmp($faults[$j]['classification'], 'Design') ) {
 				$design++;
 				$final_result[$i]['design'] = 'X';
+			} else if(!strcmp($faults[$j]['classification'], 'Customer') ) {
+				$design++;
+				$final_result[$i]['customer'] = 'X';
 			}
 		}
 	}
@@ -405,6 +409,7 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
     $response["TotalSound"] = $sound;
     $response["TotalFit"] = $fit;
     $response["TotalDesign"] = $design;
+    $response["TotalCustomer"] = $customer;
     $response["OrdersWithFit"] = $fit2;
 
         

@@ -161,6 +161,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 							 <select ng-if="fault.classification == 'Sound'" class='form-control' ng-model='fault.description_id' ng-options="fault.id as fault.sound_fault for fault in soundFaultsList"></select>
 							 <select ng-if="fault.classification == 'Fit'" class='form-control' ng-model='fault.description_id' ng-options="fault.id as fault.fit_fault for fault in fitFaultsList"></select>
 							 <select ng-if="fault.classification == 'Design'" class='form-control' ng-model='fault.description_id' ng-options="fault.id as fault.design_fault for fault in designFaultsList"></select>
+							 <select ng-if="fault.classification == 'Customer'" class='form-control' ng-model='fault.description_id' ng-options="fault.id as fault.customer_fault for fault in customerFaultsList"></select>
 							 <!--<select class='form-control' ng-model='job.sector_id'  ng-options="sec.id as sec.sector for sec in sectorList"></select>-->
 						</div>
 					</div>

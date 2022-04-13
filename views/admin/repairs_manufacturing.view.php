@@ -85,7 +85,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</select>-->
             </div>
              <div class="form-group col-sm-7">       
-				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}} -> {{percentFitIssues}}% have fit issues!</b>&nbsp;&nbsp;
+				 	<b style="font-size:30px;cursor: pointer"> </a> # of Orders: {{TotalRecords2}} &#8594; {{percentFitIssues}}% have fit issues!</b>&nbsp;&nbsp;
             </div>
 			<!--
 			<div class="form-group col-sm-2">

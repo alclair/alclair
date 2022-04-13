@@ -311,7 +311,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 </div>
 			</form>
         </div>
-        
+	</div><!-- END MODAL WINDOW -->            
         <!--Add Popup Window-->
     <div class="modal fade modal-wide" id="displayCustomer" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-md">
@@ -332,11 +332,25 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 </div>
 			</form>
         </div>
+	</div><!-- END MODAL WINDOW -->    
+	
+	</br></br>
+	
+		<center>
+			<h1> # of Fit Issues Vs # of Orders </h1>
+		</center>
+		<div class="row">
+            <div class="col-md-1">
+				<h3 style="transform: rotate(270deg); margin-top: 15rem"> % Fit </h3>
+            </div>
+				<div class="col-md-11" style="margin-left: -50px">
+				<div id="spline-chart-example"></div> 
+            </div>
+		<center> 
+			<h3> Days Going Back </h3>
+		</center>
 
-	</div><!-- END MODAL WINDOW -->     
-
-<div id="spline-chart-example"></div>
-	 
+	
 </div>
 
 

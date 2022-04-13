@@ -633,29 +633,28 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 		    dataset: {
 			    data: $scope.data,
 				lineColor: "#ef5958",
-				lineWidth: 2,
-				fontSize: 24,
-				legendLabel: "Days"
+				lineWidth: 4,
+				//legendLabel: "Days"
 	    	},
 			options: {
 	        	text: {
-		            display: true,
+		            display: false,
 		            color: "#6c478c"
 		        },
 		        points: {
-		            display: true,
+		            display: false,
 		            radius: 3
 		        },
 		        axes: {
 		            x: {
 		                display: true,
-		                scale: 44,
+		                scale: 1,
 		                min: 1,
 		                max: $scope.month_range // x-axis max
 		            },
 		            y: {
 		                display: true,
-		                scale: 3,
+		                scale: 1,
 		                min: result.minimum - 1,
 		                max: result.maximum + 1 // y-axis max
 		            }

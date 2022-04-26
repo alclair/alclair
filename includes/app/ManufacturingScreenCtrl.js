@@ -52,8 +52,8 @@ swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService'
             .success(function (result) {
 	            console.log("Test is " + result.test)
 	            
-              $scope.OrdersList = result.data;
-              $scope.Shipped_Last_Year = result.Shipped_Last_Year;
+             $scope.OrdersList = result.data;
+             $scope.Shipped_Last_Year = result.Shipped_Last_Year;
   			 $scope.Shipped_Last_Year_This_Month = result.Shipped_Last_Year_This_Month;
 			 $scope.Shipped_This_Year = result.Shipped_This_Year;
 			 $scope.Shipped_This_Month = result.Shipped_This_Year_This_Month;

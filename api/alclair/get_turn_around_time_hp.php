@@ -90,7 +90,26 @@ try
     //Get Total Records Active 
     // Amanda request on 11/24/2018
     $query2 = "SELECT count(t1.id) FROM import_orders AS t1
-    					   WHERE t1.active = TRUE AND (t1.order_status_id = 1 OR t1.order_status_id = 2 OR t1.order_status_id = 3 OR t1.order_status_id = 4 OR t1.order_status_id = 5 OR t1.order_status_id = 6 OR t1.order_status_id = 7 OR t1.order_status_id = 8 OR t1.order_status_id = 9  OR t1.order_status_id = 15)"; // $conditionSql";
+    					   WHERE t1.active = TRUE 
+    					   AND (t1.order_status_id = 1 
+    					   OR t1.order_status_id = 2 
+    					   OR t1.order_status_id = 3 
+    					   OR t1.order_status_id = 4 
+    					   OR t1.order_status_id = 5 
+    					   OR t1.order_status_id = 6 
+    					   OR t1.order_status_id = 7 
+    					   OR t1.order_status_id = 8 
+    					   OR t1.order_status_id = 9  
+    					   OR t1.order_status_id = 15)
+    					   AND (t1.model = 'Acrylic HP'
+						   OR t1.model = 'Full Ear HP' 
+						   OR t1.model = 'Silicone Protection' 
+						   OR t1.model = 'Canal Fit HP'
+						   OR t1.model = 'Musicians Plugs' 
+						   OR t1.model = 'Security Ears' 
+						   OR t1.model = 'Exp Pro' 
+						   OR t1.model = 'EXP CORE' 
+						   OR t1.model = 'EXP CORE+')"; // $conditionSql";
 
 //$query2 = "SELECT count(t1.id) FROM import_orders AS t1 WHERE t1.active = TRUE AND (t1.order_status_id != 11 AND t1.order_status_id != 14 AND t1.order_status_id != 12 AND t1.order_status_id != 99)"; // 
     $stmt2 = pdo_query( $pdo, $query2, null );

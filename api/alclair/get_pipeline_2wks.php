@@ -36,6 +36,19 @@ try
 			//$conditionSql .=" AND (t1.hearing_protection != TRUE)";
 			//$conditionSql .=" AND ( (t1.hearing_protection != TRUE AND t1.model IS NOT NULL) OR (t1.hearing_protection != TRUE AND t1.model IS NULL) )";
 			$conditionSql .=" AND ( t1.model != 'AHP' AND t1.model != 'SHP' AND t1.model != 'EXP PRO' AND t1.model != 'MP' AND t1.model != 'Musicians Plugs')";
+			$conditionSql .= "	AND (t1.model IS NOT NULL AND t1.model != 'MP' AND t1.model != 'Musicians Plugs' 
+			AND t1.model != 'AHP' 
+			AND t1.model != 'SHP' 
+			AND t1.model != 'EXP PRO' 
+			AND t1.model != 'Exp Pro' 
+			AND t1.model != 'Security Ears' 
+			AND t1.model != 'Silicone Protection' 
+			AND t1.model != 'Canal Fit HP' 
+			AND t1.model != 'Acrylic HP' 
+			AND t1.model != 'Full Ear HP' 
+			AND t1.model != 'EXP CORE'
+			AND t1.model != 'EXP CORE+'  ) ";
+			
 			$conditionSql .= " AND (t1.order_status_id != 12)";
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 
     }

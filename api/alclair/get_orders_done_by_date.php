@@ -154,6 +154,7 @@ try
 		AND t2.model != 'AHP' 
 		AND t2.model != 'SHP' 
 		AND t2.model != 'EXP PRO' 
+		AND t2.model != 'Exp Pro' 
 		AND t2.model != 'Security Ears' 
 		AND t2.model != 'Silicone Protection' 
 		AND t2.model != 'Canal Fit HP' 

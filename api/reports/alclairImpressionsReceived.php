@@ -114,6 +114,7 @@ ORDER BY the_day ASC";
 		AND t2.model != 'AHP' 
 		AND t2.model != 'SHP' 
 		AND t2.model != 'EXP PRO' 
+		AND t2.model != 'Exp Pro' 
 		AND t2.model != 'Security Ears' 
 		AND t2.model != 'Musicians Plugs' 
 		AND t2.model != 'Silicone Protection' 
@@ -122,6 +123,7 @@ ORDER BY the_day ASC";
 		AND t2.model != 'Full Ear HP' 
 		AND t2.model != 'EXP CORE'
 		AND t2.model != 'EXP CORE+') 
+		
 			
 			  GROUP BY the_day, type
 			  ORDER BY the_day ASC";

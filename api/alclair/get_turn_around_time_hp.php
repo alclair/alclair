@@ -89,7 +89,7 @@ try
     
     //Get Total Records Active 
     // Amanda request on 11/24/2018
-    $query2 = "SELECT count(t1.id) FROM import_orders AS t1
+    $query2 = "SELECT COUNT(t1.id) FROM import_orders AS t1
     					   WHERE t1.active = TRUE 
     					   AND (t1.order_status_id = 1 
     					   OR t1.order_status_id = 2 

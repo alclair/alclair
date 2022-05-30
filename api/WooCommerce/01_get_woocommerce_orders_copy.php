@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-05-02T23:59:59',
-			'after' => '2022-05-02T00:00:00',
+			'before' => '2022-05-29T23:59:59',
+				'after' => '2022-05-29T00:00:00',
 			'per_page' => 100
         ];
 
@@ -180,7 +180,7 @@ if(!stristr($data["id"], '12100705') ) {
 
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear ")  || stristr($full_product_name, "Canal")) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear ")  || stristr($full_product_name, "Canal") || stristr($full_product_name, "IFB")) { 
 			
 
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed")   ) {  //|| stristr($data["status"], "hold")

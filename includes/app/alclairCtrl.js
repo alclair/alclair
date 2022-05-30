@@ -446,11 +446,12 @@ swdApp.controller('Repair_Form', ['$http', '$scope', 'AppDataService', '$upload'
         $event.preventDefault();
         $scope.faults.push({});
         $scope.faults[$count_faults] = {
-			classification: 'Sound',
-			description_id:1,
+			classification: 'Fit',
+			description_id: 9,
 			fault_sound: 1,
 			fault_fit: 1,
 			fault_design: 1,
+			fault_customer: 1,
 		}
         $count_faults = $count_faults + 1;
     }
@@ -768,8 +769,8 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         $event.preventDefault();
         $scope.faults.push({});
         $scope.faults[$count_faults] = {
-			classification: 'Sound',
-			description_id:1,
+			classification: 'Fit',
+			description_id: 9,
 			fault_sound: 1,
 			fault_fit: 1,
 			fault_design: 1,
@@ -1486,9 +1487,10 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
         
         AppDataService.loadSoundFaultsList(null, null, function (result) {
            $scope.soundFaultsList = result.data;
+           
         }, function (result) { });
         AppDataService.loadFitFaultsList(null, null, function (result) {
-           $scope.fitFaultsList = result.data;
+           $scope.fitFaultsList = result.data;  
         }, function (result) { });
         AppDataService.loadDesignFaultsList(null, null, function (result) {
            $scope.designFaultsList = result.data;

@@ -86,7 +86,7 @@ try
 	$design = 0;
 	$customer = 0;
 	
-	$query3 = "SELECT * FROM rma_customer";
+	$query3 = "SELECT * FROM rma_customer WHERE active = TRUE";
 	$stmt3 = pdo_query( $pdo, $query3, null);
 	$sound_fault= pdo_fetch_all( $stmt3 );
 	$counter = array();
@@ -119,6 +119,22 @@ try
 			}  else if($faults[$j]['description_id'] == 5) {
 				$counter[4] = $counter[4] + 1;
 			}  else if($faults[$j]['description_id'] == 6) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 7) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 8) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 9) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 10) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 11) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 12) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 13) {
+				$counter[5] = $counter[5] + 1;
+			}  else if($faults[$j]['description_id'] == 14) {
 				$counter[5] = $counter[5] + 1;
 			}  
 					

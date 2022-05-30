@@ -14,7 +14,7 @@ try
     if( !empty($_REQUEST['id']) )
     {        
         $stmt = pdo_query( $pdo,
-                           'select * from rma_design where id = :id',
+                           'select * from rma_design WHERE id = :id AND active = TRUE',
                             array(":id"=>$_REQUEST['id'])
                          );	
         $result = pdo_fetch_array($stmt);
@@ -22,7 +22,7 @@ try
     else if(!empty($_REQUEST["SearchText"]))
     {
         $stmt = pdo_query( $pdo,
-                           'select * from rma_design where (type ilike :SearchText ) order by id',
+                           'select * from rma_design where (type ilike :SearchText ) AND active = TRUE order by id',
                             array(":SearchText"=>"%".$_REQUEST["SearchText"]."%")
                             //,1
                          );	
@@ -31,7 +31,7 @@ try
     else
     {
         $stmt = pdo_query( $pdo,
-                           'select * from rma_design order by design_fault',
+                           'select * from rma_design WHERE active = TRUE order by design_fault',
                             null
                          );	
         $result = pdo_fetch_all($stmt);

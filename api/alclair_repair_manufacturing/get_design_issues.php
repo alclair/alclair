@@ -86,7 +86,7 @@ try
 	$fit = 0;
 	$design = 0;
 	
-	$query3 = "SELECT * FROM rma_design";
+	$query3 = "SELECT * FROM rma_design WHERE active = TRUE";
 	$stmt3 = pdo_query( $pdo, $query3, null);
 	$sound_fault= pdo_fetch_all( $stmt3 );
 	$counter = array();
@@ -150,7 +150,37 @@ try
 				$counter[19] = $counter[19] + 1;
 			} else if($faults[$j]['description_id'] == 21) {
 				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 22) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 23) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 24) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 25) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 26) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 27) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 28) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 29) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 30) {
+				$counter[20] = $counter[20] + 1;
+			} else if($faults[$j]['description_id'] == 31) {
+				$counter[20] = $counter[20] + 1;
 			} 
+
+
+
+
+
+
+
+
+
+
 			
 			}		
 			/* else if(!strcmp($faults[$j]['classification'] , 'Fit') ) {

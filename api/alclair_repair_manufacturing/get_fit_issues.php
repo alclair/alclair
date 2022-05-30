@@ -85,7 +85,7 @@ try
 	$fit = 0;
 	$design = 0;
 	
-	$query3 = "SELECT * FROM rma_fit";
+	$query3 = "SELECT * FROM rma_fit WHERE active = TRUE";
 	$stmt3 = pdo_query( $pdo, $query3, null);
 	$sound_fault= pdo_fetch_all( $stmt3 );
 	$counter = array();
@@ -124,6 +124,7 @@ try
 			} else if($faults[$j]['description_id'] == 8) {
 				$counter[7] = $counter[7] + 1;
 			////////// ID 9 THRU 14 NO LONGER EXIST IN THE rma_fit TABLE
+			////////// ON 05/30/2022 THIS CHANGED - 9 & 10 WERE ADDED
 			}  else if($faults[$j]['description_id'] == 9) {
 				$counter[8] = $counter[8] + 1;
 			}  else if($faults[$j]['description_id'] == 10) {

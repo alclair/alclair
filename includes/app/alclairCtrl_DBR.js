@@ -442,6 +442,20 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	            $scope.five = result.sound_counter[4];
 	            $scope.six = result.sound_counter[5];
 	            $scope.seven = result.sound_counter[6];
+	            $scope.eight = result.sound_counter[7];
+	            $scope.nine = result.sound_counter[8];
+	            $scope.ten = result.sound_counter[9];
+	            $scope.eleven = result.sound_counter[10];
+	            $scope.twelve = result.sound_counter[11];
+	            $scope.thirteen = result.sound_counter[12];
+				$scope.fourteen = result.sound_counter[13];
+				$scope.fifteen = result.sound_counter[14];
+				$scope.sixteen = result.sound_counter[15];
+				$scope.seventeen = result.sound_counter[16];
+				$scope.eighteen = result.sound_counter[17];
+				$scope.nineteen = result.sound_counter[18];
+				$scope.twenty = result.sound_counter[19];
+
                 $.unblockUI();
             }).error(function (result) {
                 toastr.error("Get QC Form error.");
@@ -473,6 +487,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	            $scope.fifteen = result.fit_counter[14];
 	            $scope.sixteen = result.fit_counter[15];
 	            $scope.seventeen = result.fit_counter[16];
+	            
                 $.unblockUI();
             }).error(function (result) {
                 toastr.error("Get QC Form error.");
@@ -510,7 +525,16 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	            $scope.twenty = result.design_counter[19];
 	            $scope.twentyone = result.design_counter[20];
 	            
-
+	            $scope.twentytwo = result.design_counter[21];
+	            $scope.twentythree = result.design_counter[22];
+	            $scope.twentyfour = result.design_counter[23];
+	            $scope.twentyfive = result.design_counter[24];
+	            $scope.twentysix = result.design_counter[25];
+	            $scope.twentseven = result.design_counter[26];
+	            $scope.twentyeight = result.design_counter[27];
+	            $scope.twentynine = result.design_counter[28];
+	            $scope.thirty = result.design_counter[29];
+	            
                 $.unblockUI();
             }).error(function (result) {
                 toastr.error("Get QC Form error.");
@@ -518,7 +542,7 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	}
     
     $scope.customer_modal = function () {
-		$('#displayFit').modal("show");   
+		$('#displayCustomer').modal("show");   
         var api_url = window.cfg.apiUrl + "alclair_repair_manufacturing/get_customer_issues.php?PageIndex=" + $scope.PageIndex + "&PageSize=" + $scope.PageSize + "&SearchText=" + $scope.SearchText +"&StartDate="+moment($scope.SearchStartDate).format("MM/DD/YYYY") + "&MONTH_RANGE=" + $scope.month_range;
         //alert(api_url);
         $http.get(api_url)
@@ -529,6 +553,17 @@ swdApp.controller('Orders', ['$http', '$scope', 'AppDataService', '$upload',  '$
 	            $scope.three = result.customer_counter[2];
 	            $scope.four = result.customer_counter[3];
 	            $scope.five = result.customer_counter[4];
+	            
+	            $scope.six = result.customer_counter[5];
+	            $scope.seven = result.customer_counter[6];
+	            $scope.eight = result.customer_counter[7];
+	            $scope.nine = result.customer_counter[8];
+	            $scope.ten = result.customer_counter[9];
+	            $scope.eleven = result.customer_counter[10];
+	            $scope.twelve = result.customer_counter[11];
+	            $scope.thirteen = result.customer_counter[12];
+	            $scope.fourteen = result.customer_counter[13];
+	            
                 $.unblockUI();
             }).error(function (result) {
                 toastr.error("Get QC Form error.");

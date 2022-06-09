@@ -225,6 +225,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <h4 class="modal-title">Function Faults</h4> <!-- Sound -->
                     </div>
                     <div class="modal-body" style="margin-left:80px">
+	                    <!-- THESE ARE ALL NOW INACTIVE -->
 	                    <b style="font-size:20px"> </a> No Signal: <span style = "color:red"> {{one}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Cutting In & Out: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Unbalanced: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
@@ -232,6 +233,21 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                    <b style="font-size:20px"> </a> No Highs: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No Lows/Mids: <span style = "color:red"> {{six}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Other: <span style = "color:red"> {{seven}} </span> </b>&nbsp;&nbsp;<br/>
+						
+						<b style="font-size:20px"> </a> Maintenance: <span style = "color:red"> {{eight}} </span> </b>&nbsp;&nbsp;<br/>
+						<!-- THE LIST OF INACTIVE ARE JUST ABOVE -->
+						<b style="font-size:20px"> </a> Jack Pushed In/Pushed Out: <span style = "color:red"> {{nine}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Cable Issue: <span style = "color:red"> {{ten}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Disconnected Wire: <span style = "color:red"> {{eleven}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Faulty Driver: <span style = "color:red"> {{twelve}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Detached Driver: <span style = "color:red"> {{thirteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Faceplate Detached: <span style = "color:red"> {{fourteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Rattling Component: <span style = "color:red"> {{fifteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Improper Bore: <span style = "color:red"> {{sixteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Faulty Jack: <span style = "color:red"> {{seventeen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Tube Detached From Shell: <span style = "color:red"> {{eighteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Omitted Customer Request: <span style = "color:red"> {{nineteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Misc: <span style = "color:red"> {{twenty}} </span> </b>&nbsp;&nbsp;<br/>
                 	</div>
                 </div>
 			</form>
@@ -248,27 +264,35 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <h4 class="modal-title">Fit Faults</h4>
                     </div>
                     <div class="modal-body" style="margin-left:80px">
-	                    <b style="font-size:20px"> </a> Canal Too Tight: <span style = "color:red"> {{one}}  </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Canal Too Loose: <span style = "color:red"> {{two}}  </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Canal Too Long: <span style = "color:red"> {{three}}  </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Canals Too Short: <span style = "color:red"> {{four}}  </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Helix pain: <span style = "color:red"> {{five}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal too Tight: <span style = "color:red"> {{one}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal too Loose: <span style = "color:red"> {{two}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal too Long: <span style = "color:red"> {{three}}  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Canal too Short: <span style = "color:red"> {{four}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Helix Pain: <span style = "color:red"> {{five}}  </span> </b>&nbsp;&nbsp;<br/>
+	                   <!-- THESE ARE ALL NOW INACTIVE -->
 	                    <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{six}}   </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Wrong Impressions: <span style = "color:red"> {{seven}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Wrong impressions: <span style = "color:red"> {{seven}}  </span> </b>&nbsp;&nbsp;<br/>
+	                    <!--  INACTIVE ARE JUST ABOVE -->
 	                    <b style="font-size:20px"> </a> Canal tip pain: <span style = "color:red"> {{eight}}  </span></b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Reshell W/ New Impression(s): <span style = "color:red"> {{fifteen}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Shells Too Short: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Monitor Does Not Fit: <span style = "color:red"> {{seventeen}}   </span> </b>&nbsp;&nbsp;<br/>
 	                    
-	                    <!-- <b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>-->
-	                     <!--
+	                    <!-- THESE ARE ALL NOW INACTIVE -->
+	                    <b style="font-size:20px"> </a> Reshell W/ New Impression(s): <span style = "color:red"> {{fifteen}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Monitor Does Not Fit: <span style = "color:red"> {{seventeen}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    <!-- INACTIVE ARE JUST ABOVE -->
+	                    <b style="font-size:20px"> </a> Shell too Short: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    
+	                    <b style="font-size:20px"> </a> Overall too Large: <span style = "color:red"> {{nine}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Overall too Small: <span style = "color:red"> {{ten}}   </span> </b>&nbsp;&nbsp;<br/>
+	                    
+	                    <!-- THESE ARE ALL NOW INACTIVE -->
+						<b style="font-size:20px"> </a> Shells Too Tall: <span style = "color:red"> {{sixteen}}   </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on left: <span style = "color:red"> {{nine}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on right: <span style = "color:red"> {{ten}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> No seal on both: <span style = "color:red"> {{eleven}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Re-shell left: <span style = "color:red"> {{twelve}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Re-shell right: <span style = "color:red"> {{thirteen}}  </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Re-shell both: <span style = "color:red"> {{fourteen}} </span> </b>&nbsp;&nbsp;<br/>
-	                    -->
+	                    <!-- INACTIVE ARE JUST ABOVE -->
                 	</div>
                 </div>
 			</form>
@@ -285,16 +309,20 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <h4 class="modal-title">Design Faults</h4>
                     </div>
                     <div class="modal-body" style="margin-left:80px">
-	                    <b style="font-size:20px"> </a> Incorrect Shells(s) Color: <span style = "color:red"> {{one}} </span>  </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Faceplate(s) Color: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Tip(s) Color: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Artwork: <span style = "color:red"> {{four}} </span>  </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Incorrect Name Label: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Wrong Color Shell: <span style = "color:red"> {{one}} </span>  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Wrong Color Faceplate: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
+	                   <!-- THESE ARE ALL NOW INACTIVE -->
+					   <b style="font-size:20px"> </a> Incorrect Tip(s) Color: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <!-- INACTIVE JUST ABVOVE-->
+	                    <b style="font-size:20px"> </a> Wrong Artwork: <span style = "color:red"> {{four}} </span>  </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Name Tag Issue: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <!-- THESE ARE ALL NOW INACTIVE -->
 	                    <b style="font-size:20px"> </a> Faceplate(s) Popped Off: <span style = "color:red"> {{six}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Jack(s) Crooked/Mismatched: <span style = "color:red"> {{seven}} </span> </b>&nbsp;&nbsp;<br/>
-	                    
 	                    <b style="font-size:20px"> </a> Jack(s) Plugged: <span style = "color:red"> {{eight}} </span> </b>&nbsp;&nbsp;<br/>
-	                    <b style="font-size:20px"> </a> Visual Blemish: <span style = "color:red"> {{nine}} </span> </b>&nbsp;&nbsp;<br/>
+						<!-- INACTIVE JUST ABOVE -->
+	                    <b style="font-size:20px"> </a> Visual Blemish on Shell: <span style = "color:red"> {{nine}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <!-- THESE ARE ALL NOW INACTIVE -->
 	                    <b style="font-size:20px"> </a> Unmatched Shell Height: <span style = "color:red"> {{ten}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Unmatched Canal Length: <span style = "color:red"> {{eleven}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Cracked/Broken Shell & Faceplate: <span style = "color:red"> {{twelve}} </span> </b>&nbsp;&nbsp;<br/>
@@ -307,6 +335,16 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                    <b style="font-size:20px"> </a> New Design: <span style = "color:red"> {{nineteen}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Ownership Transfer: <span style = "color:red"> {{twenty}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Crushed or Punctured Damper(s): <span style = "color:red"> {{twentyone}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <!-- INACTIVE JUST ABOVE -->
+	                    <b style="font-size:20px"> </a> Sharp Canal: <span style = "color:red"> {{twentytwo}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Foggy Shells: <span style = "color:red"> {{twentythree}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Faceplate Seam: <span style = "color:red"> {{twentyfour}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Dissatisfied With Design: <span style = "color:red"> {{twentyfive}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Dissatisfied With Model: <span style = "color:red"> {{twentysix}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Discoloration Over Time: <span style = "color:red"> {{twentyseven}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Inside Shell Not Clean: <span style = "color:red"> {{twentyeight}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Dissatisfied With artwork: <span style = "color:red"> {{twentnine}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Add Artwork: <span style = "color:red"> {{thirty}} </span> </b>&nbsp;&nbsp;<br/>
                 	</div>
                 </div>
 			</form>
@@ -322,11 +360,25 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                         <h4 class="modal-title">Customer Faults</h4>
                     </div>
                     <div class="modal-body" style="margin-left:80px">
+	                    <!-- THESE ARE ALL NOW INACTIVE -->
 	                    <b style="font-size:20px"> </a> Cracked shell: <span style = "color:red"> {{one}} </span>  </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Faceplate popped off: <span style = "color:red"> {{two}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Ear wax buildup: <span style = "color:red"> {{three}} </span> </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Punctured damper: <span style = "color:red"> {{four}} </span>  </b>&nbsp;&nbsp;<br/>
 	                    <b style="font-size:20px"> </a> Cable issue: <span style = "color:red"> {{five}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <!-- INACTIVE JUST ABOVE -->
+	                    <b style="font-size:20px"> </a> Detached Driver: <span style = "color:red"> {{six}} </span> </b>&nbsp;&nbsp;<br/>
+	                    <b style="font-size:20px"> </a> Needs To Be Cleaned: <span style = "color:red"> {{seven}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Driver Damage: <span style = "color:red"> {{eight}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Home Fixes: <span style = "color:red"> {{nine}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Wax Damage - Dampers: <span style = "color:red"> {{ten}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Ownership Transfer: <span style = "color:red"> {{eleven}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Cracked Shell - Repairable: <span style = "color:red"> {{twelve}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Elective Color Change: <span style = "color:red"> {{thirteen}} </span> </b>&nbsp;&nbsp;<br/>
+						<b style="font-size:20px"> </a> Obstruction In Jack: <span style = "color:red"> {{fourteen}} </span> </b>&nbsp;&nbsp;<br/>
+
+	                    
+	                    
 	                    
                 	</div>
                 </div>

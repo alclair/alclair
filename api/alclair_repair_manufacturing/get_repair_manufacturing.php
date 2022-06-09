@@ -320,7 +320,8 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
 			AND t2.model != 'Acrylic HP' 
 			AND t2.model != 'Full Ear HP' 
 			AND t2.model != 'EXP CORE'
-			AND t2.model != 'EXP CORE+') AND (t1.date >= :start_date_for_query AND t1.date <= :end_date_for_query)";
+			AND t2.model != 'EXP CORE+'
+			AND t2.model != 'CM3K') AND (t1.date >= :start_date_for_query AND t1.date <= :end_date_for_query)";
 			$stmt_2 = pdo_query( $pdo, $query_2, $params_2); 
 			$result_2 = pdo_fetch_all( $stmt_2 );
 			//$response['TotalRecords2'] = count($result_2);

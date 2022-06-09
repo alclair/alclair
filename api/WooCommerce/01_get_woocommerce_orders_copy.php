@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-05-29T23:59:59',
-				'after' => '2022-05-29T00:00:00',
+			'before' => '2022-06-08T23:59:59',
+				'after' => '2022-06-08T00:00:00',
 			'per_page' => 100
         ];
 
@@ -143,7 +143,7 @@ $params = [
 	echo "Count is " . $data["id"] . " </br>";
 	// THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '12100705') ) {
+if(!stristr($data["id"], '12102602') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
@@ -372,6 +372,35 @@ if(!stristr($data["id"], '12100705') ) {
 					} else {
 						$order[$ind]["canal_fit_earplugs_12db"] = TRUE;
 					}				
+				}
+				
+				if(stristr($full_product_name, "IFB") ) {
+					
+					if(stristr($full_product_name, "Duo") ) {
+						$order[$ind]["model"] = "IFB Duo";
+						$model_name = "IFB Duo";
+					} else {
+						$order[$ind]["model"] = "IFB Single";
+						$model_name = "IFB Single";
+					}
+					
+					if(stristr($full_product_name, "Left") ) {
+						$order[$ind]["right_shell"]  = null;
+						$order[$ind]["right_faceplate"] = null;
+						$order[$ind]["left_shell"]  = $line_item[meta_data][1]->value;
+						$order[$ind]["left_faceplate"] = $line_item[meta_data][1]->value;
+					} elseif(stristr($full_product_name, "Right") ) {
+						$order[$ind]["left_shell"]  = null;
+						$order[$ind]["left_faceplate"] = null;
+						$order[$ind]["right_shell"]  = $line_item[meta_data][1]->value;
+						$order[$ind]["right_faceplate"] = $line_item[meta_data][1]->value;
+					} else {
+						$order[$ind]["left_shell"]  = $line_item[meta_data][1]->value;
+						$order[$ind]["left_faceplate"] = $line_item[meta_data][1]->value;
+						$order[$ind]["right_shell"]  = $line_item[meta_data][1]->value;
+						$order[$ind]["right_faceplate"] = $line_item[meta_data][1]->value;
+					}
+					
 				}
 
 				
@@ -739,7 +768,7 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
-if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($order[$k]["product"], "Full Ear") || stristr($order[$k]["product"], "Canal") ) { 
+if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($order[$k]["product"], "Full Ear") || stristr($order[$k]["product"], "Canal") || stristr($order[$k]["product"], "IFB") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
 			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
 			//exit;

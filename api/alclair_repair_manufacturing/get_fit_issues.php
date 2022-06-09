@@ -91,7 +91,7 @@ try
 	$counter = array();
 	
    for ($i = 0; $i < $rows_in_result; $i++) {
-		$query2 = "SELECT * FROM rma_faults_log WHERE id_of_rma = :id_of_rma";
+		$query2 = "SELECT * FROM rma_faults_log WHERE id_of_rma = :id_of_rma AND active = TRUE";
 		$stmt2 = pdo_query( $pdo, $query2, array(":id_of_rma"=>$result[$i]['id_of_repair']));
 		$faults = pdo_fetch_all( $stmt2 );
 		$rows = pdo_rows_affected($stmt2);

@@ -377,10 +377,14 @@ Pickup
 									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["cathy_cart"] ?>)</span></a></li> -->
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/impression_detailing" class="nav-link "> 
-									<span style="margin-right:5px;font-weight:bold;">Impression Detailing </span> 
-									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["impression_detailing"] ?>)</span>  
+									<span style="margin-right:90px;font-weight:bold;">Repair Reshell</span> 
+									<!--<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["impression_detailing"] ?>)</span>  -->
 									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["impression_detailing"] ?>)</span></a></li>
 
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pickup" class="nav-link "> 
+									<span style="margin-right:97px;font-weight:bold;">Active Repair</span> 
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
+									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/digital_impression_detailing" class="nav-link "> 
 									<span style="margin-right:40px;font-weight:bold;">Digital Detailing </span> 
 									<span style="margin-right:10px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["digital_impression_detailing"] ?>)</span>  
@@ -429,10 +433,6 @@ Pickup
 									<span style="margin-right:50px;font-weight:bold;">Ready to Ship </span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["ready_to_ship"] ?>) </span>
 									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["ready_to_ship"] ?>)</span></a></li>
-								
-								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pickup" class="nav-link "> 
-									<span style="margin-right:120px;font-weight:bold;">Pickup</span> 
-									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
 
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/hearing_protection" class="nav-link "> 
 									<span style="margin-right:20px;font-weight:bold;"> Hearing Protection </span> 

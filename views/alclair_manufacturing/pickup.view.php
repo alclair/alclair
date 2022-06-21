@@ -2,6 +2,7 @@
 include_once $rootScope["RootPath"]."includes/header.inc.php";
 //$surveyId=1;
 ?>
+<link rel="stylesheet" href="<?=$rootScope["RootUrl"]?>/css/tableresponsive.css"/>
 <br />
 <div id="main-container" class="container" ng-controller="QR_Code_Scanner">
 <script type="text/javascript">
@@ -18,7 +19,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
             <div class="col-md-12">
                 <div style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px;">
-                    <b style="font-size: 40px;color:blue">Pickup Cart</b>
+                    <b style="font-size: 40px;color:blue">Active Repair</b>
                 </div>
             </div>
             <div class="row">

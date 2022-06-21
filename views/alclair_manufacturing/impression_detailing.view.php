@@ -19,7 +19,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
         <div class="row">
             <div class="col-md-12">
                 <div style="border-bottom: 1px solid rgba(144, 128, 144, 0.4); padding-bottom: 15px; margin-bottom: 25px;">
-                    <b style="font-size: 40px;color:blue">Impression Detailing </b>
+                    <b style="font-size: 40px;color:blue">Repair Reshell </b>
                 </div>
             </div>
             <div class="row">

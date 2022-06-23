@@ -116,8 +116,13 @@ $scope.qrcode= {
 			}
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/diagnosing.php';
         } 
-        else if (step == 'impression_detailing') {
-	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/impression_detailing.php';
+        else if (step == 'repair_reshell') {
+	        var x = document.getElementById("start").value;
+			if(x[0] != 'R') {
+				toastr.error("Manufacturing orders do not go through this cart!")
+				return;
+			}
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/repair_reshell.php';
         }
         else if (step == 'digital_impression_detailing') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/digital_impression_detailing.php';
@@ -146,13 +151,13 @@ $scope.qrcode= {
         else if (step == 'ready_to_ship') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/ready_to_ship.php';
         }
-        else if (step == 'pickup') {
+        else if (step == 'active_repair') {
 	        var x = document.getElementById("start").value;
 			if(x[0] != 'R') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
-	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/pickup.php';
+	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/active_repair.php';
         }
         else if (step == 'holding_for_payment') {
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/holding_for_payment.php';
@@ -309,7 +314,7 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 1;
 	   } else if (page == "diagnosing") {
 		   $scope.repair_status_id = 2;
-	   } else if (page == "impression_detailing") {
+	   } else if (page == "repair_reshell") {
 		   $scope.repair_status_id = 3;
 		} else if (page == "digital_impression_detailing") {
 		   $scope.repair_status_id = 17;
@@ -329,7 +334,7 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 10;
 	   } else if (page == "ready_to_ship") {
 		   $scope.repair_status_id = 11;
-	   } else if (page == "pickup") {
+	   } else if (page == "active_repair") {
 		   $scope.repair_status_id = 12;
 	   } else if (page == "group_order_holding") {
 		   $scope.repair_status_id = 13;

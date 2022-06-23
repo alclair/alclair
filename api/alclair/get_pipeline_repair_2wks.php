@@ -35,7 +35,7 @@ try
     if ($_REQUEST['REMOVE_HEARING_PROTECTION'] == 1) {
 			//$conditionSql .=" AND (t1.hearing_protection != TRUE)";
 			$conditionSql .=" AND ( (t1.hearing_protection != TRUE AND t1.model IS NOT NULL) OR (t1.hearing_protection != TRUE AND t1.model IS NULL) )";
-			$conditionSql .= " AND (t1.repair_status_id != 12)";
+			//$conditionSql .= " AND (t1.repair_status_id != 12)";
 			//$params[":OrderStatusID"] = $_REQUEST['repair_status_id']; 
     }
     if ($_REQUEST['monitor_id'] > 0 ) {
@@ -102,51 +102,51 @@ try
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.repair_status_id != 12 ";
 			// EVERYTHING BEFORE CASING - CASING IS STATUS 5
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Date"]=  $today_4_sql;
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '0') { // MEANS PAST DUE
 			//$conditionSql.=" and (t1.estimated_ship_date < :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date < :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date < :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Date"]= $today_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '2') { // MEANS TOMORROW
 			//$conditionSql.=" and (t1.estimated_ship_date = :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date = :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Date"]= $tomorrow_4_sql;	
 		
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '8') { // MEANS NEXT 3 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextWeek_4_sql_3_days;	
 			
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '3') { // MEANS NEXT 7 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $nextWeek_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '4') { // MEANS NEXT 14 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $twoWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '5') { // MEANS NEXT 21 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $threeWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '6') { // MEANS NEXT 28 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"]= $fourWeeks_4_sql;	
 		} elseif ($_REQUEST['TODAY_OR_NEXT_WEEK'] == '7') { // MEANS NEXT 35 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;
 			$params[":Date"]= $fiveWeeks_4_sql;	
 		}  else {  // NEXT 42 CALENDAR DAYS
 			//$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND t1.repair_status_id != 14";
-			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 12 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
+			$conditionSql.=" and (t1.estimated_ship_date > :Today) AND (t1.estimated_ship_date <= :Date) AND (t1.repair_status_id != 14 AND t1.repair_status_id != 13 AND t1.repair_status_id != 15 AND t1.repair_status_id != 16 AND t1.repair_status_id != 18 AND t1.repair_status_id != 11)";
 			$params[":Today"] = $today_4_sql;	
 			$params[":Date"] = $sixWeeks_4_sql;	
 		}

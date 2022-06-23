@@ -355,7 +355,8 @@ WHERE t1.import_orders_id IS NOT NULL AND t3.order_status_id = 12  AND (t1.recei
 				AND t2.model != 'Acrylic HP' 
 				AND t2.model != 'Full Ear HP' 
 				AND t2.model != 'EXP CORE'
-				AND t2.model != 'EXP CORE+') AND (t3.date >= :start_date_for_query AND t3.date <= :end_date_for_query)";
+				AND t2.model != 'EXP CORE+'
+				AND t2.model != 'CM3K') AND (t3.date >= :start_date_for_query AND t3.date <= :end_date_for_query)";
 				$stmt_2 = pdo_query( $pdo, $query, $params_2); 
 				$result_2 = pdo_fetch_all( $stmt_2 );
 				$rows_in_result = pdo_rows_affected($stmt);

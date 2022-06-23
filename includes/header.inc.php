@@ -281,7 +281,7 @@
 					  	$query_alclair_repair = "SELECT 
 					  				count(CASE WHEN repair_status_id = 1 THEN 1 END) as repair_cart,
 					  				count(CASE WHEN repair_status_id = 2 THEN 1 END) as diagnosing,					  				
-					  				count(CASE WHEN repair_status_id = 3 THEN 1 END) as impression_detailing,
+					  				count(CASE WHEN repair_status_id = 3 THEN 1 END) as repair_reshell,
 					  				count(CASE WHEN repair_status_id = 4 THEN 1 END) as shell_pouring,
 					  				count(CASE WHEN repair_status_id = 5 THEN 1 END) as shell_detailing,
 					  				count(CASE WHEN repair_status_id = 6 THEN 1 END) as casing,
@@ -290,7 +290,7 @@
 					  				count(CASE WHEN repair_status_id = 9 THEN 1 END) as electronics_qc,
 					  				count(CASE WHEN repair_status_id = 10 THEN 1 END) as artwork,
 					  				count(CASE WHEN repair_status_id = 11 THEN 1 END) as ready_to_ship,
-					  				count(CASE WHEN repair_status_id = 12 THEN 1 END) as pickup,
+					  				count(CASE WHEN repair_status_id = 12 THEN 1 END) as active_repair,
 					  				count(CASE WHEN repair_status_id = 13 THEN 1 END) as group_order_holding,
 					  				count(CASE WHEN repair_status_id = 14 THEN 1 END) as done,
 					  				count(CASE WHEN repair_status_id = 15 THEN 1 END) as holding,
@@ -376,14 +376,14 @@ Pickup
 									<span style="margin-right:105px;font-weight:bold;">Cathy Cart</span>
 									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["cathy_cart"] ?>)</span></a></li> -->
 								
-								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/impression_detailing" class="nav-link "> 
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_reshell" class="nav-link "> 
 									<span style="margin-right:90px;font-weight:bold;">Repair Reshell</span> 
 									<!--<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["impression_detailing"] ?>)</span>  -->
-									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["impression_detailing"] ?>)</span></a></li>
+									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["repair_reshell"] ?>)</span></a></li>
 
-								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/pickup" class="nav-link "> 
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/active_repair" class="nav-link "> 
 									<span style="margin-right:97px;font-weight:bold;">Active Repair</span> 
-									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["pickup"] ?>)</span></a></li> 
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["active_repair"] ?>)</span></a></li> 
 									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/digital_impression_detailing" class="nav-link "> 
 									<span style="margin-right:40px;font-weight:bold;">Digital Detailing </span> 

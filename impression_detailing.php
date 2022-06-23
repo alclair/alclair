@@ -46,7 +46,7 @@ $response["testing"] = $repair_id_is;
 	//echo json_encode($response);
 	//exit;
 
-$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Pickup'", null);
+$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Impression Detailing'", null);
 $result = pdo_fetch_array($query);
 $status_id = $result["order_in_repair"];
 
@@ -67,10 +67,9 @@ $stmt = pdo_query( $pdo, 'UPDATE repair_form SET repair_status_id = :repair_stat
 								   array("id"=>$repair_id_is, "repair_status_id"=>$status_id));
 								   
 } else {
-	
-$order_id_is = $start_cart['barcode'];
-			
-$query = pdo_query($pdo, "SELECT * FROM order_status_table WHERE status_of_order = 'Pickup'", null);
+
+$order_id_is = $start_cart['barcode'];			
+$query = pdo_query($pdo, "SELECT * FROM order_status_table WHERE status_of_order = 'Impression Detailing'", null);
 $result = pdo_fetch_array($query);
 $status_id = $result["order_in_manufacturing"];
 
@@ -93,7 +92,7 @@ if( $rowcount == 0 ) {
 
 $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_status_id WHERE id = :id',
 								   array("id"=>$order_id_is, "order_status_id"=>$status_id));
-
+								   
 } // CLOSE ELSE STATEMENT
 
 $rowcount = pdo_rows_affected( $stmt );

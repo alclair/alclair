@@ -377,7 +377,7 @@ $scope.qrcode= {
 		   $scope.repair_status_id = 1;
 	   } else if (page == "diagnosing") {
 		   $scope.repair_status_id = 2;
-	   } else if (page == "Repair Reshell") {
+	   } else if (page == "repair_reshell") {
 		   $scope.repair_status_id = 3;
 		} else if (page == "digital_impression_detailing") {
 		   $scope.repair_status_id = 17;

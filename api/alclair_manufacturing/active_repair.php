@@ -46,7 +46,7 @@ $response["testing"] = $repair_id_is;
 	//echo json_encode($response);
 	//exit;
 
-$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Repair Reshell'", null);
+$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Active Repair'", null);
 $result = pdo_fetch_array($query);
 $status_id = $result["order_in_repair"];
 

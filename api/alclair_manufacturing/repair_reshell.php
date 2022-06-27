@@ -46,7 +46,7 @@ $response["testing"] = $repair_id_is;
 	//echo json_encode($response);
 	//exit;
 
-$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Active Repair'", null);
+$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Repair Reshell'", null);
 $result = pdo_fetch_array($query);
 $status_id = $result["order_in_repair"];
 
@@ -69,7 +69,7 @@ $stmt = pdo_query( $pdo, 'UPDATE repair_form SET repair_status_id = :repair_stat
 } else {
 
 $order_id_is = $start_cart['barcode'];			
-$query = pdo_query($pdo, "SELECT * FROM order_status_table WHERE status_of_order = 'Impression Detailing'", null);
+$query = pdo_query($pdo, "SELECT * FROM order_status_table WHERE status_of_order = 'Repair Reshell'", null);
 $result = pdo_fetch_array($query);
 $status_id = $result["order_in_manufacturing"];
 

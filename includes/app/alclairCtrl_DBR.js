@@ -272,7 +272,6 @@ swdApp.controller('Daily_Build_Rate', ['$http', '$scope', 'AppDataService', '$up
          .success(function (result) {
 
              console.log("The JSON is " + JSON.stringify(result));
-                          
              if (result.code == "success") {
                  
 				 //$scope.UploadFile();

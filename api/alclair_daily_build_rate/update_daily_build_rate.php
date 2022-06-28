@@ -17,7 +17,7 @@ try
 	$daily['tat_repairs'] = $_POST['tat_repairs'];
 	$daily['tat_orders'] = $_POST['tat_orders'];
 		
-	$stmt = pdo_query( $pdo, 'UPDATE daily_build_rate SET daily_rate = :daily_rate, fudge = :fudge, shop_days = :shop_days, tat_repairs = :tat_repairs, tat_orders = :tat_orders', array(":daily_rate"=>$daily["daily_rate"], ":fudge"=>$daily["fudge"], ":shop_days"=>$daily["shop_days"]));
+	$stmt = pdo_query( $pdo, 'UPDATE daily_build_rate SET daily_rate = :daily_rate, fudge = :fudge, shop_days = :shop_days, tat_repairs = :tat_repairs, tat_orders = :tat_orders', array(":daily_rate"=>$daily["daily_rate"], ":fudge"=>$daily["fudge"], ":shop_days"=>$daily["shop_days"], ":tat_repairs"=>$daily["tat_repairs"], ":tat_orders"=>$daily["tat_orders"]));
 	
 	/*
 	$rowcount = pdo_rows_affected( $stmt );

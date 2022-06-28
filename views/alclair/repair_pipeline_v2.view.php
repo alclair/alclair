@@ -77,7 +77,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<table>		
 			<thead>
 				<tr>
-					<th style="text-align:center;">Repair Forr</th>
+					<th style="text-align:center;">Repair For</th>
 					<th style="text-align:center;">Repair Status</th>
 					<th style="text-align:center;">Date of Last Scan</th>
 					

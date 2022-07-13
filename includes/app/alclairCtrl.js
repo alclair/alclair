@@ -2130,6 +2130,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
 	 	canal_fit_earplugs_12db: 0,
 	pickup: 0,
 	nashville_order: 0,
+	fit_adjustment: 0,
 	date: window.cfg.CurrentDay,
 };
 

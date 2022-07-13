@@ -589,6 +589,12 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 			$scope.traveler.nashville_order = 0;
 			 		}
 			 		
+			 		if ($scope.traveler.fit_adjustment == true) {
+			 			$scope.traveler.fit_adjustment= 1;    
+			 		} else {
+			 			$scope.traveler.fit_adjustment = 0;
+			 		}
+			 		
 			 		if ($scope.traveler.rush_process == 'Yes') {
 				 		$scope.traveler.rush_process = 1;    
 			 		} else {

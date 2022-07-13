@@ -38,8 +38,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 	                <div class="form-group col-md-3">
                     	<b style="font-size: 20px;"><a href="<?=$rootScope['RootUrl']?>/alclair/orders">Add Order</a> </b>
                 	</div>
-					<div class="form-group col-md-4">
+					<div class="form-group col-md-3">
 						<input type="checkbox" ng-model="traveler.nashville_order" ng-true-value="1" ng-false-value="0" style="width:20px;height:20px;"> &nbsp; <b style="vertical-align:bottom;font-size: 20px "> NASHVILLE ORDER </b><br />
+            		</div>
+            		<div class="form-group col-md-3">
+						<input type="checkbox" ng-model="traveler.fit_adjustment" ng-true-value="1" ng-false-value="0" style="width:20px;height:20px;"> &nbsp; <b style="vertical-align:bottom;font-size: 20px "> FIT ADJUSTMENT </b><br />
             		</div>
             		<br/>
         		</div>

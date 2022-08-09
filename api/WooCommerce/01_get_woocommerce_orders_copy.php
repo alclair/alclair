@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-07-13T23:59:59',
-			'after' => '2022-07-13T00:00:00',
+			'before' => '2022-08-08T23:59:59',
+			'after' => '2022-08-08T00:00:00',
 			'per_page' => 100
         ];
 
@@ -143,7 +143,7 @@ $params = [
 	echo "Count is " . $data["id"] . " </br>";
 	// THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '12102602') ) {
+if(!stristr($data["id"], '12104113') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
@@ -180,11 +180,11 @@ if(!stristr($data["id"], '12102602') ) {
 
 	if( !stristr($full_product_name, "UV") ) { // IF UV EXISTS DO NOT STORE THE EARPHONE
 		//if( stristr($full_product_name, "Driver") !== false || stristr($full_product_name, "POS") !== false || stristr($full_product_name, "Custom Hearing Protection") !== false) { 
-		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear ")  || stristr($full_product_name, "Canal") || stristr($full_product_name, "IFB")) { 
+		if( stristr($full_product_name, "Driver") || stristr($full_product_name, "POS") || stristr($full_product_name, "Hearing Protection") || stristr($full_product_name, "Custom Earplugs")  || stristr($full_product_name, "Musicians Earplugs")  || stristr($full_product_name, "Custom Hearing Protection") || stristr($full_product_name, "Security") || stristr($full_product_name, "EXP") || stristr($full_product_name, "Exp") || stristr($full_product_name, "Full Ear ")  || stristr($full_product_name, "Canal") || stristr($full_product_name, "IFB") || stristr($full_product_name, "Venture") || stristr($full_product_name, "Cruise") ) { 
 			
 
 			if(!strcmp($data["status"], "processing")  || !strcmp($data["status"], "completed")   ) {  //|| stristr($data["status"], "hold")
-				
+					
 				//$order[$ind]["num_earphones_per_order"] = 0;
 				//$order[$ind]["num_earphones_per_order"] = $order[$ind]["num_earphones_per_order"] + 1;
 				$order[$ind]['use_for_estimated_ship_date'] = TRUE;
@@ -426,8 +426,16 @@ if(!stristr($data["id"], '12102602') ) {
 				for($j = 0; $j < count($line_item[meta_data]); $j++) {
 					$order[$ind]["iem_owner_first_name"] = " ";
 					$order[$ind]["iem_owner_last_name"] = " ";
+					
+					if($j == 0 && (stristr($full_product_name, "Venture") || stristr($full_product_name, "Cruise")) ) {
+						if(stristr($full_product_name, "Cruise") ) {
+	 						$order[$ind]["model"] = "Cruise";  // MODEL -> 4 	
+	 					} elseif(stristr($full_product_name, "Venture") ) {
+	 						$order[$ind]["model"] = "Venture";  // MODEL -> 4 	
+	 					}
+					}
 					//if(!strcmp($line_item[meta_data][$j]->key, "Model") || stristr($line_item[meta_data][$j]->key, "Artwork") ) {
-					if(!strcmp($line_item[meta_data][$j]->key, "Model")  ) {
+					if(!strcmp($line_item[meta_data][$j]->key, "Model") ) {
 						$order[$ind]["model"] = $line_item[meta_data][$j]->value;
 						if(!strcmp($full_product_name, "ELECTRO 6 DRIVER ELECTROSTATIC HYBRID") ) {
 							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
@@ -437,8 +445,8 @@ if(!stristr($data["id"], '12102602') ) {
 							$order[$ind]["model"] = "Electro";  // MODEL -> 4 	
 						} elseif(!strcmp($full_product_name, "ESM Thirteen Driver") ) {
 							$order[$ind]["model"] = "ESM";  // MODEL -> 4 		
-						} elseif(!strcmp($full_product_name, "STUDIO3 TRIPLE DRIVER") ) {
-							$order[$ind]["model"] = "Studio3";  // MODEL -> 4 		
+						} elseif(!strcmp($full_product_name, "Studio3 Triple Driver") ) {
+							$order[$ind]["model"] = "Studio3";  // MODEL -> 4 			
  						} elseif(!strcmp($full_product_name, "REVX TEN DRIVER") ) {
 	 						$order[$ind]["model"] = "Rev X";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Alclair UV2 Dual Driver Universal POS") ) {
@@ -447,12 +455,14 @@ if(!stristr($data["id"], '12102602') ) {
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
+	 					} elseif(stristr($full_product_name, "PRO") ) {
+	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "EXP CORE+") ) {
 	 						$order[$ind]["model"] = "EXP CORE+";  // MODEL -> 4 	
 						} elseif(stristr($full_product_name, "EXP CORE") ) {
 	 						$order[$ind]["model"] = "EXP CORE";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "Dual XB Dual Driver") ) {
-	 						$order[$ind]["model"] = "Dual XB";  // MODEL -> 4 	
+	 						$order[$ind]["model"] = "Dual XB";  // MODEL -> 4
 	 					} elseif(stristr($full_product_name, "Hearing Protection") )  {
 			 				if( stristr($full_product_name, "Silicone") ) {
 				 				$order[$ind]["model"] = "SHP";
@@ -485,6 +495,8 @@ if(!stristr($data["id"], '12102602') ) {
 						$order[$ind]["left_shell"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Right Shell") ) {
 						$order[$ind]["right_shell"] = $line_item[meta_data][$j]->value;
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Faceplate Exit") ) {
+						$order[$ind]["notes"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Left Faceplate") ) {
 						$order[$ind]["left_faceplate"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Right Faceplate") ) {
@@ -549,7 +561,7 @@ if(!stristr($data["id"], '12102602') ) {
 						
 						$value = "Pelican Case Logo Only";
 						$notes = $value;	 
-						$order[$ind]["notes"] = $notes;  
+						$order[$ind]["notes"] = $order[$ind]["notes"] . " - " . $notes;  
 						
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Pelican Case Name") ) {
 						$order[$ind]["pelican_case_name"] = $line_item[meta_data][$j]->value;
@@ -560,7 +572,7 @@ if(!stristr($data["id"], '12102602') ) {
     					} else {
 							$notes = "";
     					}
-						$order[$ind]["notes"] = $notes;
+						$order[$ind]["notes"] = $order[$ind]["notes"] . " - " . $notes;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Soft Case") ) {
 						$order[$ind]["soft_case"] = $line_item[meta_data][$j]->value;
 					} elseif( stristr($line_item[meta_data][$j]->key, "Hearing Protection Color") ) {
@@ -571,7 +583,7 @@ if(!stristr($data["id"], '12102602') ) {
 						$order[$ind]["hearing_protection"] = TRUE;	
 
 						$order[$ind]["hearing_protection_color"] = $line_item[meta_data][$j]->value;	
-						$order[$ind]["notes"] = "Made it";	
+						//$order[$ind]["notes"] = "Made it";	
 						$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
 						//echo "WE MADE IT INTO HERE";
 						//exit;
@@ -768,7 +780,7 @@ for ($x=0; $x <  count($order); $x++) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////     TAKEN FROM THE ORIGINAL IMPORT ROUTINE    ///////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////    STARTS HERE - CREATES ORDER THEN QC FORM      ////////////////////////////////////////////////////////////////////////////////////
-if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($order[$k]["product"], "Full Ear") || stristr($order[$k]["product"], "Canal") || stristr($order[$k]["product"], "IFB") ) { 
+if( stristr($order[$k]["product"], "Driver") || stristr($order[$k]["product"], "POS") || stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") || stristr($order[$k]["product"], "Full Ear") || stristr($order[$k]["product"], "Canal") || stristr($order[$k]["product"], "IFB") || stristr($order[$k]["product"], "Venture")  || stristr($order[$k]["product"], "Cruise") ) { 
 			// POPULATE IMPORT ORDERS TABLE IN THE DATABASE
 			//echo "WE ARE IN HERE " . $full_product_name . " and order # is " . $order[$k]['order_id'];
 			//exit;

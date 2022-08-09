@@ -99,7 +99,7 @@ try
 */
     //Get Total Records
     $query = "SELECT count(t1.id) FROM import_orders AS t1
-    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id != 99 AND t1.order_status_id != 12 t1.order_status_id != 18 $conditionSql";
+    					WHERE 1=1 AND t1.active = TRUE AND t1.order_status_id != 99 AND t1.order_status_id != 12 AND t1.order_status_id != 18 $conditionSql";
     //WHERE active = TRUE $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );
     $row = pdo_fetch_array( $stmt );

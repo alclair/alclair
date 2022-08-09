@@ -16,6 +16,7 @@ try
     $pagingSql = "";
     $orderBySqlDirection = "ASC";
     $orderBySql = " ORDER BY t1.estimated_ship_date $orderBySqlDirection";
+    $orderBySql = " ORDER BY t1.model";
     $params = array();
     
     if( !empty($_REQUEST['id']) )

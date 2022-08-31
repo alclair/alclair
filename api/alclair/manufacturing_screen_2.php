@@ -278,7 +278,9 @@ AND t2.model != 'Canal Fit HP'
 AND t2.model != 'Acrylic HP' 
 AND t2.model != 'Full Ear HP' 
 AND t2.model != 'EXP CORE'
-AND t2.model != 'EXP CORE+')
+AND t2.model != 'EXP CORE+'
+AND t2.model != 'Venture'
+AND t2.model != 'Cruise')
 
 ORDER BY date_done ASC,  t1.import_orders_id";
 // AND t1.use_for_estimated_ship_date = TRUE

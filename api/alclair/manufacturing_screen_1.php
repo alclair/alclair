@@ -90,7 +90,9 @@ try
 						AND t2.model != 'Acrylic HP' 
 						AND t2.model != 'Full Ear HP' 
 						AND t2.model != 'EXP CORE'
-						AND t2.model != 'EXP CORE+')";
+						AND t2.model != 'EXP CORE+'
+						AND t2.model != 'Venture'
+						AND t2.model != 'Cruise')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );

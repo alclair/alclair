@@ -121,7 +121,9 @@ AND t2.model != 'Canal Fit HP'
 AND t2.model != 'Acrylic HP' 
 AND t2.model != 'Full Ear HP' 
 AND t2.model != 'EXP CORE'
-AND t2.model != 'EXP CORE+')
+AND t2.model != 'EXP CORE+'
+AND t2.model != 'Venture'
+AND t2.model != 'Cruise')
 GROUP BY the_month, the_year, the_month_name";
 
     $stmt = pdo_query( $pdo, $query, $params ); 

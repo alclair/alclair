@@ -97,7 +97,9 @@ try
 								AND t2.model != 'Acrylic HP' 
 								AND t2.model != 'Full Ear HP' 
 								AND t2.model != 'EXP CORE'
-								AND t2.model != 'EXP CORE+')
+								AND t2.model != 'EXP CORE+'
+								AND t2.model != 'Venture'
+								AND t2.model != 'Cruise')
      						
      						$conditionSql_2";
 	$stmt_2 = pdo_query( $pdo, $query_2, $params_2); 

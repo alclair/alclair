@@ -98,7 +98,9 @@ ORDER BY the_day ASC";
 		AND model != 'Acrylic HP' 
 		AND model != 'Full Ear HP' 
 		AND model != 'EXP CORE'
-		AND model != 'EXP CORE+') 
+		AND model != 'EXP CORE+'
+		AND model != 'Venture'
+		AND model != 'Cruise') 
 			  GROUP BY the_day, type
     UNION ALL
     SELECT to_char(t1.date, 'dd') AS the_day, ( SELECT COUNT(to_char(t1.date, 'dd') ) ) AS num_in_day, t5.type
@@ -122,7 +124,9 @@ ORDER BY the_day ASC";
 		AND t2.model != 'Acrylic HP' 
 		AND t2.model != 'Full Ear HP' 
 		AND t2.model != 'EXP CORE'
-		AND t2.model != 'EXP CORE+') 
+		AND t2.model != 'EXP CORE+'
+		AND t2.model != 'Venture'
+		AND t2.model != 'Cruise') 
 		
 			
 			  GROUP BY the_day, type

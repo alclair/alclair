@@ -161,7 +161,9 @@ try
 		AND t2.model != 'Acrylic HP' 
 		AND t2.model != 'Full Ear HP' 
 		AND t2.model != 'EXP CORE'
-		AND t2.model != 'EXP CORE+'  )  
+		AND t2.model != 'EXP CORE+'  
+		AND t2.model != 'Venture'  
+		AND t2.model != 'Cruise'  )  
 		$conditionSql";
     //WHERE active = TRUE AND pass_or_fail = 'PASS' $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );

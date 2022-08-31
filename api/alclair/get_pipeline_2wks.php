@@ -47,7 +47,9 @@ try
 			AND t1.model != 'Acrylic HP' 
 			AND t1.model != 'Full Ear HP' 
 			AND t1.model != 'EXP CORE'
-			AND t1.model != 'EXP CORE+'  ) ";
+			AND t1.model != 'EXP CORE+' 
+			AND t1.model != 'Venture' 
+			AND t1.model != 'Cruise'  ) ";
 			
 			$conditionSql .= " AND (t1.order_status_id != 12)";
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 

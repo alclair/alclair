@@ -465,9 +465,13 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
     ];
     this.CableTypeList = [
         { value: '0', label: 'Select a cable' },
-        { value: 'Black', label: 'Black' },
-        { value: 'Clear', label: 'Clear' },
+        { value: 'Black', label: '50in Black' },
+        { value: 'Clear', label: '50in Clear' },
         { value: 'Mic Cable', label: 'Mic Cable' },
+        { value: '64in Black', label: '64in Black' },
+        { value: '64in Clear', label: '64in Clear' },
+        { value: 'Premium Studio Cable', label: 'Premium Copper Cable' },
+        { value: 'Premium Silver Cable', label: 'Premium Silver Cable' },
         { value: 'Other', label: 'Other' },
     ];
 	this.FullEarFilterList = [

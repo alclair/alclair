@@ -103,14 +103,14 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<option value="">Select a monitor</option>
 				</select>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-1">
 	            <label class="control-label">Artwork:</label><br />
-                <select class='form-control' ng-model='traveler.artwork' ng-options="artworktype.value as artworktype.label for artworktype in ArtworkTypeList">
+                <select style="width: 110px;"  class='form-control' ng-model='traveler.artwork' ng-options="artworktype.value as artworktype.label for artworktype in ArtworkTypeList">
 				</select>
             </div> 
-            <div class="form-group col-md-2">
-	            <label class="control-label">Cable:</label><br />
-                <select class='form-control' ng-model='traveler.cable_color' ng-options="cabletype.value as cabletype.label for cabletype in CableTypeList">
+            <div class="form-group col-md-3">
+	            <label style="margin-left: 40px;" class="control-label">Cable:</label><br />
+                <select style="width: 220px; margin-left: 40px;"  class='form-control' ng-model='traveler.cable_color' ng-options="cabletype.value as cabletype.label for cabletype in CableTypeList">
 				</select>
             </div>
             

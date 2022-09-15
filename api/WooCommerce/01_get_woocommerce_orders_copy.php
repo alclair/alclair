@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-08-29T23:59:59',
-			'after' => '2022-08-29T00:00:00',
+			'before' => '2022-09-14T23:59:59',
+			'after' => '2022-09-14T00:00:00',
 			'per_page' => 100
         ];
 
@@ -592,6 +592,7 @@ if(!stristr($data["id"], '12104113') ) {
 						$order[$ind]["cable_upgrade"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Upgrade Type") ) {
 						$order[$ind]["cable_upgrade_type"] = $line_item[meta_data][$j]->value;	
+						$order[$ind]["cable_color"] = $line_item[meta_data][$j]->value;
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Addon") ) {
 						$order[$ind]["cable_addon"] = $line_item[meta_data][$j]->value;	
 					} elseif(!strcmp($line_item[meta_data][$j]->key, "Cable Addon Type") ) {

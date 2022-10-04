@@ -23,7 +23,30 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <span style="color:orange;margin-left:580px">{{orders_shipped_yesterday}} </span> 
 			 <span style="margin-left:500px;color:orange">&nbsp;&nbsp; {{orders_shipped_today}} </span>
 			</h1><br/>
-			
+		
+		 <h1 style="font-weight:bold;font-size: 70px" align=center> SHIPPED BY PRODUCT LINE TODAY</h1><br/>
+		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>
+			 HP
+			 <span style="margin-left:200px">  OUTDOOR </span>
+			 <span style="margin-left:300px">  IFB/SEC </span>
+			 <span style="margin-left:300px">  MOTO </span>
+		 </h1>
+		 <br/>
+		 
+		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px">	
+			 <span style="color:orange;margin-left:100px">
+			 	{{hp_shipped_today}} 
+			 </span> 
+				<span style="margin-left:360px;color:red">
+				&nbsp;&nbsp; {{outdoor_shipped_today}} 
+			</span>
+				<span style="color:blue;margin-left:520px">
+			 	{{ifb_shipped_today}} 
+			 </span> 
+			<span style="margin-left:400px;color:black">
+				&nbsp;&nbsp; {{moto_shipped_today}} 
+			</span>
+		</h1><br/>	
 			
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> TURN AROUND TIME</h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>ORDERS<span style="margin-left:300px"> REPAIRS</span></h1><br/>
@@ -36,8 +59,13 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		<h1 style="font-weight:bold;font-size: 70px" align=center> TOTAL SHIPPED</h1>
 		 <br/>
 <!--		<h1 style="font-weight:bold;font-size: 70px" align=center> {{this_year}}</h1><br/> -->
-		<h1 style="font-weight:bold;font-size: 70px;font-style:italic;margin-top:-40px" align=center>{{last_month}}  <span style="margin-left:300px;"> {{this_month}} </h1><br/>
-		<h1 style="font-weight:bold;font-size: 70px;margin-top:-40px;margin-left:580px" ><span style="color:green">{{Shipped_Last_Month}} </span> <span style="margin-left:500px;color:green"> {{Shipped_This_Month}} </span></h1><br/>
+		<h1 style="font-weight:bold;font-size: 70px;font-style:italic;margin-top:-40px" align=center>{{last_month}}  
+			<span style="margin-left:260px;"> 			{{this_month}} 
+		</h1><br/>
+		<h1 style="font-weight:bold;font-size: 70px;margin-top:-40px;margin-left:540px" >
+			<span style="color:green">{{Shipped_Last_Month}} </span> 
+			<span style="margin-left:500px;color:green"> {{Shipped_This_Month}} </span>
+		</h1><br/>
 		<br/>
 		 
 		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>{{last_year}} <span style="margin-left:280px"> {{this_year}} </span></h1><br/>

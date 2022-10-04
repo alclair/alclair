@@ -65,9 +65,15 @@ swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService'
 			$scope.last_month =  result.last_month.toUpperCase();
 				
 			$scope.avg = result.avg;           
-             $scope.avg_repairs = result.avg_repairs;  
-             $scope.orders_shipped_yesterday = result.orders_shipped_yesterday;
-             $scope.orders_shipped_today = result.orders_shipped_today;
+            $scope.avg_repairs = result.avg_repairs;  
+            $scope.orders_shipped_yesterday = result.orders_shipped_yesterday;
+            $scope.orders_shipped_today = result.orders_shipped_today;
+             
+            // RIGHT HERE
+            $scope.outdoor_shipped_today = result.outdoor_shipped_today;
+            $scope.ifb_shipped_today = result.ifb_shipped_today;
+            $scope.moto_shipped_today = result.moto_shipped_today;
+            $scope.hp_shipped_today = result.hp_shipped_today;
                 
                 //$scope.QC_Form = result.customer_name;
                 $scope.TotalPages = result.TotalPages;

@@ -519,6 +519,80 @@ ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
     $response['orders_shipped_today'] = count($result);
+    
+// QUERY FOR ORDERS SHIPPED TODAY FOR OUTDOOR ONLY
+$query = "SELECT DISTINCT t1.import_orders_id, t2.designed_for, t3.status_of_order, t2.order_id AS order_id, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.order_status_id, t1.notes,  t2.id
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+LEFT JOIN monitors AS t4 ON t2.model = t4.name
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND t2.model IS NOT NULL 
+AND (t2.model = 'EXP PRO'
+OR t2.model = 'Exp Pro'
+OR t2.model = 'EXP CORE'
+OR t2.model = 'EXP CORE+')
+ORDER BY date_done ASC,  t1.import_orders_id";
+    $stmt = pdo_query( $pdo, $query, $params); 
+    $result = pdo_fetch_all( $stmt );
+    $response['outdoor_shipped_today'] = count($result);    
+
+// QUERY FOR ORDERS SHIPPED TODAY FOR IFB/SECURITY ONLY
+$query = "SELECT DISTINCT t1.import_orders_id, t2.designed_for, t3.status_of_order, t2.order_id AS order_id, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.order_status_id, t1.notes,  t2.id
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+LEFT JOIN monitors AS t4 ON t2.model = t4.name
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND t2.model IS NOT NULL 
+AND (t2.model = 'IFB Single' 
+OR t2.model = 'IFB Duo' 
+OR t2.model = 'Security Ears' )
+ORDER BY date_done ASC,  t1.import_orders_id";
+    $stmt = pdo_query( $pdo, $query, $params); 
+    $result = pdo_fetch_all( $stmt );
+    $response['ifb_shipped_today'] = count($result);   
+
+// QUERY FOR ORDERS SHIPPED TODAY FOR MOTO ONLY
+$query = "SELECT DISTINCT t1.import_orders_id, t2.designed_for, t3.status_of_order, t2.order_id AS order_id, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.order_status_id, t1.notes,  t2.id
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+LEFT JOIN monitors AS t4 ON t2.model = t4.name
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND t2.model IS NOT NULL 
+AND (t2.model = 'Venture'
+OR t2.model = 'Cruise')
+ORDER BY date_done ASC,  t1.import_orders_id";
+    $stmt = pdo_query( $pdo, $query, $params); 
+    $result = pdo_fetch_all( $stmt );
+    $response['moto_shipped_today'] = count($result);   
+    
+// QUERY FOR ORDERS SHIPPED TODAY FOR HP ONLY
+$query = "SELECT DISTINCT t1.import_orders_id, t2.designed_for, t3.status_of_order, t2.order_id AS order_id, to_char(t1.date, 'MM/dd/yyyy    HH24:MI') as date_done, t4.name AS model, t1.order_status_id, t1.notes,  t2.id
+FROM order_status_log AS t1
+LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
+LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
+LEFT JOIN monitors AS t4 ON t2.model = t4.name
+WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
+AND t2.model IS NOT NULL 
+AND (t2.model = 'MP' 
+AND t2.model = 'AHP' 
+AND t2.model = 'SHP'  
+AND t2.model = 'Musicians Plugs' 
+AND t2.model = 'Silicone Protection' 
+AND t2.model = 'Canal Fit HP' 
+AND t2.model = 'Acrylic HP' 
+AND t2.model = 'Full Ear HP' )
+ORDER BY date_done ASC,  t1.import_orders_id";
+
+    $stmt = pdo_query( $pdo, $query, $params); 
+    $result = pdo_fetch_all( $stmt );
+    $response['hp_shipped_today'] = count($result);   
     		
 	$response["num_of_repairs1"] = $ind;
 	$response["num_of_repairs2"] = count($difference);

@@ -45,6 +45,35 @@
         <div id="impressions_received_date"></div>
     </div>
     
+    <!--                   																				 CATEGORIES SHIPPED BY DATE																									-->
+	 <div style="width: 100%; margin-left: auto; margin-right: auto;">        
+        <div style="text-align: center;">
+            <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
+             <h2>Shipped by Category by Date</h2>
+            	<h3><b>{{num_ciem}} CEIM / {{num_hp}} HP / {{num_outdoor}} Outdoor / {{num_ifb_sec}} IFB&SEC / {{num_moto}} Moto</b></h3>
+
+			<br />
+            <div class="col-md-12">
+                <span ng-repeat="label8 in labelRange8">
+                    <span style="display: inline-block; width: 10px; height: 10px; background: {{label8.color}};"></span><span>{{label8.text}}</span>
+                </span>
+            </div>
+			
+            <br />
+            
+        </div>
+		<div style="float:right;">
+            <label>
+                <input type="radio" name="mode_month_categories" value="grouped" id="grouped_category">
+                Grouped</label>
+            <label>
+                <input type="radio" name="mode_month_categories" value="stacked" id="stacked_category" checked>
+                Stacked</label>
+			</div>
+        <div id="shipped_by_category"></div>
+    </div>
+
+    
     
     <!--                   																				 REPAIRS RECEIEVED BY DATE																										-->
      <div style="width: 100%; margin-left: auto; margin-right: auto;">        

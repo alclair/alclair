@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-09-14T23:59:59',
-			'after' => '2022-09-14T00:00:00',
+			'before' => '2022-10-03T23:59:59',
+			'after' => '2022-10-03T00:00:00',
 			'per_page' => 100
         ];
 
@@ -455,8 +455,8 @@ if(!stristr($data["id"], '12104113') ) {
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
-	 					} elseif(stristr($full_product_name, "PRO") ) {
-	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
+	 					//} elseif(stristr($full_product_name, "PRO") ) {
+	 					//	$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
 	 					} elseif(stristr($full_product_name, "EXP CORE+") ) {
 	 						$order[$ind]["model"] = "EXP CORE+";  // MODEL -> 4 	
 						} elseif(stristr($full_product_name, "EXP CORE") ) {

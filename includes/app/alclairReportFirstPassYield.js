@@ -37,6 +37,8 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
 	$scope.labels7 = [];
 	$scope.labelRange7 = [];
 
+	$scope.labels8 = [];
+	$scope.labelRange8 = [];
     
     $scope.makeExcel = function () {
 
@@ -343,6 +345,69 @@ swdApp.controller('reportFirstPassYield', ['$http', '$scope', 'AppDataService', 
         });
     };
     
+    
+    $scope.loadShippedByCategory = function () {
+        myblockui();
+		console.log("HERE NOW")
+		var api_url = window.cfg.apiUrl + "reports/categoryshippedbydate.php?year=" + $scope.year_month + "&month=" + $scope.month_month + "&IEM=" + $scope.IEM;
+
+        $http.get(api_url).success(function (result8) {
+			$scope.num_ciem= result8.num_ciem;
+			$scope.num_hp = result8.num_hp;
+			$scope.num_outdoor= result8.num_outdoor;
+			$scope.num_ifb_sec = result8.num_ifb_sec;
+			$scope.num_moto= result8.num_moto;
+			console.log("SOMETHING HERE IS " + $scope.num_ciem)
+            $.unblockUI();
+            //console.log(JSON.stringify(result5.data));
+            //console.log("data length is " + result.data.length)
+            if (result8.data.length == 0)
+                return;
+            $scope.labelRange8 = [];
+
+            var monthday = ["01", "03", "05", "07", "08", "10", "12"];
+            var totalmonthday = 31;
+            if (monthday.indexOf($scope.month_month) == -1)
+                totalmonthday = 30;
+          
+			 //$scope.labels5 = "Count"; 
+            var layers8 = [];
+            for (var i = 0; i < $scope.labels8.length; i++) {
+                var layer8 = [];
+                for (var j = 0; j < totalmonthday; j++) {
+                    layer8.push({ y: 0 });
+                }
+                layers8.push(layer8);
+            }
+            
+            for (var i = 0; i < result8.data.length; i++) {
+                var created8 = result8.data[i].the_day[0] == "0" ? parseInt(result8.data[i].the_day[1]) : parseInt(result8.data[i].the_day);
+                var pass_or_fail8 = result8.data[i].type;
+                //var water_type = result.data[i].water_type;
+                var num_status8 = result8.data[i].num_in_day;
+                created8 = created8 - 1;
+                //console.log("I is " + i)
+                console.log("C is " + created8 + " PF is " + pass_or_fail8 + " Num is " + num_status8)
+                console.log("I is " + typeof created8)
+                layers8[$scope.labels8.indexOf(pass_or_fail8)][created8].y = num_status8;
+            }
+
+            //console.log("Layers is " + JSON.stringify(layers));
+
+            var color = d3.scale.category20();
+            for (var i = 0; i < $scope.labels8.length; i++) {
+                $scope.labelRange8.push({ text: $scope.labels8[i], color: color(i) });
+            }
+
+                d3DarwStackGroup(layers8, "shipped_by_category", "grouped_category", "stacked_category", $scope.labels8, { category20: true });
+
+        }).error(function () {
+            $.unblockUI();
+            toastr.error("Get error.");
+        });
+    };
+
+    
 $scope.loadRepairsReceived = function () {
         myblockui();
 
@@ -510,6 +575,11 @@ $scope.loadRepairsReceived = function () {
         }    
     }, function () { });
 
+	AppDataService.loadCategoryTypeList(null, null, function (result) {
+        for (var i = 0; i < result.data.length; i++) {
+            $scope.labels8.push(result.data[i].type);
+        }    
+    }, function () { });
 	
 	//$scope.labels6.push(" # of Repairs", "");
 	//$scope.labels6.push("");
@@ -521,6 +591,7 @@ $scope.loadRepairsReceived = function () {
 	$scope.loadImpressionsReceived();
 	$scope.loadRepairsReceived();
 	$scope.loadRepairsAndFitNumbers();
+	$scope.loadShippedByCategory();
 
 
     $scope.selectMonth_Month = function () {
@@ -538,6 +609,8 @@ $scope.loadRepairsReceived = function () {
         $scope.loadRepairsReceived();
         $("#repairs_and_fit_numbers").html("");
         $scope.loadRepairsAndFitNumbers();
+        $("#shipped_by_category").html("");
+        $scope.loadShippedByCategory();
 
     };
     

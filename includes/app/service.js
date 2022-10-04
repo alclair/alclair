@@ -177,7 +177,21 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
         }).error(function (result) {
             error(result);
         });
-    };   
+    };
+    this.load_shipped_by_category = function (name, params, success, error) {
+		var api_url = window.cfg.apiUrl + name + "/get_shipped_by_category.php";
+			
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };     
 this.load_alclair_repairs_vs_shipped = function (name, params, success, error) {
 		var api_url = window.cfg.apiUrl + name + "/get_status_type_repairs.php";
 			
@@ -377,6 +391,12 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
             before();
 
         this.load_alclair_impressions_vs_shipped('alclair', params, success, error);
+    };
+    this.loadCategoryTypeList = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_shipped_by_category('alclair', params, success, error);
     };
     this.loadStatusTypeList_repairs = function (params, before, success, error) {
         if (before != null && before != undefined)

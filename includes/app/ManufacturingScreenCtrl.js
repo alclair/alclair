@@ -74,6 +74,8 @@ swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService'
             $scope.ifb_shipped_today = result.ifb_shipped_today;
             $scope.moto_shipped_today = result.moto_shipped_today;
             $scope.hp_shipped_today = result.hp_shipped_today;
+            
+            $scope.all_shipped_today = $scope.orders_shipped_today + $scope.outdoor_shipped_today + $scope.ifb_shipped_today + $scope.moto_shipped_today + $scope.hp_shipped_today;
                 
                 //$scope.QC_Form = result.customer_name;
                 $scope.TotalPages = result.TotalPages;
@@ -86,15 +88,15 @@ swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService'
 				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_2";
 				  }, 15000); 
 
-                $scope.PageRange = [];
-                $scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
-                $scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
-                if ($scope.PageWindowEnd > $scope.TotalPages) {
-                    $scope.PageWindowEnd = $scope.TotalPages;
-                }
-                for (var i = $scope.PageWindowStart; i <= $scope.PageWindowEnd; i++) {
-                    $scope.PageRange.push(i);
-                }
+                //$scope.PageRange = [];
+                //$scope.PageWindowStart = (Math.ceil($scope.PageIndex / $scope.PageWindowSize) - 1) * $scope.PageWindowSize + 1;
+                //$scope.PageWindowEnd = $scope.PageWindowStart + $scope.PageWindowSize - 1;
+                //if ($scope.PageWindowEnd > $scope.TotalPages) {
+                //    $scope.PageWindowEnd = $scope.TotalPages;
+                //}
+                //for (var i = $scope.PageWindowStart; i <= $scope.PageWindowEnd; i++) {
+                //    $scope.PageRange.push(i);
+                //}
 
                 $.unblockUI();
             }).error(function (result) {
@@ -104,7 +106,7 @@ swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService'
     
     $scope.OpenWindow=function(filepath)
 	{
-		window.open(window.cfg.rootUrl+'/data/'+filepath,'Invoice #'+$scope.customer_name,'width=760,height=600,menu=0,scrollbars=1');
+		//window.open(window.cfg.rootUrl+'/data/'+filepath,'Invoice #'+$scope.customer_name,'width=760,height=600,menu=0,scrollbars=1');
 	}
        
     $scope.init = function () {

@@ -145,22 +145,7 @@ try
 						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
 						AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
 						AND t1.date > '$january_current_year' AND t1.date < '$december_current_year' 
-						AND (t2.model IS NOT NULL 
-						AND t2.model != 'MP' 
-						AND t2.model != 'AHP' 
-						AND t2.model != 'SHP' 
-						AND t2.model != 'EXP PRO'
-						AND t2.model != 'Exp Pro'
-						AND t2.model != 'Security Ears' 
-						AND t2.model != 'Musicians Plugs' 
-						AND t2.model != 'Silicone Protection' 
-						AND t2.model != 'Canal Fit HP' 
-						AND t2.model != 'Acrylic HP' 
-						AND t2.model != 'Full Ear HP' 
-						AND t2.model != 'EXP CORE'
-						AND t2.model != 'EXP CORE+'
-						AND t2.model != 'Venture'
-						AND t2.model != 'Cruise')";					
+						AND (t2.model IS NOT NULL )";					
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -177,22 +162,7 @@ try
 						WHERE t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL 
 						AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
 						AND to_char(t1.date, 'MM') = '$current_month' AND to_char(t1.date, 'YYYY') =  '$current_year' 
-						AND (t2.model IS NOT NULL 
-						AND t2.model != 'MP' 
-						AND t2.model != 'AHP' 
-						AND t2.model != 'SHP' 
-						AND t2.model != 'EXP PRO'
-						AND t2.model != 'Exp Pro'
-						AND t2.model != 'Security Ears' 
-						AND t2.model != 'Musicians Plugs' 
-						AND t2.model != 'Silicone Protection' 
-						AND t2.model != 'Canal Fit HP' 
-						AND t2.model != 'Acrylic HP' 
-						AND t2.model != 'Full Ear HP' 
-						AND t2.model != 'EXP CORE'
-						AND t2.model != 'EXP CORE+'
-						AND t2.model != 'Venture'
-						AND t2.model != 'Cruise')";
+						AND (t2.model IS NOT NULL )";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );

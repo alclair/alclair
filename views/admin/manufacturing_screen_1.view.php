@@ -35,20 +35,20 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <br/>
 		 
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px">	
-			 <span style="color:orange;margin-left:70px">
+			 <span style="color:orange;margin-left:175px">
 			 	 {{orders_shipped_today}}
 			 </span> 
-			 <span style="color:green;margin-left:160px">
+			 <span style="color:green;margin-left:205px">
 			 	{{hp_shipped_today}}
 			 </span> 
-				<span style="margin-left:280px;color:red">
-				&nbsp;&nbsp; {{outdoor_shipped_today}}
+				<span style="margin-left:310px;color:red">
+				{{outdoor_shipped_today}}
 			</span>
-				<span style="color:blue;margin-left:420px">
+			<span style="color:blue;margin-left:445px">
 			 	{{ifb_shipped_today}}
 			 </span> 
-			<span style="margin-left:400px;color:black">
-				&nbsp;&nbsp; {{moto_shipped_today}}
+			<span style="margin-left:435px;color:black">
+				{{moto_shipped_today}}
 			</span>
 		</h1><br/>	
 		
@@ -65,10 +65,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<span style="margin-left:260px;"> 			{{this_year}} 
 		</h1><br/>
 				 		
-		<h1 style="font-weight:bold;font-size: 70px;margin-top:-40px;margin-left:320px" >
+		<h1 style="font-weight:bold;font-size: 70px;margin-top:-40px;margin-left:460px" >
 			<span style="color:green"> {{all_shipped_today}}  </span> 
-			<span style="margin-left:420px;color:green"> {{Shipped_This_Month}} </span>
-			<span style="margin-left:420px;color:blue"> {{Shipped_This_Year}}  </span>
+			<span style="margin-left:500px;color:green"> {{Shipped_This_Month}} </span>
+			<span style="margin-left:360px;color:blue"> {{Shipped_This_Year}}  </span>
 		</h1><br/>
 		<br/>
 		
@@ -76,7 +76,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		 <h1 style="font-weight:bold;font-size: 70px" align=center> TURN AROUND TIME</h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;font-style: italic;margin-top:-40px" align=center>ORDERS<span style="margin-left:300px"> REPAIRS</span></h1><br/>
 		 <h1 style="font-weight:bold;font-size: 70px;margin-top:-40px">
-			 <span style="color:purple;margin-left:580px">{{avg}} </span> 
+			 <span style="color:purple;margin-left:680px">{{avg}} </span> 
 			 <span style="margin-left:490px;color:purple"> {{avg_repairs}} </span>
 		</h1><br/>
 	

@@ -106,28 +106,31 @@ LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 LEFT JOIN monitors AS t4 ON t2.model = t4.name
 WHERE to_char(t1.date,'yyyy') = '$current_year' 
-AND t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS NOT NULL
+AND t1.order_status_id = 12 AND t2.active = TRUE AND t4.name IS NOT NULL
 AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
-AND t2.use_for_estimated_ship_date = TRUE
-AND (t2.model IS NOT NULL 
-AND t2.model != 'MP' 
-AND t2.model != 'AHP' 
-AND t2.model != 'SHP' 
-AND t2.model != 'Exp Pro'
-AND t2.model != 'Security Ears' 
-AND t2.model != 'Musicians Plugs' 
-AND t2.model != 'Silicone Protection' 
-AND t2.model != 'Canal Fit HP' 
-AND t2.model != 'Acrylic HP' 
-AND t2.model != 'Full Ear HP' 
-AND t2.model != 'EXP CORE'
-AND t2.model != 'EXP CORE+'
-AND t2.model != 'Venture'
-AND t2.model != 'Cruise')
+
+AND (t2.model IS NOT NULL)
 GROUP BY the_month, the_year, the_month_name";
 
-    $stmt = pdo_query( $pdo, $query, $params ); 
-	 $num_in_day = pdo_fetch_all( $stmt );
+/* AND t2.use_for_estimated_ship_date = TRUE */
+/*
+	AND t2.model != 'MP' 
+	AND t2.model != 'AHP' 
+	AND t2.model != 'SHP' 
+	AND t2.model != 'Exp Pro'
+	AND t2.model != 'Security Ears' 
+	AND t2.model != 'Musicians Plugs' 
+	AND t2.model != 'Silicone Protection' 
+	AND t2.model != 'Canal Fit HP' 
+	AND t2.model != 'Acrylic HP' 
+	AND t2.model != 'Full Ear HP' 
+	AND t2.model != 'EXP CORE'
+	AND t2.model != 'EXP CORE+'
+	AND t2.model != 'Venture'
+	AND t2.model != 'Cruise')
+*/
+$stmt = pdo_query( $pdo, $query, $params ); 
+$num_in_day = pdo_fetch_all( $stmt );
 	 	 
    $result = array();
    //$result = array_merge($num_of_impressions_in_day, $num_of_shipped_in_day);

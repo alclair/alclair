@@ -167,6 +167,20 @@ $left_column_name_response =
         		<td style=\"text-align:left;\">{$result[0]["designed_for"]}<br/><span style=\"color:green;\">&nbsp;&nbsp;&nbsp;&nbsp;<b>{$result[0]["order_id"]}</b></span></td>
 		</tr>
 ";*/
+
+/* 10/12/2022
+	If MODEL IS Exp Pro, EXP CORE or EXP CORE+
+	Change ORANGE to LIGHT BLUE for Travler
+*/
+if(stristr($result[0]['model'], "EXP") || stristr($result[0]['model'], "EXP")) {
+	$left_column_name =
+"
+	<table width='420px' style=\"font-family:arial;font-size:22px;border-spacing: 80px 0px;border-left-style: solid #00ff00; border-left-width:140px; border-left-color:#03A9F4\">
+		<tr style=\"font-weight:bold;float:left;padding-right:20cm;\">
+        		<td style=\"floa:right;padding-left:20cm;\"><b style=\"float:right;padding-left:20cm;white-space:nowrap;\">NAME</b></td>
+		</tr>
+";
+} else {
 $left_column_name =
 "
 	<table width='420px' style=\"font-family:arial;font-size:22px;border-spacing: 80px 0px;border-left-style: solid #00ff00; border-left-width:140px; border-left-color:#FFA500\">
@@ -174,6 +188,8 @@ $left_column_name =
         		<td style=\"floa:right;padding-left:20cm;\"><b style=\"float:right;padding-left:20cm;white-space:nowrap;\">NAME</b></td>
 		</tr>
 ";
+}
+
 $left_column_name_response =  
 "		<tr style=\"color:blue;\">
         		<td style=\"text-align:left;font-size:36px;\"><b>{$result[0]["customer_name"]}</b></td>

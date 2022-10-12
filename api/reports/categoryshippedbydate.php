@@ -60,6 +60,8 @@ try
 		AND t2.model != 'EXP PRO' 
 		AND t2.model != 'Exp Pro' 
 		AND t2.model != 'Security Ears' 
+		AND t2.model != 'Sec Ears Silicone'
+		AND t2.model != 'Sec Ears Acrylic'
 		AND t2.model != 'Musicians Plugs' 
 		AND t2.model != 'Silicone Protection' 
 		AND t2.model != 'Canal Fit HP' 
@@ -116,7 +118,9 @@ try
               AND t2.model IS NOT NULL 
 		AND (t2.model = 'IFB Single'
 		OR t2.model = 'IFB Duo'
-		OR t2.model = 'Security Ears' ) 
+		OR t2.model = 'Security Ears' 
+		OR t2.model = 'Sec Ears Silicone'
+		OR t2.model = 'Sec Ears Acrylic') 
 		
 		GROUP BY the_day, type
 		UNION ALL	  

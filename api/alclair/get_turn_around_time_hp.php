@@ -106,7 +106,9 @@ try
 						   OR t1.model = 'Silicone Protection' 
 						   OR t1.model = 'Canal Fit HP'
 						   OR t1.model = 'Musicians Plugs' 
-						   OR t1.model = 'Security Ears' 
+						   OR t1.model = 'Security Ears'
+						   OR t1.model = 'Sec Ears Silicone'
+						   OR t1.model = 'Sec Ears Acrylic'
 						   OR t1.model = 'Exp Pro' 
 						   OR t1.model = 'EXP CORE' 
 						   OR t1.model = 'EXP CORE+')"; // $conditionSql";

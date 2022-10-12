@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-10-05T23:59:59',
-			'after' => '2022-10-05T00:00:00',
+			'before' => '2022-10-11T23:59:59',
+			'after' => '2022-10-11T00:00:00',
 			'per_page' => 100
         ];
 
@@ -263,7 +263,11 @@ if(!stristr($data["id"], '12104113') ) {
 					$order[$ind]["make_2nd_traveler_for_hearing_protection"] = "YES";
 					
 					$order[$ind]["model_hp"] = "Sec Earpiece";
-					$order[$ind]["model_hp"] = "Security Ears";
+					if( stristr($line_item["sku"], "SIL") ) {
+						$order[$ind]["model_hp"] = "Sec Ears Silicone";	
+					} else {
+						$order[$ind]["model_hp"] = "Sec Ears Acrylic";
+					}
 					
 				}
 

@@ -42,8 +42,8 @@ $params = [
 	//$result = $woocommerce->get('orders', $params);		
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //if(count($result) == 100) {
-	$date = '2022-09-16';
-	$order_index = 16;
+	$date = '2022-09-02';
+	$order_index = 17;
 	$result = [];
 	$params = [
 		'before' =>  $date . $HOURS[1],
@@ -72,7 +72,7 @@ $params = [
 		'per_page' => 100			
 	];
 	$result4 = $woocommerce->get('orders', $params);
-	$order_number = '9052388';
+	$order_number = '12104892';
 	$result = $woocommerce->get('orders/' . $order_number);
 	$result = array_merge($result1, $result2, $result3, $result4);
 	
@@ -171,6 +171,7 @@ if(count($result) == 100) {
 		echo "DISCOUNT IS  ". $data["discount_total"] .  "<br/>";
 		echo "TOTAL IS  ". $data["total"] .  "<br/>";
 		echo "COUPON IS  ". $coupon_lines["code"] . "<br/>";
+		echo "SKU IS " .$line_item["sku"] . "<br/>";
 		echo json_encode($response);
     //}
     

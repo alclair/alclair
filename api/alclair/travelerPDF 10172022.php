@@ -170,14 +170,13 @@ if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship
 		$border_color = "#3F704D"; // GREEN FOR CUSTOMS
 }
 
-	if ($result[0]['artwork'] == 'Nope') {
-		
-	} else {
-		$artwork_white = '<input type="checkbox" name="WHITE" value="WHITE" checked="checked">WHITE';
-		$artwork_white = '<input style=\"font-size:11px;\" type="checkbox" name="WHITE" value="WHITE" checked="checked">WHITE';
-	    $artwork_black = '<input style=\"font-size:11px;\" type="checkbox" name="BLACK" value="BLACK" >BLACK';
-	}
-
+if ($result[0]['artwork'] == 'Nope') {
+	
+} else {
+	$artwork_white = '<input type="checkbox" name="WHITE" value="WHITE" checked="checked">WHITE';
+	$artwork_white = '<input style=\"font-size:11px;\" type="checkbox" name="WHITE" value="WHITE" checked="checked">WHITE';
+    $artwork_black = '<input style=\"font-size:11px;\" type="checkbox" name="BLACK" value="BLACK" >BLACK';
+}
 //&#8209;
 $artwork_logo = "<td colspan='2'  style=\"text-align:left;\"><strike>LOGO</strike>&nbsp;<strike>C ICON</strike>&nbsp;&nbsp;<strike>V STAMP</strike></td>";
 $artwork_logo = "<td colspan='2' style=\"text-align:left;\"><strike>LOGO</strike>&nbsp;&nbsp;&nbsp;<strike>C ICON</strike>&nbsp;&nbsp;&nbsp;<strike>V STAMP</strike></td>";
@@ -544,7 +543,6 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
     	<td  style=\"text-align:left;\">ARTWORK:</td>
     </tr>
 ";*/
-
 
 if ( ($result[0]["hearing_protection"] == TRUE || $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
 	//$right_column_artwork = "";
@@ -933,161 +931,73 @@ $right_column_ship_date_response =
 
 
 //	<td  colspan='2'  style=\"text-align:left;font-size:12px;\">LOGO&nbsp;&nbsp;C-ICON&nbsp;&nbsp;V-STAMP&nbsp;&nbsp;SCRIPT&nbsp;&nbsp;CUSTOM</td>           
- // THE IF ELSE STATEMENT BELOW DETERMINES IF THE TRAVELER IS PRINTING FOR ACTIVE HEARING PROTECTION OR ANYTHING OTHER
- // IMMEDIATELY BELOW IS ANYTHING OTHER
- // THE ELSE STATEMENT IS ONLY FOR THE ACTIVE HEARING PROTECTION
- // OCTOBER 17TH, 2022  (10/17/2022)
-if( !stristr($result[0]['model'], "Exp") && !stristr($result[0]['model'], "EXP") ) {
-     
-    $ticket_html3 = "<table style=\"white-space:nowrap;\"> <tr><td>" . 
-    $left_column_name  . $left_column_name_response  . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-	 $left_column_orderID  . $left_column_orderID_response  . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $ticket_html3 = "<table style=\"white-space:nowrap;\"> <tr><td>" . 
+            $left_column_name  . $left_column_name_response  . 
+             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+			 $left_column_orderID  . $left_column_orderID_response  . 
+             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
 
-    //$left_column_email  . $left_column_email_response  . 
-     //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $left_column_impressions_color  . $left_column_impressions_color_response  . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    //$left_column_church  . $left_column_church_response  . 
-     //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    //$left_column_address  . $left_column_address_response  . 
-     //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $left_column_note  . $left_column_note_response  . 
-    "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $left_column_order_date  . $left_column_order_date_response  . 
-   "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $left_column_received_date  . $left_column_received_date_response  . 
-   "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $right_column_ship_date .  $right_column_ship_date_response .
-    "</td>" .   
-     //'<img src="'.$urlRelativeFilePath.'" />' . 
-     //"<img src=$rootScope["RootPath"].'data/export/'.$urlRelativeFilePath.'/>'" . 
-     //'<img src="/var/www/html/dev/logo.jpg"  width="50" height="50">';
-     //$pdf->Image($rootScope["RootPath"].'data/export/005_file_457d2f313cb4e48ae5c08e6333be9b45.png ',10,10,-300) . 
-     //$rootScope["RootPath"]."data/export/";
-     
-     //<td>" . 
-    //$middle_column_order_id . $middle_column_order_id_response . "</td>
-    "<td>" . 
-    "<table style=\"font-size:20px;\">" . //$right_column_checkboxes1_response .  
-     $right_column_monitor . "<td style=\"display:inline-block;\" rowspan=\"7\" >" . 
-     	//'<img src="/var/www/html/dev/data/export/005_file_457d2f313cb4e48ae5c08e6333be9b45.png" width="300" height="300" ALIGN=”right”></td></tr>' .
-     	//'<img src="/var/www/html/dev/data/export/". '$fileName_barcode' ."""  ></td></tr>' .
-     	$the_barcode . 
-     	//'<img src="/var/www/html/dev/data/export/005_file_457d2f313cb4e48ae5c08e6333be9b45.png" width="200" height="200" ALIGN=”right”></td></tr>' .
-     //<img src="{{traveler.link_to_design_image}}" alt="Design Image" style="parent:hover img {display: block}">
-     $right_column_monitor_response .
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $right_column_cable . $right_column_cable_response .
-    "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            //$left_column_email  . $left_column_email_response  . 
+             //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $left_column_impressions_color  . $left_column_impressions_color_response  . 
+             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            //$left_column_church  . $left_column_church_response  . 
+             //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            //$left_column_address  . $left_column_address_response  . 
+             //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $left_column_note  . $left_column_note_response  . 
+            "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $left_column_order_date  . $left_column_order_date_response  . 
+           "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $left_column_received_date  . $left_column_received_date_response  . 
+           "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $right_column_ship_date .  $right_column_ship_date_response .
+            "</td>" .   
+             //'<img src="'.$urlRelativeFilePath.'" />' . 
+             //"<img src=$rootScope["RootPath"].'data/export/'.$urlRelativeFilePath.'/>'" . 
+             //'<img src="/var/www/html/dev/logo.jpg"  width="50" height="50">';
+             //$pdf->Image($rootScope["RootPath"].'data/export/005_file_457d2f313cb4e48ae5c08e6333be9b45.png ',10,10,-300) . 
+             //$rootScope["RootPath"]."data/export/";
+             
+             //<td>" . 
+            //$middle_column_order_id . $middle_column_order_id_response . "</td>
+            "<td>" . 
+            "<table style=\"font-size:20px;\">" . //$right_column_checkboxes1_response .  
+             $right_column_monitor . "<td style=\"display:inline-block;\" rowspan=\"7\" >" . 
+             	//'<img src="/var/www/html/dev/data/export/005_file_457d2f313cb4e48ae5c08e6333be9b45.png" width="300" height="300" ALIGN=”right”></td></tr>' .
+             	//'<img src="/var/www/html/dev/data/export/". '$fileName_barcode' ."""  ></td></tr>' .
+             	$the_barcode . 
+             	//'<img src="/var/www/html/dev/data/export/005_file_457d2f313cb4e48ae5c08e6333be9b45.png" width="200" height="200" ALIGN=”right”></td></tr>' .
+             //<img src="{{traveler.link_to_design_image}}" alt="Design Image" style="parent:hover img {display: block}">
+             $right_column_monitor_response .
+             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $right_column_cable . $right_column_cable_response .
+            "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+            $right_column_artwork . $right_column_artwork_response . $right_column_artwork_response2 . 
+             
+             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+             $right_column_colors .  $right_column_colors_shells_response  . $right_column_colors_shells_response2 . 
+             "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
+             $right_column_tips .  $right_column_colors_faceplates_response  .  $right_column_colors_faceplates_response2 .
+             "<tr><td colspan=\"2\" style='height:2px;'></td></tr>" .
+             //$right_column_addons_and_highrise .
+             $right_column_items .
+             $right_column_num_of_earphones .
+             $right_column_hearing_protection .
+             $right_column_musicians_plugs .
+             $right_column_pickup .
+             //$right_column_highrise .
+            //"<tr><td colspan=\'2\' style='height:$td_height;'></td></tr>" .
+            //"<tr><td colspan=\'2\' style='height:$td_height;'></td></tr>" .
+            "	<tr>
+    			<td style=\"font-size:2px\"></td>
+				<td style=\"font-size:2px\"></td>
+			</tr></table>" .
 
-    $right_column_artwork . $right_column_artwork_response . $right_column_artwork_response2 . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-     
-     $right_column_colors .  $right_column_colors_shells_response  . $right_column_colors_shells_response2 . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-     $right_column_tips .  $right_column_colors_faceplates_response  .  $right_column_colors_faceplates_response2 .
-     "<tr><td colspan=\"2\" style='height:2px;'></td></tr>" .
-     //$right_column_addons_and_highrise .
-     $right_column_items .
-     $right_column_num_of_earphones .
-     $right_column_hearing_protection .
-     $right_column_musicians_plugs .
-     $right_column_pickup .
-     //$right_column_highrise .
-    //"<tr><td colspan=\'2\' style='height:$td_height;'></td></tr>" .
-    //"<tr><td colspan=\'2\' style='height:$td_height;'></td></tr>" .
-    "	<tr>
-		<td style=\"font-size:2px\"></td>
-		<td style=\"font-size:2px\"></td>
-	</tr></table>" .
-
-     //$right_column_received_date .  $right_column_received_date_response .
-     "</td></tr></table>";
-} else { // EXP PRODUCT LINE ONLY HERE
-	$ticket_html3 = "<table style=\"white-space:nowrap;\"> <tr><td>" . 
-    $left_column_name  . $left_column_name_response  . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-	 $left_column_orderID  . $left_column_orderID_response  . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-
-    $left_column_impressions_color  . $left_column_impressions_color_response  . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-
-    $left_column_note  . $left_column_note_response  . 
-    "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $left_column_order_date  . $left_column_order_date_response  . 
-   "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $left_column_received_date  . $left_column_received_date_response  . 
-   "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    $right_column_ship_date .  $right_column_ship_date_response .
-    "</td>" .   
-
-    "<td>" . 
-    "<table style=\"font-size:20px;\">" . //$right_column_checkboxes1_response .  
-     $right_column_monitor . "<td style=\"display:inline-block;\" rowspan=\"7\" >" . 
-
-     	$the_barcode . 
-
-     $right_column_monitor_response .
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-    //$right_column_cable . $right_column_cable_response .
-    //"<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-
-    //$right_column_artwork . $right_column_artwork_response . $right_column_artwork_response2 . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-     
-     $right_column_colors .  $right_column_colors_shells_response  . $right_column_colors_shells_response2 . 
-     "<tr><td colspan=\"2\" style='height:$td_height;'></td></tr>" .
-     //$right_column_tips .  
-     $right_column_colors_faceplates_response  .  $right_column_colors_faceplates_response2 .
-     "<tr><td colspan=\"2\" style='height:2px;'></td></tr>" .
-
-	 
-	"<tr style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder;\">
-		<td  style=\"white-space:nowrap;\">" .
-				"PROGRAM TEST <span style=\"color:black;\"> [ __ ] </span>" . "
-		</td>
-	</tr>
-	<tr><td colspan=\"2\" style='height:2px;'></td></tr>
-	<tr  style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder;\">
-			<td  style=\"white-space:nowrap;\">" .
-					"POST FINISH TEST <span style=\"color:black;\"> [ __ ] </span>" . "
-			</td>	
-	</tr>
-	<tr><td colspan=\"2\" style='height:2px;'></td></tr>
-	<tr  style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder;\">
-			<td  style=\"white-space:nowrap;\">" .
-					"LANYARD <span style=\"color:black;\"> [ __ ] </span>" . "
-			</td>	
-	</tr>
-	<tr><td colspan=\"2\" style='height:2px;'></td></tr>
-	<tr  style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder;\">
-			<td  style=\"white-space:nowrap;\">" .
-					"FINAL CHECK <span style=\"color:black;\"> [ __ ] </span>" . "
-			</td>	
-	</tr>" . 
-	 
-     $right_column_items .
-     $right_column_num_of_earphones .
-     $right_column_hearing_protection .
-     $right_column_musicians_plugs .
-     $right_column_pickup .
-
-    "	<tr>
-		<td style=\"font-size:2px\"></td>
-		<td style=\"font-size:2px\"></td>
-	</tr></table>" .
-
-     "</td></tr></table>";
-}
+             //$right_column_received_date .  $right_column_received_date_response .
+             "</td></tr></table>";
             
             $pdf->writeHTML( $ticket_html3, true, false, true, false, "" );
     	}

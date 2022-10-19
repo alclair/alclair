@@ -755,12 +755,24 @@ $right_column_colors_faceplates_response =
     		<td style=\"text-align:left;\">RIGHT FACE</td>
 	</tr>
 ";
- $right_column_colors_faceplates_response2 = 
-"	<tr  style=\"color:blue;\">
-			<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>" . $result[0]["left_faceplate"] . "</b></td>
-    		<td style=\"text-align:left;font-size:{$text_size_right}px;\"><b>" . $result[0]["right_faceplate"] . "</b></td>
-	</tr>
-";
+
+
+if( stristr($result[0]['model'], "Venture") || stristr($result[0]['model'], "Cruise") ) {
+	$right_column_colors_faceplates_response2 = 
+	"	<tr  style=\"color:blue;\">
+				<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>" . $result[0]["left_faceplate"] . "<span style=\"; color: #FF0000\"> Moto </span>" . "</b></td>
+	    		<td style=\"text-align:left;font-size:{$text_size_right}px;\"><b>" . $result[0]["right_faceplate"] .  "<span style=\"; color: #FF0000\"> Moto </span>" . "</b></td>
+		</tr>
+	";
+} else {
+	$right_column_colors_faceplates_response2 = 
+	"	<tr  style=\"color:blue;\">
+				<td style=\"text-align:left;font-size:{$text_size_left}px;\"><b>" . $result[0]["left_faceplate"] . "</b></td>
+	    		<td style=\"text-align:left;font-size:{$text_size_right}px;\"><b>" . $result[0]["right_faceplate"] . "</b></td>
+		</tr>
+	";
+}
+
 	
 }
 	

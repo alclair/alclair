@@ -500,6 +500,9 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
         { value: '12dB Impact', label: '12dB Impact' },
         { value: '9dB Switched', label: '9dB Switched' },
         { value: '12dB Switched', label: '12dB Switched' },
+        { value: '10dB', label: '10dB'},
+	    { value: '15dB', label: '15dB'},
+        { value: '25dB', label: '25dB'},
     ];
     this.CanalFitFilterList = [
         { value: 'No Filter', label: 'No Filter' },

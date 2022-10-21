@@ -749,7 +749,19 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 		if ($scope.traveler.full_ear_silicone_earplugs_12db == true) {
 			 			$scope.traveler.full_ear_filter= "12dB Impact";       
 			 			$scope.is_HP_outdoor = true;
-			 		} 
+			 		}
+			 		if ($scope.traveler.full_ear_silicone_earplugs_10db == true) {
+			 			$scope.traveler.full_ear_filter= "10dB";       
+			 			$scope.is_HP_outdoor = flase;
+			 		}  
+			 		if ($scope.traveler.full_ear_silicone_earplugs_15db == true) {
+					 	$scope.traveler.full_ear_filter= "15dB";       
+			 			$scope.is_HP_outdoor = false;
+			 		}  
+			 		if ($scope.traveler.full_ear_silicone_earplugs_25db == true) {
+			 			$scope.traveler.full_ear_filter= "25dB";       
+			 			$scope.is_HP_outdoor = false;
+			 		}  
 			 		
 			 		if ($scope.traveler.canal_fit_earplugs_no_filter == true) {
 			 			$scope.traveler.canal_fit_filter= "No Filter";    

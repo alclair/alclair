@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2022-10-12T23:59:59',
-			'after' => '2022-10-12T00:00:00',
+			'before' => '2022-10-31T23:59:59',
+			'after' => '2022-10-31T00:00:00',
 			'per_page' => 100
         ];
 
@@ -490,7 +490,7 @@ if(!stristr($data["id"], '12105692') ) {
 	 						$order[$ind]["model"] = "UV2";  // MODEL -> 4 	
 	 					} elseif(!strcmp($full_product_name, "Alclair UV3 Triple Driver Universal POS") ) {
 	 						$order[$ind]["model"] = "UV3";  // MODEL -> 4 	
-	 					} elseif(!strcmp($full_product_name, "Exp Pro") ) {
+	 					} elseif(stristr($full_product_name, "Exp Pro") ) {
 	 						$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
 	 					//} elseif(stristr($full_product_name, "PRO") ) {
 	 					//	$order[$ind]["model"] = "Exp Pro";  // MODEL -> 4 	
@@ -913,15 +913,30 @@ $id_of_order = $id_after_import[0]["id"];
 	$qc_form['notes'] = "Entry from import " . $k;
 	$qc_form['notes'] = "";
 
-	$stmt = pdo_query( $pdo, 
-					   "INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
-					   	 VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
-array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], ':build_type_id'=>$qc_form['build_type_id'], ':notes'=>$qc_form['notes'], ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order)
-);		
 
-	$id_of_qc_form = pdo_fetch_all( $stmt );
+	if( stristr($order[$k]["product"], "EXP") || stristr($order[$k]["product"], "Exp") ) {
+		$stmt = pdo_query( $pdo, 
+		"INSERT INTO qc_form_active_hp (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
+		VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
+		array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], 		':build_type_id'=>$qc_form['build_type_id'], ':notes'=>$qc_form['notes'], ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order));	
+		
+		$id_of_qc_form = pdo_fetch_all( $stmt );
 
-	$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
+		$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
+	} else {
+		
+		$stmt = pdo_query( $pdo, 
+		"INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
+		VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
+		array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_id'],':monitor_id'=>$qc_form['monitor_id'], 		':build_type_id'=>$qc_form['build_type_id'], ':notes'=>$qc_form['notes'], ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order));
+		
+		$id_of_qc_form = pdo_fetch_all( $stmt );
+
+		$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order));
+	}		
+
+
+	
 } // CLOSE IF STATEMENT
 
 

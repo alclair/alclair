@@ -21,24 +21,6 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                 <input type="checkbox" ng-model="remove_hearing_protection" ng-true-value="1" ng-false-value="0" style="margin-top:16px"> &nbsp; <b style="font-size:14px;color:gray">REMOVE HEARING PROTECTION</b><br />
             </div>
             
-            <!--<div class="col-md-2" style="margin-top:-10px;padding-bottom:10px;text-align:left;	" >
-                <a type="button" class="btn btn-danger" href="<?=$rootScope['RootUrl']?>/alclair/qc_form">
-					<span class="glyphicon glyphicon-pencil"></span> &nbsp;&nbsp;QC FORM
-				</a>
-            </div>-->
-            <!--
-            <div class="col-md-6" style="text-align:right;">
-                 <nav ng-show="TotalPages > 1" style="margin-top:-20px;text-align:right;">
-                     <ul class="pagination">
-                        <li ng-class="{disabled: PageIndex==1}"><a href="javascript:void(0);" aria-hidden="true" ng-disabled="PageIndex==1" ng-click="GoToPage(1)" title="Go to page 1">&laquo;&laquo;</a></li>
-                        <li ng-class="{disabled: PageIndex==1}"><a href="javascript:void(0);" aria-hidden="true" ng-disabled="PageIndex==1" ng-click="GoToPage(PageIndex-1)" title="Go to preious page">&laquo;</a></li>
-                        <li ng-class="{active: pn == PageIndex}" ng-repeat="pn in PageRange"><a href="javascript:void(0);" ng-click="GoToPage(pn)">{{pn}} </a></li>
-                        <li ng-class="{disabled: PageIndex==TotalPages}"><a href="javascript:void(0);" aria-hidden="true" ng-disabled="PageIndex==TotalPages" ng-click="GoToPage(PageIndex+1)" title="Go to next page">&raquo;</a></li>
-                        <li ng-class="{disabled: PageIndex==TotalPages}"><a href="javascript:void(0);" aria-hidden="true" ng-disabled="PageIndex==TotalPages" ng-click="GoToPage(TotalPages)" title="Go to last page">&raquo;&raquo;</a></li>
-                    </ul>
-                </nav>
-            </div>
-            -->
         </div>
         
 		<!--<div class="row alert" style='background-color:#ddd;'>-->

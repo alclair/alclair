@@ -33,6 +33,20 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
             error(result);
         });
     };
+    this.load_alclair_monitors_active_hp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name + "/get_monitors_active_hp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
 	this.load_alclair_monitors_not_universals = function (name, params, success, error) {
         var api_url = window.cfg.apiUrl + name + "/get_monitors_not_universals.php";
 		
@@ -323,6 +337,12 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
 
         this.load_alclair_monitors('alclair', params, success, error);
     };
+    this.loadMonitorList_Active_HP = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_monitors_active_hp('alclair', params, success, error);
+    };
     this.loadMonitorList_not_Universals = function (params, before, success, error) {
         if (before != null && before != undefined)
             before();
@@ -500,7 +520,7 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
         { value: '12dB Impact', label: '12dB Impact' },
         { value: '9dB Switched', label: '9dB Switched' },
         { value: '12dB Switched', label: '12dB Switched' },
-        { value: '10dB', label: '10dB'},
+        { value: '10dB', label: '10dB' },
 	    { value: '15dB', label: '15dB'},
         { value: '25dB', label: '25dB'},
     ];

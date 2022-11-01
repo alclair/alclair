@@ -284,6 +284,7 @@ swdApp.controller('QC_List', ['$http', '$scope', 'AppDataService', '$upload',  '
 	    var api_url = window.cfg.apiUrl + "alclair/get_customers.php";
 	        $http.get(api_url).success(function (data) {
 	            $scope.customers = data.data;
+	            console.log("TESTING  IS " + data.testing)
 	    })
 	}
 	

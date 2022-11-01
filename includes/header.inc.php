@@ -156,6 +156,8 @@
 						<ul class="dropdown-menu">
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/qc_form" class="nav-link  ">QC Form </a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/qc_list" class="nav-link  ">QC List</a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/qc_form_active_hp" class="nav-link  ">QC Form (Active HP) </a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/qc_list_active_hp" class="nav-link  ">QC List (Active HP)</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

@@ -304,7 +304,22 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 		//  THE ELSE PORTION OF THE STATEMENT USES A FILE TO LOOK FOR THE QC FORM IF IT MAY EXIST
         if($scope.traveler.id_of_qc_form != null) { 
 	        $.unblockUI();
-	        window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+$scope.traveler.id_of_qc_form;
+	        
+	        monitor_id = $scope.traveler.monitor_id;
+	        const x = new Date($scope.traveler.date);
+	        const y = new Date('09/15/2022');
+			// Active HP directs user to a different QC Form after September 15th, 2022
+			// This update was done on October 31st, 2022
+			// September 15th was used because Dylan helped go back in time to create new QC forms for current active HP 
+	        if(x >= y && (monitor_id == 16 || monitor_id == 24 || monitor_id == 23) ) {
+		        console.log("Greater Than")
+		        window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form_active_hp/"+$scope.traveler.id_of_qc_form;
+	        } else {
+		        console.log("Less Than")
+		        window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+$scope.traveler.id_of_qc_form;
+	        }
+	        //return;
+	        
         } else {
 			var api_url = window.cfg.apiUrl + "alclair/get_qc_form_id.php?customer_name=" + $scope.traveler.designed_for + "&order_id=" + $scope.traveler.order_id + "&id=" + window.cfg.Id;
         //alert(api_url);
@@ -314,7 +329,19 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 	            	console.log("The ID is " + result.ID_is)
 					console.log("Message is " + result.message)
 					$.unblockUI();
-					window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+result.ID_is;
+					monitor_id = $scope.traveler.monitor_id;
+					const x = new Date($scope.traveler.date);
+					const y = new Date('10/31/2022');
+					// Active HP directs user to a different QC Form after September 15th, 2022
+					// This update was done on October 31st, 2022
+					// September 15th was used because Dylan helped go back in time to create new QC forms for current active HP 
+					if(x > y && (monitor_id == 16 || monitor_id == 24 || monitor_id == 23) ) {
+						console.log("Greater Than")
+						window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form_active_hp/"+$scope.traveler.id_of_qc_form;
+	        		} else {
+						console.log("Less Than")
+						window.location.href = window.cfg.rootUrl + "/alclair/edit_qc_form/"+$scope.traveler.id_of_qc_form;
+	        		}
                  } 
                  else {
 	                 $.unblockUI();

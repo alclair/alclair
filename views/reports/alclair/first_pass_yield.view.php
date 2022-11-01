@@ -50,7 +50,8 @@
         <div style="text-align: center;">
             <!--<h1 style="font-weight: bold;">First Pass Yield</h1>-->
              <h2>Shipped by Category by Date</h2>
-            	<h3><b>{{num_ciem}} CEIM / {{num_hp}} HP / {{num_outdoor}} Outdoor / {{num_ifb_sec}} IFB&SEC / {{num_moto}} Moto</b></h3>
+            	<h3><b>{{num_ciem}} CEIM / {{num_hp}} HP / {{num_outdoor}} Outdoor / {{num_ifb_sec}} IFB&SEC / {{num_moto}} Moto / 
+	            	{{num_ciem + num_hp + num_outdoor + num_ifb_sec + num_moto}} TOTAL</b></h3>
 
 			<br />
             <div class="col-md-12">

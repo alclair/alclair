@@ -13,19 +13,17 @@ try
 {	
     if(empty($_REQUEST["id"]))
     {
-        $params=array(":search"=>$_REQUEST["q"]."%");
-       
-        if(!empty($_REQUEST["township"]))
-        {
-            $township_sql=" and township=:township";
-            $params[":township"]=$_REQUEST["township"];
-        }
+       $params=array(":search"=>$_REQUEST["q"]."%");
+       $response["testing"] = "Request Q is " . $_REQUEST["q"];
+	   //echo json_encode($response);
+	   //exit;
         $stmt = pdo_query( $pdo,
 					   "SELECT DISTINCT * FROM qc_form
                        where (customer_name::text ilike :search) AND active = TRUE
                        ORDER BY customer_name",
 						$params
 					 );	
+
         
         while($row=pdo_fetch_array($stmt))
         {

@@ -85,7 +85,7 @@ swdApp.controller('Manufacturing_Screen_1', ['$http', '$scope', 'AppDataService'
                 //console.log("Pass or Fail is " + result.testing1)
                 
                 setTimeout(function(){
-				  	//window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_2";
+				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_2";
 				  }, 15000); 
 
                 //$scope.PageRange = [];
@@ -425,7 +425,7 @@ $scope.LoadData = function () {
 
 
                 setTimeout(function(){
-				  	//window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
+				  	window.location.href = window.cfg.rootUrl + "/admin/manufacturing_screen_1";
 				  }, 15000); 
 
                 $scope.PageRange = [];

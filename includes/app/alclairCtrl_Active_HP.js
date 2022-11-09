@@ -300,7 +300,7 @@ swdApp.controller('QC_Form_Edit', ['$http', '$scope', 'AppDataService', '$upload
 	               console.log(data);
                    if (data.code == "success") {
                        toastr.success("Document is saved successfully.");
-                       window.location.href = window.cfg.rootUrl + "/alclair/qc_list/";
+                       window.location.href = window.cfg.rootUrl + "/alclair/qc_list_active_hp/";
                    }
                    else {
                        toastr.error(data.message);
@@ -314,7 +314,7 @@ swdApp.controller('QC_Form_Edit', ['$http', '$scope', 'AppDataService', '$upload
         }
         else
         {
-            //window.location.href = window.cfg.rootUrl + "/alclair/qc_list/";
+            window.location.href = window.cfg.rootUrl + "/alclair/qc_list_active_hp/";
             
         }
 

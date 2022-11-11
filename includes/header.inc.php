@@ -255,6 +255,7 @@
 					  				count(CASE WHEN order_status_id = 16 THEN 1 END) as pre_group_order_holding,
 					  				count(CASE WHEN order_status_id = 17 THEN 1 END) as driver_purgatory,
 					  				count(CASE WHEN order_status_id = 18 THEN 1 END) as hearing_protection,
+					  				count(CASE WHEN order_status_id = 19 THEN 1 END) as exp_assembly,
 					  				count(CASE WHEN order_status_id = 99 THEN 1 END) as order_received
 					  				FROM import_orders WHERE active = TRUE";
 					  	//$query_alclair = "SELECT username AS order_received FROM auth_user WHERE id=1";	
@@ -364,7 +365,7 @@ Pickup
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/start_cart" class="nav-link "> 
 									<span style="margin-right:74px;font-weight:bold;">Start Cart</span>
 									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["start_cart"] ?>)</span></a></li> 
-								
+																
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/diagnosing" class="nav-link "> 
 									<span style="margin-right:108px;font-weight:bold;">Diagnosing</span>
 									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["diagnosing"] ?>)</span></a></li> 
@@ -392,6 +393,10 @@ Pickup
 									<span style="margin-right:10px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["digital_impression_detailing"] ?>)</span>  
 									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["digital_impression_detailing"] ?>)</span></a></li>	
 									
+								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/exp_assembly" class="nav-link "> 
+									<span style="margin-right:50px;font-weight:bold;">Exp Assembly</span>
+									<span style="color:#228B22;font-weight:bold;">(<?php echo $row_alclair["exp_assembly"] ?>)</span></a></li> 
+
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/shell_pouring" class="nav-link "> 
 									<span style="margin-right:53px;font-weight:bold;">Shell Pouring  </span>
 									<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["shell_pouring"] ?>) </span>

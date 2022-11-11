@@ -100,7 +100,9 @@ try
     					   OR t1.order_status_id = 7 
     					   OR t1.order_status_id = 8 
     					   OR t1.order_status_id = 9  
-    					   OR t1.order_status_id = 15)
+    					   OR t1.order_status_id = 15
+    					   OR t1.order_status_id = 18
+    					   OR t1.order_status_id = 19)
     					   AND (t1.model = 'Acrylic HP'
 						   OR t1.model = 'Full Ear HP' 
 						   OR t1.model = 'Silicone Protection' 

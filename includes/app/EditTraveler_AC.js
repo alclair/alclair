@@ -187,7 +187,12 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 	 status_id_is = 4;
 					 	 } 	else if (status_id_is == 16) {
 						 	 status_id_is = 13;
-					 	 } 				 
+					 	 }	else if (status_id_is == 18) {
+						 	 status_id_is = 19;
+					 	 } 	else if (status_id_is == 19) {
+						 	 status_id_is = 20;
+					 	 } 		
+					 	 		 
 					 	 console.log("Status ID is now  " +  status_id_is)
 					 	 Current_status = $scope.OrderStatusList[status_id_is-1].status_of_order;
 						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
@@ -545,6 +550,10 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 	 status_id_is = 4;
 					 	 } 	else if (status_id_is == 16) {
 						 	 status_id_is = 13;
+					 	 } 	else if (status_id_is == 18) {
+						 	 status_id_is = 19;
+					 	 } 	else if (status_id_is == 19) {
+						 	 status_id_is = 20;
 					 	 } 				 	 
 					 	 console.log("Status ID is now  " +  status_id_is)
 					 	 Current_status = $scope.OrderStatusList[status_id_is-1].status_of_order;

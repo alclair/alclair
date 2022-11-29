@@ -288,6 +288,18 @@ if(stristr($result[0]['model'], "Full")) {
 		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 12dB";	
 	}
 }
+if(stristr($result[0]['model'], "Silicone")) {
+	$column_musicians_plugs = "Silicone HP";
+	if($result[0]["full_ear_silicone_earplugs_10db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 10dB";	
+	}
+	if($result[0]["full_ear_silicone_earplugs_15db"] == TRUE) {
+	$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 15dB";	
+	}
+	if($result[0]["full_ear_silicone_earplugs_25db"] == TRUE) {
+		$column_musicians_plugs_filter = $column_musicians_plugs_filter . " 25dB";	
+	}
+}
 
 if(stristr($result[0]['model'], "Canal")) {
 	$column_musicians_plugs = "Canal Fit HP";
@@ -505,6 +517,14 @@ if ($result[0]["hearing_protection"] == TRUE && strlen($result[0]['model'] ) < 2
 			 //$rush_process . "
 		"</tr>
 ";	
+	} elseif(strlen($result[0]['model']) >= 10) {
+		$right_column_monitor_response =  
+"		<tr style=\"font-size:14px;\">
+			 <td colspan='2' style=\"text-align:left;font-size:24px;margin-top:-50px;display:inline-block;\"><b style=\"color:green;\">" . $result[0]['model'] . "</b></td>" . 
+			 //$rush_process . "
+		"</tr>
+";	
+
 	} else {
 		$right_column_monitor_response =  
 "		<tr style=\"font-size:14px;\">

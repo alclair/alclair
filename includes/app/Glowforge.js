@@ -632,6 +632,11 @@ swdApp.controller('Glowforge', ['$http', '$scope', 'AppDataService', '$upload', 
 			 		} else {
 			 			$scope.traveler.universals = 0;
 			 		}
+			 		if ($scope.traveler.bite_block_not_used == true) {
+			 			$scope.traveler.bite_block_not_used = 1;    
+			 		} else {
+			 			$scope.traveler.bite_block_not_used = 0;
+			 		}
 			 		if ($scope.traveler.hearing_protection == true) {
 			 			$scope.traveler.hearing_protection= 1;    
 			 		} else {

@@ -230,6 +230,11 @@ if ($result[0]["universals"] == TRUE) {
 } else {
 	$column_universals = '';
 }
+if ($result[0]["bite_block_not_used"] == TRUE) {
+	$column_universals = 'NO BITE BLOCK';
+} else {
+	$column_universals = '';
+}
 if ($result[0]["num_earphones_per_order"] > 1) {
 	$column_num_of_earphones = 'GROUP OF ' . "<span style=\"color:red;\">" . $result[0]["num_earphones_per_order"] . "</span>";
 } 

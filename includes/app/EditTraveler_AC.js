@@ -200,7 +200,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 						$http({
 							 method: 'POST',
-							 url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							 url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
 							data: json_text,
 						 	headers: {
 								'Content-Type': 'application/json',					 	
@@ -555,16 +555,16 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 	 status_id_is = 19;
 					 	 } 	else if (status_id_is == 19) {
 						 	 status_id_is = 20;
-					 	 } 				 	 
-					 	 console.log("Status ID is now  " +  status_id_is)
+					 	 } 				
+					 	  	 
 					 	 Current_status = $scope.OrderStatusList[status_id_is-1].status_of_order;
 					 	 console.log("STATUS IS " + Current_status);
 					 	 //return;
 						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 						$http({
-							 method: 'POST',
-							 url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							method: 'POST',
+							url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
 							data: json_text,
 						 	headers: {
 								'Content-Type': 'application/json',					 	
@@ -575,8 +575,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							 console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
 							 console.log("ID is " + JSON.stringify(response.data.contact.id))
 							 json = response.data.data;
+							 //return;
 						}, function errorCallback(response) {
-							console.log("ERROR HERE")
+							console.log("ERROR HERE " + JSON.stringify(response))
+							console.log(" Text -> " + json_text)
+							//return;
 						});	 
 						 setTimeout(function(){ 
 							 location.reload();				 	

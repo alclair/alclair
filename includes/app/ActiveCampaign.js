@@ -8,7 +8,7 @@ $scope.init = function () {
 		$http({
 			method: 'GET',
 			//url: 'https://alclair.api-us1.com/api/3/contacts/16025', 
-			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contacts/16025',
+			url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contacts/16025',
 			headers: {
 				 'Access-Control-Allow-Method': 'GET',
 				 //'Access-Control-Request-Method': 'GET',
@@ -53,7 +53,7 @@ $scope.init2 = function () {
 		console.log(JSON.stringify(practice6))
 		$http({
 			method: 'POST',
-			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+			url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
 			data: practice6,
 			headers: {
 				//'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
@@ -98,7 +98,7 @@ $scope.init4 = function () {
 
 		$http({
 			method: 'GET',
-			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/notes/1',
+			url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/notes/1',
 			headers: {
 				 'Access-Control-Allow-Method': 'GET',
 				 'Access-Control-Allow-Headers': 'Content-Type, x-requested-with',
@@ -127,7 +127,7 @@ $scope.init5 = function () {
 	practice6 = '{"note": {"note": "NOTE TIME","relid": 2,"reltype": "Subscriber"}}';
 		$http({
 			method: 'PUT',
-			url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/notes/1',
+			url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/notes/1',
 			data: practice6,
 			headers: {
 				 //'Access-Control-Allow-Method': 'GET',

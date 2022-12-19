@@ -564,7 +564,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 						$http({
 							method: 'POST',
-							url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
+							url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
 							data: json_text,
 						 	headers: {
 								'Content-Type': 'application/json',					 	
@@ -582,7 +582,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							//return;
 						});	 
 						 setTimeout(function(){ 
-							 location.reload();				 	
+							//location.reload();				 	
 						}, 1000);    
 					}, 500);     
 				} else {

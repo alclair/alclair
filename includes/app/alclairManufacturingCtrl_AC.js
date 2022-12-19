@@ -231,7 +231,7 @@ $scope.qrcode= {
 							 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 							 $http({
 							 	method: 'POST',
-							 	url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
+							 	url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
 							 	data: json_text,
 							 	headers: {
 								 	'Content-Type': 'application/json',					 	
@@ -431,7 +431,7 @@ $scope.qrcode= {
 	            
                 $scope.OrdersList = result.data;
                 $scope.RepairsList = result.data2;
-                //$scope.RepairsList_Active_HP = result.data3;
+                $scope.RepairsList_Active_HP = result.data3;
                 
                 //$scope.QC_Form = result.customer_name;
                 $scope.TotalPages = result.TotalPages;

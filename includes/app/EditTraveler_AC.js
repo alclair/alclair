@@ -150,7 +150,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
              if (result.code == "success") {
                  if($scope.traveler.email) {
 					 setTimeout(function(){
-					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+					 	 var key_is = '4e53af2050ac1416867a7d7a4dcec13cdb118853e804d107fdf5c10e147a96cc7506b73f';
+					 	 //var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
 					 	 //return;
 					 	 Email = $scope.traveler.email;
 					 	 status_id_is = Number($scope.traveler.order_status_id);
@@ -512,6 +513,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
                  if($scope.traveler.email) {
 					 setTimeout(function(){
 					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+					 	 //var key_is = '4e53af2050ac1416867a7d7a4dcec13cdb118853e804d107fdf5c10e147a96cc7506b73f';
 					 	 //return;
 					 	 Email = $scope.traveler.email;
 					 	 status_id_is = Number($scope.traveler.order_status_id);
@@ -569,6 +571,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 	headers: {
 								'Content-Type': 'application/json',					 	
 								'Api-Token': key_is,
+								//'Origin':'https://otis.alclr.co/',
 							 },
 						}).then(function successCallback(response) {
 							 console.log("First name is " + JSON.stringify(response.data.contact.firstName))
@@ -578,11 +581,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							 //return;
 						}, function errorCallback(response) {
 							console.log("ERROR HERE " + JSON.stringify(response))
-							console.log(" Text -> " + json_text)
+							console.log(" TEXT -> " + json_text)
 							//return;
 						});	 
 						 setTimeout(function(){ 
-							location.reload();				 	
+							//location.reload();				 	
 						}, 1000);    
 					}, 500);     
 				} else {

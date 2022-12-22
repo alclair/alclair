@@ -251,7 +251,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				
 				
 				<input ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_9db" ng-true-value="1" ng-false-value="0"> &nbsp; 
-				<span  ng-if="traveler.musicians_plugs">9 dB</span>
+				<span  ng-if="traveler.musicians_plugs">10 dB</span>
 				
 				<input style="margin-left:12px" ng-if="traveler.musicians_plugs" type="checkbox" ng-model="traveler.musicians_plugs_15db" ng-true-value="1" ng-false-value="0"> &nbsp; 
 				<span  ng-if="traveler.musicians_plugs">15 dB</span>

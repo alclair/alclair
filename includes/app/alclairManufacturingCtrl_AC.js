@@ -231,11 +231,15 @@ $scope.qrcode= {
 							 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 							 $http({
 							 	method: 'POST',
-							 	url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							 	//url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
+							 	//url: 'https://alclair.api-us1.com/api/3/contact/sync',
+							 	url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
 							 	data: json_text,
 							 	headers: {
 								 	'Content-Type': 'application/json',					 	
 								 	'Api-Token': key_is,
+								 	//'Origin':'https://alclair.api-us1.com/api/3/',
+								 	'Origin': 'https://otis.alclr.co:8080',
 							 	},
 							 }).then(function successCallback(response) {
 							 	console.log("First name is " + JSON.stringify(response.data.contact.firstName))

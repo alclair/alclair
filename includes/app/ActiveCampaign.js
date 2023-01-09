@@ -7,9 +7,10 @@ $scope.init = function () {
 		console.log("WE ARE HERE 2")
 		$http({
 			method: 'GET',
-			//url: 'https://alclair.api-us1.com/api/3/contacts/16025', 
-			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contacts/16025',
-			url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+			// January 9th, 2023 - A PROXY SERVER WAS REQUIRED
+			// Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
+			//https://corsproxy.io/ WAS USED
+			url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',			
 			headers: {
 				 'Access-Control-Allow-Method': 'GET',
 				 //'Access-Control-Request-Method': 'GET',

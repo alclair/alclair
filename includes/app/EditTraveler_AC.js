@@ -203,16 +203,16 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							 method: 'POST',
 							 //url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
 							 //url: 'https://alclair.api-us1.com/api/3/contact/sync',
-							 // January 7th, 2023 - A PROXY SERVER WAS REQUIRED
+							 // January 9th, 2023 - A PROXY SERVER WAS REQUIRED
 							 // Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
-							 // CORS-ANYWHERE WAS USED
-							 url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+							 //https://corsproxy.io/ WAS USED
+							 url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',
 							data: json_text,
 						 	headers: {
 								'Content-Type': 'application/json',					 	
 								'Api-Token': key_is,
 								//'Origin':'https://alclair.api-us1.com/api/3/',
-								'Origin': 'https://otis.alclr.co:8080',
+								//'Origin': 'https://otis.alclr.co:8080',
 							 },
 						}).then(function successCallback(response) {
 							 console.log("First name is " + JSON.stringify(response.data.contact.firstName))
@@ -573,16 +573,18 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
 						$http({
 							method: 'POST',
-							//url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
-							//url: 'https://alclair.api-us1.com/api/3/contact/sync',
-							url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+							// January 9th, 2023 - A PROXY SERVER WAS REQUIRED
+							 // Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
+							 //https://corsproxy.io/ WAS USED
+							 url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							
 							data: json_text,
 						 	headers: {
 								//'Content-Type': 'application/json',					 	
 								//'Content-Type': 'text/plain',					 	
 								'Api-Token': key_is,
 								//'Origin':'https://alclair.api-us1.com/api/3/',
-								'Origin': 'https://otis.alclr.co:8080',
+								//'Origin': 'https://otis.alclr.co:8080',
+								//'Origin':'https://gobetween.oklabs.org/'
 							 },
 						}).then(function successCallback(response) {
 							 console.log("First name is " + JSON.stringify(response.data.contact.firstName))

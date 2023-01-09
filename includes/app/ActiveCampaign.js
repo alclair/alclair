@@ -8,17 +8,20 @@ $scope.init = function () {
 		$http({
 			method: 'GET',
 			//url: 'https://alclair.api-us1.com/api/3/contacts/16025', 
-			url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contacts/16025',
+			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contacts/16025',
+			url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
 			headers: {
 				 'Access-Control-Allow-Method': 'GET',
 				 //'Access-Control-Request-Method': 'GET',
 				 'Access-Control-Allow-Headers': 'Content-Type, x-requested-with',
 				 //'Access-Control-Request-Headers': 'Content-Type, x-requested-with',
-				 'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				 //'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				 'Origin':'https://alclair.api-us1.com/api/3/',
 				 //'Origin': 'https://otisdev.alclr.co/',
 				 'Api-Token': key_is
 			}
-		}).then(function successCallback(response) {
+						
+		})then(function successCallback(response) {
 			console.log("First name 3 is " + JSON.stringify(response.data.contact.firstName))
 			console.log("Last name 3 is " + JSON.stringify(response.data.contact.lastName))
 			console.log("All is " + JSON.stringify(response.data.contact))

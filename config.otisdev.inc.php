@@ -20,7 +20,6 @@ $rootScope['m_Theme'] = $rootScope['RootUrl'].'/css/metronic_v4.5.0/theme/assets
 $rootScope["APIUrl"]="/api/";
 $rootScope["PageSize"]="100";
 $rootScope["SWDCustomer"]="alclair";
-
 $rootScope["SWDRootUrl"]="https://otisdev.alclr.co/";
 //$rootScope["SWDRootUrl"]="http://54.173.238.250/";
 

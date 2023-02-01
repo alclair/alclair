@@ -563,13 +563,13 @@ WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS
 AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
 AND t2.model IS NOT NULL 
 AND (t2.model = 'MP' 
-AND t2.model = 'AHP' 
-AND t2.model = 'SHP'  
-AND t2.model = 'Musicians Plugs' 
-AND t2.model = 'Silicone Protection' 
-AND t2.model = 'Canal Fit HP' 
-AND t2.model = 'Acrylic HP' 
-AND t2.model = 'Full Ear HP' )
+OR t2.model = 'AHP' 
+OR t2.model = 'SHP'  
+OR t2.model = 'Musicians Plugs' 
+OR t2.model = 'Silicone Protection' 
+OR t2.model = 'Canal Fit HP' 
+OR t2.model = 'Acrylic HP' 
+OR t2.model = 'Full Ear HP' )
 ORDER BY date_done ASC,  t1.import_orders_id";
 
     $stmt = pdo_query( $pdo, $query, $params); 

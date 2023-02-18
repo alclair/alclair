@@ -148,7 +148,80 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
             error(result);
         });
     };
+	
 
+	// ACTIVE HP FAULTS GET CALLS
+	this.load_alclair_sound_faults_active_hp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name +  "/get_sound_faults_active_hp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+    this.load_alclair_fit_faults_active_hp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name +  "/get_fit_faults_active_hp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+ this.load_alclair_design_faults_active_hp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name +  "/get_design_faults_active_hp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+	this.load_alclair_customer_faults_active_hp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name +  "/get_customer_faults_active_hp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+	this.load_alclair_ownership_transfer_faults_active_hp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name +  "/get_ownership_transfer_faults_active_hp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     this.load_alclair_initial = function (name, params, success, error) {
 		var api_url = window.cfg.apiUrl + name + "/get_status_type_initial.php";
@@ -379,7 +452,39 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
 
         this.load_alclair_customer_faults('alclair', params, success, error);
     };
+    
+    // ACTIVE HP FAULTS LIST
+    this.loadSoundFaultsList_Active_HP = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
 
+        this.load_alclair_sound_faults_active_hp('alclair', params, success, error);
+    };
+	this.loadFitFaultsList_Active_HP = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_fit_faults_active_hp('alclair', params, success, error);
+    };
+	this.loadDesignFaultsList_Active_HP = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_design_faults_active_hp('alclair', params, success, error);
+    };
+	this.loadCustomerFaultsList_Active_HP = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_customer_faults_active_hp('alclair', params, success, error);
+    };
+	this.loadOwnershipTransferFaultsList_Active_HP = function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_ownership_transfer_faults_active_hp('alclair', params, success, error);
+    };
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     this.loadBuildTypeList = function (params, before, success, error) {
         if (before != null && before != undefined)
@@ -584,6 +689,13 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
 		{ value: 'Purple', label: 'Purple' },
     ];
     this.FAULT_TYPES = [
+        { value: '0', label: 'Pick a classification' },
+        { value: 'Sound', label: 'Function' },
+        { value: 'Fit', label: 'Fit' },
+        { value: 'Design' , label: 'Aesthetics' },
+        { value: 'Customer' , label: 'Customer Created' },
+    ];
+    this.FAULT_TYPES_ACTIVE_HP = [
         { value: '0', label: 'Pick a classification' },
         { value: 'Sound', label: 'Function' },
         { value: 'Fit', label: 'Fit' },

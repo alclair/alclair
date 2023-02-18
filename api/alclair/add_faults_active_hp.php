@@ -27,7 +27,10 @@ try
 	if($_POST["classification"] == 'Customer') {
 		$export["the_fault_id"] = $_POST["description_id"];	
 	}
-
+	if($_POST["classification"] == 'Ownership Transfer') {
+		$export["the_fault_id"] = $_POST["description_id"];	
+	}
+		
 	//$reviewers_id = $_POST["reviewers_id"];
 	$id_of_rma = $_REQUEST["id_of_repair"];
 	
@@ -38,7 +41,7 @@ try
 //for ($i = 0; $i < $num_of_sn; $i++) {
 	
 	//// INSERT INTO ORDER TRACKING THE SERIAL NUMBER AND LOG ID
-	$stmt = pdo_query( $pdo, "INSERT INTO rma_faults_log (id_of_rma, classification, description_id, date, active) VALUES (:id_of_rma, :classification, :description_id, now(), :active) RETURNING id",
+	$stmt = pdo_query( $pdo, "INSERT INTO rma_faults_active_hp_log (id_of_rma, classification, description_id, date, active) VALUES (:id_of_rma, :classification, :description_id, now(), :active) RETURNING id",
 			array(':id_of_rma'=>$id_of_rma, ':classification'=>$export["fault_classification"], ':description_id' =>$export['the_fault_id'], ':active'=>TRUE));			
 //}     
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

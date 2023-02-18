@@ -64,6 +64,28 @@ try
 			 $result2[$p]["date_of_last_scan"] = $result4[0]["date_of_last_scan"];
 
 	    }
+	    
+	    $stmt3 = pdo_query( $pdo,
+                           "SELECT t1.*, to_char(t1.date_entered, 'MM/dd/yyyy') AS date_entered, IEMs.name as monitor_name, t2.status_of_repair FROM repair_form_active_hp AS t1
+                           LEFT JOIN monitors AS IEMS ON t1.monitor_id = IEMs.id
+                           LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
+                           WHERE t1.repair_status_id = :repair_status_id AND t1.active = TRUE ORDER BY id", 
+                           array(":repair_status_id"=>$_REQUEST["REPAIR_STATUS_ID"])
+                           );
+        $result3 = pdo_fetch_all($stmt3);
+
+        $second_status3 = [];
+        for($p = 0; $p < count($result3); $p++) {
+	         $stmt = pdo_query( $pdo, "SELECT *, to_char(t1.date, 'MM/dd/yy') AS date_of_last_scan FROM repair_status_log_active_hp AS t1
+	         LEFT JOIN repair_status_table AS t2 ON t1.repair_status_id = t2.order_in_repair
+	         WHERE repair_form_id = :repair_form_id ORDER BY date DESC", array(":repair_form_id"=>$result2[$p]["id"]));
+	    	 $result5 = pdo_fetch_all($stmt);     
+	         $second_status3[$p]["second_status"] = $result5[1]["status_of_repair"];
+	         $result3[$p]["second_status"] = $result5[1]["status_of_repair"];
+			 $result3[$p]["date_of_last_scan"] = $result5[0]["date_of_last_scan"];
+
+	    }
+
 
 
     }	
@@ -71,6 +93,7 @@ try
 	$response['code']='success';
 	$response['data'] = $result;
 	$response['data2'] = $result2;
+	$response['data3'] = $result3;
 	
 	//var_export($result);
 	

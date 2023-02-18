@@ -165,6 +165,8 @@
 						<ul class="dropdown-menu">
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_form" class="nav-link  ">Repair Form </a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_list" class="nav-link  ">Repair List</a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_form_active_hp" class="nav-link  ">Repair Form (Active HP)</a></li>
+							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_list_active_hp" class="nav-link  ">Repair List (Active HP)</a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repair_pipeline_v2" class="nav-link "> Pipeline (2 Weeks)</a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair/repairs_done_by_date" class="nav-link "> Repairs Done By Date</a></li>
 							<li class=" "><a href="<?=$rootScope['RootUrl']?>/admin/repairs_manufacturing" class="nav-link "> Repairs From Manufacturing </a></li>
@@ -305,6 +307,31 @@
 					  				
 					  	$stmt_alclair_repair = pdo_query($pdo_alclair, $query_alclair_repair, null);
 						$row_alclair_repair = pdo_fetch_array($stmt_alclair_repair);
+
+						$query_alclair_repair_active_hp = "SELECT 
+					  				count(CASE WHEN repair_status_id = 1 THEN 1 END) as repair_cart,
+					  				count(CASE WHEN repair_status_id = 2 THEN 1 END) as diagnosing,					  				
+					  				count(CASE WHEN repair_status_id = 3 THEN 1 END) as repair_reshell,
+					  				count(CASE WHEN repair_status_id = 4 THEN 1 END) as shell_pouring,
+					  				count(CASE WHEN repair_status_id = 5 THEN 1 END) as shell_detailing,
+					  				count(CASE WHEN repair_status_id = 6 THEN 1 END) as casing,
+					  				count(CASE WHEN repair_status_id = 7 THEN 1 END) as finishing,
+					  				count(CASE WHEN repair_status_id = 8 THEN 1 END) as quality_control,
+					  				count(CASE WHEN repair_status_id = 9 THEN 1 END) as electronics_qc,
+					  				count(CASE WHEN repair_status_id = 10 THEN 1 END) as artwork,
+					  				count(CASE WHEN repair_status_id = 11 THEN 1 END) as ready_to_ship,
+					  				count(CASE WHEN repair_status_id = 12 THEN 1 END) as active_repair,
+					  				count(CASE WHEN repair_status_id = 13 THEN 1 END) as group_order_holding,
+					  				count(CASE WHEN repair_status_id = 14 THEN 1 END) as done,
+					  				count(CASE WHEN repair_status_id = 15 THEN 1 END) as holding,
+					  				count(CASE WHEN repair_status_id = 16 THEN 1 END) as holding_for_payment,
+					  				count(CASE WHEN repair_status_id = 17 THEN 1 END) as digital_impression_detailing,
+					  				count(CASE WHEN repair_status_id = 18 THEN 1 END) as pre_group_order_holding,					  				
+					  				count(CASE WHEN repair_status_id = 99 THEN 1 END) as repair_received
+					  				FROM repair_form_active_hp WHERE active = TRUE";
+					  				
+					  	$stmt_alclair_repair_active_hp = pdo_query($pdo_alclair, $query_alclair_repair_active_hp, null);
+						$row_alclair_repair_active_hp = pdo_fetch_array($stmt_alclair_repair_active_hp);
 					  	
 					  	
 					  	//$row_alclair=pdo_fetch_array($stmt_alclair_repair);
@@ -360,7 +387,9 @@ Pickup
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_received" class="nav-link "> 	  
 									<span style="margin-right:69px;font-weight:bold;">Repair Received </span>
-									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["repair_received"] ?>)</span></a></li>
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["repair_received"] ?>)</span>
+									<span style="color:#0000FF;font-weight:bold;">(<?php echo $row_alclair_repair_active_hp["repair_received"] ?>)</span></a>
+								</li>
 									  
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/start_cart" class="nav-link "> 
 									<span style="margin-right:74px;font-weight:bold;">Start Cart</span>
@@ -368,12 +397,16 @@ Pickup
 																
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/diagnosing" class="nav-link "> 
 									<span style="margin-right:108px;font-weight:bold;">Diagnosing</span>
-									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["diagnosing"] ?>)</span></a></li> 
+									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["diagnosing"] ?>)</span>
+									<span style="color:#0000FF;font-weight:bold;"> (<? echo $row_alclair_repair_active_hp["diagnosing"] ?>)</span></a>
+								</li> 
 
 								
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_cart" class="nav-link "> 
 									<span style="margin-right:108px;font-weight:bold;">Repair Cart</span>
-									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["repair_cart"] ?>)</span></a></li> 
+									<span style="color:#EE7600;font-weight:bold;"> (<? echo $row_alclair_repair["repair_cart"] ?>)</span>
+									<span style="color:#0000FF;font-weight:bold;"> (<? echo $row_alclair_repair_active_hp["repair_cart"] ?>)</span></a>
+								</li> 
 								
 								<!--<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/cathy_cart" class="nav-link "> 
 									<span style="margin-right:105px;font-weight:bold;">Cathy Cart</span>
@@ -382,11 +415,15 @@ Pickup
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/repair_reshell" class="nav-link "> 
 									<span style="margin-right:90px;font-weight:bold;">Repair Reshell</span> 
 									<!--<span style="margin-right:5px; color:#228B22;font-weight:bold;">(<?php echo $row_alclair["impression_detailing"] ?>)</span>  -->
-									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["repair_reshell"] ?>)</span></a></li>
+									<span style="color:#EE7600; font-weight:bold;">(<?php echo $row_alclair_repair["repair_reshell"] ?>)
+									<span style="color:#0000FF; font-weight:bold;">(<?php echo $row_alclair_repair_active_hp["repair_reshell"] ?>)</span></a>
+								</li>
 
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/active_repair" class="nav-link "> 
 									<span style="margin-right:97px;font-weight:bold;">Active Repair</span> 
-									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["active_repair"] ?>)</span></a></li> 
+									<span style="color:#EE7600;font-weight:bold;">(<?php echo $row_alclair_repair["active_repair"] ?>)</span>
+									<span style="color:#0000FF;font-weight:bold;">(<?php echo $row_alclair_repair_active_hp["active_repair"] ?>)</span></a>
+								</li> 
 									
 								<li class=" "><a href="<?=$rootScope['RootUrl']?>/alclair_manufacturing/digital_impression_detailing" class="nav-link "> 
 									<span style="margin-right:40px;font-weight:bold;">Digital Detailing </span> 

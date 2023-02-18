@@ -329,7 +329,7 @@ array(':customer_name'=>$qc_form['customer_name'], ':order_id'=>$qc_form['order_
 //if($start_cart["barcode"][0] == 'R') {
 if( $qc_form['build_type_id'] == 2 || $qc_form['build_type_id'] == 4) {
 	////////////////////////////////////////////  MOVES THE REPAIR TO DONE ////////////////////////////////////////////
-	$repair_id_is = substr($qc_form["order_id"], 1, strlen($qc_form["order_id"]) ); // REMOVES THE "R" FROM THE ID WHEN A REPAIR
+	$repair_id_is = substr($qc_form["order_id"], 1, strlen($qc_form["order_id"]) ); // REMOVES THE "S" FROM THE ID WHEN A REPAIR
 	$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair= 'Done'", null);
 	$result = pdo_fetch_array($query);
 	$status_id = $result["order_in_repair"];

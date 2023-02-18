@@ -1440,6 +1440,7 @@ swdApp.controller('Repair_Form_Edit', ['$http', '$scope', 'AppDataService', '$up
          .success(function (result) {
              console.log(result);
              console.log("message " + result.code);
+             console.log("TEST IS " + result.test)
                           
              if (result.code == "success") {
                  $.unblockUI();
@@ -2228,6 +2229,7 @@ swdApp.controller('add_Order', ['$http', '$scope', 'AppDataService', '$upload', 
              //console.log(result);
             // console.log("message " + result.message);
              console.log(result.test)
+             console.log(result.testtest)
              console.log("The Code Output is " + result.code)
 
              if(result.message == "Something is incomplete") {

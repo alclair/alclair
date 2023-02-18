@@ -157,6 +157,38 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</tr>
 			</tbody>
 		</table>
+		<br />
+		<table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Customer's Name</th>
+					<th style="text-align:center;">RMA #</th>
+					<th style="text-align:center;">Date Entered</th>
+					<th style="text-align:center;">Repair Performed</th>
+					<th style="text-align:center;">Monitor</th>
+					<th style="text-align:center;">Diagnosis</th>
+					<th style="text-align:center;">Quote</th>
+					<th style="text-align:center;">Status</th>
+				</tr>
+			</thead>	
+			<tbody>
+				<tr ng-repeat='repair_form_active_hp in RepairsList_Active_HP'>
+					<td  style="text-align:center;" data-title="Customer's Name"><a href="<?=$rootScope['RootUrl']?>/alclair/edit_repair_form_active_hp/{{repair_form.id}}">{{repair_form_active_hp.customer_name}}</a></td>
+					<td  style="text-align:center;" data-title="Order #">{{repair_form_active_hp.rma_number}}</td>
+					<td  style="text-align:center;" data-title="Date Entered">{{repair_form_active_hp.date_entered}}</td>	
+					<td  ng-if="repair_form_active_hp.rma_performed_date" style="text-align:center;" data-title="Repair Performed">
+						{{repair_form_active_hp.rma_performed_date}}
+					</td>
+					<td  ng-if="!repair_form_active_hp.rma_performed_date" style="text-align:center;" data-title="Repair Performed">Not Performed Yet</td>	
+					<td  style="text-align:center;" data-title="Monitor">{{repair_form_active_hp.monitor_name}}</td>
+			
+					<td  style="text-align:center;" data-title="Diagnosis">{{repair_form_active_hp.diagnosis}}</td>
+					<td  style="text-align:center;" data-title="Quote">{{repair_form_active_hp.quotation | currency:"$"}}</td>
+					<td  style="text-align:center;" data-title="Status">{{repair_form_active_hp.status_of_repair}}</td>	
+					
+				</tr>  
+			</tbody>
+		</table>
  <?php
  	} 
  ?>	 

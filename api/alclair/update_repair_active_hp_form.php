@@ -68,25 +68,26 @@ try
 	
 	$repair_form['repair_status_id'] = $_POST['repair_status_id'];
 	
-	$stmt = pdo_query( $pdo, "SELECT * FROM repair_status_log WHERE repair_form_id = :id ORDER BY id DESC LIMIT 1", array(":id"=>$_REQUEST['id']));
+	$stmt = pdo_query( $pdo, "SELECT * FROM repair_status_log_active_hp WHERE repair_form_id = :id 
+													ORDER BY id DESC LIMIT 1", array(":id"=>$_REQUEST['id']));
 	$is_order_status_same = pdo_fetch_all( $stmt );
 	if($repair_form['repair_status_id'] != $is_order_status_same[0]["repair_status_id"]) { // ADD TO THE LOG
-		$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log (date, repair_form_id, repair_status_id, notes,  user_id) 
+		$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log_active_hp (date, repair_form_id, repair_status_id, notes,  user_id) 
 				VALUES (now(), :repair_form_id, :repair_status_id, :notes, :user_id) RETURNING id",
 									array(':repair_form_id'=>$_REQUEST['id'], ':repair_status_id'=>$repair_form['repair_status_id'], ':notes'=>"From the Edit RMA Page", ':user_id'=>$_SESSION['UserId']));			
 	}
 
 	$stmt = pdo_query( $pdo, 
-					   'UPDATE repair_form SET customer_name = :customer_name, email = :email, phone = :phone, address = :address, monitor_id = :monitor_id, diagnosis = :diagnosis, quotation = :quotation, artwork_white = :artwork_white, artwork_black = :artwork_black, artwork_logo = :artwork_logo, artwork_icon = :artwork_icon, artwork_stamp = :artwork_stamp, artwork_script = :artwork_script, artwork_custom = :artwork_custom, shell_left_color = :shell_left_color, shell_right_color = :shell_right_color, shell_left_face = :shell_left_face, shell_right_face = :shell_right_face, shell_left_tip = :shell_left_tip, shell_right_tip = :shell_right_tip, left_alclair_logo = :left_alclair_logo, right_alclair_logo = :right_alclair_logo, customer_contacted = :customer_contacted, warranty_repair = :warranty_repair, customer_billed = :customer_billed, consulted = :consulted, name_contacted = :name_contacted, personal_item = :personal_item, rep_fit_issue = :rep_fit_issue, received_date = :received_date, estimated_ship_date = :estimated_ship_date, rma_number = :rma_number, repair_status_id = :repair_status_id, original_ship_date_of_order = :original_ship_date_of_order, personal_item_text = :personal_item_text
+					   'UPDATE repair_form_active_hp SET customer_name = :customer_name, email = :email, phone = :phone, address = :address, monitor_id = :monitor_id, diagnosis = :diagnosis, quotation = :quotation, artwork_white = :artwork_white, artwork_black = :artwork_black, artwork_logo = :artwork_logo, artwork_icon = :artwork_icon, artwork_stamp = :artwork_stamp, artwork_script = :artwork_script, artwork_custom = :artwork_custom, shell_left_color = :shell_left_color, shell_right_color = :shell_right_color, shell_left_face = :shell_left_face, shell_right_face = :shell_right_face, shell_left_tip = :shell_left_tip, shell_right_tip = :shell_right_tip, left_alclair_logo = :left_alclair_logo, right_alclair_logo = :right_alclair_logo, customer_contacted = :customer_contacted, warranty_repair = :warranty_repair, customer_billed = :customer_billed, consulted = :consulted, name_contacted = :name_contacted, personal_item = :personal_item, rep_fit_issue = :rep_fit_issue, received_date = :received_date, estimated_ship_date = :estimated_ship_date, rma_number = :rma_number, repair_status_id = :repair_status_id, original_ship_date_of_order = :original_ship_date_of_order, personal_item_text = :personal_item_text
                        WHERE id = :id',
 					   array("id"=>$repair_form["id"], "customer_name"=>$repair_form['customer_name'], "email"=>$repair_form['email'], "phone"=>$repair_form['phone'], "address"=>$repair_form['address'], "monitor_id"=>$repair_form['monitor_id'], "diagnosis"=>$repair_form['diagnosis'], "quotation"=>$repair_form['quotation'], "artwork_white"=>$repair_form['artwork_white'], "artwork_black"=>$repair_form['artwork_black'],  "artwork_logo"=>$repair_form['artwork_logo'], "artwork_icon"=>$repair_form['artwork_icon'], "artwork_stamp"=>$repair_form['artwork_stamp'], "artwork_script"=>$repair_form['artwork_script'], "artwork_custom"=>$repair_form['artwork_custom'], "shell_left_color"=>$repair_form['shell_left_color'], "shell_right_color"=>$repair_form['shell_right_color'], "shell_left_face"=>$repair_form['shell_left_face'], "shell_right_face"=>$repair_form['shell_right_face'], "shell_left_tip"=>$repair_form['shell_left_tip'], "shell_right_tip"=>$repair_form['shell_right_tip'], "left_alclair_logo"=>$repair_form['left_alclair_logo'], "right_alclair_logo"=>$repair_form['right_alclair_logo'],
 "customer_contacted"=>$repair_form['customer_contacted'], "warranty_repair"=>$repair_form['warranty_repair'], "customer_billed"=>$repair_form['customer_billed'], "consulted"=>$repair_form['consulted'], "name_contacted"=>$repair_form['name_contacted'], "personal_item"=>$repair_form['personal_item'], "rep_fit_issue"=>$repair_form['rep_fit_issue'], "received_date"=>$repair_form['received_date'], "estimated_ship_date"=>$repair_form["estimated_ship_date"], "rma_number"=>$repair_form['rma_number'], "repair_status_id"=>$repair_form["repair_status_id"], "original_ship_date_of_order"=>$repair_form['original_ship_date_of_order'], ':personal_item_text'=>$repair_form['personal_item_text']));
 			 
-	$query = pdo_query($pdo, "SELECT * FROM repair_form WHERE id = :id", array(":id"=>$repair_form["id"]));
+	$query = pdo_query($pdo, "SELECT * FROM repair_form_active_hp WHERE id = :id", array(":id"=>$repair_form["id"]));
 	$result2 = pdo_fetch_all( $stmt );
 	
 	if($result2[0]["id_of_qc_form"] === null) { // SOME LINES FROM import_orders WON'T HAVE AN id_of_qc_form BECAUSE THE ORIGINAL PROGRAMMING DIDN'T INCLUDE THAT COLUMN
-		$stmt = pdo_query($pdo, "SELECT * FROM qc_form WHERE order_id = :order_id AND customer_name = :customer_name", array(":order_id"=>$repair_form['rma_number'], ":customer_name"=>$repair_form['customer_name']));
+		$stmt = pdo_query($pdo, "SELECT * FROM qc_form_active_hp WHERE order_id = :order_id AND customer_name = :customer_name", array(":order_id"=>$repair_form['rma_number'], ":customer_name"=>$repair_form['customer_name']));
 		$result3 = pdo_fetch_all($stmt);
 		if(count($result3) > 1) {
 			// CAN'T UPDATE THE QC FORM BECAUSE MORE THAN 1 QC FORM WITH THAT ORDER # EXISTS
@@ -95,15 +96,16 @@ try
 			echo json_encode($response);
 			exit;
 		} else { // UPDATE NAME ON THE QC FORM
-			$stmt = pdo_query($pdo, "UPDATE qc_form SET customer_name = :customer_name WHERE order_id = :order_id", array(":customer_name"=>$repair_form["customer_name"], ":order_id"=>$repair_form['rma_number']));
+			$stmt = pdo_query($pdo, "UPDATE qc_form_active_hp SET customer_name = :customer_name WHERE order_id = :order_id", array(":customer_name"=>$repair_form["customer_name"], ":order_id"=>$repair_form['rma_number']));
 		}
 			$response["message"] = "Updated RMA and QC Form.";
 	} else {
-		$stmt = pdo_query($pdo, "UPDATE qc_form SET customer_name = :customer_name WHERE id = :id", array(":customer_name"=>$repair_form["customer_name"], ":id"=>$result2[0]["id_of_qc_form"]));
+		$stmt = pdo_query($pdo, "UPDATE qc_form_active_hp SET customer_name = :customer_name WHERE id = :id", array(":customer_name"=>$repair_form["customer_name"], ":id"=>$result2[0]["id_of_qc_form"]));
 		$response["message"] = "Updated RMA and QC Form.";
 	}
 	
 	
+
 	$rowcount = pdo_rows_affected( $stmt );
 	
 	$response["test"] = "111111";

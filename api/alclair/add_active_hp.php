@@ -8,6 +8,8 @@ $response = array();
 $response["code"] = "";
 $response["message"] = "";
 $response['data'] = null;
+$response['move_on'] = "";
+
 
 try
 {
@@ -55,24 +57,28 @@ try
 	if(empty($qc_form['customer_name']) == true)
 	{
 		$response['message'] = 'Please enter a customer name.';
+		$response["move_on"] = 'Break';
 		echo json_encode($response);
 		exit;
 	}
 	if(empty($qc_form['order_id']) == true)
 	{
 		$response['message'] = 'Please enter the order id #.';
+		//$response["Break"] = 'Break';
 		echo json_encode($response);
 		exit;
 	}
 	if($qc_form['monitor_id']  < 1)
 	{
 		$response['message'] = 'Please select a monitor.';
+		$response["move_on"] = 'Break';
 		echo json_encode($response);
 		exit;
 	}
 	if($qc_form['build_type_id']  < 1)
 	{
 		$response['message'] = 'Please select a build type.';
+		//$response["Break"] = 'Break';
 		echo json_encode($response);
 		exit;
 	}

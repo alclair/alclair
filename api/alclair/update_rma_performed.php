@@ -47,7 +47,7 @@ try
 					   "repaired_shell_left"=>$repair_form['repaired_shell_left'], "repaired_faceplate_left"=>$repair_form['repaired_faceplate_left'], "repaired_jacks_left"=>$repair_form['repaired_jacks_left'], "replaced_drivers_left"=>$repair_form['replaced_drivers_left'], "new_shells_left"=>$repair_form['new_shells_left'], "replaced_tubes_left"=>$repair_form['replaced_tubes_left'], "cleaned_left"=>$repair_form['cleaned_left'], "adjusted_fit_left"=>$repair_form['adjusted_fit_left'])
 						//,1
 					 );
-
+	
 	$rowcount = pdo_rows_affected( $stmt );
 	if( $rowcount == 0 )
 	{

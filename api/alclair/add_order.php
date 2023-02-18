@@ -176,7 +176,7 @@ if($the_count > 0 && $monitor_id[0]["id"] < 16) { // 16 is EXP Pro
 //exit;
 
 
-if($monitor_id[0]["id"] < 16 && !is_null($monitor_id[0]["id"])) {
+if($monitor_id[0]["id"] < 16 || $monitor_id[0]["id"] == 20 || $monitor_id[0]["id"] == 27 || $monitor_id[0]["id"] == 28 || $monitor_id[0]["id"] == 29 || $monitor_id[0]["id"] == 30 || $monitor_id[0]["id"] == 31 || $monitor_id[0]["id"] == 32  && !is_null($monitor_id[0]["id"])) {
 			
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
@@ -192,11 +192,11 @@ array(':order_id'=>$traveler['order_id'], ':designed_for'=>$traveler['designed_f
 
 $id_of_order = pdo_fetch_all( $stmt );
 
+ $stmt = pdo_query( $pdo,
+"INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
+					   	 	VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
+					   	 		array(':customer_name'=>$traveler['designed_for'], ':order_id'=>$traveler['order_id'],':monitor_id'=>$monitor_id[0]["id"], ':build_type_id'=>1, ':notes'=>"", ':active'=>TRUE, ':pass_or_fail'=>"IMPORTED", ':id_of_order'=>$id_of_order[0]["id"]));		
 
-$stmt = pdo_query( $pdo, 
-					   "INSERT INTO qc_form (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
-					   	 VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
-array(':customer_name'=>$traveler['designed_for'], ':order_id'=>$traveler['order_id'],':monitor_id'=>$monitor_id[0]["id"], ':build_type_id'=>1, ':notes'=>"", ":active"=>TRUE, ":pass_or_fail"=>"IMPORTED", ":id_of_order"=>$id_of_order[0]["id"]));		
 
 $id_of_qc_form = pdo_fetch_all( $stmt );
 
@@ -218,7 +218,6 @@ $stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_for
 } // CLOSE IF STATEMENT FOR CREATING A TRAVELER FOR A CUSTOM EARPHONE
 
 elseif($monitor_id[0]["id"] > 15 && !is_null($monitor_id[0]["id"])) {
-	
 	
 	$stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (
@@ -251,10 +250,21 @@ full_ear_silicone_earplugs_no_filter, full_ear_silicone_earplugs_switched_9db, f
 ':canal_fit_earplugs_9db'=>$traveler["canal_fit_earplugs_9db"],
 ':canal_fit_earplugs_12db'=>$traveler["canal_fit_earplugs_12db"],		
 		
-		
-		':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>$traveler['hearing_protection_color'], ':nashville_order'=>$traveler['nashville_order'], ':fit_adjustment'=>$traveler['fit_adjustment'], ':customer_type'=>$traveler['customer_type'], 'use_for_estimated_ship_date'=>NULL));		
+':pickup'=>$traveler['pickup'],':estimated_ship_date'=>$traveler['estimated_ship_date'], ':received_date'=>$traveler['received_date'], ':date'=>$traveler["date"], ":entered_by"=>$_SESSION['UserId'], ':rush_process'=>$traveler['rush_process'],":active"=>TRUE, ':impression_color_id'=>$traveler['impression_color_id'], ':hearing_protection_color'=>$traveler['hearing_protection_color'], ':nashville_order'=>$traveler['nashville_order'], ':fit_adjustment'=>$traveler['fit_adjustment'], ':customer_type'=>$traveler['customer_type'], 'use_for_estimated_ship_date'=>NULL));		
 
-		
+$id_of_order = pdo_fetch_all( $stmt );
+
+if($monitor_id[0]["id"] == 16 || $monitor_id[0]["id"] == 23 || $monitor_id[0]["id"] == 24) {
+	$stmt = pdo_query( $pdo, "INSERT INTO qc_form_active_hp (customer_name, order_id, monitor_id, build_type_id, notes, active, qc_date, pass_or_fail, id_of_order)
+					   	 	VALUES (:customer_name, :order_id, :monitor_id, :build_type_id, :notes, :active, now(), :pass_or_fail, :id_of_order) RETURNING id",
+					   	 		array(':customer_name'=>$traveler['designed_for'], ':order_id'=>$traveler['order_id'],':monitor_id'=>$monitor_id[0]["id"], ':build_type_id'=>1, ':notes'=>"", ':active'=>TRUE, ':pass_or_fail'=>"IMPORTED", ':id_of_order'=>$id_of_order[0]["id"]));		
+
+$id_of_qc_form = pdo_fetch_all( $stmt );	
+
+$stmt = pdo_query( $pdo, "UPDATE import_orders SET id_of_qc_form = :id_of_qc_form WHERE id = :id_of_order", array(":id_of_qc_form"=>$id_of_qc_form[0]["id"], ":id_of_order"=>$id_of_order[0]["id"]));
+
+}
+
 	$response["id_of_order"] = $id_of_order[0]["id"];
     $result = pdo_fetch_array($stmt);
 	$response['code'] = 'success';

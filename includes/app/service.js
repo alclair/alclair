@@ -33,6 +33,20 @@ swdApp.service('AppDataService', ['$http', function ($http, $scope) {
             error(result);
         });
     };
+    this.load_alclair_monitors_no_exp = function (name, params, success, error) {
+        var api_url = window.cfg.apiUrl + name + "/get_monitors_no_exp.php";
+		
+        $http({
+            method: 'GET',
+            url: api_url,
+            params: params == null ? {} : params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).success(function (result) {
+            success(result);
+        }).error(function (result) {
+            error(result);
+        });
+    };
     this.load_alclair_monitors_active_hp = function (name, params, success, error) {
         var api_url = window.cfg.apiUrl + name + "/get_monitors_active_hp.php";
 		
@@ -409,6 +423,12 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
             before();
 
         this.load_alclair_monitors('alclair', params, success, error);
+    };
+    this.loadMonitorList_NoExp= function (params, before, success, error) {
+        if (before != null && before != undefined)
+            before();
+
+        this.load_alclair_monitors_no_exp('alclair', params, success, error);
     };
     this.loadMonitorList_Active_HP = function (params, before, success, error) {
         if (before != null && before != undefined)

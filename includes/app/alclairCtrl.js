@@ -680,8 +680,8 @@ console.log("Test 1 is " + result.test1)
         });
 
 
-        AppDataService.loadMonitorList(null, null, function (result) {
-           $scope.monitorList = result.data;
+        AppDataService.loadMonitorList_NoExp(null, null, function (result) {
+           $scope.monitorList_NoExp = result.data;
         }, function (result) { });
         AppDataService.loadBuildTypeList(null, null, function (result) {
            $scope.buildTypeList = result.data;

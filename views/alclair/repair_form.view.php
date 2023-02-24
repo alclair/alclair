@@ -38,7 +38,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				-->
                 <div class="form-group col-md-3">
 	                 <label class="control-label">Monitor:</label><br />                    
-                    <select class='form-control' ng-model='repair_form.monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList">
+                    <select class='form-control' ng-model='repair_form.monitor_id' ng-options="IEM.id as IEM.name for IEM in monitorList_NoExp">
 						<option value="">Select a monitor</option>
 					</select>
                 </div>				

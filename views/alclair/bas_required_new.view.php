@@ -151,6 +151,21 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 				</tr>
 			</tbody>
 		</table>
+		
+		<table>		
+			<thead>
+				<tr>
+					<th style="text-align:center;">Damper</th>
+					<th style="text-align:center;">Casing & Before</th>
+				</tr>
+			</thead>	
+			<tbody>
+				<tr ng-repeat='the_damper in DampersList'>
+					<td  style="text-align:center;" data-title="Damper">{{the_damper.damper}}</td>
+					<td  style="text-align:center;" data-title="Casing">{{the_damper.casing_quantity}}</td>
+				</tr>
+			</tbody>
+		</table>
     <?php
 	    // FORM FOR TRD COMPANY
 	    } 

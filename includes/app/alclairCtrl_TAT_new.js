@@ -802,10 +802,11 @@ swdApp.controller('TAT_Repair', ['$http', '$scope', 'AppDataService', '$upload',
         $http.get(api_url)
             .success(function (result) {
 	            console.log(result.test)
-	            console.log("THE TESTING RESULT IS " + result.testing)
+	            console.log("TEST IS " + result.testing)
 	            console.log("TOTAL ROWS " + result.TotalRows)
                 $scope.OrdersList = result.data;
                 $scope.PartsList = result.data2;
+                $scope.DampersList = result.data3;
                 //console.log("The length is " + result.data.monitors.length);
                 //console.log("The Data is " + JSON.stringify(result.data.monitors));
                 //console.log("The Data is " + JSON.stringify(result.data2));

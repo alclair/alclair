@@ -16,6 +16,7 @@ try
     
     $Earphones_list = [];
     $BAs_list = [];
+    $Dampers_list =[];
     
     if( !empty($_REQUEST['id']) )
     {
@@ -46,12 +47,39 @@ try
                   LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
               WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimated_ship_date <= :EndDate) AND (t1.order_status_id <= 5 OR t1.order_status_id = 16 OR t1.order_status_id = 15 OR t1.order_status_id = 17)  AND (t1.product IS NOT NULL OR t1.model IS NOT NULL AND t1.model != 'AHP' AND t1.model != 'SHP' AND t1.model != 'EXP PRO' AND t1.model != 'MP' AND t1.model != 'Musicians Plugs') ORDER BY t1.estimated_ship_date ASC";
               
+	$query_dampers = "SELECT t1.id, t1.order_id, to_char(t1.date,'MM/dd/yyyy') as date, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.fake_imp_date,'yyyy/MM/dd') as fake_imp_date,IEMs.id AS monitor_id, t2.status_of_order, t1.model, 
+t1.full_ear_silicone_earplugs_10db,
+t1.musicians_plugs_15db,
+t1.full_ear_silicone_earplugs_15db,
+t1.musicians_plugs_25db,
+t1.full_ear_silicone_earplugs_25db,
+
+t1.musicians_plugs_9db, 
+t1.canal_fit_earplugs_9db,
+t1.full_ear_silicone_earplugs_9db,
+
+t1.canal_fit_earplugs_12db,
+t1.full_ear_silicone_earplugs_12db,
+
+t1.full_ear_silicone_earplugs_switched_9db,
+t1.full_ear_silicone_earplugs_switched_12db,
+
+t1.canal_fit_earplugs_no_filter,
+t1.full_ear_silicone_earplugs_no_filter
+
+FROM import_orders AS t1
+LEFT JOIN monitors AS IEMs ON t1.model = IEMs.name
+LEFT JOIN order_status_table AS t2 ON t1.order_status_id = t2.order_in_manufacturing
+
+WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimated_ship_date <= :EndDate) AND (t1.order_status_id <= 5 OR t1.order_status_id = 16 OR t1.order_status_id = 15 OR t1.order_status_id = 17) AND (t1.model = 'Musicians Plugs' OR t1.model = 'Canal Fit HP' OR t1.model = 'Full Ear HP' OR t1.model = 'Acrylic HP' OR t1.model = 'Silicone Protection')  ORDER BY t1.estimated_ship_date ASC";
+              
           
     $response["test"] = "The start date is " . $StartDate . " and end date is " . $EndDate;
 	//echo json_encode($response);
 	//exit;      
               
     $stmt = pdo_query( $pdo, $query, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
+    $stmt_dampers = pdo_query( $pdo, $query_dampers, array(":StartDate"=>$StartDate, ":EndDate"=>$EndDate)); 
     //$stmt = pdo_query( $pdo, $query, array(":StartDate"=>'01/01/2021', ":EndDate"=>$EndDate)); 
     $first_sql = pdo_fetch_all( $stmt );
     $rows_first_sql = pdo_rows_affected($stmt);
@@ -120,8 +148,6 @@ try
     $response['testing'] = $testing;
     $response['TotalRows'] = $rows_first_sql;
 
-
-        
 	$count_dual_casing = 0;
 	$count_dualxb_casing = 0;
 	$count_reference_casing = 0;
@@ -297,12 +323,131 @@ for ($i = 0; $i < count($store_order); $i++) {
 		     $BAs_list[$i]["casing_quantity"] = $part_3800_filtered_casing;
 	     } 
    }
+
+
+    $damper_10db = 0;
+	$damper_15db = 0;
+	$damper_25db = 0;
+	$damper_9db = 0;
+	$damper_12db= 0;
+	$damper_9db_switched = 0;
+	$damper_12db_switched = 0;
+	$damper_no_filter = 0;
+	
+	$first_sql = pdo_fetch_all( $stmt_dampers );
+    $rows_first_sql = pdo_rows_affected($stmt);
+    
+    $store_dampers = $first_sql;
+    
+    for ($i = 0; $i < count($store_dampers); $i++) {
+		$damper_is = "Nothing yet!";
+	    if(strcmp($store_dampers[$i]["model"], "Silicone Protection") == 0) {
+		    if($store_dampers[$i]["full_ear_silicone_earplugs_no_filter"] == TRUE) {
+				$damper_no_filter = $damper_no_filter + 1;
+				$damper_is = "No Filter";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_switched_12db"] == TRUE) {
+				$damper_12db_switched = $damper_12db_switched + 1;
+				$damper_is = "12dB Switched";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_switched_9db"] == TRUE) {
+				$damper_9db_switched = $damper_9db_switched + 1;
+				$damper_is = "9dB Switched";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_switched_12db"] == TRUE) {
+				$damper_12db_switched = $damper_12db_switched + 1;
+				$damper_is = "12dB Switched";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_switched_9db"] == TRUE) {
+				$damper_9db_switched = $damper_9db_switched + 1;
+				$damper_is = "9dB Switched";
+		    } elseif($store_dampers[$i]["full_ear_silicone_earplugs_25db"] == TRUE) {   
+		    	$damper_25db = $damper_25db + 1;
+		    	$damper_is = "25dB";
+		    } elseif($store_dampers[$i]["full_ear_silicone_earplugs_15db"] == TRUE) {   
+		    	$damper_15db = $damper_15db + 1;
+		    	$damper_is = "15dB";
+		    } elseif($store_dampers[$i]["full_ear_silicone_earplugs_12db"] == TRUE) {
+				$damper_12db = $damper_12db + 1;
+				$damper_is = "12dB";
+		    } elseif($store_dampers[$i]["full_ear_silicone_earplugs_10db"] == TRUE) {   
+		    	$damper_10db = $damper_10db + 1;
+		    	$damper_is = "10dB";
+		    }
+		} elseif(strcmp($store_dampers[$i]["model"], "Musicians Plugs") == 0) {
+			if($store_dampers[$i]["musicians_plugs_9db"] == TRUE) {    
+				$damper_10db = $damper_10db + 1;
+				$damper_is = "MP 10dB";
+			} elseif($store_dampers[$i]["musicians_plugs_15db"] == TRUE) {    
+				$damper_15db = $damper_15db + 1;
+				$damper_is = "MP 15dB";
+			} elseif($store_dampers[$i]["musicians_plugs_25db"] == TRUE) {    
+				$damper_25db = $damper_25db + 1;
+				$damper_is = "MP 25dB";
+			} 
+	   } else {
+			if($store_dampers[$i]["canal_fit_earplugs_no_filter"] == TRUE) {
+				$damper_no_filter = $damper_no_filter + 1;
+				$damper_is = "No Filter";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_no_filter"] == TRUE) {
+				$damper_no_filter = $damper_no_filter + 1;
+				$damper_is = "No Filter";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_switched_12db"] == TRUE) {
+				$damper_12db_switched = $damper_12db_switched + 1;
+				$damper_is = "12dB Switched";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_switched_9db"] == TRUE) {
+				$damper_9db_switched = $damper_9db_switched + 1;
+				$damper_is = "9dB Switched";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_12db"] == TRUE) {
+				$damper_12db = $damper_12db + 1;
+				$damper_is = "12dB";
+			} elseif($store_dampers[$i]["full_ear_silicone_earplugs_9db"] == TRUE) {
+				$damper_9db= $damper_9db + 1;
+				$damper_is = "9dB";
+			} elseif($store_dampers[$i]["canal_fit_earplugs_12db"] == TRUE) {
+				$damper_12db= $damper_12db + 1;
+				$damper_is = "12dB";
+			} elseif($store_dampers[$i]["canal_fit_earplugs_9db"] == TRUE) {
+				$damper_9db = $damper_9db + 1;
+				$damper_is = "9dB";
+			}
+		}
+		if($i == 4) {
+			$response["testing"] = "OrderID is " . $store_dampers[$i]["order_id"] . " and Damper is " . $damper_is . " and the model is " . $store_dampers[$i]["model"];
+			//echo json_encode($response);
+			//exit;
+		}
+	}
+    // BUILDING THE FINAL TABLE TO SEND TO THE VIEW FILE
+   // THIS IS ALL OF THE BALANCED ARMATURES NAMES
+   $stmt5 = pdo_query( $pdo, "SELECT * from damper_table ORDER BY id", null); 
+   $get_damper_table = pdo_fetch_all( $stmt5 );
    
+   for ($i = 0; $i < count($get_damper_table); $i++) {
+	   	$Dampers_list[$i]["damper"] = $get_damper_table[$i]["damper"];
+	     if($get_damper_table[$i]["id"] == 1) {
+		     $Dampers_list[$i]["casing_quantity"] = $damper_10db * 2;
+	     } elseif($get_damper_table[$i]["id"] == 2) {
+		     $Dampers_list[$i]["casing_quantity"] = $damper_15db * 2;
+	     } elseif($get_damper_table[$i]["id"] == 3) {
+		     $Dampers_list[$i]["casing_quantity"] = $damper_25db * 2;
+	     } elseif($get_damper_table[$i]["id"] == 4) {
+		     $Dampers_list[$i]["casing_quantity"] = $damper_9db * 2;
+	     } elseif($get_damper_table[$i]["id"] == 5) {
+		     $Dampers_list[$i]["casing_quantity"] = $damper_12db * 2;
+	     } elseif($get_damper_table[$i]["id"] == 6) {
+		      $Dampers_list[$i]["casing_quantity"] = $damper_9db_switched * 2;
+	     } elseif($get_damper_table[$i]["id"] == 7) {
+		    $Dampers_list[$i]["casing_quantity"] = $damper_12db_switched * 2;
+	     } elseif($get_damper_table[$i]["id"] == 8) {
+		     $Dampers_list[$i]["casing_quantity"] = $damper_no_filter * 2;
+	     } 
+   }
+
     $response['code'] = 'success';
     $response["message"] = $query;
     $response['data'] = $Earphones_list;
     $response['data2'] = $BAs_list;
 
+    $response['data3'] = $Dampers_list;
+    
+	$response["testing"] = count($store_dampers);
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
 

@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2023-03-05T23:59:59',
-			'after' => '2023-03-05T00:00:00',
+			'before' => '2023-04-26T23:59:59',
+			'after' => '2023-04-26T00:00:00',
 			'per_page' => 100
         ];
 
@@ -671,7 +671,7 @@ if(!stristr($data["id"], '12105692') ) {
 			} // CLOSES IF STATEMENT - STATUS
 	    } // CLOSES IF STATEMENT - IS IT AN EARPHONE OR NOT
 	  } // CLOSES IF STATEMENT - IS IT A UNIVERSAL EARPHONE - LINE 189
-	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED  - K
+	} // END FOR LOOP THAT GOES THROUGH EVERY LINE ITEM OF AN ORDER LOOKING FOR MORE THAN ONE EARPHONE HAS BEEN PURCHASED  
 // BELOW HERE
 //} // CLOSES IF/ELSE FOR TESTING
 // ABOVE HERE

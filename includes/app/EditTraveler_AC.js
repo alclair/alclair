@@ -403,7 +403,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			$scope.traveler.rma_number = result.next_id;
 			
 			console.log("NEXT RMA NUMBER IS " +$scope.traveler.rma_number)
-			
+
 			var api_url = window.cfg.apiUrl + 'alclair/rma_add_generate_from_order.php';
 			console.log(api_url+"?"+$scope.traveler);
 			myblockui();
@@ -428,6 +428,73 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 						//toastr.success("Form saved successfully.");
 						$scope.original_ship_date_of_order = result.original_ship_date_of_order;
 						 window.location.href = window.cfg.rootUrl + "/alclair/edit_repair_form/" +  result.test;
+
+                     //$scope.UploadFile();
+                 	}
+				 	//else
+				 	{
+                  	   //console.log("ID is " + reesult.data.id)
+                 	}
+				 	//redirect
+             	}
+			 	else {
+	             	console.log("CODE IS " + result.code)
+				 	$.unblockUI();
+				 	toastr.error(result.message == undefined ? result.data : result.message);
+             	}
+         	}).error(function (data) {
+             	toastr.error("Insert repair form error.");
+         	});
+			
+			
+        }).error(function () {
+            $.unblockUI();
+            toastr.error("Error!");
+        });
+    }
+    
+    $scope.CreateRMA_AC = function () {
+	    console.log("The ID is " + window.cfg.Id)
+	    console.log("Designed for " + $scope.traveler.designed_for)
+	    console.log("monitor id  " + $scope.traveler.monitor_id)
+	    $scope.traveler.received_date = window.cfg.CurrentDay;
+		//$scope.traveler.estimated_ship_date = window.cfg.CurrentDay_plus_2weeks;
+		$scope.traveler.estimated_ship_date = window.cfg.CurrentDay_plus_3weeks;
+		$scope.traveler.import_orders_id = window.cfg.Id;
+
+	    var api_url = window.cfg.apiUrl + "alclair/get_next_id_from_repair_form_active_hp.php";
+																				  
+        $http.get(api_url).success(function (result) {
+            $.unblockUI();
+            //console.log(result.data);
+			$scope.traveler.rma_number = result.next_id;
+			
+			console.log("NEXT RMA NUMBER IS " +$scope.traveler.rma_number)
+
+			var api_url = window.cfg.apiUrl + 'alclair/rma_add_generate_from_order_active_hp.php';
+			console.log(api_url+"?"+$scope.traveler);
+			myblockui();
+			$http({
+           		method: 'POST',
+		   		url: api_url,
+		   		data: $.param($scope.traveler),
+		   		headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		   	})
+		   	.success(function (result) {
+            	 console.log(result);
+			 	console.log("message " + result.message);
+			 	console.log("Test is " + result.test)
+			 	console.log("Original ship date of order is " + result.original_ship_date_of_order)
+           //return;
+			 	if (result.code == "success") {
+                		$.unblockUI();
+						//alert(result.data.id);
+						//if (result.data.id !=undefined)
+					{
+                    	 	//$scope.repair_form.id = result.data.id;
+						//toastr.success("Form saved successfully.");
+						$scope.original_ship_date_of_order = result.original_ship_date_of_order;
+						 window.location.href = window.cfg.rootUrl + "/alclair/edit_repair_form_active_hp/" +  result.test;
 
                      //$scope.UploadFile();
                  	}

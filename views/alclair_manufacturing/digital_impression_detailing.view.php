@@ -93,6 +93,9 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Est. Ship Date</th>	
 					<th style="text-align:center;">Impressions Received</th>
 					<th style="text-align:center;">Last Scan</th>
+					<th style="text-align:center;">Left Shell Color</th>
+					<th style="text-align:center;">Right Shell Color</th>
+					<th style="text-align:center;">Detailed</th>
 
 					<!--<th style="text-align:center;">Printed</th>
 					<th style="text-align:center;">Check Highrise</th>-->				
@@ -114,7 +117,21 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td  ng-if="order.received_date" style="text-align:center;" data-title="Impressions Received">{{order.received_date_to_post}}</td>
 					
 					<td  style="text-align:center;" data-title="Last Scan">{{order.date_of_last_scan}}</td>
-					
+					<td  style="text-align:center;" data-title="Left Shell Color">{{order.left_shell}}</td>
+					<td  style="text-align:center;" data-title="Right Shell Color">{{order.right_shell}}</td>
+					<td data-title="Detailed">
+	                    <div style="text-align:center;" >  
+		                    
+		                    &nbsp;&nbsp;<button ng-if="order.completed" type="button" class="btn btn-success btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="completed(order.id);">DETAILED</button>					
+							&nbsp;&nbsp;<button ng-if="!order.completed" type="button" class="btn btn-warning btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="not_completed(order.id);">NOT DETAILED</button>	
+							<!--
+							<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="Edit Batch" href="<?=$rootScope['RootUrl']?>/alclair_batch/edit_batch/{{batch.id}}"></a>		
+	                        &nbsp;&nbsp;<a class="glyphicon glyphicon-trash" style="cursor: pointer;" title="Delete batch" ng-click="deleteBatch(batch.id);"></a>
+	                        -->
+						</div>
+
+                    </td>
+
 					<!--
 					<td  ng-if="order.printed" style="text-align:center;" data-title="Model">Printed</td>
 					<td  ng-if="!order.printed" style="text-align:center;" data-title="Model">Not Printed</td>

@@ -96,6 +96,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Left Shell Color</th>
 					<th style="text-align:center;">Right Shell Color</th>
 					<th style="text-align:center;">Detailed</th>
+					<th style="text-align:center;">Printed</th>
 
 					<!--<th style="text-align:center;">Printed</th>
 					<th style="text-align:center;">Check Highrise</th>-->				
@@ -124,13 +125,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 		                    
 		                    &nbsp;&nbsp;<button ng-if="order.detailed" type="button" class="btn btn-success btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="detailed(order.id);">DETAILED</button>					
 							&nbsp;&nbsp;<button ng-if="!order.detailed" type="button" class="btn btn-warning btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="not_detailed(order.id);">NOT DETAILED</button>	
-							<!--
-							<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="Edit Batch" href="<?=$rootScope['RootUrl']?>/alclair_batch/edit_batch/{{batch.id}}"></a>		
-	                        &nbsp;&nbsp;<a class="glyphicon glyphicon-trash" style="cursor: pointer;" title="Delete batch" ng-click="deleteBatch(batch.id);"></a>
-	                        -->
-						</div>
 
+						</div>
                     </td>
+                    <td  ng-if="order.printed" style="text-align:center;" data-title="Printed">Printed</td>
+					<td  ng-if="!order.printed" style="text-align:center;" data-title="Printed">Not Printed</td>
 
 					<!--
 					<td  ng-if="order.printed" style="text-align:center;" data-title="Model">Printed</td>

@@ -461,10 +461,8 @@ $scope.qrcode= {
     };
     
     $scope.detailed = function (id) {	
-		//console.log("The ID is " + ID_is)
 		$http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Detailed")
         	.success(function (result) {
-				//console.log("Returned " + result.test)
 				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";
         }).error(function (result) {
             toastr.error("Failed to delete form, please try again.");
@@ -472,12 +470,6 @@ $scope.qrcode= {
 	};
 	
     $scope.not_detailed= function (id) {
-        //console.log("Not completed ID is " + id);
-        
-        //if (confirm("Are you sure you want to delete this batch?") == false) {
-            //return;
-        //}
-		
         $http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Not Detailed")
         	.success(function (result) {
 				//console.log("Returned " + result.test)
@@ -485,9 +477,26 @@ $scope.qrcode= {
         }).error(function (result) {
             toastr.error("Failed to delete form, please try again.");
         });
-        
     };
-           
+    
+    $scope.shells_printed = function (id) {	
+		$http.get(window.cfg.apiUrl + "alclair_manufacturing/shells_printed_05112023.php?id=" + id + "&printed=Yes")
+        	.success(function (result) {
+				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";
+        }).error(function (result) {
+            toastr.error("Failed to delete form, please try again.");
+        });
+	};
+    
+    $scope.shells_not_printed = function (id) {	
+		$http.get(window.cfg.apiUrl + "alclair_manufacturing/shells_printed_05112023.php?id=" + id + "&printed=No")
+        	.success(function (result) {
+				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";
+        }).error(function (result) {
+            toastr.error("Failed to delete form, please try again.");
+        });
+	}; 
+         
     $scope.init=function()
     {
 

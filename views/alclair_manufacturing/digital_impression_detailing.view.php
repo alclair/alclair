@@ -128,11 +128,11 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 
 						</div>
                     </td>
-                    <td  ng-if="order.printed"  style="text-align:center">
-	                    <input type="checkbox"  style="width: 20px; height: 20px;"  ng-checked="1" ng-disabled="true">
+                    <td  ng-if="order.shells_printed"  style="text-align:center">
+	                    <input type="checkbox"  style="width: 20px; height: 20px;"  ng-disabled="false" ng-model="order.shells_printed" ng-change="shells_printed(order.id);" id="fasdf" checked>
                     </td>
-                    <td  ng-if="!order.printed"  style="text-align:center;">
-	                    <input type="checkbox"  style="width: 20px; height: 20px;" ng-checked="0" ng-disabled="true">
+                    <td  ng-if="!order.shells_printed"  style="text-align:center;">
+	                    <input type="checkbox"  style="width: 20px; height: 20px;" ng-disabled="false" ng-model="order.shells_printed" ng-change="shells_not_printed(order.id);" id="fasdf">
                     </td>
                     				
 				</tr>

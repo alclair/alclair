@@ -19,11 +19,11 @@ try
         echo json_encode($response);
         exit;
     }
-    if (!strcmp($_REQUEST['status'], "Not Completed")) {
-	    $response['test'] = "Test is Not Completed";
+    if (!strcmp($_REQUEST['status'], "Not Detailed")) {
+	    $response['test'] = "Test is Not Detailed";
 	    $status = "TRUE";
     } else {
-	    $response['test'] = "Test is Completed";
+	    $response['test'] = "Test is Detailed";
 	    $status = "FALSE";
     }
     //echo json_encode($response);
@@ -31,10 +31,10 @@ try
 
 if($_SESSION['IsAdmin'] == 0) {
     $stmt = pdo_query( $pdo,
-                       "UPDATE import_orders SET completed = :status WHERE id = :id", array( ":id" => (int)$_REQUEST['id'], ":status"=>$status));	
+                       "UPDATE import_orders SET detailed = :status WHERE id = :id", array( ":id" => (int)$_REQUEST['id'], ":status"=>$status));	
 } else {
 	    $stmt = pdo_query( $pdo,
-                       "UPDATE import_orders SET completed = :status WHERE id = :id", array( ":id" => (int)$_REQUEST['id'], ":status"=>$status));
+                       "UPDATE import_orders SET detailed = :status WHERE id = :id", array( ":id" => (int)$_REQUEST['id'], ":status"=>$status));
 }								
 
 	$result = pdo_fetch_all( $stmt );

@@ -460,9 +460,9 @@ $scope.qrcode= {
             });
     };
     
-    $scope.completed = function (id) {	
+    $scope.detailed = function (id) {	
 		//console.log("The ID is " + ID_is)
-		$http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Completed")
+		$http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Detailed")
         	.success(function (result) {
 				//console.log("Returned " + result.test)
 				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";
@@ -471,14 +471,14 @@ $scope.qrcode= {
         });
 	};
 	
-    $scope.not_completed= function (id) {
+    $scope.not_detailed= function (id) {
         //console.log("Not completed ID is " + id);
         
         //if (confirm("Are you sure you want to delete this batch?") == false) {
             //return;
         //}
 		
-        $http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Not Completed")
+        $http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Not Detailed")
         	.success(function (result) {
 				//console.log("Returned " + result.test)
 				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";

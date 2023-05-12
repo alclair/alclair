@@ -430,7 +430,7 @@ $scope.qrcode= {
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
-	            //console.log("Testing is " + result.test)
+	            //console.log("Testing is " + JSON.stringify(result.data[0]["completed"]))
 	            //console.log("Test2 is " + JSON.stringify(result.data[0]))
 	            
                 $scope.OrdersList = result.data;
@@ -459,7 +459,34 @@ $scope.qrcode= {
                 toastr.error("Get QC Form error.");
             });
     };
+    
+    $scope.completed = function (id) {	
+		//console.log("The ID is " + ID_is)
+		$http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Completed")
+        	.success(function (result) {
+				//console.log("Returned " + result.test)
+				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";
+        }).error(function (result) {
+            toastr.error("Failed to delete form, please try again.");
+        });
+	};
+	
+    $scope.not_completed= function (id) {
+        //console.log("Not completed ID is " + id);
         
+        //if (confirm("Are you sure you want to delete this batch?") == false) {
+            //return;
+        //}
+		
+        $http.get(window.cfg.apiUrl + "alclair_manufacturing/change_status_05112023.php?id=" + id + "&status=Not Completed")
+        	.success(function (result) {
+				//console.log("Returned " + result.test)
+				window.location.href = window.cfg.rootUrl + "/alclair_manufacturing/digital_impression_detailing";
+        }).error(function (result) {
+            toastr.error("Failed to delete form, please try again.");
+        });
+        
+    };
            
     $scope.init=function()
     {

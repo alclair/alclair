@@ -340,7 +340,10 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			<div class="form-group col-md-2">
 		        <div class="text-left">
 			        <br/>
-					<button style="font-weight: 600; margin-left:40px" type="button" class="btn btn-success" ng-click="CreateRMA()">
+					<button ng-if="traveler.monitor_id != 16 && traveler.monitor_id != 23 && traveler.monitor_id != 24" style="font-weight: 600; margin-left:40px" type="button" class="btn btn-success" ng-click="CreateRMA()">
+                        <i class="fa fa-wrench"></i> &nbsp; CREATE RMA                           
+                    </button>
+                    <button ng-if="traveler.monitor_id == 16 || traveler.monitor_id == 23 || traveler.monitor_id == 24" style="font-weight: 600; margin-left:40px" type="button" class="btn btn-warning" ng-click="CreateRMA_AC()">
                         <i class="fa fa-wrench"></i> &nbsp; CREATE RMA                           
                     </button>
 		        </div>

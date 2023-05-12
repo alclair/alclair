@@ -122,8 +122,8 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<td data-title="Detailed">
 	                    <div style="text-align:center;" >  
 		                    
-		                    &nbsp;&nbsp;<button ng-if="order.completed" type="button" class="btn btn-success btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="completed(order.id);">DETAILED</button>					
-							&nbsp;&nbsp;<button ng-if="!order.completed" type="button" class="btn btn-warning btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="not_completed(order.id);">NOT DETAILED</button>	
+		                    &nbsp;&nbsp;<button ng-if="order.detailed" type="button" class="btn btn-success btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="detailed(order.id);">DETAILED</button>					
+							&nbsp;&nbsp;<button ng-if="!order.detailed" type="button" class="btn btn-warning btn-xs" style="font-weight: bold; border-radius: 4px;" ng-click="not_detailed(order.id);">NOT DETAILED</button>	
 							<!--
 							<a class="glyphicon glyphicon-check" style="cursor: pointer;" title="Edit Batch" href="<?=$rootScope['RootUrl']?>/alclair_batch/edit_batch/{{batch.id}}"></a>		
 	                        &nbsp;&nbsp;<a class="glyphicon glyphicon-trash" style="cursor: pointer;" title="Delete batch" ng-click="deleteBatch(batch.id);"></a>

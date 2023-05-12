@@ -134,29 +134,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
                     <td  ng-if="!order.printed"  style="text-align:center;">
 	                    <input type="checkbox"  style="width: 20px; height: 20px;" ng-checked="0" ng-disabled="true">
                     </td>
-                    <!--
-					<td  ng-if="!order.printed" style="text-align:center;" data-title="Printed">Not Printed</td>
-					
-					<td  ng-if="order.printed" style="text-align:center;">
-						<input type="checkbox" ng-model="order.highrise" ng-true-value="1" ng-false-value="0" ng-checked="1" ng-disabled="true">
-					</td>
-					-->
-					<!--
-					<td  ng-if="order.printed" style="text-align:center;" data-title="Printed">Printed</td>
-					<td  ng-if="!order.printed" style="text-align:center;" data-title="Printed">Not Printed</td>
-					-->
-
-					<!--
-					<td  ng-if="order.printed" style="text-align:center;" data-title="Model">Printed</td>
-					<td  ng-if="!order.printed" style="text-align:center;" data-title="Model">Not Printed</td>
-					
-					<td  ng-if="order.printed" style="text-align:center;" data-title="Check Highrise">
-						<input type="checkbox" ng-model="order.highrise" ng-true-value="1" ng-false-value="0" ng-checked="1" ng-disabled="true">
-					</td>
-					<td  ng-if="!order.printed" style="text-align:center;" data-title="Check Highrise">
-						<input type="checkbox" ng-model="order.highrise"  ng-true-value="1" ng-false-value="0">
-					</td>
-					-->					
+                    				
 				</tr>
 			</tbody>
 		</table>

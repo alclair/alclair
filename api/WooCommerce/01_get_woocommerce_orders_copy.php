@@ -122,8 +122,8 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-			'before' => '2023-05-11T23:59:59',
-			'after' => '2023-05-11T00:00:00',
+			'before' => '2023-06-05T23:59:59',
+			'after' => '2023-06-05T00:00:00',
 			'per_page' => 100
         ];
 
@@ -143,7 +143,7 @@ $params = [
 	echo "Count is " . $data["id"] . " </br>";
 	// THIS CODE WAS ADDED TO DEBUG HEARING PROTECTION ORDERS
 	//  IF STATEMENT HERE ONLY RUNS FOR AN ORDER OF INTEREST		
-if(!stristr($data["id"], '12105692') ) {
+if(!stristr($data["id"], '12111705') ) {
 	echo "DO NOTHING " . $data["id"] . " </br>";
 	$line_item = get_object_vars($data[line_items][0]); // PRODUCT -> 2
 	echo "LINE ITEM SHOULD BE " . $line_item[meta_data][0]->key . " </br>";
@@ -608,12 +608,12 @@ if(!stristr($data["id"], '12105692') ) {
 						$notes = $value;	 
 						$order[$ind]["notes"] = $order[$ind]["notes"] . " - " . $notes;  
 						
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Pelican Case Name") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Name For Case") ) {
 						$order[$ind]["pelican_case_name"] = $line_item[meta_data][$j]->value;
 						$value = $line_item[meta_data][$j]->value;
 						// IF STRING LENGTH IS GREATER THAN 1 AND DOES NOT EQUAL BLANK SPACES
 						if(strlen($value) > 1 && (strcmp($value, "  ") || strcmp($value, "   ") || strcmp($value, "    ") || strcmp($value, "     ") )  ) {
-	    					$notes = 'Pelican case name "' . $value . '"';	   
+	    					$notes = 'Pelican Case Name: "' . $value . '"';	   
     					} else {
 							$notes = "";
     					}

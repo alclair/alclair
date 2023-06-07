@@ -22,7 +22,7 @@ try
     else if(!empty($_REQUEST["SearchText"]))
     {
         $stmt = pdo_query( $pdo,
-                           'select * from monitors where (name ilike :SearchText ) order by id',
+                           'select * from monitors where (name ilike :SearchText ) order by order_to_display',
                             array(":SearchText"=>"%".$_REQUEST["SearchText"]."%")
                             //,1
                          );	
@@ -31,7 +31,7 @@ try
     else
     {
         $stmt = pdo_query( $pdo,
-                           'select * from monitors WHERE name NOT iLike :SearchText order by id',
+                           'select * from monitors WHERE name NOT iLike :SearchText order by order_to_display',
                             array(":SearchText"=>"%Exp%")
                          );	
         $result = pdo_fetch_all($stmt);

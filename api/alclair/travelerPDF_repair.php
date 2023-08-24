@@ -45,6 +45,13 @@ if(strcmp($result[0]['model'], 'Reference')) {
 	//$barcode = $_GET['ID'] . " - Ref";
 	$barcode = "R" . $_GET['ID'];
 }
+if($_GET['ID'] > 9999) {
+	//$barcode = $_GET['ID'] . " - " . $result[0]['model'];
+	$barcode =  $_GET['ID'] + 80000;
+} else {
+	//$barcode = $_GET['ID'] . " - Ref";
+	$barcode = "R" . $_GET['ID'];
+}
 //$barcode = urldecode( "TESTING" );
 
 //$bc = new Barcode39( "R" . $barcode);

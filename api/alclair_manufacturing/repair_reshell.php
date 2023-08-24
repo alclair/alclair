@@ -37,10 +37,18 @@ $barcode_length = strlen($start_cart['barcode']);
 	}
 } */
 
-if($start_cart["barcode"][0] == 'R') {
+//if($start_cart["barcode"][0] == 'R') {	
+if($start_cart["barcode"][0] == 'R' || $start_cart["barcode"][0] == '9') {
+	//if($start_cart["barcode"][0] == 'R') {
+		//$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);	
 	
-	
-$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
+		if($start_cart["barcode"][0] == 'R') {	
+			$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
+		} else {
+			$repair_id_is = intval($start_cart["barcode"]) - 80000;
+			$repair_id_is = strval($repair_id_is);
+		}
+		
 
 $response["testing"] = $repair_id_is;
 	//echo json_encode($response);
@@ -64,6 +72,36 @@ if( $rowcount == 0 ) {
 }
 
 $stmt = pdo_query( $pdo, 'UPDATE repair_form SET repair_status_id = :repair_status_id WHERE id = :id',
+								   array("id"=>$repair_id_is, "repair_status_id"=>$status_id));
+
+
+} elseif($start_cart["barcode"][0] == 'S')  {
+
+	
+$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
+
+$response["testing"] = $repair_id_is;
+	//echo json_encode($response);
+	//exit;
+
+$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Repair Reshell'", null);
+$result = pdo_fetch_array($query);
+$status_id = $result["order_in_repair"];
+
+// ORDER STATUS LOG
+// IMPORT ORDERS			
+$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log_active_hp (date, repair_form_id, repair_status_id, notes,  user_id) VALUES (now(), :repair_form_id, :status_id, :notes, :user_id) RETURNING id",
+									array(':repair_form_id'=>$repair_id_is, ':status_id'=>$status_id, ':notes'=>$start_cart['notes'], ':user_id'=>$_SESSION['UserId']));					 					 
+	 
+$rowcount = pdo_rows_affected( $stmt );
+if( $rowcount == 0 ) {
+	$response['message'] = pdo_errors();
+	$response["testing8"] = "8888888";
+	echo json_encode($response);
+	exit;
+}
+
+$stmt = pdo_query( $pdo, 'UPDATE repair_form_active_hp SET repair_status_id = :repair_status_id WHERE id = :id',
 								   array("id"=>$repair_id_is, "repair_status_id"=>$status_id));
 								   
 } else {

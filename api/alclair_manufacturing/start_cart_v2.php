@@ -37,10 +37,17 @@ $barcode_length = strlen($start_cart['barcode']);
 	}
 } */
 
-if($start_cart["barcode"][0] == 'R') {
+//if($start_cart["barcode"][0] == 'R') {	
+if($start_cart["barcode"][0] == 'R' || $start_cart["barcode"][0] == '9') {
+	//if($start_cart["barcode"][0] == 'R') {
+		//$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);	
 	
-	
-$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
+		if($start_cart["barcode"][0] == 'R') {	
+			$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
+		} else {
+			$repair_id_is = intval($start_cart["barcode"]) - 80000;
+			$repair_id_is = strval($repair_id_is);
+		}	
 
 $response["testing"] = $repair_id_is;
 	//echo json_encode($response);

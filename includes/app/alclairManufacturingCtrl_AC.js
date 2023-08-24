@@ -29,9 +29,18 @@ $scope.qrcode= {
 		 setTimeout(function(){
 				var x = document.getElementById("start").value;
 		//document.getElementById("demo").innerHTML = "You wrote: " + x;
-		if(x[0] == 'R') {
+		//if(x[0] == 'R') {
+		if(x[0] == 'R' || x[0] == '9') {
 			//console.log("It's a repair!")
-			y = x.substring(1,  x.length);
+			if(x[0] == 'R' ) {
+				y = x.substring(1,  x.length);	
+			} else {
+				y = parseInt(x) - 80000;
+				y = y.toString();
+				console.log("Y is " + y)
+				console.log("Type is " + typeof y);	
+			}
+			
 			console.log("Y = " + y)
 			$scope.LoadRepairInfo(y, cart);
 		} else {
@@ -94,7 +103,8 @@ $scope.qrcode= {
         
         if (step == 'start_cart') {
 	        var x = document.getElementById("start").value;
-	        if(x[0] == 'R') {
+	        //if(x[0] == 'R') {
+		    if(x[0] == '9') {
 				toastr.error("Repair orders do not go through this cart!")
 				return;
 			}
@@ -102,15 +112,18 @@ $scope.qrcode= {
         } 
         else if (step == 'repair_cart') {
 	        var x = document.getElementById("start").value;
-			if(x[0] != 'R') {
+			//if(x[0] != 'R') {
+			if(x[0] != 'R' && x[0] != '9') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
 	        var api_url = window.cfg.apiUrl + 'alclair_manufacturing/repair_cart.php';
+
 	    } 
 	    else if (step == 'diagnosing') {
 		    var x = document.getElementById("start").value;
-			if(x[0] != 'R') {
+			//if(x[0] != 'R') {
+			if(x[0] != 'R' && x[0] != '9') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
@@ -118,7 +131,8 @@ $scope.qrcode= {
         } 
         else if (step == 'repair_reshell') {
 	        var x = document.getElementById("start").value;
-			if(x[0] != 'R') {
+			//if(x[0] != 'R') {
+			if(x[0] != 'R' && x[0] != '9') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
@@ -163,7 +177,8 @@ $scope.qrcode= {
         }
         else if (step == 'active_repair') {
 	        var x = document.getElementById("start").value;
-			if(x[0] != 'R') {
+			//if(x[0] != 'R') {
+			if(x[0] != 'R' && x[0] != '9') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}

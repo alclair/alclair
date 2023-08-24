@@ -37,7 +37,7 @@ $barcode_length = strlen($start_cart['barcode']);
 	}
 } */
 
-if($start_cart["barcode"][0] == 'R') {
+if($start_cart["barcode"][0] == 'S') {
 	
 	
 $repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
@@ -52,7 +52,7 @@ $status_id = $result["order_in_repair"];
 
 // ORDER STATUS LOG
 // IMPORT ORDERS			
-$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log (date, repair_form_id, repair_status_id, notes,  user_id) VALUES (now(), :repair_form_id, :status_id, :notes, :user_id) RETURNING id",
+$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log_active_hp (date, repair_form_id, repair_status_id, notes,  user_id) VALUES (now(), :repair_form_id, :status_id, :notes, :user_id) RETURNING id",
 									array(':repair_form_id'=>$repair_id_is, ':status_id'=>$status_id, ':notes'=>$start_cart['notes'], ':user_id'=>$_SESSION['UserId']));					 					 
 	 
 $rowcount = pdo_rows_affected( $stmt );
@@ -63,7 +63,7 @@ if( $rowcount == 0 ) {
 	exit;
 }
 
-$stmt = pdo_query( $pdo, 'UPDATE repair_form SET repair_status_id = :repair_status_id WHERE id = :id',
+$stmt = pdo_query( $pdo, 'UPDATE repair_form_active_hp SET repair_status_id = :repair_status_id WHERE id = :id',
 								   array("id"=>$repair_id_is, "repair_status_id"=>$status_id));
 								   
 } else {

@@ -32,7 +32,7 @@ $rootScope["SupportName"]="OTIS is speaking to you DEV";
 $db_server="54.173.238.250";
 //$db_server="127.0.0.1";
 $db_server="localhost";
-$db_database="ajswanso_alclairdev";
+$db_database="ajswanso_alclair";
 $db_user="postgres";
 $db_password="Gorilla1";
 

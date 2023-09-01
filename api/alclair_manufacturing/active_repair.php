@@ -48,7 +48,35 @@ if($start_cart["barcode"][0] == 'R' || $start_cart["barcode"][0] == '9') {
 			$repair_id_is = intval($start_cart["barcode"]) - 80000;
 			$repair_id_is = strval($repair_id_is);
 		}
-				
+	
+
+$response["testing"] = $repair_id_is;
+	//echo json_encode($response);
+	//exit;
+
+$query = pdo_query($pdo, "SELECT * FROM repair_status_table WHERE status_of_repair = 'Active Repair'", null);
+$result = pdo_fetch_array($query);
+$status_id = $result["order_in_repair"];
+
+// ORDER STATUS LOG
+// IMPORT ORDERS			
+$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log (date, repair_form_id, repair_status_id, notes,  user_id) VALUES (now(), :repair_form_id, :status_id, :notes, :user_id) RETURNING id",
+									array(':repair_form_id'=>$repair_id_is, ':status_id'=>$status_id, ':notes'=>$start_cart['notes'], ':user_id'=>$_SESSION['UserId']));					 					 
+	 
+$rowcount = pdo_rows_affected( $stmt );
+if( $rowcount == 0 ) {
+	$response['message'] = pdo_errors();
+	$response["testing8"] = "8888888";
+	echo json_encode($response);
+	exit;
+}
+
+$stmt = pdo_query( $pdo, 'UPDATE repair_form SET repair_status_id = :repair_status_id WHERE id = :id',
+								   array("id"=>$repair_id_is, "repair_status_id"=>$status_id));
+
+} elseif($start_cart["barcode"][0] == 'S') {
+	
+$repair_id_is = substr($start_cart["barcode"], 1, $barcode_length);			
 
 $response["testing"] = $repair_id_is;
 	//echo json_encode($response);
@@ -73,12 +101,11 @@ if( $rowcount == 0 ) {
 
 $stmt = pdo_query( $pdo, 'UPDATE repair_form_active_hp SET repair_status_id = :repair_status_id WHERE id = :id',
 								   array("id"=>$repair_id_is, "repair_status_id"=>$status_id));
-		   
+								   
 } else {
-	
-$order_id_is = $start_cart['barcode'];
-			
-$query = pdo_query($pdo, "SELECT * FROM order_status_table WHERE status_of_order = 'Pickup'", null);
+
+$order_id_is = $start_cart['barcode'];			
+$query = pdo_query($pdo, "SELECT * FROM order_status_table WHERE status_of_order = 'Active Repair'", null);
 $result = pdo_fetch_array($query);
 $status_id = $result["order_in_manufacturing"];
 
@@ -101,7 +128,7 @@ if( $rowcount == 0 ) {
 
 $stmt = pdo_query( $pdo, 'UPDATE import_orders SET order_status_id = :order_status_id WHERE id = :id',
 								   array("id"=>$order_id_is, "order_status_id"=>$status_id));
-
+								   
 } // CLOSE ELSE STATEMENT
 
 $rowcount = pdo_rows_affected( $stmt );

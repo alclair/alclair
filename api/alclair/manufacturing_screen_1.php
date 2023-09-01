@@ -94,7 +94,8 @@ try
 						AND t2.model != 'EXP CORE'
 						AND t2.model != 'EXP CORE+'
 						AND t2.model != 'Venture'
-						AND t2.model != 'Cruise')";
+						AND t2.model != 'Cruise'
+						AND t2.model != 'Moto Earplugs')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -125,7 +126,8 @@ try
 						AND t2.model != 'EXP CORE'
 						AND t2.model != 'EXP CORE+'
 						AND t2.model != 'Venture'
-						AND t2.model != 'Cruise')";
+						AND t2.model != 'Cruise'
+						AND t2.model != 'Moto Earplugs')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -201,7 +203,8 @@ try
 						AND t2.model != 'EXP CORE'
 						AND t2.model != 'EXP CORE+'
 						AND t2.model != 'Venture'
-						AND t2.model != 'Cruise')";
+						AND t2.model != 'Cruise'
+						AND t2.model != 'Moto Earplugs')";
 						
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -453,7 +456,8 @@ AND t2.model != 'Full Ear HP'
 AND t2.model != 'EXP CORE'
 AND t2.model != 'EXP CORE+'
 AND t2.model != 'Venture'
-AND t2.model != 'Cruise')  
+AND t2.model != 'Cruise'
+AND t2.model != 'Moto Earplugs')  
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
@@ -494,7 +498,8 @@ AND t2.model != 'Full Ear HP'
 AND t2.model != 'EXP CORE'
 AND t2.model != 'EXP CORE+'
 AND t2.model != 'Venture'
-AND t2.model != 'Cruise')
+AND t2.model != 'Cruise'
+AND t2.model != 'Moto Earplugs')
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
@@ -569,7 +574,8 @@ OR t2.model = 'Musicians Plugs'
 OR t2.model = 'Silicone Protection' 
 OR t2.model = 'Canal Fit HP' 
 OR t2.model = 'Acrylic HP' 
-OR t2.model = 'Full Ear HP' )
+OR t2.model = 'Full Ear HP' 
+OR t2.model = 'Moto Earplugs')
 ORDER BY date_done ASC,  t1.import_orders_id";
 
     $stmt = pdo_query( $pdo, $query, $params); 

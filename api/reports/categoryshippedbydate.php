@@ -51,7 +51,7 @@ try
 			  LEFT JOIN import_orders AS t2 ON t1.import_orders_id = t2.id
 			  LEFT JOIN order_status_table AS t3 ON 12 = t3.order_in_manufacturing
 			  LEFT JOIN monitors AS t4 ON t2.model = t4.name
-          LEFT JOIN category_type AS t5 ON 1 = t5.id
+              LEFT JOIN category_type AS t5 ON 1 = t5.id
               WHERE to_char(t1.date,'yyyy') = '$year' AND to_char(t1.date,'MM') = '$month'  AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
               AND (t2.model IS NOT NULL 
         AND t2.model != 'MP' 
@@ -70,7 +70,8 @@ try
 		AND t2.model != 'EXP CORE'
 		AND t2.model != 'EXP CORE+'
 		AND t2.model != 'Venture'
-		AND t2.model != 'Cruise') 
+		AND t2.model != 'Cruise'
+		AND t2.model != 'Moto Earplugs') 
 		
 		GROUP BY the_day, type
     UNION ALL
@@ -89,7 +90,8 @@ try
 		OR t2.model = 'Silicone Protection' 
 		OR t2.model = 'Canal Fit HP' 
 		OR t2.model = 'Acrylic HP' 
-		OR t2.model = 'Full Ear HP' ) 
+		OR t2.model = 'Full Ear HP' 
+		OR t2.model = 'Moto Earplugs') 
 		
 		GROUP BY the_day, type
 	UNION ALL	  

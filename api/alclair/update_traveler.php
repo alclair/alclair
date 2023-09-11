@@ -296,10 +296,16 @@ pickup=:pickup, rush_process=:rush_process, date=:date, received_date=:received_
 			$response["message"] = "Updated order but not QC Form.";
 			//echo json_encode($response);
 			//exit;
+	
 		} else { // UPDATE NAME ON THE QC FORM
 			$stmt = pdo_query($pdo, "UPDATE qc_form SET customer_name = :designed_for WHERE order_id = :order_id", array(":designed_for"=>$traveler["designed_for"], ":order_id"=>$traveler["order_id"]));
-		}
-			$response["message"] = "Updated order and QC Form.";
+		} 
+		$response["message"] = "Updated order and QC Form.";
+		
+	} elseif ( str_contains( strtoupper($result[0]["name"] ), "EXP" ) ) {
+		$stmt = pdo_query($pdo, "UPDATE qc_form_active_hp SET customer_name = :designed_for WHERE id = :id", array(":designed_for"=>$traveler["designed_for"], ":id"=>$result2[0]["id_of_qc_form"]));
+		$response["message"] = "Updated order and QC Form (Active HP).";
+			
 	} else {
 		$stmt = pdo_query($pdo, "UPDATE qc_form SET customer_name = :designed_for WHERE id = :id", array(":designed_for"=>$traveler["designed_for"], ":id"=>$result2[0]["id_of_qc_form"]));
 		$response["message"] = "Updated order and QC Form.";

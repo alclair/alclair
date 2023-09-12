@@ -342,7 +342,7 @@ if( $qc_form['build_type_id'] == 2 || $qc_form['build_type_id'] == 4) {
 	//exit;
 
 	if($result["id_of_repair"] === null || $result["id_of_repair"] < 1) { // SOME LINES FROM qc_form WON'T HAVE AN id_of_order BECAUSE THE ORIGINAL PROGRAMMING 	DIDN'T INCLUDE THAT COLUMN
-		$stmt = pdo_query($pdo, "SELECT * FROM repair_form WHERE customer_name = :customer_name AND rma_number = :repair_id", 			array(":customer_name"=>$qc_form['customer_name'], ":repair_id"=>$repair_id_is));
+		$stmt = pdo_query($pdo, "SELECT * FROM repair_form_active_hp WHERE customer_name = :customer_name AND rma_number = :repair_id", 			array(":customer_name"=>$qc_form['customer_name'], ":repair_id"=>$repair_id_is));
 		$result2 = pdo_fetch_all($stmt);
 		
 		$stuff = $result[0]["id_of_repair"];
@@ -371,9 +371,9 @@ if( $qc_form['build_type_id'] == 2 || $qc_form['build_type_id'] == 4) {
 		//echo json_encode($response);
 		//exit;
 	
-		$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log (date, repair_form_id, repair_status_id, notes,  user_id) VALUES (now(), :repair_form_id, :repair_status_id, :notes, :user_id) RETURNING id", array(':repair_form_id'=>$response['ID_is'], ':repair_status_id'=>$status_id, ':notes'=>"Moved to done by shipping", ':user_id'=>$_SESSION['UserId']));					 					 
+		$stmt = pdo_query( $pdo, "INSERT INTO repair_status_log_active_hp (date, repair_form_id, repair_status_id, notes,  user_id) VALUES (now(), :repair_form_id, :repair_status_id, :notes, :user_id) RETURNING id", array(':repair_form_id'=>$response['ID_is'], ':repair_status_id'=>$status_id, ':notes'=>"Moved to done by shipping", ':user_id'=>$_SESSION['UserId']));					 					 
 	 
-		$stmt = pdo_query( $pdo, 'UPDATE repair_form SET repair_status_id = :repair_status_id WHERE id = :id', array("id"=>$response['ID_is'], "repair_status_id"=>$status_id));
+		$stmt = pdo_query( $pdo, 'UPDATE repair_form_active_hp SET repair_status_id = :repair_status_id WHERE id = :id', array("id"=>$response['ID_is'], "repair_status_id"=>$status_id));
 	
 	
 } else {
@@ -386,7 +386,7 @@ $status_id = $result["order_in_manufacturing"];
 $query = pdo_query($pdo, "SELECT * FROM qc_form_active_hp WHERE id = :id", array(":id"=>$qc_form["id"]));
 
 $query = pdo_query($pdo, 
-"SELECT t1.*, t2.email, t2.estimated_ship_date FROM qc_form AS t1 LEFT JOIN import_orders AS t2 ON t1.id_of_order = t2.id WHERE t1.id = :id", 
+"SELECT t1.*, t2.email, t2.estimated_ship_date FROM qc_form_active_hp AS t1 LEFT JOIN import_orders AS t2 ON t1.id_of_order = t2.id WHERE t1.id = :id", 
 array(":id"=>$qc_form["id"]));
 $result = pdo_fetch_all($query);
 $response['email'] = $result[0]['email'];

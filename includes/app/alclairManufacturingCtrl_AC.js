@@ -30,10 +30,14 @@ $scope.qrcode= {
 				var x = document.getElementById("start").value;
 		//document.getElementById("demo").innerHTML = "You wrote: " + x;
 		//if(x[0] == 'R') {
-		if(x[0] == 'R' || x[0] == '9') {
+		if(x[0] == 'R' || x[0] == '9' || x[0] == 'S') {
 			//console.log("It's a repair!")
 			if(x[0] == 'R' ) {
 				y = x.substring(1,  x.length);	
+				type = 'standard';
+			} else if(x[0] == 'S') {
+				y = x.substring(1,  x.length);	
+				type = 'active';
 			} else {
 				y = parseInt(x) - 80000;
 				y = y.toString();
@@ -42,7 +46,7 @@ $scope.qrcode= {
 			}
 			
 			console.log("Y = " + y)
-			$scope.LoadRepairInfo(y, cart);
+			$scope.LoadRepairInfo(y, cart, type);
 		} else {
 			console.log("TESTING " + cart + " and " + start.value)
 			$scope.LoadOrderInfo(x, cart);
@@ -50,10 +54,10 @@ $scope.qrcode= {
 			}, 500); 
 	};
 	
-	$scope.LoadRepairInfo = function (barcode, cart) {
+	$scope.LoadRepairInfo = function (barcode, cart, type) {
 		myblockui();
 		console.log("bar cart id " + barcode + " " + cart + " " + start.value)//
-        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_repair_info.php?barcode=" + barcode + "&cart=" + cart + "&repair_id=" + barcode;
+        var api_url = window.cfg.apiUrl + "alclair_manufacturing/load_repair_info.php?barcode=" + barcode + "&cart=" + cart + "&repair_id=" + barcode + "&type=" + type;
         //alert(api_url);
         $http.get(api_url)
             .success(function (result) {
@@ -74,6 +78,8 @@ $scope.qrcode= {
                     	 //console.log("Order ID is " + (result.data[0].order_id))
                     	 //console.log("Test is " + (result.test))
                     	 $scope.qrcode.order_id = "R" + result.data[0].id;
+                    	 $scope.qrcode.order_id = result.type + result.data[0].id;
+                    	 //console.log("The type's letter is " + result.type);
                     	 $scope.qrcode.designed_for = result.data[0].customer_name;
                     	 $scope.qrcode.type = "Repair";
                     	 $scope.days = result.days;

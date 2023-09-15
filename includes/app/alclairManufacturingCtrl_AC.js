@@ -119,7 +119,7 @@ $scope.qrcode= {
         else if (step == 'repair_cart') {
 	        var x = document.getElementById("start").value;
 			//if(x[0] != 'R') {
-			if(x[0] != 'R' || x[0] != '9' || x[0] != 'S') {
+			if(xx[0] != 'R' && x[0] != '9' && x[0] != 'S') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
@@ -129,7 +129,7 @@ $scope.qrcode= {
 	    else if (step == 'diagnosing') {
 		    var x = document.getElementById("start").value;
 			//if(x[0] != 'R') {
-			if(x[0] != 'R' || x[0] != '9' || x[0] != 'S') {
+			if(x[0] != 'R' && x[0] != '9' && x[0] != 'S') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
@@ -138,7 +138,7 @@ $scope.qrcode= {
         else if (step == 'repair_reshell') {
 	        var x = document.getElementById("start").value;
 			//if(x[0] != 'R') {
-			if(x[0] != 'R' || x[0] != '9' || x[0] != 'S') {
+			if(x[0] != 'R' && x[0] != '9' && x[0] != 'S') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}
@@ -184,7 +184,7 @@ $scope.qrcode= {
         else if (step == 'active_repair') {
 	        var x = document.getElementById("start").value;
 			//if(x[0] != 'R') {
-			if(x[0] != 'R' || x[0] != '9' || x[0] != 'S') {
+			if(x[0] != 'R' && x[0] != '9' && x[0] != 'S') {
 				toastr.error("Manufacturing orders do not go through this cart!")
 				return;
 			}

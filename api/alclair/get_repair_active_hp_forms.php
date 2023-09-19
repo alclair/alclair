@@ -159,6 +159,7 @@ try
     }
     else
     {
+/*
         $query = "SELECT t1.*, to_char(t1.received_date,'MM/dd/yyyy') as received_date, to_char(t1.date_entered,'MM/dd/yyyy') as date_entered, to_char(t1.estimated_ship_date,'MM/dd/yyyy') as estimated_ship_date, to_char(t1.original_ship_date_of_order,'MM/dd/yyyy') as original_ship_date_of_order,
         		  to_char(t1.rma_performed_date,'MM/dd/yyyy') as rma_performed_date,        
                   IEMs.name AS monitor_name, t3.first_name as first_name, t3.last_name as last_name, t4.status_of_repair
@@ -166,6 +167,32 @@ try
                   LEFT JOIN monitors AS IEMs ON t1.monitor_id = IEMs.id
                   LEFT JOIN auth_user AS t3 ON t1.entered_by = t3.id 
 				  LEFT JOIN repair_status_table AS t4 ON t1.repair_status_id = t4.order_in_repair
+                  WHERE t1.active = TRUE $conditionSql $orderBySql $pagingSql"; // 
+                  
+                $stmt = pdo_query( $pdo, $query, $params); 
+				  $result = pdo_fetch_all( $stmt );
+				  $rows_in_result = pdo_rows_affected($stmt);
+*/
+		$query = "SELECT t1.*, 
+       TO_CHAR(t1.received_date, 'MM/dd/yyyy') AS received_date, 
+       TO_CHAR(t1.date_entered, 'MM/dd/yyyy') AS date_entered, 
+       TO_CHAR(t1.estimated_ship_date, 'MM/dd/yyyy') AS estimated_ship_date, 
+       TO_CHAR(t1.original_ship_date_of_order, 'MM/dd/yyyy') AS original_ship_date_of_order, 
+       TO_CHAR(t1.rma_performed_date, 'MM/dd/yyyy') AS rma_performed_date,  
+       IEMs.name AS monitor_name,      
+       t3.first_name AS first_name, 
+       t3.last_name AS last_name, 
+       t4.status_of_repair,
+       TO_CHAR(latest_log.latest_log_date, 'MM/dd/yyyy') AS last_scanned
+FROM repair_form_active_hp AS t1
+LEFT JOIN monitors AS IEMs ON t1.monitor_id = IEMs.id
+LEFT JOIN auth_user AS t3 ON t1.entered_by = t3.id 
+LEFT JOIN repair_status_table AS t4 ON t1.repair_status_id = t4.order_in_repair
+LEFT JOIN (
+    SELECT repair_form_id, MAX(date) AS latest_log_date
+    FROM repair_status_log_active_hp
+    GROUP BY repair_form_id
+) AS latest_log ON t1.id = latest_log.repair_form_id
                   WHERE t1.active = TRUE $conditionSql $orderBySql $pagingSql"; // 
                   
                 $stmt = pdo_query( $pdo, $query, $params); 

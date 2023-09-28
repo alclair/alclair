@@ -169,6 +169,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 					<th style="text-align:center;">Monitor</th>
 					<th style="text-align:center;">Diagnosis</th>
 					<th style="text-align:center;">Quote</th>
+					<th style="text-align:center;">Last Scan</th>
 					<th style="text-align:center;">Status</th>
 				</tr>
 			</thead>	
@@ -185,6 +186,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			
 					<td  style="text-align:center;" data-title="Diagnosis">{{repair_form_active_hp.diagnosis}}</td>
 					<td  style="text-align:center;" data-title="Quote">{{repair_form_active_hp.quotation | currency:"$"}}</td>
+					<td  style="text-align:center;" data-title="Last Scan">{{repair_form_active_hp.date_of_last_scan}}</td>	
 					<td  style="text-align:center;" data-title="Status">{{repair_form_active_hp.status_of_repair}}</td>	
 					
 				</tr>  

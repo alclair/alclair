@@ -1541,10 +1541,23 @@ swdApp.controller('Repair_List', ['$http', '$scope', 'AppDataService', '$upload'
 	 function myFunction() {
 		setTimeout(function(){
 			var x = document.getElementById("barcode_rma").value;
-				//pos = x.indexOf("-");
-				//id_of_qc_form = x.slice(0,pos);
-				id_of_order = x.substring(1,  x.length);
+				console.log("The first 2 are " + x.slice(0,2))
+				if(x.slice(0,1) == "R") {
+					id_of_order = x.substring(1,  x.length);	
+				} else {
+					if(x.length == 5 && x.slice(0,1) == "9") {
+						id_of_order = "1" + x.slice(1,5);
+						//console.log("Else & IF " + id_of_order)
+						//return
+					} else {
+						id_of_order = x.substring(1,  x.length);	
+						//console.log("Else & ELSE ")	
+						//return
+					}
+				}
+				
 				console.log("The id is " + id_of_order)
+				
 				//var api_url = window.cfg.apiUrl + "alclair/get_orders.php?id=" + id_of_order;
 				window.location.href = window.cfg.rootUrl + "/alclair/edit_repair_form/" + id_of_order; 
 		}, 500); 

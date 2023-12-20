@@ -152,8 +152,8 @@ try
 	$num_outdoor = 0; 
 	$num_ifb_sec = 0; 
 	$num_moto = 0; 
-	//for($j=0; $j<count($num_in_day); $j++) {    
-	for($j=0; $j<($num_in_day); $j++) {    
+
+	for($j=0; $j<count($num_in_day); $j++) {    
 		if(stristr($num_in_day[$j]["type"], "# CIEM") ) {
 			$num_ciem = $num_ciem + $num_in_day[$j]["num_in_day"];		
 		} elseif(stristr($num_in_day[$j]["type"], "# HP") ) {

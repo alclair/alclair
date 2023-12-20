@@ -71,7 +71,9 @@ try
 		AND t2.model != 'EXP CORE+'
 		AND t2.model != 'Venture'
 		AND t2.model != 'Cruise'
-		AND t2.model != 'Moto Earplugs') 
+		AND t2.model != 'Moto Earplugs'
+		AND t2.model != 'IFB Single'
+		AND t2.model != 'IFB Duo') 
 		
 		GROUP BY the_day, type
     UNION ALL
@@ -150,7 +152,8 @@ try
 	$num_outdoor = 0; 
 	$num_ifb_sec = 0; 
 	$num_moto = 0; 
-	for($j=0; $j<count($num_in_day); $j++) {    
+	//for($j=0; $j<count($num_in_day); $j++) {    
+	for($j=0; $j<($num_in_day); $j++) {    
 		if(stristr($num_in_day[$j]["type"], "# CIEM") ) {
 			$num_ciem = $num_ciem + $num_in_day[$j]["num_in_day"];		
 		} elseif(stristr($num_in_day[$j]["type"], "# HP") ) {

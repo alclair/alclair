@@ -156,7 +156,8 @@ if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	
 	}
 //} elseif ($result[0]["hearing_protection"] == TRUE ) {
-} elseif( (stristr($result[0]['model'], "Exp") || stristr($result[0]['model'], "EXP")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+//} elseif( (stristr($result[0]['model'], "Exp") || stristr($result[0]['model'], "EXP")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif( (stristr($result[0]['model'], "Exp") || stristr($result[0]['model'], "EXP")) ) {
 	$border_color = "#0022FF"; // BLUE FOR EXP PRO
 } elseif ( (stristr($result[0]['model'], "AHP") || stristr($result[0]['model'], "Acrylic")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION

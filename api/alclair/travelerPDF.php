@@ -276,6 +276,13 @@ if ($result[0]["pickup"] == TRUE) {
 	$column_pickup = '';
 }
 
+// FEBRUARY 21ST, 2024
+if (strtotime($result[0]["ordered_date"]) >= strtotime('02/21/24')) {
+	$column_tin_case = 'TIN CASE';
+} else {
+	$column_tin_case = '';
+}
+
 if(stristr($result[0]['model'], "Full")) {
 	$column_musicians_plugs = "Full Ear HP";
 	if($result[0]["full_ear_silicone_earplugs_no_filter"] == TRUE) {
@@ -814,7 +821,7 @@ $right_column_addons_and_highrise =
 					$column_items . "
 			</td>
 			<td  style=\"white-space:nowrap;\">" .
-				$column_highrise . "
+				$column_tin_case . "
 			</td>
 		</tr>
 ";
@@ -877,7 +884,7 @@ $right_column_pickup =
  $right_column_highrise = 
 "		<tr style=\"color:#FF0000;font-size:20px;float:left;font-weight:bolder\">
 			<td>" .
-					$column_highrise . "
+					$column_tin_case . "
 			</td>
 		</tr>
 ";

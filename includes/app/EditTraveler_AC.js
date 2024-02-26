@@ -880,7 +880,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 			 		}
 			 		if ($scope.traveler.full_ear_silicone_earplugs_10db == true) {
 			 			$scope.traveler.full_ear_filter= "10dB";       
-			 			$scope.is_HP_outdoor = flase;
+			 			$scope.is_HP_outdoor = false;
 			 		}  
 			 		if ($scope.traveler.full_ear_silicone_earplugs_15db == true) {
 					 	$scope.traveler.full_ear_filter= "15dB";       

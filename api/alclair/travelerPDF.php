@@ -277,7 +277,8 @@ if ($result[0]["pickup"] == TRUE) {
 }
 
 // FEBRUARY 21ST, 2024
-if (strtotime($result[0]["ordered_date"]) >= strtotime('02/21/24')) {
+if (strtotime($result[0]["ordered_date"]) >= strtotime('02/21/24') && $border_color != "#FF69B4" ) {
+//if (strtotime($result[0]["ordered_date"]) >= strtotime('02/21/24') ) {
 	$column_tin_case = 'TIN CASE';
 } else {
 	$column_tin_case = '';

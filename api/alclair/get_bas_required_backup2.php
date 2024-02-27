@@ -161,6 +161,7 @@ WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimate
 	$count_electro_casing = 0;
 	$count_esm_casing = 0;
 	$count_versa_casing = 0;
+	$count_st3_casing = 0;
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < count($store_order); $i++) {
@@ -192,6 +193,8 @@ WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimate
 			$count_esm_casing = $count_esm_casing + 1;    
 	    }	elseif(strcmp($store_order[$i]["model"], "Versa") == 0) {
 		    $count_versa_casing = $count_versa_casing + 1;
+	    }	elseif(strcmp($store_order[$i]["model"], "ST3") == 0) {
+		    $count_st3_casing = $count_st3_casing + 1;
 	    }	
 	}
 	
@@ -253,7 +256,8 @@ for ($i = 0; $i < count($store_order); $i++) {
    // THIS IS ALL OF THE MONITOR NAMES
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X", "Electro");
 	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND (id != 13 OR id != 14) ORDER BY id", null); 
+	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND (id != 13 OR id != 14) ORDER BY id", null); 
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id < 16 OR id = 35 ORDER BY id", null); 
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     for ($i = 0; $i < count($get_result); $i++) {
@@ -285,6 +289,8 @@ for ($i = 0; $i < count($store_order); $i++) {
    			$Earphones_list[$i]["casing_count"]  = $count_electro_casing;
    		}	elseif ( $i == 12) {
 	   		$Earphones_list[$i]["casing_count"]  = $count_esm_casing;
+   		} elseif ( $i == 13) {
+	   		$Earphones_list[$i]["casing_count"]  = $count_st3_casing;
    		}
 	}
 	

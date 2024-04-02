@@ -122,9 +122,9 @@ $before = $yesterday_year . "-" . $yesterday_month . "-" . $yesterday_day . "T23
 
 
 $params = [
-		    'before' => '2024-02-26T23:59:59',
-			'after' => '2024-02-26T00:00:00',
-			'per_page' => 100
+		'before' => '2024-04-01T23:59:59',
+		'after' => '2024-04-01T00:00:00',
+		'per_page' => 100
         ];
 
     $result = $woocommerce->get('orders', $params);
@@ -608,12 +608,14 @@ if(!stristr($data["id"], '12111705') ) {
 						$notes = $value;	 
 						$order[$ind]["notes"] = $order[$ind]["notes"] . " - " . $notes;  
 						
-					} elseif(!strcmp($line_item[meta_data][$j]->key, "Name For Case") ) {
+					//} elseif(!strcmp($line_item[meta_data][$j]->key, "Name For Case") ) {
+					} elseif(!strcmp($line_item[meta_data][$j]->key, "Pelican Case Name") ) {
 						$order[$ind]["pelican_case_name"] = $line_item[meta_data][$j]->value;
 						$value = $line_item[meta_data][$j]->value;
 						// IF STRING LENGTH IS GREATER THAN 1 AND DOES NOT EQUAL BLANK SPACES
 						if(strlen($value) > 1 && (strcmp($value, "  ") || strcmp($value, "   ") || strcmp($value, "    ") || strcmp($value, "     ") )  ) {
-	    					$notes = 'Pelican Case Name: "' . $value . '"';	   
+	    					$notes = 'Pelican Case Name: "' . $value . '"';	  
+							$order[$ind]["notes"] = str_replace(" - Pelican Case Logo Only", " ",  $order[$ind]["notes"] ) ;
     					} else {
 							$notes = "";
     					}

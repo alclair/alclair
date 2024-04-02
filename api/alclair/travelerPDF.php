@@ -148,7 +148,8 @@ $bc->draw( $entire_pathname);
 // ONLY HEARING PROTECTION CHANGES THE TRAVELER CONSIDERABLY
 // IF ONLY HEARING PROTECTION THEN MAKE A PINK BORDER OTHERWISE MAKE A GREEN BORDER
 //if ( ( $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
-if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship_date"] != TRUE ) {	
+//if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship_date"] != TRUE ) {	
+if ( $result[0]["musicians_plugs"] == TRUE ) {	
 	if($result[0]["ordered_date"] < '11/05/2021') {
 		$border_color = "#FFFF33"; // YELLOW
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	

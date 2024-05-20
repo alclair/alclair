@@ -72,6 +72,7 @@ try
 		AND t2.model != 'Venture'
 		AND t2.model != 'Cruise'
 		AND t2.model != 'Moto Earplugs'
+		AND t2.model != 'Moto'
 		AND t2.model != 'IFB Single'
 		AND t2.model != 'IFB Duo') 
 		
@@ -136,8 +137,7 @@ try
           LEFT JOIN category_type AS t5 ON 5 = t5.id
               WHERE to_char(t1.date,'yyyy') = '$year' AND to_char(t1.date,'MM') = '$month'  AND t1.order_status_id = 12 AND t2.active=TRUE AND t4.name IS NOT NULL AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')
               AND t2.model IS NOT NULL 
-		AND (t2.model = 'Venture'
-		OR t2.model = 'Cruise') 
+		AND (t2.model = 'Venture' OR t2.model = 'Cruise' OR t2.model = 'Moto') 
 		
 		GROUP BY the_day, type
 

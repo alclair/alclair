@@ -95,7 +95,8 @@ try
 						AND t2.model != 'EXP CORE+'
 						AND t2.model != 'Venture'
 						AND t2.model != 'Cruise'
-						AND t2.model != 'Moto Earplugs')";
+						AND t2.model != 'Moto Earplugs'
+						AND t2.model != 'Moto')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -127,7 +128,8 @@ try
 						AND t2.model != 'EXP CORE+'
 						AND t2.model != 'Venture'
 						AND t2.model != 'Cruise'
-						AND t2.model != 'Moto Earplugs')";
+						AND t2.model != 'Moto Earplugs'
+						AND t2.model != 'Moto')";
 
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -204,7 +206,8 @@ try
 						AND t2.model != 'EXP CORE+'
 						AND t2.model != 'Venture'
 						AND t2.model != 'Cruise'
-						AND t2.model != 'Moto Earplugs')";
+						AND t2.model != 'Moto Earplugs'
+						AND t2.model != 'Moto')";
 						
     $stmt2 = pdo_query( $pdo, $query2, null); 
     $result2 = pdo_fetch_array( $stmt2 );
@@ -457,7 +460,8 @@ AND t2.model != 'EXP CORE'
 AND t2.model != 'EXP CORE+'
 AND t2.model != 'Venture'
 AND t2.model != 'Cruise'
-AND t2.model != 'Moto Earplugs')  
+AND t2.model != 'Moto Earplugs'
+AND t2.model != 'Moto')  
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
@@ -499,7 +503,8 @@ AND t2.model != 'EXP CORE'
 AND t2.model != 'EXP CORE+'
 AND t2.model != 'Venture'
 AND t2.model != 'Cruise'
-AND t2.model != 'Moto Earplugs')
+AND t2.model != 'Moto Earplugs'
+AND t2.model != 'Moto')
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );
@@ -552,7 +557,8 @@ WHERE t1.order_status_id = 12 AND t2.active = TRUE $conditionSql  AND t4.name IS
 AND (t2.customer_type = 'Customer' OR t2.customer_type IS NULL OR t2.customer_type = '')   
 AND t2.model IS NOT NULL 
 AND (t2.model = 'Venture'
-OR t2.model = 'Cruise')
+OR t2.model = 'Cruise'
+OR t2.model = 'Moto')
 ORDER BY date_done ASC,  t1.import_orders_id";
     $stmt = pdo_query( $pdo, $query, $params); 
     $result = pdo_fetch_all( $stmt );

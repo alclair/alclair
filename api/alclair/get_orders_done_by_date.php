@@ -165,7 +165,8 @@ try
 		AND t2.model != 'EXP CORE'
 		AND t2.model != 'EXP CORE+'  
 		AND t2.model != 'Venture'  
-		AND t2.model != 'Cruise'  )  
+		AND t2.model != 'Cruise'  
+		AND t2.model != 'Moto'  )  
 		$conditionSql";
     //WHERE active = TRUE AND pass_or_fail = 'PASS' $conditionSql";
     $stmt = pdo_query( $pdo, $query, $params );

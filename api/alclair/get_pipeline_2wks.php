@@ -51,7 +51,8 @@ try
 			AND t1.model != 'EXP CORE'
 			AND t1.model != 'EXP CORE+' 
 			AND t1.model != 'Venture' 
-			AND t1.model != 'Cruise'  ) ";
+			AND t1.model != 'Cruise'  
+			AND t1.model != 'Moto'  ) ";
 			
 			$conditionSql .= " AND (t1.order_status_id != 12)";
 			//$params[":OrderStatusID"] = $_REQUEST['ORDER_STATUS_ID']; 

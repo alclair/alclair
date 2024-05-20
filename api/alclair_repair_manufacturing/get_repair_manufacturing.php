@@ -101,7 +101,8 @@ try
 								AND t2.model != 'EXP CORE'
 								AND t2.model != 'EXP CORE+'
 								AND t2.model != 'Venture'
-								AND t2.model != 'Cruise')
+								AND t2.model != 'Cruise'
+								AND t2.model != 'Moto')
      						
      						$conditionSql_2";
 	$stmt_2 = pdo_query( $pdo, $query_2, $params_2); 

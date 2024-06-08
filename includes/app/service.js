@@ -638,6 +638,8 @@ this.load_alclair_repairs_vs_fit = function (name, params, success, error) {
         { value: 'Wireless', label: 'Wireless' },
         { value: 'Premium Studio Cable', label: 'Premium Copper Cable' },
         { value: 'Premium Silver Cable', label: 'Premium Silver Cable' },
+        { value: 'Pro Cable (Black)', label: 'Pro Cable (Black)' },
+        { value: 'Pro Cable (Silver)', label: 'Pro Cable (Clear)' },
         { value: 'Other', label: 'Other' },
     ];
 	this.FullEarFilterList = [

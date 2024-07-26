@@ -149,12 +149,12 @@ $bc->draw( $entire_pathname);
 // IF ONLY HEARING PROTECTION THEN MAKE A PINK BORDER OTHERWISE MAKE A GREEN BORDER
 //if ( ( $result[0]["musicians_plugs"] == TRUE) && strlen($result[0]['model'] ) < 3 ) {
 //if ( $result[0]["musicians_plugs"] == TRUE && $result[0]["use_for_estimated_ship_date"] != TRUE ) {	
-if ( $result[0]["musicians_plugs"] == TRUE ) {	
+if ( $result[0]["musicians_plugs"] == TRUE && 1000 == 100) { // July 26th, 2024 Updated as to not let the code go into the IF Statement	
 	if($result[0]["ordered_date"] < '11/05/2021') {
 		$border_color = "#FFFF33"; // YELLOW
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	
 	} else {
-		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION	
+		$border_color = "#3F704D"; // GREEN	
 	}
 //} elseif ($result[0]["hearing_protection"] == TRUE ) {
 //} elseif( (stristr($result[0]['model'], "Exp") || stristr($result[0]['model'], "EXP")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
@@ -162,7 +162,7 @@ if ( $result[0]["musicians_plugs"] == TRUE ) {
 	$border_color = "#0022FF"; // BLUE FOR EXP PRO
 } elseif ( (stristr($result[0]['model'], "AHP") || stristr($result[0]['model'], "Acrylic")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION
-} elseif ( (stristr($result[0]['model'], "SHP") || stristr($result[0]['model'], "Silicone") || stristr($result[0]['model'], "Full") || stristr($result[0]['model'], "Earplugs")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
+} elseif ( (stristr($result[0]['model'], "SHP") || stristr($result[0]['model'], "Silicone") || stristr($result[0]['model'], "Full") || stristr($result[0]['model'], "Earplugs")) && $result[0]["use_for_estimated_ship_date"] != TRUE ||  stristr($result[0]['model'], "Moto Earplugs") ||  stristr($result[0]['model'], "Moto")) {
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
 } elseif (stristr($result[0]['model'], "Sec") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FFFF00"; // PINK FOR HEARING PROTECTION

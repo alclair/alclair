@@ -29,7 +29,8 @@ $rootScope["SupportEmail"]="tyler@alclair.com";
 
 $rootScope["SupportName"]="OTIS is speaking to you DEV";
 
-$db_server="54.173.238.250";
+//$db_server="54.173.238.250";  //OLD STATIC IP THAT CHANGED ON AUGUST 15TH, 2024
+$db_server="3.212.113.184";
 //$db_server="127.0.0.1";
 $db_server="localhost";
 $db_database="ajswanso_alclairdev";

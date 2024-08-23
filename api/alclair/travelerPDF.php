@@ -162,7 +162,7 @@ if ( $result[0]["musicians_plugs"] == TRUE && 1000 == 100) { // July 26th, 2024 
 	$border_color = "#0022FF"; // BLUE FOR EXP PRO
 } elseif ( (stristr($result[0]['model'], "AHP") || stristr($result[0]['model'], "Acrylic")) && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#800080"; // PURPLE FOR ACRYLIC HEARING PROTECTION
-} elseif ( (stristr($result[0]['model'], "SHP") || stristr($result[0]['model'], "Silicone") || stristr($result[0]['model'], "Full") || stristr($result[0]['model'], "Earplugs")) && $result[0]["use_for_estimated_ship_date"] != TRUE ||  stristr($result[0]['model'], "Moto Earplugs") ||  stristr($result[0]['model'], "Moto")) {
+} elseif ( (stristr($result[0]['model'], "SHP") || stristr($result[0]['model'], "Silicone") || stristr($result[0]['model'], "Full") || stristr($result[0]['model'], "Earplugs")) && $result[0]["use_for_estimated_ship_date"] != TRUE ||  stristr($result[0]['model'], "Moto Earplugs") ) {
 		$border_color = "#FF69B4"; // PINK FOR HEARING PROTECTION
 } elseif (stristr($result[0]['model'], "Sec") && $result[0]["use_for_estimated_ship_date"] != TRUE ) {
 		$border_color = "#FFFF00"; // PINK FOR HEARING PROTECTION

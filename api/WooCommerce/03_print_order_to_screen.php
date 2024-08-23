@@ -42,7 +42,7 @@ $params = [
 	//$result = $woocommerce->get('orders', $params);		
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //if(count($result) == 100) {
-	$date = '2024-06-24';
+	$date = '2024-08-12';
 	$order_index = 6;
 	$result = [];
 	$params = [
@@ -72,7 +72,7 @@ $params = [
 		'per_page' => 100			
 	];
 	$result4 = $woocommerce->get('orders', $params);
-	$order_number = '12111308';
+	$order_number = '12124330';
 	$result = $woocommerce->get('orders/' . $order_number);
 	$result = array_merge($result1, $result2, $result3, $result4);
 	

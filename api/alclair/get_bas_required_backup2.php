@@ -257,42 +257,61 @@ for ($i = 0; $i < count($store_order); $i++) {
    	//$Monitors = array("Dual", "Dual XB", "Reference", "Tour", "RSM", "CMVK", "Spire", "Studio4", "Studio3", "Rev X", "Electro");
 	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 1 ORDER BY id", null); 
 	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND (id != 13 OR id != 14) ORDER BY id", null); 
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id < 16 OR id = 35 ORDER BY id", null); 
+	
+	// REMOVES DUAL, REFEREANCE & STUDIO3 - TF ON SEPTEMBER 6TH, 2024
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id < 16 AND (id !=2 AND id != 4 AND id != 10) OR id = 35 ORDER BY id", null); 
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
+    $x = 0;
     for ($i = 0; $i < count($get_result); $i++) {
-		$Earphones_list[$i]["monitors"] = $get_result[$i]["name"];
-		
+	
+		$Earphones_list[$i]["monitors"] = $get_result[$i]["name"];	
 		if($i == 0) {
-			$Earphones_list[$i]["casing_count"]  = $count_versa_casing;
+			$Earphones_list[$x]["casing_count"]  = $count_versa_casing;
+			$x += 1;
 		} else if ( $i == 1) {
-			$Earphones_list[$i]["casing_count"]  = $count_dual_casing;
-		} else if ( $i == 2) {
-			$Earphones_list[$i]["casing_count"]  = $count_dualxb_casing;
+			$Earphones_list[$x]["casing_count"]  = $count_dualxb_casing;
+			$x += 1;
+   		} elseif ( $i == 2) {
+   			$Earphones_list[$x]["casing_count"]  = $count_tour_casing;
+   			$x += 1;
    		} elseif ( $i == 3) {
-   			$Earphones_list[$i]["casing_count"]  = $count_reference_casing;
+   			$Earphones_list[$x]["casing_count"]  = $count_rsm_casing;
+   			$x += 1;
    		} elseif ( $i == 4) {
-   			$Earphones_list[$i]["casing_count"]  = $count_tour_casing;
+   			$Earphones_list[$x]["casing_count"]  = $count_cmvk_casing;
+   			$x += 1;
    		} elseif ( $i == 5) {
-   			$Earphones_list[$i]["casing_count"]  = $count_rsm_casing;
+   			$Earphones_list[$x]["casing_count"]  = $count_spire_casing;
+   			$x += 1;
    		} elseif ( $i == 6) {
-   			$Earphones_list[$i]["casing_count"]  = $count_cmvk_casing;
+   			$Earphones_list[$x]["casing_count"]  = $count_studio4_casing;
+   			$x += 1;
    		} elseif ( $i == 7) {
-   			$Earphones_list[$i]["casing_count"]  = $count_spire_casing;
+   			$Earphones_list[$x]["casing_count"]  = $count_revx_casing;
+   			$x += 1;
    		} elseif ( $i == 8) {
-   			$Earphones_list[$i]["casing_count"]  = $count_studio4_casing;
-   		} elseif ( $i == 9) {
-   			$Earphones_list[$i]["casing_count"]  = $count_studio3_casing;
+   			$Earphones_list[$x]["casing_count"]  = $count_electro_casing;
+   			$x += 1;
+   		}	elseif ( $i == 9) {
+	   		$Earphones_list[$x]["casing_count"]  = $count_esm_casing;
+	   		$x += 1;
    		} elseif ( $i == 10) {
-   			$Earphones_list[$i]["casing_count"]  = $count_revx_casing;
-   		} elseif ( $i == 11) {
-   			$Earphones_list[$i]["casing_count"]  = $count_electro_casing;
-   		}	elseif ( $i == 12) {
-	   		$Earphones_list[$i]["casing_count"]  = $count_esm_casing;
-   		} elseif ( $i == 13) {
-	   		$Earphones_list[$i]["casing_count"]  = $count_st3_casing;
+	   		$Earphones_list[$x]["casing_count"]  = $count_st3_casing;
+	   		$x += 1;
    		}
 	}
+	
+	// REARRANGING ORDER SO ST3 GETS MOVED UP IN THE ORDER - TF ON SEPTEMBER 6TH, 2024
+	$ST3_monitor = $Earphones_list[$x-1]["monitors"];  // THIS IS ST3
+	$ST3_casing_count = $Earphones_list[$x-1]["casing_count"];  // THIS IS ST3
+	for ($i = count($Earphones_list) - 1;  $i > 2; $i--) {
+		$Earphones_list[$i]["monitors"] = $Earphones_list[$i-1]["monitors"];
+		$Earphones_list[$i]["casing_count"] = $Earphones_list[$i-1]["casing_count"];
+	}
+	$Earphones_list[2]["monitors"] = $ST3_monitor;
+	$Earphones_list[2]["casing_count"]= $ST3_casing_count;
+	
 	
    // BUILDING THE FINAL TABLE TO SEND TO THE VIEW FILE
    // THIS IS ALL OF THE BALANCED ARMATURES NAMES

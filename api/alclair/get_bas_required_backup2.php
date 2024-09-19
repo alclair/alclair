@@ -162,6 +162,9 @@ WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimate
 	$count_esm_casing = 0;
 	$count_versa_casing = 0;
 	$count_st3_casing = 0;
+	$count_dkm_casing = 0;
+	$count_icon_casing = 0;
+	
 	
 	// COUNTING THE NUMBER OF EACH MONITOR THAT IS IN THE PIPELINE
     for ($i = 0; $i < count($store_order); $i++) {
@@ -195,7 +198,11 @@ WHERE t1.active = TRUE AND (t1.estimated_ship_date >= :StartDate AND t1.estimate
 		    $count_versa_casing = $count_versa_casing + 1;
 	    }	elseif(strcmp($store_order[$i]["model"], "ST3") == 0) {
 		    $count_st3_casing = $count_st3_casing + 1;
-	    }	
+	    }	elseif(strcmp($store_order[$i]["model"], "DKM") == 0) {
+		    $count_dkm_casing = $count_dkm_casing + 1;
+	    }	elseif(strcmp($store_order[$i]["model"], "ICON") == 0) {
+		    $count_icon_casing = $count_icon_casing + 1;
+	    }
 	}
 	
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,7 +266,7 @@ for ($i = 0; $i < count($store_order); $i++) {
 	//$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id > 0 AND (id != 13 OR id != 14) ORDER BY id", null); 
 	
 	// REMOVES DUAL, REFEREANCE & STUDIO3 - TF ON SEPTEMBER 6TH, 2024
-	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id < 16 AND (id !=2 AND id != 4 AND id != 10) OR id = 35 ORDER BY id", null); 
+	$stmt2 = pdo_query( $pdo, "SELECT * from monitors WHERE id < 16 AND (id !=2 AND id != 4 AND id != 10) OR id = 35 OR id = 37 OR id = 38 ORDER BY id", null); 
     $get_result = pdo_fetch_all( $stmt2 );
     $Monitors = $get_result["name"];
     $x = 0;
@@ -299,13 +306,19 @@ for ($i = 0; $i < count($store_order); $i++) {
    		} elseif ( $i == 10) {
 	   		$Earphones_list[$x]["casing_count"]  = $count_st3_casing;
 	   		$x += 1;
+   		} elseif ( $i == 11) {
+	   		$Earphones_list[$x]["casing_count"]  = $count_dkm_casing;
+	   		$x += 1;
+   		} elseif ( $i == 12) {
+	   		$Earphones_list[$x]["casing_count"]  = $count_icon_casing;
+	   		$x += 1;
    		}
 	}
 	
 	// REARRANGING ORDER SO ST3 GETS MOVED UP IN THE ORDER - TF ON SEPTEMBER 6TH, 2024
-	$ST3_monitor = $Earphones_list[$x-1]["monitors"];  // THIS IS ST3
-	$ST3_casing_count = $Earphones_list[$x-1]["casing_count"];  // THIS IS ST3
-	for ($i = count($Earphones_list) - 1;  $i > 2; $i--) {
+	$ST3_monitor = $Earphones_list[$x-3]["monitors"];  // THIS IS ST3
+	$ST3_casing_count = $Earphones_list[$x-3]["casing_count"];  // THIS IS ST3
+	for ($i = count($Earphones_list) - 3;  $i > 2; $i--) {
 		$Earphones_list[$i]["monitors"] = $Earphones_list[$i-1]["monitors"];
 		$Earphones_list[$i]["casing_count"] = $Earphones_list[$i-1]["casing_count"];
 	}

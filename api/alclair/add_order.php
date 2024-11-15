@@ -176,7 +176,7 @@ if($the_count > 0 && $monitor_id[0]["id"] < 16) { // 16 is EXP Pro
 //exit;
 
 
-if($monitor_id[0]["id"] < 16 || $monitor_id[0]["id"] == 20 || $monitor_id[0]["id"] == 27 || $monitor_id[0]["id"] == 28 || $monitor_id[0]["id"] == 29 || $monitor_id[0]["id"] == 30 || $monitor_id[0]["id"] == 31 || $monitor_id[0]["id"] == 32  && !is_null($monitor_id[0]["id"])) {
+if($monitor_id[0]["id"] < 16 || $monitor_id[0]["id"] == 20 || $monitor_id[0]["id"] == 27 || $monitor_id[0]["id"] == 28 || $monitor_id[0]["id"] == 29 || $monitor_id[0]["id"] == 30 || $monitor_id[0]["id"] == 31 || $monitor_id[0]["id"] == 32 || $monitor_id[0]["id"] == 35 || $monitor_id[0]["id"] == 37 || $monitor_id[0]["id"] == 38 && !is_null($monitor_id[0]["id"])) {
 			
 $stmt = pdo_query( $pdo, 
 					   "INSERT INTO import_orders (

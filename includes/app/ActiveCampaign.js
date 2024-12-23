@@ -43,6 +43,7 @@ $scope.init = function () {
 $scope.init2 = function () {
 	console.log("OPENED")
 	return;
+	
 	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}';
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson",

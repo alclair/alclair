@@ -1,5 +1,57 @@
 swdApp.controller('ActiveCampaign', ['$http', '$scope', 'AppDataService', '$upload',  '$cookies', function ($http, $scope, AppDataService, $upload, $cookies) {
 
+$scope.init2 = function () {	
+	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson",
+	//						"fieldValues":[{"field":"1", "value":"TESTING"}] }}';
+	the_value = 50;
+	the_value2 = 'This is 50';
+	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value2+'"}] }}';
+	
+	
+		console.log("WE ARE HERE 5")
+		//return;
+		
+		console.log(JSON.stringify(practice6))
+		$http({
+			method: 'POST',
+			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
+			url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	
+			data: practice6,
+			headers: {
+				/*
+				//'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
+				'Content-Type': 'application/json',
+				//'Content-Type': 'application/x-www-form-urlencoded',
+				 'Api-Token': key_is,
+				 */
+				 'Content-Type': 'application/json',					 	
+				'Api-Token': key_is,
+				//'Origin':'https://alclair.api-us1.com/api/3/',
+				'Origin': 'https://otis.alclr.co:8080'
+			},
+			//body: practice5
+		}).then(function successCallback(response) {
+			console.log("First name is " + JSON.stringify(response.data.contact.firstName))
+			console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
+			console.log("ID is " + JSON.stringify(response.data.contact.id))
+			json = response.data.data;
+			if(json == "empty") {
+				//console.log("JSON is empty & i is " + i)
+			} else {
+			
+			}
+		}, function errorCallback(response) {
+			console.log("ERROR HERE")
+			//console.log("Fail and I is " + i)
+		});
+    //}, 1000)
+}
+	
 $scope.init = function () {
 //async function STEP3(customer_info) {
 	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
@@ -40,57 +92,7 @@ $scope.init = function () {
     //}, 1000)
 }
 
-$scope.init2 = function () {	
-	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
-	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}';
-	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson",
-	//						"fieldValues":[{"field":"1", "value":"TESTING"}] }}';
-	the_value = 50;
-	the_value2 = 'This is 50';
-	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value2+'"}] }}';
-	
-	
-		console.log("WE ARE HERE 5")
-		return;
-		
-		console.log(JSON.stringify(practice6))
-		$http({
-			method: 'POST',
-			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
-			url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	
-			data: practice6,
-			headers: {
-				/*
-				//'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
-				'Content-Type': 'application/json',
-				//'Content-Type': 'application/x-www-form-urlencoded',
-				 'Api-Token': key_is,
-				 */
-				 'Content-Type': 'application/json',					 	
-				'Api-Token': key_is,
-				//'Origin':'https://alclair.api-us1.com/api/3/',
-				'Origin': 'https://otis.alclr.co:8080'
-			},
-			//body: practice5
-		}).then(function successCallback(response) {
-			console.log("First name is " + JSON.stringify(response.data.contact.firstName))
-			console.log("Last name is " + JSON.stringify(response.data.contact.lastName))
-			console.log("ID is " + JSON.stringify(response.data.contact.id))
-			json = response.data.data;
-			if(json == "empty") {
-				//console.log("JSON is empty & i is " + i)
-			} else {
-			
-			}
-		}, function errorCallback(response) {
-			console.log("ERROR HERE")
-			//console.log("Fail and I is " + i)
-		});
-    //}, 1000)
-}
+
 
 $scope.init3 = function () {
 	var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';

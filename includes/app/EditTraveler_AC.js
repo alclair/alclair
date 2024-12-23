@@ -634,10 +634,11 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 					 	 } 				
 					 	  	 
 					 	 Current_status = $scope.OrderStatusList[status_id_is-1].status_of_order;
-					 	 console.log("STATUS IS " + Current_status);
+					 	 //console.log("STATUS TODAY IS " + Current_status);
 					 	 //return;
 						 Estimated_ship_date = moment($scope.traveler.estimated_ship_date).format("MM/DD/YYYY");
 						 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
+						 
 						$http({
 							method: 'POST',
 							// January 9th, 2023 - A PROXY SERVER WAS REQUIRED
@@ -650,7 +651,7 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 								//'Content-Type': 'text/plain',					 	
 								'Api-Token': key_is,
 								//'Origin':'https://alclair.api-us1.com/api/3/',
-								//'Origin': 'https://otis.alclr.co:8080',
+								//'Origin': 'https://otisdev.alclr.co:8080',
 								//'Origin':'https://gobetween.oklabs.org/'
 							 },
 						}).then(function successCallback(response) {

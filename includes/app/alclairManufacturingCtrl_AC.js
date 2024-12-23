@@ -247,6 +247,8 @@ $scope.qrcode= {
 						 	 Email = $scope.qrcode.email;
 						 	 Current_status = step;//'RIGHT';
 						 	 Estimated_ship_date = moment($scope.qrcode.estimated_ship_date).format("MM/DD/YYYY");
+						 	 console.log("WE ARE HERE & STATUS IS " + Estimated_ship_date)
+						 	 //return;
 							 //json_text= '{ "contact": { "email": '+'"'+$scope.qrcode.email+'"'+', "fieldValues":[{"field": 49, "value": '+step+'}, {"field": 50, "value": "Estimated Ship Date"}] }}';
 							 //json_text= '{ "contact": { "email": "galenwallaceclarkmusic@gmail.com", "fieldValues":[{"field": 49, "value": "RIGHT HERE"}, {"field": 50, "value": "Estimated Ship Date"}] }}';
 							 json_text= '{ "contact": { "email": "' +Email+'", "fieldValues":[{"field": 49, "value": "'+Current_status+'"}, {"field": 50, "value": "'+Estimated_ship_date+'"}] }}';
@@ -255,7 +257,8 @@ $scope.qrcode= {
 							 	// January 9th, 2023 - A PROXY SERVER WAS REQUIRED
 							 	// Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
 							 	//https://corsproxy.io/ WAS USED
-								url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	data: json_text,
+								url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	
+								data: json_text,
 							 	headers: {
 								 	'Content-Type': 'application/json',					 	
 								 	'Api-Token': key_is,

@@ -53,7 +53,8 @@ $scope.init2 = function () {
 	practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value2+'"}] }}';
 	
 	
-		console.log("WE ARE HERE 3")
+		console.log("WE ARE HERE 4")
+		return;
 		
 		console.log(JSON.stringify(practice6))
 		$http({

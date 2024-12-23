@@ -32,8 +32,8 @@ $scope.init2 = function () {
 				 */
 				 'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
-				//'Origin':'https://alclair.api-us1.com/api/3/'
-				'Origin': 'https://otis.alclr.co:8080',
+				'Origin':'https://alclair.api-us1.com/api/3/'
+				//'Origin': 'https://otis.alclr.co:8080',
 			},
 			//body: practice5
 		}).then(function successCallback(response) {

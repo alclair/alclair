@@ -20,7 +20,8 @@ $scope.init2 = function () {
 		$http({
 			method: 'POST',
 			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
-			url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	
+			//url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',	
+			url: 'https://corsproxy.io/?key=903f6025&url=https://alclair.api-us1.com/api/3/contact/sync',
 			data: practice6,
 			headers: {
 				/*

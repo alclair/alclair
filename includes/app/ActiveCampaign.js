@@ -22,7 +22,7 @@ $scope.init = function () {
 				 'Api-Token': key_is
 			}
 						
-		})then(function successCallback(response) {
+		}).then(function successCallback(response) {
 			console.log("First name 3 is " + JSON.stringify(response.data.contact.firstName))
 			console.log("Last name 3 is " + JSON.stringify(response.data.contact.lastName))
 			console.log("All is " + JSON.stringify(response.data.contact))
@@ -53,17 +53,25 @@ $scope.init2 = function () {
 	practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value2+'"}] }}';
 	
 	
-		console.log("WE ARE HERE 2")
+		console.log("WE ARE HERE 3")
+		
 		console.log(JSON.stringify(practice6))
 		$http({
 			method: 'POST',
-			url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
+			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
+			url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	
 			data: practice6,
 			headers: {
+				/*
 				//'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
 				'Content-Type': 'application/json',
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				 'Api-Token': key_is,
+				 */
+				 'Content-Type': 'application/json',					 	
+				'Api-Token': key_is,
+				//'Origin':'https://alclair.api-us1.com/api/3/',
+				'Origin': 'https://otis.alclr.co:8080'
 			},
 			//body: practice5
 		}).then(function successCallback(response) {

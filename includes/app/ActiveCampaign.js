@@ -9,11 +9,11 @@ $scope.init2 = function () {
 	the_value2 = 'This is 49';
 	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
 	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#1"}] }}';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy2", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#1"}] }}';
 	
 	
-		console.log("WE ARE HERE 7")
+		console.log("WE ARE HERE 8")
 		//return;
 		
 		console.log(JSON.stringify(practice6))
@@ -32,8 +32,8 @@ $scope.init2 = function () {
 				 */
 				'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
-				'Origin':'https://alclair.api-us1.com/api/3/',
-				//'Origin': 'https://otis.alclr.co:8080',
+				//'Origin':'https://alclair.api-us1.com/api/3/',
+				'Origin': 'https://otis.alclr.co:8080',
 			},
 			//body: practice5
 		}).then(function successCallback(response) {

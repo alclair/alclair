@@ -33,7 +33,7 @@ $scope.init2 = function () {
 				 */
 				'Access-Control-Allow-Origin': '*',
 				'Access-Control-Allow-Headers': 'Content-Type',
-				'Access-Control-Allow-Methods': 'POST',
+				'Access-Control-Allow-Methods': 'GET, POST',
 				'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
 				//'Origin':'https://alclair.api-us1.com/api/3/',

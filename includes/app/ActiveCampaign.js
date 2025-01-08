@@ -31,6 +31,7 @@ $scope.init2 = function () {
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				 'Api-Token': key_is,
 				 */
+				'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
 				'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
 				//'Origin':'https://alclair.api-us1.com/api/3/',

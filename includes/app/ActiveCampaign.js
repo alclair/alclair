@@ -14,7 +14,7 @@ $scope.init2 = function () {
 
 	
 	
-		console.log("WE ARE HERE 8")
+		console.log("WE ARE HERE !!!!")
 		//return;
 		
 		console.log(JSON.stringify(practice6))

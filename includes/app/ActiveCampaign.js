@@ -21,8 +21,9 @@ $scope.init2 = function () {
 		$http({
 			method: 'POST',
 			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
-			url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',	
+			//url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',	
 			//url: 'https://corsproxy.io/?key=feb7e04f&url=https://alclair.api-us1.com/api/3/contact/sync',
+			url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',	 
 			data: practice6,
 			headers: {
 				/*
@@ -31,9 +32,7 @@ $scope.init2 = function () {
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				 'Api-Token': key_is,
 				 */
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Headers': 'Content-Type',
-				'Access-Control-Allow-Methods': 'GET, POST',
+				'x-cors-api-key': 'test_ea3638130e936ef74bfe58f55f98330f21cc6624037fc2726eac55f9e7af3ae1',
 				'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
 				//'Origin':'https://alclair.api-us1.com/api/3/',

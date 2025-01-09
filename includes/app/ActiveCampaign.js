@@ -5,7 +5,7 @@ $scope.init2 = function () {
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson"}}';
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson",
 	//						"fieldValues":[{"field":"1", "value":"TESTING"}] }}';
-	the_value = 49;
+	the_value = TEST STATUS;
 	the_value2 = 'This is 49';
 	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
 	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';

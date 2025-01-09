@@ -33,7 +33,7 @@ $scope.init2 = function () {
 				 'Api-Token': key_is,
 				 */
 				'x-cors-api-key': 'test_ea3638130e936ef74bfe58f55f98330f21cc6624037fc2726eac55f9e7af3ae1',
-				'Access-Control-Allow-Origin': 'https://otis.alclr.co',
+				'Access-Control-Allow-Origin': '*',
 				'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
 				//'Origin':'https://alclair.api-us1.com/api/3/',

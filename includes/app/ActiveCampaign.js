@@ -33,10 +33,10 @@ $scope.init2 = function () {
 				//'Api-Token': key_is,
 				 */
 				'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',
-				'Access-Control-Allow-Origin': '*',
-				'Content-Type': 'application/json',					 	
+				//'Access-Control-Allow-Origin': '*',
+				//'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
-				'Origin': 'https://otis.alclr.co:8080',
+				//'Origin': 'https://otis.alclr.co:8080',
 				//'Origin':'https://alclair.api-us1.com/api/3/',
 			},
 			//body: practice5

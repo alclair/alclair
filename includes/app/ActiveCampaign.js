@@ -8,8 +8,9 @@ $scope.init2 = function () {
 	the_value = 49;
 	the_value2 = 'This 49';
 	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy2", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "49", "value": "#4949"}] }}';
+	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy2", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#1"}] }}';
 
 	

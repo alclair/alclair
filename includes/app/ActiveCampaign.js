@@ -32,7 +32,7 @@ $scope.init2 = function () {
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				 'Api-Token': key_is,
 				 */
-				'x-cors-api-key': 'test_ea3638130e936ef74bfe58f55f98330f21cc6624037fc2726eac55f9e7af3ae1',
+				'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',
 				'Access-Control-Allow-Origin': 'https://developer.mozilla.org',
 				'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,

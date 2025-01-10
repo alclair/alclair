@@ -247,7 +247,8 @@ $scope.qrcode= {
 						 	 Email = $scope.qrcode.email;
 						 	 Current_status = step;//'RIGHT';
 						 	 Estimated_ship_date = moment($scope.qrcode.estimated_ship_date).format("MM/DD/YYYY");
-						 	 console.log("WE ARE HERE & STATUS IS " + Estimated_ship_date)
+						 	 console.log("We are Here! Current status is " + Current_status)
+						 	 console.log("Estimated Ship Date is " + Estimated_ship_date)
 						 	 //return;
 							 //json_text= '{ "contact": { "email": '+'"'+$scope.qrcode.email+'"'+', "fieldValues":[{"field": 49, "value": '+step+'}, {"field": 50, "value": "Estimated Ship Date"}] }}';
 							 //json_text= '{ "contact": { "email": "galenwallaceclarkmusic@gmail.com", "fieldValues":[{"field": 49, "value": "RIGHT HERE"}, {"field": 50, "value": "Estimated Ship Date"}] }}';

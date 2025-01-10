@@ -6,27 +6,22 @@ $scope.init2 = function () {
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson",
 	//						"fieldValues":[{"field":"1", "value":"TESTING"}] }}';
 	the_value = 49;
-<<<<<<< HEAD
+	the_value2 = 'This is 49';
+	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
+	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy2", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
+
 	the_value2 = 'This 49';
 	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
 	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "49", "value": "#4949"}] }}';
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy2", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
-=======
-	the_value2 = 'This is 49';
-	// 49 - CURRENT SHOP STATUS & 50 - ESTIMATED SHIP DATE
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy", "lastName": "Swanson", "fieldValues":[{"field": "1", "value": "#1"}] }}';
-	practice6 = '{ "contact": { "email": "andy@alclair.com", "firstName": "Andy2", "lastName": "Swanson", "fieldValues":[{"field": '+the_value+', "value": "#'+the_value+'"}] }}';
->>>>>>> origin/TRD1
 	//practice6 = '{ "contact": { "email": "andy@alclair.com", "fieldValues":[{"field": '+the_value+', "value": "#1"}] }}';
 
 	
 	
-<<<<<<< HEAD
+
 		console.log("WE ARE HERE !!!!")
-=======
-		console.log("WE ARE HERE 8")
->>>>>>> origin/TRD1
 		//return;
 		
 		console.log(JSON.stringify(practice6))
@@ -34,17 +29,17 @@ $scope.init2 = function () {
 			method: 'POST',
 			//url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
 			//url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',	
-<<<<<<< HEAD
+
 			//url: 'https://corsproxy.io/?key=feb7e04f&url=https://alclair.api-us1.com/api/3/contact/sync',
 			url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',	 
-=======
+
 			url: 'https://corsproxy.io/?key=feb7e04f&url=https://alclair.api-us1.com/api/3/contact/sync',
->>>>>>> origin/TRD1
+			//url: 'https://corsproxy.io/?key=feb7e04f&url=https://alclair.api-us1.com/api/3/contact/sync',
+			url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',	 
 			data: practice6,
 			headers: {
 				/*
 				//'Access-Control-Allow-Origin': 'https://otis.alclr.co/',
-<<<<<<< HEAD
 				//'Content-Type': 'application/json',
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				//'Api-Token': key_is,
@@ -55,16 +50,17 @@ $scope.init2 = function () {
 				'Api-Token': key_is,
 				//'Origin': 'https://otis.alclr.co:8080',
 				//'Origin':'https://alclair.api-us1.com/api/3/',
-=======
 				'Content-Type': 'application/json',
+				//'Content-Type': 'application/json',
 				//'Content-Type': 'application/x-www-form-urlencoded',
-				 'Api-Token': key_is,
+				//'Api-Token': key_is,
 				 */
-				'Content-Type': 'application/json',					 	
+				'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',
+				//'Access-Control-Allow-Origin': '*',
+				//'Content-Type': 'application/json',					 	
 				'Api-Token': key_is,
-				//'Origin':'https://alclair.api-us1.com/api/3/',
 				//'Origin': 'https://otis.alclr.co:8080',
->>>>>>> origin/TRD1
+				//'Origin':'https://alclair.api-us1.com/api/3/',
 			},
 			//body: practice5
 		}).then(function successCallback(response) {

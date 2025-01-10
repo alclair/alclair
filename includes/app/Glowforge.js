@@ -129,10 +129,12 @@ swdApp.controller('Glowforge', ['$http', '$scope', 'AppDataService', '$upload', 
 						$http({
 							 method: 'POST',
 							 //url: 'https://otis.alclr.co:8443/https://alclair.api-us1.com/api/3/contact/sync',
-							 url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+							 //url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+							 url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',	 
 							data: json_text,
 						 	headers: {
-								'Content-Type': 'application/json',					 	
+								//'Content-Type': 'application/json',	
+								'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',				 	
 								'Api-Token': key_is,
 							 },
 						}).then(function successCallback(response) {
@@ -458,10 +460,12 @@ swdApp.controller('Glowforge', ['$http', '$scope', 'AppDataService', '$upload', 
 						$http({
 							 method: 'POST',
 							 url: 'https://otis.alclr.co:8080/https://alclair.api-us1.com/api/3/contact/sync',
-							 url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+							 //url: 'https://cors-anywhere.herokuapp.com/https://alclair.api-us1.com/api/3/contact/sync',
+							 url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',	 
 							data: json_text,
 						 	headers: {
-								'Content-Type': 'application/json',					 	
+								//'Content-Type': 'application/json',		
+								'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',				 				 	
 								'Api-Token': key_is,
 							 },
 						}).then(function successCallback(response) {

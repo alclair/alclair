@@ -257,13 +257,15 @@ $scope.qrcode= {
 							 	// January 9th, 2023 - A PROXY SERVER WAS REQUIRED
 							 	// Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
 							 	//https://corsproxy.io/ WAS USED
-								url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							 	
+								//url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',
+								url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',				 	
 								data: json_text,
 							 	headers: {
-								 	'Content-Type': 'application/json',					 	
+								 	//'Content-Type': 'application/json',					 	
+								 	'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',
 								 	'Api-Token': key_is,
 								 	//'Origin':'https://alclair.api-us1.com/api/3/',
-								 	'Origin': 'https://otis.alclr.co:8080',
+								 	//'Origin': 'https://otis.alclr.co:8080',
 							 	},
 							 }).then(function successCallback(response) {
 							 	console.log("First name is " + JSON.stringify(response.data.contact.firstName))

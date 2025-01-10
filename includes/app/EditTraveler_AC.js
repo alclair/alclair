@@ -150,8 +150,8 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
              if (result.code == "success") {
                  if($scope.traveler.email) {
 					 setTimeout(function(){
-					 	 var key_is = '4e53af2050ac1416867a7d7a4dcec13cdb118853e804d107fdf5c10e147a96cc7506b73f';
-					 	 //var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
+					 	 //var key_is = '4e53af2050ac1416867a7d7a4dcec13cdb118853e804d107fdf5c10e147a96cc7506b73f';
+					 	 var key_is = '9b5763099898ad2f12c93dc762b8cb49772101db84b58f0e1e692df228ae15c66c3f5bf0';
 					 	 //return;
 					 	 Email = $scope.traveler.email;
 					 	 status_id_is = Number($scope.traveler.order_status_id);
@@ -206,10 +206,12 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							 // January 9th, 2023 - A PROXY SERVER WAS REQUIRED
 							 // Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
 							 //https://corsproxy.io/ WAS USED
-							 url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',
+							 //url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',
+							 url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',
 							data: json_text,
 						 	headers: {
-								'Content-Type': 'application/json',					 	
+								//'Content-Type': 'application/json',	
+								'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',				 	
 								'Api-Token': key_is,
 								//'Origin':'https://alclair.api-us1.com/api/3/',
 								//'Origin': 'https://otis.alclr.co:8080',
@@ -644,11 +646,13 @@ swdApp.controller('edit_Traveler', ['$http', '$scope', 'AppDataService', '$uploa
 							// January 9th, 2023 - A PROXY SERVER WAS REQUIRED
 							 // Cross-Origin Resource Sharing (CORS) WAS AN ISSUE
 							 //https://corsproxy.io/ WAS USED
-							 url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',							
+							 //url: 'https://corsproxy.io/?https://alclair.api-us1.com/api/3/contact/sync',			
+							 url: 'https://proxy.cors.sh/https://alclair.api-us1.com/api/3/contact/sync',				
 							data: json_text,
 						 	headers: {
 								//'Content-Type': 'application/json',					 	
 								//'Content-Type': 'text/plain',					 	
+								'x-cors-api-key': 'live_3961693df7a5f15e329746337e79b0eea7e3c6d0593a17bf81094674cd73d556',
 								'Api-Token': key_is,
 								//'Origin':'https://alclair.api-us1.com/api/3/',
 								//'Origin': 'https://otisdev.alclr.co:8080',

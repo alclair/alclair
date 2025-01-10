@@ -486,7 +486,7 @@ swdApp.controller('QC_Form_Edit', ['$http', '$scope', 'AppDataService', '$upload
 									 setTimeout(function(){
 									 	$scope.UploadFile();
 									 	$.unblockUI();
-									}, 500); 
+									}, 1000); 
 								}, 500);   
 								 //console.log("Email exists " + result.email)	 
 							 } else {

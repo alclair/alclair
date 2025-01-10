@@ -285,7 +285,7 @@ $scope.qrcode= {
 						 	 
 						 	 setTimeout(function(){ 
 							 	 location.reload();				 	
-							 }, 500);    
+							 }, 1000);    
 						}, 500);   
 						 console.log("Email exists " + $scope.qrcode.email)	 
 					 } else {

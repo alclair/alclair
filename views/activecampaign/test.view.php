@@ -58,7 +58,7 @@ include_once $rootScope["RootPath"]."includes/header.inc.php";
 			
 			<div class="form-group col-md-3">
 				<label class="control-label"></label><br />
-		        <button type="button" class="btn btn-primary" ng-click="Run_Program()"> RUN</button>
+		        <button type="button" class="btn btn-primary" ng-click="Run_Program()"> RUN 2</button>
 	        </div>
 	        	
 	        <!--
